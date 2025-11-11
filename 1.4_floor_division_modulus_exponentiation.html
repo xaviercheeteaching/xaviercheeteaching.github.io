@@ -1,0 +1,823 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.4_floor_division_modulus_exponentiation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.4_addition_subtraction.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.3_multiple_assignment_constants_variable_types.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.4_floor_division_modulus_exponentiation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.4_floor_division_modulus_exponentiation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floor-division-and-modulus">3.1 Floor Division (<code class="docutils literal notranslate"><span class="pre">//</span></code>) and Modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentiation">3.2 Exponentiation (<code class="docutils literal notranslate"><span class="pre">**</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-considerations">3.3 Important Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-iv-infusion-calculation">Exercise 1: IV Infusion Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-bacterial-growth">Exercise 2: Bacterial Growth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-weekly-pill-dispenser">Exercise 3: Weekly Pill Dispenser</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the next step in your journey to mastering Python for precision health. While basic arithmetic is essential, many clinical calculations require more nuance. This section focuses on advanced arithmetic operators that handle division remainders and exponential calculations—tasks central to dosing, resource management, and modeling biological processes. You will learn how to use floor division (<code class="docutils literal notranslate"><span class="pre">//</span></code>), modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>), and exponentiation (<code class="docutils literal notranslate"><span class="pre">**</span></code>) to solve practical problems, such as determining the number of full medication doses from a bulk supply and modeling drug half-life.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Floor Division (<code class="docutils literal notranslate"><span class="pre">//</span></code>)</strong>: An arithmetic operator that divides two numbers and rounds the result down to the nearest whole number (integer). In a medical context, it is used to calculate the number of full units that can be obtained from a total, such as the number of complete doses from a stock solution.</p></li>
+<li><p><strong>Modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>)</strong>: An arithmetic operator that returns the remainder of a division operation. Medically, this is useful for determining the leftover amount after full doses are administered, like the remaining volume of a drug in an IV bag after a set number of hours.</p></li>
+<li><p><strong>Exponentiation (<code class="docutils literal notranslate"><span class="pre">**</span></code>)</strong>: An arithmetic operator that raises the first number to the power of the second number. It is critical in healthcare for modeling processes that involve compounding growth or decay, such as calculating bacterial population growth or the remaining concentration of a drug after several half-lives.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>This section provides the core instruction on using Python’s advanced arithmetic operators with practical, health-related code examples.</p>
+<section id="floor-division-and-modulus">
+<h3>3.1 Floor Division (<code class="docutils literal notranslate"><span class="pre">//</span></code>) and Modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>)<a class="headerlink" href="#floor-division-and-modulus" title="Link to this heading">#</a></h3>
+<p>In many clinical scenarios, you need to know not just the result of a division, but the whole number quotient and the remainder. Floor division (<code class="docutils literal notranslate"><span class="pre">//</span></code>) is perfect for finding a whole-number quotient, while the modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>) operator is used to find what’s left over. This dual capability is ideal for calculating the number of full medication doses that can be prepared from a bulk supply and identifying the leftover amount.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate full doses and remainder of oral acetaminophen solution</span>
+<span class="n">bulk_solution_ml</span> <span class="o">=</span> <span class="mi">2500</span>
+<span class="n">dose_volume_ml</span> <span class="o">=</span> <span class="mi">120</span>
+
+<span class="c1"># Use floor division to find how many full doses can be made</span>
+<span class="n">full_doses</span> <span class="o">=</span> <span class="n">bulk_solution_ml</span> <span class="o">//</span> <span class="n">dose_volume_ml</span>
+
+<span class="c1"># Use modulus to find the remaining solution</span>
+<span class="n">solution_left_over_ml</span> <span class="o">=</span> <span class="n">bulk_solution_ml</span> <span class="o">%</span> <span class="n">dose_volume_ml</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full doses available: </span><span class="si">{</span><span class="n">full_doses</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solution left over: </span><span class="si">{</span><span class="n">solution_left_over_ml</span><span class="si">}</span><span class="s2"> mL&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Full doses available: 20</span>
+<span class="c1"># Solution left over: 100 mL</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>In Practice:</strong> In a pharmacy, these operators are essential for inventory management. A pharmacist might use floor division to determine how many full 30-day prescription cycles can be filled from a bulk bottle of 500 tablets, and modulus to know precisely how many tablets will be left over.</p>
+</div></blockquote>
+<p>While floor division and modulus are perfect for dividing a whole into parts, exponentiation helps us model processes that grow or shrink over time.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> A drug’s “half-life” is the time it takes for the concentration of the drug in the body to be reduced by one-half (50%). After one half-life, 50% remains. After two half-lives, 25% remains (0.5 * 0.5), and so on. This exponential decay is a fundamental concept in pharmacology.</p>
+</div></blockquote>
+</section>
+<section id="exponentiation">
+<h3>3.2 Exponentiation (<code class="docutils literal notranslate"><span class="pre">**</span></code>)<a class="headerlink" href="#exponentiation" title="Link to this heading">#</a></h3>
+<p>The exponentiation operator (<code class="docutils literal notranslate"><span class="pre">**</span></code>) raises a number to a power. This mathematical operation is fundamental to modeling compounding processes common in biology and pharmacology, such as population growth or radioactive decay. A key application is calculating drug concentration after multiple half-life cycles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the fraction of a drug remaining after 3 half-lives</span>
+<span class="n">half_life_base</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">num_half_lives</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Use exponentiation to calculate 0.5 to the power of 3</span>
+<span class="n">remaining_fraction</span> <span class="o">=</span> <span class="n">half_life_base</span> <span class="o">**</span> <span class="n">num_half_lives</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fraction of drug remaining: </span><span class="si">{</span><span class="n">remaining_fraction</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Fraction of drug remaining: 0.125</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="important-considerations">
+<h3>3.3 Important Considerations<a class="headerlink" href="#important-considerations" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Important:</strong> These are illustrative programming examples. All clinical calculations, especially for medication dosage, must be performed and verified according to institutional policy and often require an independent double-check by a second qualified healthcare provider. Never use unvalidated code for patient care. In real applications, inputs must also be validated; for instance, a <code class="docutils literal notranslate"><span class="pre">dose_volume_ml</span></code> of <code class="docutils literal notranslate"><span class="pre">0</span></code> would cause a <code class="docutils literal notranslate"><span class="pre">ZeroDivisionError</span></code>, highlighting the need for robust error handling.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Debug Note:</strong> Floor division (<code class="docutils literal notranslate"><span class="pre">//</span></code>) with negative numbers can be tricky as it always rounds down (towards negative infinity). For example, <code class="docutils literal notranslate"><span class="pre">-10</span> <span class="pre">//</span> <span class="pre">3</span></code> results in <code class="docutils literal notranslate"><span class="pre">-4</span></code>, not <code class="docutils literal notranslate"><span class="pre">-3</span></code>. This is a common source of bugs if you expect rounding towards zero.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Debug Note:</strong> The result of a modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>) operation in Python takes the sign of the divisor (the second number). For instance, <code class="docutils literal notranslate"><span class="pre">-10</span> <span class="pre">%</span> <span class="pre">3</span></code> is <code class="docutils literal notranslate"><span class="pre">2</span></code>, but <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">%</span> <span class="pre">-3</span></code> is <code class="docutils literal notranslate"><span class="pre">-1</span></code>. Be mindful of this behavior when working with negative values.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-iv-infusion-calculation">
+<h3>Exercise 1: IV Infusion Calculation<a class="headerlink" href="#exercise-1-iv-infusion-calculation" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use floor division and modulus to calculate infusion time and remaining fluid.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> An IV bag is being administered to a patient at a fixed rate. You need to determine how many full hours the infusion will run and what volume will be left in the bag.</p>
+<p>An IV bag contains 1000 mL of Normal Saline, set to infuse at a rate of 130 mL/hr. Write Python code to calculate the number of <em>full</em> hours the infusion will run and the volume of fluid that will remain. Print the result as a single formatted sentence: <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">infusion</span> <span class="pre">will</span> <span class="pre">run</span> <span class="pre">for</span> <span class="pre">{full_hours}</span> <span class="pre">full</span> <span class="pre">hours</span> <span class="pre">with</span> <span class="pre">{remaining_volume_ml}</span> <span class="pre">mL</span> <span class="pre">remaining.</span></code></p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">total_volume_ml</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">infusion_rate_ml_hr</span> <span class="o">=</span> <span class="mi">130</span>
+
+<span class="n">full_hours</span> <span class="o">=</span> <span class="n">total_volume_ml</span> <span class="o">//</span> <span class="n">infusion_rate_ml_hr</span>
+<span class="n">remaining_ml</span> <span class="o">=</span> <span class="n">total_volume_ml</span> <span class="o">%</span> <span class="n">infusion_rate_ml_hr</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The infusion will run for </span><span class="si">{</span><span class="n">full_hours</span><span class="si">}</span><span class="s2"> full hours with </span><span class="si">{</span><span class="n">remaining_ml</span><span class="si">}</span><span class="s2"> mL remaining.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># The infusion will run for 7 full hours with 90 mL remaining.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> Floor division (<code class="docutils literal notranslate"><span class="pre">//</span></code>) calculates the 7 full hours the infusion can run. The modulus operator (<code class="docutils literal notranslate"><span class="pre">%</span></code>) calculates the 90 mL of fluid that will be left over after those 7 hours.
+<strong>Key Learning:</strong> Applying <code class="docutils literal notranslate"><span class="pre">//</span></code> and <code class="docutils literal notranslate"><span class="pre">%</span></code> for resource and time management in a clinical setting.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong> Besides IV infusions, what other clinical scenarios involve calculating a rate over time where you might need to find the number of full units and a remainder? Think about patient monitoring schedules or resource allocation.</p>
+</div></blockquote>
+</section>
+<section id="exercise-2-bacterial-growth">
+<h3>Exercise 2: Bacterial Growth<a class="headerlink" href="#exercise-2-bacterial-growth" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use the exponentiation operator to model exponential growth.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A lab technician is monitoring a bacterial culture that doubles in population every hour. This is a classic example of exponential growth.</p>
+<p>Starting with a single bacterium, a culture doubles its population every hour. Using <code class="docutils literal notranslate"><span class="pre">2</span></code> as the growth base, calculate the population multiplier after 8 hours. Print the result using the format: <code class="docutils literal notranslate"><span class="pre">After</span> <span class="pre">8</span> <span class="pre">hours,</span> <span class="pre">the</span> <span class="pre">population</span> <span class="pre">multiplier</span> <span class="pre">is</span> <span class="pre">{multiplier}.</span></code></p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">base_multiplier</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">population_multiplier</span> <span class="o">=</span> <span class="n">base_multiplier</span> <span class="o">**</span> <span class="n">hours</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;After 8 hours, the population multiplier is </span><span class="si">{</span><span class="n">population_multiplier</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># After 8 hours, the population multiplier is 256.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code calculates 2 raised to the power of 8 (<code class="docutils literal notranslate"><span class="pre">2**8</span></code>), which equals 256. This means the initial population has been multiplied by 256.
+<strong>Key Learning:</strong> Using the exponentiation operator (<code class="docutils literal notranslate"><span class="pre">**</span></code>) to model compounding processes like cell growth.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong> The example uses a doubling population. How would you adapt the code if a bacterial colony <em>tripled</em> every two hours? What variables would you need to change?</p>
+</div></blockquote>
+</section>
+<section id="exercise-3-weekly-pill-dispenser">
+<h3>Exercise 3: Weekly Pill Dispenser<a class="headerlink" href="#exercise-3-weekly-pill-dispenser" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine floor division and modulus to solve a multi-step problem.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> A pharmacy is preparing weekly pill dispensers for a patient from a bulk bottle of medication. Each dispenser has 7 compartments (one for each day of the week).</p>
+<p>A patient is prescribed a 90-day supply of a medication. The pharmacy uses weekly dispensers that hold 7 pills each. Calculate how many full weekly dispensers can be prepared and how many loose pills will be left over. Print the results in two separate, formatted sentences.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">total_pills</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">pills_per_dispenser</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">full_dispensers</span> <span class="o">=</span> <span class="n">total_pills</span> <span class="o">//</span> <span class="n">pills_per_dispenser</span>
+<span class="n">loose_pills_remaining</span> <span class="o">=</span> <span class="n">total_pills</span> <span class="o">%</span> <span class="n">pills_per_dispenser</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of full weekly dispensers: </span><span class="si">{</span><span class="n">full_dispensers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of loose pills remaining: </span><span class="si">{</span><span class="n">loose_pills_remaining</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Number of full weekly dispensers: 12</span>
+<span class="c1"># Number of loose pills remaining: 6</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> First, <code class="docutils literal notranslate"><span class="pre">90</span> <span class="pre">//</span> <span class="pre">7</span></code> calculates that 12 full weekly dispensers can be prepared. Then, <code class="docutils literal notranslate"><span class="pre">90</span> <span class="pre">%</span> <span class="pre">7</span></code> calculates that 6 pills will be left over, which would need to be dispensed separately.
+<strong>Key Learning:</strong> Combining <code class="docutils literal notranslate"><span class="pre">//</span></code> and <code class="docutils literal notranslate"><span class="pre">%</span></code> to manage inventory and packaging logistics in a pharmacy setting.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Medication Dosing and Inventory</strong>: Pharmacies use floor division and modulus to manage bulk medication supplies. For a 1000-pill bottle and a prescription for 90 pills, <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">//</span> <span class="pre">90</span></code> determines how many full prescriptions can be filled (<code class="docutils literal notranslate"><span class="pre">11</span></code>), and <code class="docutils literal notranslate"><span class="pre">1000</span> <span class="pre">%</span> <span class="pre">90</span></code> shows how many pills remain (<code class="docutils literal notranslate"><span class="pre">10</span></code>). This is crucial for inventory tracking and reordering.</p></li>
+<li><p><strong>Pharmacokinetic (PK) Modeling</strong>: Exponentiation is fundamental to PK models that predict drug concentration in the body over time. The formula <code class="docutils literal notranslate"><span class="pre">C(t)</span> <span class="pre">=</span> <span class="pre">C(0)</span> <span class="pre">*</span> <span class="pre">(0.5)^(t</span> <span class="pre">/</span> <span class="pre">T_half)</span></code> uses exponentiation to calculate the concentration <code class="docutils literal notranslate"><span class="pre">C(t)</span></code> at time <code class="docutils literal notranslate"><span class="pre">t</span></code>, based on the initial concentration <code class="docutils literal notranslate"><span class="pre">C(0)</span></code> and the drug’s half-life <code class="docutils literal notranslate"><span class="pre">T_half</span></code>. This helps clinicians determine optimal dosing intervals.</p></li>
+<li><p><strong>Genomic Data Analysis</strong>: In genomics, the modulus operator can be used to “wrap” linear genomic coordinates into circular representations for visualizing plasmids or mitochondrial DNA. It can also help in binning data, for example, grouping genes based on their position along a chromosome into 1-megabase chunks (<code class="docutils literal notranslate"><span class="pre">position</span> <span class="pre">%</span> <span class="pre">1000000</span></code>).</p></li>
+<li><p><strong>Resource Allocation in Clinical Trials</strong>: A research coordinator can use floor division to determine how many participants can be fully enrolled in a trial arm given a limited supply of an experimental drug. If a trial requires 12 doses per patient and the lab has 250 doses, <code class="docutils literal notranslate"><span class="pre">250</span> <span class="pre">//</span> <span class="pre">12</span></code> shows that 20 patients can be fully treated.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how Python’s advanced arithmetic operators provide essential tools for solving common problems in precision health. We moved beyond simple calculations to see how specific operators can handle complex logic for resource management and biological modeling.</p>
+<ul class="simple">
+<li><p><strong>Floor Division (<code class="docutils literal notranslate"><span class="pre">//</span></code>)</strong> is your tool for finding out “how many full units fit,” which is perfect for calculating doses, treatment cycles, or packages.</p></li>
+<li><p><strong>Modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>)</strong> answers “what is left over,” making it invaluable for managing remainders in inventory, scheduling, and time-based calculations.</p></li>
+<li><p><strong>Exponentiation (<code class="docutils literal notranslate"><span class="pre">**</span></code>)</strong> is the key to modeling any process involving compounding growth or decay, from bacterial cultures to drug metabolism.</p></li>
+</ul>
+<p>By mastering these operators, you are better equipped to translate real-world clinical and biological problems into effective Python code. In the next section, we will examine operator precedence to understand how Python evaluates complex expressions with multiple operators.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.3_multiple_assignment_constants_variable_types.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.4_addition_subtraction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floor-division-and-modulus">3.1 Floor Division (<code class="docutils literal notranslate"><span class="pre">//</span></code>) and Modulus (<code class="docutils literal notranslate"><span class="pre">%</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentiation">3.2 Exponentiation (<code class="docutils literal notranslate"><span class="pre">**</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-considerations">3.3 Important Considerations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-iv-infusion-calculation">Exercise 1: IV Infusion Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-bacterial-growth">Exercise 2: Bacterial Growth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-weekly-pill-dispenser">Exercise 3: Weekly Pill Dispenser</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

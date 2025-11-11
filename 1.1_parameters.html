@@ -1,0 +1,926 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.1_parameters';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: The Building Blocks of Python for Health Data" href="1.1_definition_parameters_arguments.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.1_parameters.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.1_parameters.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-functions-with-default-parameters">3.1 Defining Functions with Default Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-order-rule">3.2 The Parameter Order Rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pitfall-of-mutable-default-arguments">3.3 The Pitfall of Mutable Default Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-log-patient-visit-basic">Exercise 1: Log Patient Visit Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-check-patient-vitals-for-tachycardia-intermediate">Exercise 2: Check Patient Vitals for Tachycardia Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-track-patient-medications-advanced">Exercise 3: Track Patient Medications Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the study of default parameters, a powerful Python feature for creating flexible and clean code. In this section, you will learn how to make function arguments optional by assigning them default values. This technique is essential in medical programming, as it simplifies function calls for common scenarios, such as using a standard drug concentration or a default patient status. By establishing sensible defaults, we can write functions that are both easier to use and less prone to data entry errors. By the end of this lesson, you will be able to define more robust and adaptable functions for a variety of clinical applications.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these terms is crucial for effectively using default parameters in your functions.</p>
+<ul class="simple">
+<li><p><strong>Default Parameter</strong>: A parameter in a function signature that is assigned a value using the <code class="docutils literal notranslate"><span class="pre">=</span></code> operator. If a function is called without providing an argument for this parameter, the default value is used automatically. For example, in a function <code class="docutils literal notranslate"><span class="pre">log_vitals(hr,</span> <span class="pre">bp,</span> <span class="pre">temp_unit='C')</span></code>, <code class="docutils literal notranslate"><span class="pre">temp_unit</span></code> is a default parameter.</p></li>
+<li><p><strong>Required Parameter</strong>: A parameter that does not have a default value. An argument must be explicitly provided for every required parameter when the function is called, otherwise Python will raise a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>. In a dosing function, <code class="docutils literal notranslate"><span class="pre">patient_weight</span></code> would be a required parameter.</p></li>
+<li><p><strong>Function Signature</strong>: The first line of a function definition, which includes the <code class="docutils literal notranslate"><span class="pre">def</span></code> keyword, the function name, and its parameters in parentheses. The order of required and default parameters in the signature is critical.</p></li>
+<li><p><strong>Mutable Default Argument</strong>: A default parameter that uses a mutable (changeable) data type, such as a list or dictionary. This is a common but dangerous pitfall, as the default object is shared across all calls to the function, leading to unintended side effects. It’s like having every patient’s new allergy added to a single, shared master list instead of their own individual record.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code></strong>: An error raised by the Python interpreter when it encounters code that violates the language’s grammatical rules. A common cause is placing a required parameter after a default parameter in a function’s signature.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>This section covers the syntax, rules, and critical best practices for using default parameters in Python, with a focus on medical applications.</p>
+<section id="defining-functions-with-default-parameters">
+<h3>3.1 Defining Functions with Default Parameters<a class="headerlink" href="#defining-functions-with-default-parameters" title="Link to this heading">#</a></h3>
+<p>Default parameters make arguments optional by assigning a standard value if one isn’t provided. This is incredibly useful for establishing sensible defaults in clinical calculations.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong>
+Default parameters simplify function calls for common medical scenarios. For instance, a prescription function can default to a standard 50 mg/mL drug concentration, reducing the risk of data entry errors for routine cases while still allowing for overrides in special situations.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_med_dose</span><span class="p">(</span><span class="n">weight_kg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">concentration_mg_ml</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates dose in mL based on weight and drug concentration.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        weight_kg (float): Patient&#39;s weight in kilograms.</span>
+<span class="sd">        concentration_mg_ml (int): Drug concentration in mg/mL. Defaults to 50.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># NOTE: Hypothetical 10mg/kg regimen for educational purposes only.</span>
+    <span class="n">dose_ml</span> <span class="o">=</span> <span class="p">(</span><span class="n">weight_kg</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">/</span> <span class="n">concentration_mg_ml</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Administer </span><span class="si">{</span><span class="n">dose_ml</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mL for a </span><span class="si">{</span><span class="n">weight_kg</span><span class="si">}</span><span class="s2"> kg patient.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Call using the default concentration (50 mg/mL)</span>
+<span class="n">calculate_med_dose</span><span class="p">(</span><span class="mi">70</span><span class="p">)</span>
+
+<span class="c1"># Override the default with a different concentration</span>
+<span class="n">calculate_med_dose</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="n">concentration_mg_ml</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+Administer 14.00 mL for a 70 kg patient.
+Administer 7.00 mL for a 70 kg patient.
+</pre></div>
+</div>
+<p>In the example above, <code class="docutils literal notranslate"><span class="pre">concentration_mg_ml=50</span></code> sets the default. The first call uses this default, while the second call overrides it.</p>
+</section>
+<section id="the-parameter-order-rule">
+<h3>3.2 The Parameter Order Rule<a class="headerlink" href="#the-parameter-order-rule" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Important:</strong> Required Parameters Must Come First</p>
+<p>A strict rule in Python is that all required (non-default) parameters must be listed <em>before</em> any default parameters in a function definition. This ordering is essential for the Python interpreter to correctly match arguments to parameters. Violating this rule will cause a <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CORRECT: Required parameter (weight_kg) is first.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_med_dose</span><span class="p">(</span><span class="n">weight_kg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">concentration_mg_ml</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="c1"># INCORRECT: This will raise a SyntaxError.</span>
+<span class="c1"># def calculate_med_dose(concentration_mg_ml: int = 50, weight_kg: float) -&gt; None:</span>
+<span class="c1">#     pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-pitfall-of-mutable-default-arguments">
+<h3>3.3 The Pitfall of Mutable Default Arguments<a class="headerlink" href="#the-pitfall-of-mutable-default-arguments" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Important:</strong> Avoid Mutable Objects (like lists or dictionaries) as Default Arguments</p>
+<p>You must avoid using mutable objects like lists or dictionaries as default arguments. The default object is created only <em>once</em> when the function is defined, not each time it’s called. This means every function call that relies on the default will modify the <em>same</em> object, leading to unexpected and incorrect behavior.</p>
+<p>The correct and safe pattern is to set the default value to <code class="docutils literal notranslate"><span class="pre">None</span></code> (which is immutable) and then, inside the function, check if the argument is <code class="docutils literal notranslate"><span class="pre">None</span></code>. If it is, you create a new, empty object (e.g., <code class="docutils literal notranslate"><span class="pre">[]</span></code> or <code class="docutils literal notranslate"><span class="pre">{}</span></code>). This ensures that each function call operates on a fresh, independent object.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="c1"># INCORRECT: Using a mutable list as a default</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_medication</span><span class="p">(</span><span class="n">medication</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">med_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">med_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">medication</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Medications logged: </span><span class="si">{</span><span class="n">med_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">log_medication</span><span class="p">(</span><span class="s2">&quot;Lisinopril&quot;</span><span class="p">)</span>
+<span class="n">log_medication</span><span class="p">(</span><span class="s2">&quot;Metformin&quot;</span><span class="p">)</span> <span class="c1"># This incorrectly modifies the original list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+Medications logged: [&#39;Lisinopril&#39;]
+Medications logged: [&#39;Lisinopril&#39;, &#39;Metformin&#39;]
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CORRECT: Use None and create the list inside the function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_medication_correct</span><span class="p">(</span><span class="n">medication</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">med_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">med_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">med_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">med_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">medication</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Medications logged: </span><span class="si">{</span><span class="n">med_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">log_medication_correct</span><span class="p">(</span><span class="s2">&quot;Lisinopril&quot;</span><span class="p">)</span>
+<span class="n">log_medication_correct</span><span class="p">(</span><span class="s2">&quot;Metformin&quot;</span><span class="p">)</span> <span class="c1"># This correctly creates a new list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+Medications logged: [&#39;Lisinopril&#39;]
+Medications logged: [&#39;Metformin&#39;]
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>Apply what you’ve learned with these hands-on exercises.</p>
+<section id="exercise-1-log-patient-visit-basic">
+<h3>Exercise 1: Log Patient Visit Basic<a class="headerlink" href="#exercise-1-log-patient-visit-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Create a function with a simple default parameter.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> In an EHR system, visits are often logged with a type. Most visits are routine, making this a perfect use case for a default parameter.</p>
+<p><strong>Task:</strong> Create a function <code class="docutils literal notranslate"><span class="pre">log_visit</span></code> that takes a required <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> and an optional <code class="docutils literal notranslate"><span class="pre">visit_type</span></code> that defaults to <code class="docutils literal notranslate"><span class="pre">'Routine'</span></code>. The function should print a message: <code class="docutils literal notranslate"><span class="pre">f&quot;Logging</span> <span class="pre">visit</span> <span class="pre">for</span> <span class="pre">Patient</span> <span class="pre">{patient_id}.</span> <span class="pre">Type:</span> <span class="pre">{visit_type}.&quot;</span></code></p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">log_visit</span><span class="p">(</span><span class="n">patient_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">visit_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Routine&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Logs a patient visit with a specified type.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Logging visit for Patient </span><span class="si">{</span><span class="n">patient_id</span><span class="si">}</span><span class="s2">. Type: </span><span class="si">{</span><span class="n">visit_type</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Test cases</span>
+<span class="n">log_visit</span><span class="p">(</span><span class="s2">&quot;PT456789&quot;</span><span class="p">)</span>
+<span class="n">log_visit</span><span class="p">(</span><span class="s2">&quot;PT987654&quot;</span><span class="p">,</span> <span class="n">visit_type</span><span class="o">=</span><span class="s1">&#39;Emergency&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+Logging visit for Patient PT456789. Type: Routine.
+Logging visit for Patient PT987654. Type: Emergency.
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function defines <code class="docutils literal notranslate"><span class="pre">visit_type</span></code> with a default value. The first call uses this default, while the second call provides a different value, overriding the default.
+<strong>Key Learning:</strong> Default parameters are excellent for handling the most common case, simplifying function calls.</p>
+</div>
+</details></section>
+<section id="exercise-2-check-patient-vitals-for-tachycardia-intermediate">
+<h3>Exercise 2: Check Patient Vitals for Tachycardia Intermediate<a class="headerlink" href="#exercise-2-check-patient-vitals-for-tachycardia-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a default parameter and conditional logic for a clinical check.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> This function helps automate initial vitals screening by checking for tachycardia, an abnormally high heart rate.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong>
+A resting heart rate over 100 beats per minute (bpm) is the clinical threshold for tachycardia in adults (American Heart Association, 2022).</p>
+</div></blockquote>
+<p><strong>Task:</strong> Create a <code class="docutils literal notranslate"><span class="pre">check_vitals</span></code> function with the following requirements:</p>
+<ul class="simple">
+<li><p>It must accept a required <code class="docutils literal notranslate"><span class="pre">resting_heart_rate</span> <span class="pre">(HR)</span></code> argument.</p></li>
+<li><p>It must accept an optional <code class="docutils literal notranslate"><span class="pre">patient_status</span></code> argument that defaults to <code class="docutils literal notranslate"><span class="pre">'stable'</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">patient_status</span></code> is not <code class="docutils literal notranslate"><span class="pre">'stable'</span></code>, print: <code class="docutils literal notranslate"><span class="pre">f'Vitals</span> <span class="pre">logged</span> <span class="pre">for</span> <span class="pre">{patient_status}</span> <span class="pre">patient'</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">resting_heart_rate</span> <span class="pre">(HR)</span></code> &gt; 100 and <code class="docutils literal notranslate"><span class="pre">patient_status</span></code> is <code class="docutils literal notranslate"><span class="pre">'stable'</span></code>, print: <code class="docutils literal notranslate"><span class="pre">'Tachycardia</span> <span class="pre">detected</span> <span class="pre">in</span> <span class="pre">stable</span> <span class="pre">patient'</span></code>.</p></li>
+<li><p>Otherwise, print: <code class="docutils literal notranslate"><span class="pre">'Vitals</span> <span class="pre">normal</span> <span class="pre">for</span> <span class="pre">stable</span> <span class="pre">patient'</span></code>.</p></li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Per AHA, resting heart rate &gt; 100 bpm is tachycardia in adults.</span>
+<span class="n">TACHYCARDIA_THRESHOLD_BPM</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">check_vitals</span><span class="p">(</span><span class="n">resting_heart_rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">patient_status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;stable&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks patient vitals and flags potential tachycardia.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        resting_heart_rate (int): The patient&#39;s resting heart rate (HR) in beats per minute.</span>
+<span class="sd">        patient_status (str): The patient&#39;s current status. Defaults to &#39;stable&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">patient_status</span> <span class="o">!=</span> <span class="s1">&#39;stable&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Vitals logged for </span><span class="si">{</span><span class="n">patient_status</span><span class="si">}</span><span class="s1"> patient&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">resting_heart_rate</span> <span class="o">&gt;</span> <span class="n">TACHYCARDIA_THRESHOLD_BPM</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Tachycardia detected in stable patient&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vitals normal for stable patient&#39;</span><span class="p">)</span>
+
+<span class="c1"># Test cases</span>
+<span class="n">check_vitals</span><span class="p">(</span><span class="mi">110</span><span class="p">)</span>
+<span class="n">check_vitals</span><span class="p">(</span><span class="mi">95</span><span class="p">)</span>
+<span class="n">check_vitals</span><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="s1">&#39;unstable&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+Tachycardia detected in stable patient
+Vitals normal for stable patient
+Vitals logged for unstable patient
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function first checks for the non-default case (<code class="docutils literal notranslate"><span class="pre">'unstable'</span></code>) to prioritize it. If the patient is stable, it then evaluates the heart rate against the <code class="docutils literal notranslate"><span class="pre">TACHYCARDIA_THRESHOLD_BPM</span></code> constant.
+<strong>Key Learning:</strong> Combining default parameters with conditional logic allows for creating flexible functions that can adapt to different clinical scenarios.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong>
+In the <code class="docutils literal notranslate"><span class="pre">check_vitals</span></code> solution, we check for the <code class="docutils literal notranslate"><span class="pre">patient_status</span> <span class="pre">!=</span> <span class="pre">'stable'</span></code> condition first. Why is this an effective approach? Consider how it simplifies the subsequent logic for the more common ‘stable’ patient case.</p>
+</div></blockquote>
+</div>
+</details></section>
+<section id="exercise-3-track-patient-medications-advanced">
+<h3>Exercise 3: Track Patient Medications Advanced<a class="headerlink" href="#exercise-3-track-patient-medications-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Correctly handle a mutable default argument when tracking patient data.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Accurately tracking a patient’s medications is critical for safety. Each patient must have their own distinct list, which should never be accidentally merged with another’s.</p>
+<p><strong>Task:</strong> Create a function <code class="docutils literal notranslate"><span class="pre">add_medication</span></code> that takes a <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> and a <code class="docutils literal notranslate"><span class="pre">new_medication</span></code>. It should also take an optional <code class="docutils literal notranslate"><span class="pre">medication_list</span></code>.</p>
+<ul class="simple">
+<li><p>The function must correctly handle cases where no <code class="docutils literal notranslate"><span class="pre">medication_list</span></code> is provided, ensuring each patient’s list is independent.</p></li>
+<li><p>It should add the <code class="docutils literal notranslate"><span class="pre">new_medication</span></code> to the list and print the result: <code class="docutils literal notranslate"><span class="pre">f&quot;Patient</span> <span class="pre">{patient_id}</span> <span class="pre">medications:</span> <span class="pre">{updated_list}&quot;</span></code>.</p></li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_medication</span><span class="p">(</span><span class="n">patient_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">new_medication</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">medication_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a medication to a patient&#39;s list, creating a new list if one isn&#39;t provided.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">medication_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">medication_list</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">medication_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_medication</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient </span><span class="si">{</span><span class="n">patient_id</span><span class="si">}</span><span class="s2"> medications: </span><span class="si">{</span><span class="n">medication_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">medication_list</span>
+
+<span class="c1"># Patient 1 starts a new list and then adds to it</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Patient PT111 ---&quot;</span><span class="p">)</span>
+<span class="n">p1_meds</span> <span class="o">=</span> <span class="n">add_medication</span><span class="p">(</span><span class="s2">&quot;PT111&quot;</span><span class="p">,</span> <span class="s2">&quot;Lisinopril&quot;</span><span class="p">)</span>
+<span class="n">p1_meds</span> <span class="o">=</span> <span class="n">add_medication</span><span class="p">(</span><span class="s2">&quot;PT111&quot;</span><span class="p">,</span> <span class="s2">&quot;Aspirin&quot;</span><span class="p">,</span> <span class="n">medication_list</span><span class="o">=</span><span class="n">p1_meds</span><span class="p">)</span>
+
+<span class="c1"># Patient 2 starts their own, separate new list</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Patient PT222 ---&quot;</span><span class="p">)</span>
+<span class="n">p2_meds</span> <span class="o">=</span> <span class="n">add_medication</span><span class="p">(</span><span class="s2">&quot;PT222&quot;</span><span class="p">,</span> <span class="s2">&quot;Metformin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+--- Patient PT111 ---
+Patient PT111 medications: [&#39;Lisinopril&#39;]
+Patient PT111 medications: [&#39;Lisinopril&#39;, &#39;Aspirin&#39;]
+
+--- Patient PT222 ---
+Patient PT222 medications: [&#39;Metformin&#39;]
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> By defaulting <code class="docutils literal notranslate"><span class="pre">medication_list</span></code> to <code class="docutils literal notranslate"><span class="pre">None</span></code> and creating a new list <code class="docutils literal notranslate"><span class="pre">[]</span></code> inside the function, we ensure that each patient’s medication list is managed independently. The call for Patient PT222 creates a new list, demonstrating that it was not affected by the calls for Patient PT111.
+<strong>Key Learning:</strong> Always default mutable parameters to <code class="docutils literal notranslate"><span class="pre">None</span></code> and initialize them inside the function to prevent shared state and logical errors.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Electronic Health Record (EHR) Systems:</strong> When logging a patient encounter, a function like <code class="docutils literal notranslate"><span class="pre">log_visit(patient_id,</span> <span class="pre">diagnosis_code,</span> <span class="pre">visit_type='Routine')</span></code> can use a default parameter for <code class="docutils literal notranslate"><span class="pre">visit_type</span></code>. This speeds up data entry for the most common encounters while allowing for specific overrides like <code class="docutils literal notranslate"><span class="pre">'Specialist</span> <span class="pre">Consultation'</span></code> or <code class="docutils literal notranslate"><span class="pre">'Emergency'</span></code>.</p></li>
+<li><p><strong>Clinical Decision Support:</strong> A function to assess sepsis risk, <code class="docutils literal notranslate"><span class="pre">check_sepsis_risk(vitals,</span> <span class="pre">lactate,</span> <span class="pre">consciousness_level='Alert')</span></code>, could default the consciousness level to ‘Alert’. This allows the function to be called with just vitals and lab values for most patients, but enables an override for patients with altered mental status, a key sepsis indicator.</p></li>
+<li><p><strong>Genomic Sequencing Pipelines:</strong> In bioinformatics, a function that aligns DNA sequences might have default parameters for alignment sensitivity. For example, <code class="docutils literal notranslate"><span class="pre">align_sequence(sequence,</span> <span class="pre">reference_genome,</span> <span class="pre">sensitivity='high')</span></code> could default to a high-sensitivity setting for clinical-grade analysis but allow bioinformaticians to set it to <code class="docutils literal notranslate"><span class="pre">'fast'</span></code> for preliminary quality checks, saving significant computation time.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to use default parameters to create more flexible and readable functions. By setting default values, we can make certain arguments optional, which simplifies function calls for common use cases and reduces the chance of errors in medical applications.</p>
+<ul class="simple">
+<li><p>You learned to assign default parameters in the function signature using the <code class="docutils literal notranslate"><span class="pre">=</span></code> operator (e.g., <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">my_func(param=value):</span></code>).</p></li>
+<li><p>We established the critical syntax rule that all required parameters must be defined before any default parameters.</p></li>
+<li><p>We identified and solved the major pitfall of using mutable objects (like lists) as default values, establishing the best practice of defaulting to <code class="docutils literal notranslate"><span class="pre">None</span></code> instead.</p></li>
+<li><p>You saw how this technique is widely used in clinical software to streamline workflows, from patient data entry to complex analytical pipelines.</p></li>
+</ul>
+<p>Mastering default parameters is a key step toward writing professional, robust Python code. Next, we will explore variable scope to understand where variables can be accessed within your programs.</p>
+</section>
+<hr class="docutils" />
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="1.1_definition_parameters_arguments.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: The Building Blocks of Python for Health Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-functions-with-default-parameters">3.1 Defining Functions with Default Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-parameter-order-rule">3.2 The Parameter Order Rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pitfall-of-mutable-default-arguments">3.3 The Pitfall of Mutable Default Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-log-patient-visit-basic">Exercise 1: Log Patient Visit Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-check-patient-vitals-for-tachycardia-intermediate">Exercise 2: Check Patient Vitals for Tachycardia Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-track-patient-medications-advanced">Exercise 3: Track Patient Medications Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

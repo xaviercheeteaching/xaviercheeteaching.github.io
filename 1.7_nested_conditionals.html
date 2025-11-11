@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Foundations of Python for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.7_nested_conditionals';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.7_ternary_operators.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.7_if_else_elif.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.7_nested_conditionals.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.7_nested_conditionals.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Foundations of Python for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-structure-of-nested-conditionals">3.1 The Structure of Nested Conditionals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-assess-neurological-status-intermediate">Exercise 1: Assess Neurological Status Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-pediatric-medication-dosage-alert-basic">Exercise 2: Pediatric Medication Dosage Alert Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-sepsis-triage-protocol-advanced">Exercise 3: Sepsis Triage Protocol Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-foundations-of-python-for-precision-health">
+<h1>Chapter 1: Foundations of Python for Precision Health<a class="headerlink" href="#chapter-1-foundations-of-python-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the next level of decision-making in Python. So far, we have used <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> to choose one path from several options. Now, we will explore nested conditionals, which allow us to model multi-step decisions where a follow-up action depends on a primary assessment. This structure is fundamental in medicine, mirroring clinical protocols where one test result or observation leads to a subsequent, more specific evaluation. In this section, you will learn how to build these decision hierarchies in code, practice with clinical scenarios, and see their application in real-world health tech systems.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Nested Conditional</strong>: An <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">if-else</span></code>, or <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> statement that is placed inside another conditional block. The inner condition is only evaluated if the outer condition is true, creating a dependent decision path.</p></li>
+<li><p><strong>Decision Hierarchy</strong>: A structured sequence of choices where later decisions depend on the outcomes of earlier ones. This is analogous to a clinical triage flowchart, where a patient’s path is determined by a series of sequential checks.</p></li>
+<li><p><strong>Code Block</strong>: A group of Python statements indented at the same level. In nested conditionals, the inner block has a deeper level of indentation than the outer block, visually representing the decision hierarchy.</p></li>
+<li><p><strong>Glasgow Coma Scale (GCS)</strong>: A neurological scale used by clinicians to assess a person’s level of consciousness after a brain injury. A lower score indicates a more severe impairment, while a score of 15 represents a fully conscious state.</p></li>
+<li><p><strong>Tachycardia</strong>: A medical term for a heart rate that is faster than the normal resting rate. In adults, this is often defined as over 100 beats per minute and can be a sign of stress, illness, or other conditions.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="the-structure-of-nested-conditionals">
+<h3>3.1 The Structure of Nested Conditionals<a class="headerlink" href="#the-structure-of-nested-conditionals" title="Link to this heading">#</a></h3>
+<p>Nested conditionals are essential for creating logic that follows a sequence of dependent checks. The inner <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is only executed if the outer <code class="docutils literal notranslate"><span class="pre">if</span></code> condition evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code>. This is controlled by indentation; the nested block is indented further to the right.</p>
+<p>Consider a common clinical scenario: checking for fever and then, only if a fever is present, checking for a high heart rate (tachycardia), which could be a sign of sepsis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clinical thresholds (constants)</span>
+<span class="n">FEVER_THRESHOLD_C</span> <span class="o">=</span> <span class="mf">38.0</span>
+<span class="n">TACHYCARDIA_THRESHOLD_BPM</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Patient vitals record stored in a dictionary</span>
+<span class="n">patient_vitals</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;temperature_c&quot;</span><span class="p">:</span> <span class="mf">38.5</span><span class="p">,</span>
+    <span class="s2">&quot;heart_rate_bpm&quot;</span><span class="p">:</span> <span class="mi">110</span>
+<span class="p">}</span>
+
+<span class="c1"># Outer condition: check for fever</span>
+<span class="k">if</span> <span class="n">patient_vitals</span><span class="p">[</span><span class="s2">&quot;temperature_c&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">FEVER_THRESHOLD_C</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ALERT: Fever detected (Temp &gt; </span><span class="si">{</span><span class="n">FEVER_THRESHOLD_C</span><span class="si">}</span><span class="s2">°C).&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Inner (nested) condition: check for tachycardia</span>
+    <span class="c1"># This check only runs if the first condition (fever) is True.</span>
+    <span class="k">if</span> <span class="n">patient_vitals</span><span class="p">[</span><span class="s2">&quot;heart_rate_bpm&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">TACHYCARDIA_THRESHOLD_BPM</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ALERT: Tachycardia detected (HR &gt; </span><span class="si">{</span><span class="n">TACHYCARDIA_THRESHOLD_BPM</span><span class="si">}</span><span class="s2"> bpm). Assess for sepsis.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heart rate is within normal limits.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Patient temperature is normal.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># ALERT: Fever detected (Temp &gt; 38.0°C).</span>
+<span class="c1"># ALERT: Tachycardia detected (HR &gt; 100 bpm). Assess for sepsis.</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> In Python, indentation is not just for readability—it defines the structure of your code. The indented code block inside an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement only runs when that condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>. For nested conditionals, you will have a second level of indentation. Incorrect indentation will cause errors or lead to unexpected behavior.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Pro Tip: Nesting vs. Logical Operators</strong>
+If a nested check has no <code class="docutils literal notranslate"><span class="pre">else</span></code> branch, you can often simplify it with a logical <code class="docutils literal notranslate"><span class="pre">and</span></code> operator. For example, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">patient_vitals[&quot;temperature_c&quot;]</span> <span class="pre">&gt;</span> <span class="pre">FEVER_THRESHOLD_C</span> <span class="pre">and</span> <span class="pre">patient_vitals[&quot;heart_rate_bpm&quot;]</span> <span class="pre">&gt;</span> <span class="pre">TACHYCARDIA_THRESHOLD_BPM:</span></code> is sometimes clearer. Use nesting when you must handle intermediate steps separately, such as printing the “Fever detected” alert <em>before</em> checking the heart rate.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Medical Background:</strong> The Glasgow Coma Scale (GCS) is a neurological scale used to assess a person’s conscious state. A score of 15 indicates a fully awake person, while lower scores (ranging down to 3) signify some level of impairment. A drop in GCS, especially in the context of a head injury, is a critical finding that requires immediate attention.</p>
+</div></blockquote>
+<section id="exercise-1-assess-neurological-status-intermediate">
+<h3>Exercise 1: Assess Neurological Status Intermediate<a class="headerlink" href="#exercise-1-assess-neurological-status-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a nested conditional to implement a two-step neurological assessment based on GCS score and presence of head injury.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A GCS score below 15 indicates impaired consciousness. When combined with a history of head injury, it signals a high-risk situation requiring immediate specialist consultation.</p>
+<p>Write a nested conditional using the <code class="docutils literal notranslate"><span class="pre">patient_status</span></code> dictionary.</p>
+<ol class="arabic simple">
+<li><p>First, check if the <code class="docutils literal notranslate"><span class="pre">gcs_score</span></code> is less than the normal score.</p></li>
+<li><p>If it is, then check if <code class="docutils literal notranslate"><span class="pre">head_injury</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>. If so, print “Urgent neuro consult required.”</p></li>
+<li><p>If GCS is low but there is no head injury, print “Monitor GCS closely.”</p></li>
+<li><p>If the GCS score is normal, print “Patient is fully conscious.”</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clinical thresholds (constants)</span>
+<span class="n">NORMAL_GCS_SCORE</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="c1"># Patient assessment data</span>
+<span class="n">patient_status</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;gcs_score&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="c1"># Range: 3-15; 15 is fully conscious</span>
+    <span class="s2">&quot;head_injury&quot;</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+
+<span class="c1"># First, check for any level of impaired consciousness.</span>
+<span class="k">if</span> <span class="n">patient_status</span><span class="p">[</span><span class="s2">&quot;gcs_score&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">NORMAL_GCS_SCORE</span><span class="p">:</span>
+    <span class="c1"># If consciousness is impaired, we then check for a known head injury.</span>
+    <span class="c1"># This is our nested condition.</span>
+    <span class="k">if</span> <span class="n">patient_status</span><span class="p">[</span><span class="s2">&quot;head_injury&quot;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Urgent neuro consult required.&quot;</span><span class="p">)</span>
+    <span class="c1"># This &#39;else&#39; corresponds to the &#39;if head_injury&#39; check.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monitor GCS closely.&quot;</span><span class="p">)</span>
+<span class="c1"># This &#39;else&#39; corresponds to the initial &#39;if gcs_score&#39; check.</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Patient is fully conscious.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># Urgent neuro consult required.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The outer <code class="docutils literal notranslate"><span class="pre">if</span></code> statement checks the GCS score first. Only if the score is below 15 does the program proceed to the inner <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, which evaluates the <code class="docutils literal notranslate"><span class="pre">head_injury</span></code> key to determine the final recommendation.
+<strong>Key Learning:</strong> Nesting allows for a primary condition to act as a gateway to more specific, secondary checks.</p>
+</div>
+</details></section>
+<section id="exercise-2-pediatric-medication-dosage-alert-basic">
+<h3>Exercise 2: Pediatric Medication Dosage Alert Basic<a class="headerlink" href="#exercise-2-pediatric-medication-dosage-alert-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Write a nested conditional to flag a medication order for review based on patient age and weight.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Dosing for pediatric patients is highly sensitive and often based on weight. A common safety check is to first identify if a patient is a child and then verify their weight is within a safe range for a given drug.</p>
+<p>Write a script that checks the following:</p>
+<ol class="arabic simple">
+<li><p>First, check if <code class="docutils literal notranslate"><span class="pre">patient_age</span></code> is less than 18.</p></li>
+<li><p>If the patient is under 18, then check if their <code class="docutils literal notranslate"><span class="pre">patient_weight_kg</span></code> is less than 10. If so, print “ALERT: Patient is under 10kg. Manual dosage calculation required.”</p></li>
+<li><p>If the patient is under 18 but 10kg or more, print “Pediatric patient. Standard weight-based dosing applies.”</p></li>
+<li><p>If the patient is 18 or older, print “Adult patient. Standard dosing applies.”</p></li>
+</ol>
+<p>Use <code class="docutils literal notranslate"><span class="pre">patient_age</span> <span class="pre">=</span> <span class="pre">6</span></code> and <code class="docutils literal notranslate"><span class="pre">patient_weight_kg</span> <span class="pre">=</span> <span class="pre">8</span></code> to test your code.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">patient_age</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">patient_weight_kg</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="k">if</span> <span class="n">patient_age</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Patient is a minor.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">patient_weight_kg</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ALERT: Patient is under 10kg. Manual dosage calculation required.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pediatric patient. Standard weight-based dosing applies.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Adult patient. Standard dosing applies.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># Patient is a minor.</span>
+<span class="c1"># ALERT: Patient is under 10kg. Manual dosage calculation required.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code first identifies the patient as a minor. Because that condition is true, it proceeds to the nested block, which checks the weight. Since the weight is below the 10kg threshold, it triggers the specific alert.
+<strong>Key Learning:</strong> Nested conditionals are ideal for implementing safety checks that apply only to a specific sub-population.</p>
+</div>
+</details></section>
+<section id="exercise-3-sepsis-triage-protocol-advanced">
+<h3>Exercise 3: Sepsis Triage Protocol Advanced<a class="headerlink" href="#exercise-3-sepsis-triage-protocol-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Model a simplified three-step sepsis screening protocol using nested conditionals.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Sepsis is a life-threatening condition. Early identification protocols (like qSOFA) involve sequential checks. A common pathway is: (1) Suspect infection? -&gt; (2) Two or more clinical signs present? -&gt; (3) High lactate level?</p>
+<p>Write a script that models this logic:</p>
+<ol class="arabic simple">
+<li><p>Check if <code class="docutils literal notranslate"><span class="pre">suspected_infection</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p>If it is, then check if <code class="docutils literal notranslate"><span class="pre">qsofa_score</span></code> is 2 or greater.</p></li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">qsofa_score</span></code> is 2 or greater, then check if <code class="docutils literal notranslate"><span class="pre">lactate_level</span></code> is greater than 2.0. If all three conditions are met, print “CRITICAL: Sepsis Alert! Initiate sepsis bundle.”</p></li>
+<li><p>Provide appropriate feedback at each <code class="docutils literal notranslate"><span class="pre">else</span></code> step.</p></li>
+</ol>
+<p>Use <code class="docutils literal notranslate"><span class="pre">suspected_infection</span> <span class="pre">=</span> <span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">qsofa_score</span> <span class="pre">=</span> <span class="pre">2</span></code>, and <code class="docutils literal notranslate"><span class="pre">lactate_level</span> <span class="pre">=</span> <span class="pre">2.5</span></code> to test.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">suspected_infection</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">qsofa_score</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">lactate_level</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+<span class="k">if</span> <span class="n">suspected_infection</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step 1: Infection suspected.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">qsofa_score</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step 2: Patient meets qSOFA criteria (score &gt;= 2).&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lactate_level</span> <span class="o">&gt;</span> <span class="mf">2.0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CRITICAL: Sepsis Alert! Initiate sepsis bundle.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monitor lactate levels; currently &lt; 2.0.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Infection suspected, but qSOFA &lt; 2. Continue monitoring.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No suspected infection.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># Step 1: Infection suspected.</span>
+<span class="c1"># Step 2: Patient meets qSOFA criteria (score &gt;= 2).</span>
+<span class="c1"># CRITICAL: Sepsis Alert! Initiate sepsis bundle.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This code uses two levels of nesting. Each <code class="docutils literal notranslate"><span class="pre">if</span></code> statement represents a step in the clinical protocol. A “CRITICAL” alert is only triggered if the patient passes through all three gateways, demonstrating a clear decision hierarchy.
+<strong>Key Learning:</strong> Multiple levels of nesting can model complex, multi-step diagnostic or treatment protocols effectively.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Automated Clinical Decision Support Systems (CDSS)</strong>: In electronic health record (EHR) systems, nested logic is used to guide clinicians. For example, if a patient’s lab results show low potassium (outer condition), the system might then check if they are prescribed a diuretic (inner condition) and flag a potential drug-induced electrolyte imbalance.</p></li>
+<li><p><strong>Pharmacogenomics Alerting</strong>: These systems use nested conditionals to personalize medicine. The first check is for a specific drug prescription (e.g., Warfarin). If the drug is present, a nested check queries the patient’s genetic data for variants like <code class="docutils literal notranslate"><span class="pre">CYP2C9</span></code> or <code class="docutils literal notranslate"><span class="pre">VKORC1</span></code>. If a relevant variant is found, an alert is triggered to recommend a non-standard dose.</p></li>
+<li><p><strong>Intelligent Ventilator Management</strong>: In an ICU, a monitoring system can use nested logic to manage ventilated patients. The outer condition might check if a patient’s oxygen saturation drops. If it does, a nested condition could check the current ventilator settings (e.g., <code class="docutils literal notranslate"><span class="pre">FiO2</span></code>) to see if they are already maxed out, triggering an alarm for a physician to intervene manually.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to use nested conditionals to build sophisticated, multi-step decision logic in Python. This structure is a powerful tool for translating complex clinical protocols into executable code, allowing for dependent checks that mirror real-world diagnostic pathways.</p>
+<ul class="simple">
+<li><p>Nested conditionals create a <strong>decision hierarchy</strong>, where an inner check is only performed if an outer condition is met.</p></li>
+<li><p><strong>Indentation</strong> is the syntax that defines the nesting level. Each nested block must be indented further than the one containing it.</p></li>
+<li><p>Nesting is most effective when you need to <strong>perform actions at intermediate steps</strong> of a decision process, not just at the end.</p></li>
+<li><p>For simple, combined checks without intermediate steps, a single <code class="docutils literal notranslate"><span class="pre">if</span></code> statement with the <strong><code class="docutils literal notranslate"><span class="pre">and</span></code> operator</strong> can be a cleaner alternative.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> This exercise models a two-step decision process. Can you think of another clinical protocol (e.g., in medication administration, sepsis screening, or fall risk assessment) that follows a similar nested logic? How would you model it with code?</p>
+</div></blockquote>
+<p>You are now equipped to model complex, sequential logic, a critical skill for developing applications in precision health. Next, we will move from making decisions to performing repetitive tasks with loops.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.7_if_else_elif.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.7_ternary_operators.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-structure-of-nested-conditionals">3.1 The Structure of Nested Conditionals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-assess-neurological-status-intermediate">Exercise 1: Assess Neurological Status Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-pediatric-medication-dosage-alert-basic">Exercise 2: Pediatric Medication Dosage Alert Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-sepsis-triage-protocol-advanced">Exercise 3: Sepsis Triage Protocol Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

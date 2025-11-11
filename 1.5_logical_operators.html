@@ -1,0 +1,996 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: The Building Blocks of Clinical Logic &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.5_logical_operators';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.6_escape_characters.html" />
+    <link rel="prev" title="Chapter 1: Foundational Python for Precision Health" href="1.5_chaining_comparisons.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.5_logical_operators.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.5_logical_operators.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: The Building Blocks of Clinical Logic</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-and-operator-requiring-all-criteria">3.1 The <code class="docutils literal notranslate"><span class="pre">and</span></code> Operator: Requiring All Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-or-operator-requiring-at-least-one-criterion">3.2 The <code class="docutils literal notranslate"><span class="pre">or</span></code> Operator: Requiring at Least One Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-not-operator-inverting-a-condition">3.3 The <code class="docutils literal notranslate"><span class="pre">not</span></code> Operator: Inverting a Condition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-operators-precedence-and-parentheses">3.4 Combining Operators: Precedence and Parentheses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-logic-short-circuit-evaluation">3.5 Efficient Logic: Short-Circuit Evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-allergy-check">Exercise 1: Basic Allergy Check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sepsis-alert-criteria">Exercise 2: Sepsis Alert Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-qsofa-score-calculation">Exercise 3: qSOFA Score Calculation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-the-building-blocks-of-clinical-logic">
+<h1>Chapter 1: The Building Blocks of Clinical Logic<a class="headerlink" href="#chapter-1-the-building-blocks-of-clinical-logic" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In clinical practice, decisions are rarely based on a single piece of information. A physician might diagnose a patient or determine a treatment plan by evaluating multiple factors simultaneously: age, vital signs, lab results, and known allergies. Programming for precision health requires the same capability to combine multiple conditions into a single, decisive rule. This section introduces logical operators (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>), the fundamental tools for building this complex decision-making logic into your code. By the end of this section, you will be able to use these operators to translate intricate clinical guidelines into clear and effective Python expressions, forming the backbone of automated clinical decision support.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Logical Operator</strong>: A symbol or keyword (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>) used to connect two or more boolean expressions into a single, more complex expression. In a clinical context, they are the “glue” that combines different criteria from a guideline, such as <code class="docutils literal notranslate"><span class="pre">patient_age</span> <span class="pre">&gt;</span> <span class="pre">65</span> <span class="pre">and</span> <span class="pre">has_comorbidity</span></code>.</p></li>
+<li><p><strong>Boolean Expression</strong>: An expression that evaluates to one of two states: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. These are the building blocks of clinical rules. For example, <code class="docutils literal notranslate"><span class="pre">systolic_bp</span> <span class="pre">&lt;=</span> <span class="pre">100</span></code> is a boolean expression that checks if a patient’s blood pressure meets a specific qSOFA criterion.</p></li>
+<li><p><strong>Operator Precedence</strong>: The predefined order in which Python evaluates operators in a complex expression. The order is <code class="docutils literal notranslate"><span class="pre">not</span></code>, then <code class="docutils literal notranslate"><span class="pre">and</span></code>, then <code class="docutils literal notranslate"><span class="pre">or</span></code>. Understanding precedence is critical for ensuring that multi-part clinical rules, like those for risk scoring, are evaluated correctly without ambiguity. Parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> can be used to override this default order.</p></li>
+<li><p><strong>Short-Circuit Evaluation</strong>: An efficient evaluation strategy where Python stops processing a logical expression as soon as the outcome is determined. For an <code class="docutils literal notranslate"><span class="pre">and</span></code> expression, it stops at the first <code class="docutils literal notranslate"><span class="pre">False</span></code>; for an <code class="docutils literal notranslate"><span class="pre">or</span></code> expression, it stops at the first <code class="docutils literal notranslate"><span class="pre">True</span></code>. This is particularly useful in clinical data processing to prevent errors, such as attempting to divide by zero when a patient has had zero recorded doses.</p></li>
+<li><p><strong>Clinical Abbreviations</strong>:</p>
+<ul>
+<li><p><strong>BMI</strong>: Body Mass Index, a value derived from the mass and height of a person.</p></li>
+<li><p><strong>BP</strong>: Blood Pressure, the pressure of circulating blood against the walls of blood vessels.</p></li>
+<li><p><strong>WBC</strong>: White Blood Cell count, a measure of the number of white blood cells in the blood.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="the-and-operator-requiring-all-criteria">
+<h3>3.1 The <code class="docutils literal notranslate"><span class="pre">and</span></code> Operator: Requiring All Criteria<a class="headerlink" href="#the-and-operator-requiring-all-criteria" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">and</span></code> operator returns <code class="docutils literal notranslate"><span class="pre">True</span></code> only if all conditions connected by it are true. It is essential for creating strict rules where every single criterion must be met, such as in clinical trial eligibility screening.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Clinical guidelines and diagnostic criteria frequently require multiple conditions to be met simultaneously. For example, diagnosing Systemic Inflammatory Response Syndrome (SIRS) requires meeting at least two of four specific criteria. The <code class="docutils literal notranslate"><span class="pre">and</span></code> operator is the perfect tool to model these “all-must-be-true” rules.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clinical rule constants</span>
+<span class="n">ELIGIBILITY_MIN_AGE</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="n">ELIGIBILITY_MAX_BMI</span> <span class="o">=</span> <span class="mf">30.0</span>
+
+<span class="c1"># A patient is eligible for a trial only if they are over 65 AND have a Body Mass Index (BMI) under 30.</span>
+<span class="n">patient_age</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">patient_bmi</span> <span class="o">=</span> <span class="mf">28.5</span>  <span class="c1"># kg/m²</span>
+<span class="n">is_eligible</span> <span class="o">=</span> <span class="n">patient_age</span> <span class="o">&gt;</span> <span class="n">ELIGIBILITY_MIN_AGE</span> <span class="ow">and</span> <span class="n">patient_bmi</span> <span class="o">&lt;</span> <span class="n">ELIGIBILITY_MAX_BMI</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient eligible for trial: </span><span class="si">{</span><span class="n">is_eligible</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Patient eligible for trial: True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-or-operator-requiring-at-least-one-criterion">
+<h3>3.2 The <code class="docutils literal notranslate"><span class="pre">or</span></code> Operator: Requiring at Least One Criterion<a class="headerlink" href="#the-or-operator-requiring-at-least-one-criterion" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">or</span></code> operator returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if at least one of the conditions is true. It is ideal for rules where meeting any one of several criteria is sufficient to trigger an action, such as a high-risk alert.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> In the electronic health record (EHR) at a hospital, a critical alert might be triggered if a patient’s heart rate is <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">130</span></code> <strong>or</strong> their systolic blood pressure is <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">90</span></code>. Only one condition needs to be true to notify the rapid response team, making the <code class="docutils literal notranslate"><span class="pre">or</span></code> operator essential for creating sensitive and responsive safety nets.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clinical rule constants</span>
+<span class="n">HYPERTENSIVE_CRISIS_SYSTOLIC</span> <span class="o">=</span> <span class="mi">180</span>
+<span class="n">HYPERTENSIVE_CRISIS_DIASTOLIC</span> <span class="o">=</span> <span class="mi">120</span>
+
+<span class="c1"># A high-risk Blood Pressure (BP) alert triggers if systolic is over 180 OR diastolic is over 120.</span>
+<span class="n">systolic_bp</span> <span class="o">=</span> <span class="mi">170</span>   <span class="c1"># mmHg</span>
+<span class="n">diastolic_bp</span> <span class="o">=</span> <span class="mi">125</span>  <span class="c1"># mmHg</span>
+<span class="n">is_high_risk</span> <span class="o">=</span> <span class="n">systolic_bp</span> <span class="o">&gt;</span> <span class="n">HYPERTENSIVE_CRISIS_SYSTOLIC</span> <span class="ow">or</span> <span class="n">diastolic_bp</span> <span class="o">&gt;</span> <span class="n">HYPERTENSIVE_CRISIS_DIASTOLIC</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;High-risk blood pressure alert: </span><span class="si">{</span><span class="n">is_high_risk</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: High-risk blood pressure alert: True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-not-operator-inverting-a-condition">
+<h3>3.3 The <code class="docutils literal notranslate"><span class="pre">not</span></code> Operator: Inverting a Condition<a class="headerlink" href="#the-not-operator-inverting-a-condition" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">not</span></code> operator inverts a boolean value, turning <code class="docutils literal notranslate"><span class="pre">True</span></code> into <code class="docutils literal notranslate"><span class="pre">False</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> into <code class="docutils literal notranslate"><span class="pre">True</span></code>. It is used to check for the absence of a condition, such as a contraindication.</p>
+<blockquote>
+<div><p><strong>Important:</strong> The <code class="docutils literal notranslate"><span class="pre">not</span></code> operator is critical for implementing safety checks and verifying contraindications. Using <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">has_allergy</span></code> is more explicit and readable than <code class="docutils literal notranslate"><span class="pre">has_allergy</span> <span class="pre">==</span> <span class="pre">False</span></code>. Always use <code class="docutils literal notranslate"><span class="pre">not</span></code> to check for the absence of a condition, as it makes your code’s intent clearer and reduces the risk of logical errors in safety-critical rules.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Penicillin can be administered if the patient does NOT have a penicillin allergy.</span>
+<span class="n">has_penicillin_allergy</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">can_administer_penicillin</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">has_penicillin_allergy</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can administer penicillin: </span><span class="si">{</span><span class="n">can_administer_penicillin</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Can administer penicillin: True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="combining-operators-precedence-and-parentheses">
+<h3>3.4 Combining Operators: Precedence and Parentheses<a class="headerlink" href="#combining-operators-precedence-and-parentheses" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common source of bugs is forgetting operator precedence. The expression <code class="docutils literal notranslate"><span class="pre">has_fever</span> <span class="pre">and</span> <span class="pre">wbc_count</span> <span class="pre">&lt;</span> <span class="pre">4.0</span> <span class="pre">or</span> <span class="pre">not</span> <span class="pre">is_conscious</span></code> might not evaluate as you expect. Always use parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> to group conditions and enforce the exact order of operations you intend. This makes your code unambiguous and easier for others to read.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clinical rule constants</span>
+<span class="n">LEUKOPENIA_WBC_THRESHOLD</span> <span class="o">=</span> <span class="mf">4.0</span>
+
+<span class="n">has_fever</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># A count &lt; 4.0 may indicate leukopenia (low White Blood Cell [WBC] count).</span>
+<span class="n">wbc_count</span> <span class="o">=</span> <span class="mf">3.5</span>      <span class="c1"># x 10^9 cells/L </span>
+<span class="n">is_conscious</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Rule: Flag for review if the patient has a fever AND a low WBC count, OR if the patient is not conscious.</span>
+<span class="n">flag_for_review</span> <span class="o">=</span> <span class="p">(</span><span class="n">has_fever</span> <span class="ow">and</span> <span class="n">wbc_count</span> <span class="o">&lt;</span> <span class="n">LEUKOPENIA_WBC_THRESHOLD</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">is_conscious</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Flag for immediate review: </span><span class="si">{</span><span class="n">flag_for_review</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Flag for immediate review: True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="efficient-logic-short-circuit-evaluation">
+<h3>3.5 Efficient Logic: Short-Circuit Evaluation<a class="headerlink" href="#efficient-logic-short-circuit-evaluation" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Think of short-circuiting as a defensive programming technique. By placing the “check” condition first (e.g., <code class="docutils literal notranslate"><span class="pre">medication_doses</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>), you can prevent the program from attempting unsafe operations, like dividing by zero. This pattern is essential for writing robust code that can handle unexpected or invalid data without crashing.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">medication_doses</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total_volume</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Check if a medication has a high concentration.</span>
+<span class="c1"># The second part of the expression would cause a ZeroDivisionError if evaluated.</span>
+<span class="n">is_high_concentration</span> <span class="o">=</span> <span class="p">(</span><span class="n">medication_doses</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">total_volume</span> <span class="o">/</span> <span class="n">medication_doses</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is high concentration: </span><span class="si">{</span><span class="n">is_high_concentration</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Is high concentration: False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-basic-allergy-check">
+<h3>Exercise 1: Basic Allergy Check<a class="headerlink" href="#exercise-1-basic-allergy-check" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use the <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">not</span></code> operators to create a simple medication safety rule.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Before administering certain medications, it’s crucial to check for age restrictions and allergies. This exercise simulates a basic safety check for a common antibiotic.</p>
+<p>A patient can receive a specific antibiotic only if they are 18 or older and do not have a known sulfa allergy. Create a boolean variable <code class="docutils literal notranslate"><span class="pre">can_administer_drug</span></code> that evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> based on the patient’s data.</p>
+<p>Basic Allergy Check</p>
+<p><strong>Objective:</strong> Use the <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">not</span></code> operators to create a simple medication safety rule.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Before administering certain medications, it’s crucial to check for age restrictions and allergies. This exercise simulates a basic safety check for a common antibiotic.</p>
+<p>A patient can receive a specific antibiotic only if they are 18 or older and do not have a known sulfa allergy. Create a boolean variable <code class="docutils literal notranslate"><span class="pre">can_administer_drug</span></code> that evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> based on the patient’s data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient data</span>
+<span class="n">patient_age</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">has_sulfa_allergy</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># TODO: Create the boolean expression</span>
+<span class="n">can_administer_drug</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can administer antibiotic: </span><span class="si">{</span><span class="n">can_administer_drug</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution code</span>
+<span class="n">patient_age</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">has_sulfa_allergy</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">can_administer_drug</span> <span class="o">=</span> <span class="n">patient_age</span> <span class="o">&gt;=</span> <span class="mi">18</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_sulfa_allergy</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can administer antibiotic: </span><span class="si">{</span><span class="n">can_administer_drug</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Can administer antibiotic: True</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The expression <code class="docutils literal notranslate"><span class="pre">patient_age</span> <span class="pre">&gt;=</span> <span class="pre">18</span></code> evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code>. The expression <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">has_sulfa_allergy</span></code> also evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code> (since <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">False</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>). Because both sides of the <code class="docutils literal notranslate"><span class="pre">and</span></code> operator are <code class="docutils literal notranslate"><span class="pre">True</span></code>, the final result is <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+<strong>Key Learning:</strong> Combining <code class="docutils literal notranslate"><span class="pre">and</span></code> with <code class="docutils literal notranslate"><span class="pre">not</span></code> is a common pattern for checking that a condition is met while an exclusion criterion is absent.</p>
+</div>
+</details></section>
+<section id="exercise-2-sepsis-alert-criteria">
+<h3>Exercise 2: Sepsis Alert Criteria<a class="headerlink" href="#exercise-2-sepsis-alert-criteria" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> operators to model a multi-part clinical alert.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> The Systemic Inflammatory Response Syndrome (SIRS) criteria are used to help identify patients with sepsis. A patient is SIRS positive if they meet at least two of four criteria. This exercise uses a simplified version to create an alert.</p>
+<p>A patient should be flagged for a potential sepsis review if they have a high temperature (<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">38.0°C</span></code>) <strong>OR</strong> if their heart rate is high (<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">90</span> <span class="pre">bpm</span></code>) <strong>AND</strong> their respiratory rate is also high (<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">20</span> <span class="pre">breaths/min</span></code>). Create a boolean variable <code class="docutils literal notranslate"><span class="pre">sepsis_alert</span></code> based on this rule.</p>
+<p>Sepsis Alert Criteria</p>
+<p><strong>Objective:</strong> Combine <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> operators to model a multi-part clinical alert.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> The Systemic Inflammatory Response Syndrome (SIRS) criteria are used to help identify patients with sepsis. A patient is SIRS positive if they meet at least two of four criteria. This exercise uses a simplified version to create an alert.</p>
+<p>A patient should be flagged for a potential sepsis review if they have a high temperature (<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">38.0°C</span></code>) <strong>OR</strong> if their heart rate is high (<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">90</span> <span class="pre">bpm</span></code>) <strong>AND</strong> their respiratory rate is also high (<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">20</span> <span class="pre">breaths/min</span></code>). Create a boolean variable <code class="docutils literal notranslate"><span class="pre">sepsis_alert</span></code> based on this rule.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient vitals</span>
+<span class="n">temperature_c</span> <span class="o">=</span> <span class="mf">37.5</span>
+<span class="n">heart_rate_bpm</span> <span class="o">=</span> <span class="mi">105</span>
+<span class="n">respiratory_rate_breaths_min</span> <span class="o">=</span> <span class="mi">24</span>
+
+<span class="c1"># TODO: Write the expression for the sepsis alert</span>
+<span class="n">sepsis_alert</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sepsis alert: </span><span class="si">{</span><span class="n">sepsis_alert</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution code</span>
+<span class="n">temperature_c</span> <span class="o">=</span> <span class="mf">37.5</span>
+<span class="n">heart_rate_bpm</span> <span class="o">=</span> <span class="mi">105</span>
+<span class="n">respiratory_rate_breaths_min</span> <span class="o">=</span> <span class="mi">24</span>
+
+<span class="n">sepsis_alert</span> <span class="o">=</span> <span class="n">temperature_c</span> <span class="o">&gt;</span> <span class="mf">38.0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">heart_rate_bpm</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="ow">and</span> <span class="n">respiratory_rate_breaths_min</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sepsis alert: </span><span class="si">{</span><span class="n">sepsis_alert</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Sepsis alert: True</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> Python first evaluates the expression in the parentheses: <code class="docutils literal notranslate"><span class="pre">heart_rate_bpm</span> <span class="pre">&gt;</span> <span class="pre">90</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">respiratory_rate_breaths_min</span> <span class="pre">&gt;</span> <span class="pre">20</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, so <code class="docutils literal notranslate"><span class="pre">(True</span> <span class="pre">and</span> <span class="pre">True)</span></code> results in <code class="docutils literal notranslate"><span class="pre">True</span></code>. The <code class="docutils literal notranslate"><span class="pre">or</span></code> expression then becomes <code class="docutils literal notranslate"><span class="pre">False</span> <span class="pre">or</span> <span class="pre">True</span></code>, which evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+<strong>Key Learning:</strong> Parentheses are crucial for ensuring that <code class="docutils literal notranslate"><span class="pre">and</span></code> is evaluated before <code class="docutils literal notranslate"><span class="pre">or</span></code> when the logic requires it, correctly modeling the clinical rule.</p>
+</div>
+</details></section>
+<section id="exercise-3-qsofa-score-calculation">
+<h3>Exercise 3: qSOFA Score Calculation<a class="headerlink" href="#exercise-3-qsofa-score-calculation" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Implement a real-world clinical score that requires checking combinations of conditions.
+<strong>Time:</strong> 8 minutes
+<strong>Medical Context:</strong> The qSOFA score (Quick Sequential Organ Failure Assessment) is a bedside tool to identify patients with suspected infection who are at greater risk for poor outcomes. A positive qSOFA score requires at least <strong>two</strong> of the following three criteria to be met: altered mental status, respiratory rate ≥ 22/min, or systolic BP ≤ 100 mmHg.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> The qSOFA (Quick Sequential Organ Failure Assessment) score was developed to help clinicians quickly identify patients with suspected infections who are at high risk of developing sepsis and having poor outcomes. The citations (Singer et al. 2016, Evans et al. 2021) refer to the key papers that established and validated this important clinical rule.</p>
+</div></blockquote>
+<p>Given the patient data below, first evaluate each criterion as a boolean variable. Then, write an expression for <code class="docutils literal notranslate"><span class="pre">is_qsofa_positive</span></code> that is <code class="docutils literal notranslate"><span class="pre">True</span></code> if two or more criteria are met.</p>
+<p>qSOFA Score Calculation</p>
+<p><strong>Objective:</strong> Implement a real-world clinical score that requires checking combinations of conditions.
+<strong>Time:</strong> 8 minutes
+<strong>Medical Context:</strong> The qSOFA score (Quick Sequential Organ Failure Assessment) is a bedside tool to identify patients with suspected infection who are at greater risk for poor outcomes. A positive qSOFA score requires at least <strong>two</strong> of the following three criteria to be met: altered mental status, respiratory rate ≥ 22/min, or systolic BP ≤ 100 mmHg.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> The qSOFA (Quick Sequential Organ Failure Assessment) score was developed to help clinicians quickly identify patients with suspected infections who are at high risk of developing sepsis and having poor outcomes. The citations (Singer et al. 2016, Evans et al. 2021) refer to the key papers that established and validated this important clinical rule.</p>
+</div></blockquote>
+<p>Given the patient data below, first evaluate each criterion as a boolean variable. Then, write an expression for <code class="docutils literal notranslate"><span class="pre">is_qsofa_positive</span></code> that is <code class="docutils literal notranslate"><span class="pre">True</span></code> if two or more criteria are met.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient data</span>
+<span class="n">has_altered_mental_status</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">respiratory_rate</span> <span class="o">=</span> <span class="mi">25</span>  <span class="c1"># breaths/min</span>
+<span class="n">systolic_bp</span> <span class="o">=</span> <span class="mi">95</span>       <span class="c1"># mmHg</span>
+
+<span class="c1"># 1. Evaluate each criterion as a boolean variable</span>
+<span class="n">mental_status_met</span> <span class="o">=</span> <span class="n">has_altered_mental_status</span>
+<span class="n">resp_rate_met</span> <span class="o">=</span> <span class="n">respiratory_rate</span> <span class="o">&gt;=</span> <span class="mi">22</span>
+<span class="n">bp_met</span> <span class="o">=</span> <span class="n">systolic_bp</span> <span class="o">&lt;=</span> <span class="mi">100</span>
+
+<span class="c1"># 2. TODO: Combine the booleans to check if at least two are True</span>
+<span class="n">is_qsofa_positive</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># Your expression here</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;qSOFA positive: </span><span class="si">{</span><span class="n">is_qsofa_positive</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient data</span>
+<span class="n">has_altered_mental_status</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">respiratory_rate</span> <span class="o">=</span> <span class="mi">25</span>  <span class="c1"># breaths/min</span>
+<span class="n">systolic_bp</span> <span class="o">=</span> <span class="mi">95</span>       <span class="c1"># mmHg</span>
+
+<span class="c1"># 1. Evaluate each criterion as a boolean variable</span>
+<span class="n">mental_status_met</span> <span class="o">=</span> <span class="n">has_altered_mental_status</span>
+<span class="n">resp_rate_met</span> <span class="o">=</span> <span class="n">respiratory_rate</span> <span class="o">&gt;=</span> <span class="mi">22</span>
+<span class="n">bp_met</span> <span class="o">=</span> <span class="n">systolic_bp</span> <span class="o">&lt;=</span> <span class="mi">100</span>
+
+<span class="c1"># 2. Combine the booleans to check if at least two are True</span>
+<span class="c1"># This logic checks the three required pairs (A and B, A and C, B and C)</span>
+<span class="n">is_qsofa_positive</span> <span class="o">=</span> <span class="p">(</span><span class="n">mental_status_met</span> <span class="ow">and</span> <span class="n">resp_rate_met</span><span class="p">)</span> <span class="ow">or</span> \
+                    <span class="p">(</span><span class="n">mental_status_met</span> <span class="ow">and</span> <span class="n">bp_met</span><span class="p">)</span> <span class="ow">or</span> \
+                    <span class="p">(</span><span class="n">resp_rate_met</span> <span class="ow">and</span> <span class="n">bp_met</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;qSOFA positive: </span><span class="si">{</span><span class="n">is_qsofa_positive</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: qSOFA positive: True</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> A more advanced and scalable way to solve this is to leverage the fact that in Python, <code class="docutils literal notranslate"><span class="pre">True</span></code> is treated as <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> is treated as <code class="docutils literal notranslate"><span class="pre">0</span></code>. You can put the boolean values in a list and sum them. This approach works for any number of criteria.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="c1"># Alternative, scalable solution</span>
+<span class="o">&gt;</span> <span class="n">criteria_met_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">mental_status_met</span><span class="p">,</span> <span class="n">resp_rate_met</span><span class="p">,</span> <span class="n">bp_met</span><span class="p">])</span>
+<span class="o">&gt;</span> <span class="n">is_qsofa_positive_alt</span> <span class="o">=</span> <span class="n">criteria_met_count</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Criteria met: </span><span class="si">{</span><span class="n">criteria_met_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;qSOFA positive (alternative method): </span><span class="si">{</span><span class="n">is_qsofa_positive_alt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="c1"># Output: Criteria met: 3</span>
+<span class="o">&gt;</span> <span class="c1"># Output: qSOFA positive (alternative method): True</span>
+<span class="o">&gt;</span> <span class="err">```</span>
+<span class="o">**</span><span class="n">Key</span> <span class="n">Learning</span><span class="p">:</span><span class="o">**</span> <span class="n">For</span> <span class="s2">&quot;at least X of Y&quot;</span> <span class="n">problems</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">either</span> <span class="n">explicitly</span> <span class="n">check</span> <span class="nb">all</span> <span class="n">combinations</span> <span class="k">with</span> <span class="err">`</span><span class="ow">and</span><span class="err">`</span> <span class="ow">and</span> <span class="err">`</span><span class="ow">or</span><span class="err">`</span><span class="p">,</span> <span class="ow">or</span> <span class="n">use</span> <span class="n">the</span> <span class="n">more</span> <span class="n">scalable</span> <span class="err">`</span><span class="nb">sum</span><span class="p">()</span><span class="err">`</span> <span class="n">method</span> <span class="n">on</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">booleans</span><span class="o">.</span>
+
+<span class="o">&gt;</span> <span class="o">**</span><span class="n">Reflection</span> <span class="n">Moment</span><span class="p">:</span><span class="o">**</span> <span class="n">The</span> <span class="n">first</span> <span class="n">qSOFA</span> <span class="n">solution</span> <span class="ow">is</span> <span class="n">explicit</span> <span class="ow">and</span> <span class="n">easy</span> <span class="n">to</span> <span class="n">read</span> <span class="k">for</span> <span class="n">three</span> <span class="n">criteria</span><span class="o">.</span> <span class="n">The</span> <span class="n">second</span> <span class="p">(</span><span class="err">`</span><span class="nb">sum</span><span class="p">()</span><span class="err">`</span><span class="p">)</span> <span class="n">solution</span> <span class="ow">is</span> <span class="n">more</span> <span class="n">concise</span> <span class="ow">and</span> <span class="n">scalable</span><span class="o">.</span> <span class="n">Which</span> <span class="n">approach</span> <span class="n">would</span> <span class="n">you</span> <span class="n">prefer</span> <span class="k">for</span> <span class="n">a</span> <span class="n">rule</span> <span class="k">with</span> <span class="n">five</span> <span class="n">criteria</span><span class="err">?</span> <span class="n">What</span> <span class="n">about</span> <span class="n">a</span> <span class="n">rule</span> <span class="k">with</span> <span class="n">only</span> <span class="n">two</span><span class="err">?</span> <span class="n">Consider</span> <span class="n">the</span> <span class="n">trade</span><span class="o">-</span><span class="n">offs</span> <span class="n">between</span> <span class="n">readability</span> <span class="k">for</span> <span class="n">your</span> <span class="n">clinical</span> <span class="n">colleagues</span> <span class="ow">and</span> <span class="n">technical</span> <span class="n">elegance</span><span class="o">.</span>
+
+
+<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Clinical Trial Eligibility Screening</strong>: Complex clinical trials have extensive inclusion and exclusion criteria. Logical operators are used to build automated screeners that check if a patient’s electronic health record data meets all inclusion criteria (<code class="docutils literal notranslate"><span class="pre">age</span> <span class="pre">&gt;</span> <span class="pre">18</span> <span class="pre">and</span> <span class="pre">diagnosis</span> <span class="pre">==</span> <span class="pre">'X'</span> <span class="pre">and</span> <span class="pre">lab_value</span> <span class="pre">&lt;</span> <span class="pre">50</span></code>) and none of the exclusion criteria (<code class="docutils literal notranslate"><span class="pre">and</span> <span class="pre">not</span> <span class="pre">has_allergy</span> <span class="pre">and</span> <span class="pre">not</span> <span class="pre">is_pregnant</span></code>). This drastically speeds up patient recruitment.</p></li>
+<li><p><strong>Automated Clinical Decision Support (CDS) Alerts</strong>: Hospital systems use CDS rules to improve patient safety. For example, a rule might flag a potential drug-drug interaction using <code class="docutils literal notranslate"><span class="pre">(is_prescribed_drug_A</span> <span class="pre">and</span> <span class="pre">is_prescribed_drug_B)</span></code>. Another rule could alert for critical lab values requiring immediate attention, such as <code class="docutils literal notranslate"><span class="pre">systolic_bp</span> <span class="pre">&lt;</span> <span class="pre">90</span> <span class="pre">or</span> <span class="pre">heart_rate</span> <span class="pre">&gt;</span> <span class="pre">130</span> <span class="pre">or</span> <span class="pre">oxygen_saturation</span> <span class="pre">&lt;</span> <span class="pre">90</span></code>.</p></li>
+<li><p><strong>Risk Stratification Algorithms</strong>: Many clinical risk scores, like the CHA₂DS₂-VASc score for stroke risk in atrial fibrillation, are based on the presence of multiple conditions. Logical operators can be used to determine if a patient has a specific combination of risk factors (e.g., <code class="docutils literal notranslate"><span class="pre">has_hypertension</span> <span class="pre">and</span> <span class="pre">age</span> <span class="pre">&gt;</span> <span class="pre">75</span></code>) to accurately calculate their risk profile and guide treatment.</p></li>
+<li><p><strong>Genomic Data Filtering</strong>: In precision medicine, researchers analyze genomic data to find disease-causing variants. A filtering pipeline might use logical operators to identify variants that meet several criteria simultaneously, such as <code class="docutils literal notranslate"><span class="pre">is_in_coding_region</span> <span class="pre">and</span> <span class="pre">population_frequency</span> <span class="pre">&lt;</span> <span class="pre">0.01</span> <span class="pre">and</span> <span class="pre">not</span> <span class="pre">is_benign_variant</span></code>, helping to pinpoint the most clinically relevant genetic markers.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to translate complex clinical logic into Python using the <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code> logical operators. We saw how these tools are essential for building rules that mirror the nuanced decision-making found in healthcare, from simple safety checks to sophisticated risk scoring.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">and</span></code> operator is used for strict requirements where all conditions must be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">or</span></code> operator provides flexibility, requiring only one of several conditions to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">not</span></code> operator is crucial for inverting a condition, often used to check for the absence of contraindications.</p></li>
+<li><p>Parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> are essential for controlling the order of evaluation in complex expressions, ensuring your code accurately reflects the intended clinical logic.</p></li>
+<li><p>Python’s short-circuit evaluation makes logical expressions more efficient and helps prevent common runtime errors.</p></li>
+</ul>
+<p>With this understanding of logical operators, you are now equipped to build multi-faceted rules. In the next section, we will learn how to use these rules to control the flow of our programs with conditional statements, allowing our code to execute different actions based on whether a condition is met.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.5_chaining_comparisons.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Foundational Python for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.6_escape_characters.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-and-operator-requiring-all-criteria">3.1 The <code class="docutils literal notranslate"><span class="pre">and</span></code> Operator: Requiring All Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-or-operator-requiring-at-least-one-criterion">3.2 The <code class="docutils literal notranslate"><span class="pre">or</span></code> Operator: Requiring at Least One Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-not-operator-inverting-a-condition">3.3 The <code class="docutils literal notranslate"><span class="pre">not</span></code> Operator: Inverting a Condition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-operators-precedence-and-parentheses">3.4 Combining Operators: Precedence and Parentheses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-logic-short-circuit-evaluation">3.5 Efficient Logic: Short-Circuit Evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-allergy-check">Exercise 1: Basic Allergy Check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sepsis-alert-criteria">Exercise 2: Sepsis Alert Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-qsofa-score-calculation">Exercise 3: qSOFA Score Calculation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

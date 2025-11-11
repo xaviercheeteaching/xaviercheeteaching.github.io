@@ -1,0 +1,865 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Foundations of Python for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.4_order_of_operations';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Core Python for Precision Health" href="1.5_boolean_values_truthy_falsy_values.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.4_multiplication_division.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.4_order_of_operations.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.4_order_of_operations.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Foundations of Python for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-preventing-errors-in-medical-calculations">1. Introduction: Preventing Errors in Medical Calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-default-order-bmi-calculation">3.1 The Default Order: BMI Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overriding-the-order-with-parentheses">3.2 Overriding the Order with Parentheses</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-calculate-anion-gap">Exercise 1: Calculate Anion Gap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-pediatric-dosage-calculation">Exercise 2: Pediatric Dosage Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-calculate-mean-arterial-pressure-map">Exercise 3: Calculate Mean Arterial Pressure (MAP)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-foundations-of-python-for-precision-health">
+<h1>Chapter 1: Foundations of Python for Precision Health<a class="headerlink" href="#chapter-1-foundations-of-python-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction-preventing-errors-in-medical-calculations">
+<h2>1. Introduction: Preventing Errors in Medical Calculations<a class="headerlink" href="#introduction-preventing-errors-in-medical-calculations" title="Link to this heading">#</a></h2>
+<p>In precision health, calculations must be exact. This section focuses on the fundamental principle that governs all mathematical calculations in Python: the order of operations. You will learn how Python uses the PEMDAS rule to evaluate complex formulas and, more importantly, how to use parentheses to control this order. Mastering this skill is not just about writing correct code; it’s about ensuring patient safety and computational accuracy in every formula you implement.</p>
+<blockquote>
+<div><p><strong>Important:</strong> In medical calculations, an error in the order of operations isn’t just a bug—it can lead to incorrect dosages, misdiagnosed conditions, and severe patient harm. Always double-check your formulas and use parentheses to ensure calculations are performed exactly as intended.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>PEMDAS</strong>: An acronym for <strong>P</strong>arentheses, <strong>E</strong>xponents, <strong>M</strong>ultiplication/ <strong>D</strong>ivision, <strong>A</strong>ddition/ <strong>S</strong>ubtraction. This is the default hierarchy Python follows to determine which operation to perform first in a multi-step expression. In a clinical setting, understanding PEMDAS is crucial for verifying that a formula for something like drug clearance or a risk score is implemented correctly.</p></li>
+<li><p><strong>Operator Precedence</strong>: The built-in priority system that dictates the order in which operators are evaluated. Exponents (<code class="docutils literal notranslate"><span class="pre">**</span></code>) have a higher precedence than multiplication (<code class="docutils literal notranslate"><span class="pre">*</span></code>), which has a higher precedence than addition (<code class="docutils literal notranslate"><span class="pre">+</span></code>). This is like the triage system in an emergency room, where the most critical operations are handled first.</p></li>
+<li><p><strong>Parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code></strong>: Special symbols used to group parts of an expression, forcing them to be evaluated first, regardless of operator precedence. In medical formulas, parentheses are essential for ensuring that additions or subtractions are completed before a division or multiplication, such as when calculating an average of multiple readings or summing values in a diagnostic formula.</p></li>
+<li><p><strong>Expression</strong>: A combination of values, variables, and operators that Python computes to produce a result. A formula to calculate a patient’s Body Mass Index (BMI) or Anion Gap is a practical example of an expression.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>This section covers how Python interprets mathematical formulas, first by its default rules and then by following explicit instructions provided through parentheses.</p>
+<section id="the-default-order-bmi-calculation">
+<h3>3.1 The Default Order: BMI Calculation<a class="headerlink" href="#the-default-order-bmi-calculation" title="Link to this heading">#</a></h3>
+<p>Python automatically follows the PEMDAS rule, which is essential for standard formulas like Body Mass Index (BMI). The formula is <code class="docutils literal notranslate"><span class="pre">weight</span> <span class="pre">/</span> <span class="pre">height²</span></code>. Python’s adherence to PEMDAS means you can often write such formulas naturally.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate Body Mass Index (BMI) for a patient at City Medical Center</span>
+<span class="n">weight_kg</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">height_m</span> <span class="o">=</span> <span class="mf">1.75</span>
+
+<span class="c1"># Python evaluates the exponentiation (**) before the division (/) due to higher precedence.</span>
+<span class="n">bmi</span> <span class="o">=</span> <span class="n">weight_kg</span> <span class="o">/</span> <span class="n">height_m</span><span class="o">**</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;BMI: </span><span class="si">{</span><span class="n">bmi</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># BMI: 22.9</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Execution Breakdown:</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">height_m**2</span></code> is evaluated first (1.75 * 1.75 = 3.0625), as Exponentiation (<code class="docutils literal notranslate"><span class="pre">E</span></code>) has higher precedence than Division (<code class="docutils literal notranslate"><span class="pre">D</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">weight_kg</span> <span class="pre">/</span> <span class="pre">3.0625</span></code> is evaluated second (70 / 3.0625), producing the correct BMI of 22.9.</p></li>
+</ol>
+</section>
+<section id="overriding-the-order-with-parentheses">
+<h3>3.2 Overriding the Order with Parentheses<a class="headerlink" href="#overriding-the-order-with-parentheses" title="Link to this heading">#</a></h3>
+<p>In many cases, you need to override the default order. Parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> are your primary tool for forcing an operation to happen first. This is critical when calculating an average or implementing formulas where sums or differences are divided.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the average of two glucose readings for a patient</span>
+<span class="n">reading1_mg_dL</span> <span class="o">=</span> <span class="mi">122</span>
+<span class="n">reading2_mg_dL</span> <span class="o">=</span> <span class="mi">133</span>
+
+<span class="c1"># The parentheses force the addition to execute before the division.</span>
+<span class="n">average_reading</span> <span class="o">=</span> <span class="p">(</span><span class="n">reading1_mg_dL</span> <span class="o">+</span> <span class="n">reading2_mg_dL</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Glucose: </span><span class="si">{</span><span class="n">average_reading</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> mg/dL&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Average Glucose: 128 mg/dL</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Execution Breakdown:</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(reading1_mg_dL</span> <span class="pre">+</span> <span class="pre">reading2_mg_dL)</span></code> is evaluated first (122 + 133 = 255) because it is enclosed in parentheses.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">255</span> <span class="pre">/</span> <span class="pre">2</span></code> is evaluated second, yielding the correct average of 127.5, which is then formatted to <code class="docutils literal notranslate"><span class="pre">128</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Even when the default order of operations is correct, many developers add parentheses to make the formula’s intent explicitly clear. For example, writing <code class="docutils literal notranslate"><span class="pre">bmi</span> <span class="pre">=</span> <span class="pre">weight_kg</span> <span class="pre">/</span> <span class="pre">(height_m**2)</span></code> leaves no doubt about the calculation order. In medical software, clarity is always worth the extra keystrokes.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-calculate-anion-gap">
+<h3>Exercise 1: Calculate Anion Gap<a class="headerlink" href="#exercise-1-calculate-anion-gap" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use parentheses to correctly group addition and subtraction operations as specified by a medical formula.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> The Anion Gap helps diagnose the cause of metabolic acidosis. The formula is <code class="docutils literal notranslate"><span class="pre">(Na⁺</span> <span class="pre">+</span> <span class="pre">K⁺)</span> <span class="pre">-</span> <span class="pre">(Cl⁻</span> <span class="pre">+</span> <span class="pre">HCO₃⁻)</span></code>, requiring two separate sums before the final subtraction.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> The Anion Gap is a value calculated from a patient’s electrolyte levels. It is a crucial diagnostic tool used in emergency medicine and critical care to help determine the cause of metabolic acidosis, a condition where there is too much acid in the body’s fluids. An elevated Anion Gap can point to conditions like diabetic ketoacidosis or lactic acidosis.</p>
+</div></blockquote>
+<p>Using the lab values below for a patient at City Medical Center, calculate and print the Anion Gap.</p>
+<p>Calculate Anion Gap</p>
+<p><strong>Objective:</strong> Use parentheses to correctly group addition and subtraction operations as specified by a medical formula.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> The Anion Gap helps diagnose the cause of metabolic acidosis. The formula is <code class="docutils literal notranslate"><span class="pre">(Na⁺</span> <span class="pre">+</span> <span class="pre">K⁺)</span> <span class="pre">-</span> <span class="pre">(Cl⁻</span> <span class="pre">+</span> <span class="pre">HCO₃⁻)</span></code>, requiring two separate sums before the final subtraction.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> The Anion Gap is a value calculated from a patient’s electrolyte levels. It is a crucial diagnostic tool used in emergency medicine and critical care to help determine the cause of metabolic acidosis, a condition where there is too much acid in the body’s fluids. An elevated Anion Gap can point to conditions like diabetic ketoacidosis or lactic acidosis.</p>
+</div></blockquote>
+<p>Using the lab values below for a patient at City Medical Center, calculate and print the Anion Gap.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient lab values in mEq/L</span>
+<span class="n">sodium</span> <span class="o">=</span> <span class="mi">140</span>
+<span class="n">potassium</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">chloride</span> <span class="o">=</span> <span class="mi">102</span>
+<span class="n">bicarbonate</span> <span class="o">=</span> <span class="mi">24</span>
+
+<span class="c1"># Your code here: Calculate the anion gap and print the result.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient lab values in mEq/L</span>
+<span class="n">sodium</span> <span class="o">=</span> <span class="mi">140</span>
+<span class="n">potassium</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">chloride</span> <span class="o">=</span> <span class="mi">102</span>
+<span class="n">bicarbonate</span> <span class="o">=</span> <span class="mi">24</span>
+
+<span class="n">anion_gap</span> <span class="o">=</span> <span class="p">(</span><span class="n">sodium</span> <span class="o">+</span> <span class="n">potassium</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">chloride</span> <span class="o">+</span> <span class="n">bicarbonate</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Anion Gap: </span><span class="si">{</span><span class="n">anion_gap</span><span class="si">}</span><span class="s2"> mEq/L&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Anion Gap: 18 mEq/L</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The parentheses ensure that <code class="docutils literal notranslate"><span class="pre">sodium</span> <span class="pre">+</span> <span class="pre">potassium</span></code> (144) and <code class="docutils literal notranslate"><span class="pre">chloride</span> <span class="pre">+</span> <span class="pre">bicarbonate</span></code> (126) are calculated first. Then, the subtraction is performed (144 - 126), yielding the correct result of 18.
+<strong>Key Learning:</strong> Parentheses are essential for grouping terms in complex formulas to match their established medical definitions.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> The note in the original content mentioned that an alternative formula for the Anion Gap excludes potassium (K⁺). How would you modify your code to create a function that accepts an optional boolean argument, <code class="docutils literal notranslate"><span class="pre">include_potassium</span></code>, to handle both calculation methods?</p>
+</div></blockquote>
+</div>
+</details></section>
+<section id="exercise-2-pediatric-dosage-calculation">
+<h3>Exercise 2: Pediatric Dosage Calculation<a class="headerlink" href="#exercise-2-pediatric-dosage-calculation" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Implement a pediatric dosage formula that requires parentheses to ensure correct calculation order.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Clark’s Rule is a method for estimating a medication dose for a child based on their weight. The formula is: <code class="docutils literal notranslate"><span class="pre">(Child's</span> <span class="pre">Weight</span> <span class="pre">in</span> <span class="pre">lbs</span> <span class="pre">/</span> <span class="pre">150)</span> <span class="pre">*</span> <span class="pre">Adult</span> <span class="pre">Dose</span></code>.</p>
+<p>A child weighs 50 lbs, and the standard adult dose of a medication is 300 mg. Calculate the correct pediatric dose.</p>
+<p>Pediatric Dosage Calculation</p>
+<p><strong>Objective:</strong> Implement a pediatric dosage formula that requires parentheses to ensure correct calculation order.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Clark’s Rule is a method for estimating a medication dose for a child based on their weight. The formula is: <code class="docutils literal notranslate"><span class="pre">(Child's</span> <span class="pre">Weight</span> <span class="pre">in</span> <span class="pre">lbs</span> <span class="pre">/</span> <span class="pre">150)</span> <span class="pre">*</span> <span class="pre">Adult</span> <span class="pre">Dose</span></code>.</p>
+<p>A child weighs 50 lbs, and the standard adult dose of a medication is 300 mg. Calculate the correct pediatric dose.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient and medication data</span>
+<span class="n">child_weight_lbs</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">adult_dose_mg</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="c1"># Your code here: Calculate the pediatric dose using Clark&#39;s Rule.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient and medication data</span>
+<span class="n">child_weight_lbs</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">adult_dose_mg</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="n">pediatric_dose</span> <span class="o">=</span> <span class="p">(</span><span class="n">child_weight_lbs</span> <span class="o">/</span> <span class="mi">150</span><span class="p">)</span> <span class="o">*</span> <span class="n">adult_dose_mg</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pediatric Dose: </span><span class="si">{</span><span class="n">pediatric_dose</span><span class="si">}</span><span class="s2"> mg&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Pediatric Dose: 100.0 mg</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The parentheses ensure the weight ratio is calculated before multiplying by the adult dose. While this specific formula would work without parentheses due to left-to-right evaluation of <code class="docutils literal notranslate"><span class="pre">/</span></code> and <code class="docutils literal notranslate"><span class="pre">*</span></code>, using them makes the formula’s intent explicit and prevents errors if the formula were more complex.
+<strong>Key Learning:</strong> Using parentheses proactively improves code readability and reduces the risk of misinterpretation, which is vital in dosage calculations.</p>
+</div>
+</details></section>
+<section id="exercise-3-calculate-mean-arterial-pressure-map">
+<h3>Exercise 3: Calculate Mean Arterial Pressure (MAP)<a class="headerlink" href="#exercise-3-calculate-mean-arterial-pressure-map" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Correct a common mistake in a formula by adding parentheses to enforce the proper order of operations.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Mean Arterial Pressure (MAP) represents the average pressure in a patient’s arteries during one cardiac cycle. It’s a better indicator of perfusion than systolic pressure alone. The formula is <code class="docutils literal notranslate"><span class="pre">((2</span> <span class="pre">*</span> <span class="pre">Diastolic</span> <span class="pre">Pressure)</span> <span class="pre">+</span> <span class="pre">Systolic</span> <span class="pre">Pressure)</span> <span class="pre">/</span> <span class="pre">3</span></code>.</p>
+<p>The code below is incorrect. Add parentheses to fix it and calculate the correct MAP.</p>
+<p>Calculate Mean Arterial Pressure (MAP)</p>
+<p><strong>Objective:</strong> Correct a common mistake in a formula by adding parentheses to enforce the proper order of operations.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Mean Arterial Pressure (MAP) represents the average pressure in a patient’s arteries during one cardiac cycle. It’s a better indicator of perfusion than systolic pressure alone. The formula is <code class="docutils literal notranslate"><span class="pre">((2</span> <span class="pre">*</span> <span class="pre">Diastolic</span> <span class="pre">Pressure)</span> <span class="pre">+</span> <span class="pre">Systolic</span> <span class="pre">Pressure)</span> <span class="pre">/</span> <span class="pre">3</span></code>.</p>
+<p>The code below is incorrect. Add parentheses to fix it and calculate the correct MAP.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient vital signs</span>
+<span class="n">systolic_bp</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">diastolic_bp</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="c1"># Your code here: Write the corrected formula to calculate MAP.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient vital signs</span>
+<span class="n">systolic_bp</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">diastolic_bp</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="c1"># Corrected calculation</span>
+<span class="n">correct_map</span> <span class="o">=</span> <span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">diastolic_bp</span><span class="p">)</span> <span class="o">+</span> <span class="n">systolic_bp</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Correct MAP: </span><span class="si">{</span><span class="n">correct_map</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Correct MAP: 93.3</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The incorrect formula would calculate <code class="docutils literal notranslate"><span class="pre">systolic_bp</span> <span class="pre">/</span> <span class="pre">3</span></code> first. The correct formula requires the entire sum of <code class="docutils literal notranslate"><span class="pre">(2</span> <span class="pre">*</span> <span class="pre">diastolic_bp)</span> <span class="pre">+</span> <span class="pre">systolic_bp</span></code> to be calculated <em>before</em> the division by 3. The outer parentheses are essential.
+<strong>Key Learning:</strong> Failing to group terms with parentheses before division is one of the most common and critical sources of error when translating medical formulas into code.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Calculating Infusion Rates:</strong> When programming an infusion pump or writing a script to verify dosages, formulas often involve total volume, medication concentration, and time. For example, calculating <code class="docutils literal notranslate"><span class="pre">(Total</span> <span class="pre">Volume</span> <span class="pre">/</span> <span class="pre">Total</span> <span class="pre">Hours)</span> <span class="pre">*</span> <span class="pre">Drop</span> <span class="pre">Factor</span></code> requires the division to happen first, which parentheses can enforce for clarity and safety.</p></li>
+<li><p><strong>Pharmacokinetic (PK) Modeling:</strong> PK models use complex differential equations to describe how a drug moves through the body. Implementing these models in Python requires meticulous use of parentheses to ensure that rates of absorption, distribution, metabolism, and excretion are calculated in the correct sequence.</p></li>
+<li><p><strong>Clinical Risk Scoring Systems:</strong> Tools like the SOFA (Sequential Organ Failure Assessment) or APACHE II scores require summing points from various physiological measurements. The formulas often involve sub-calculations (e.g., <code class="docutils literal notranslate"><span class="pre">(value</span> <span class="pre">-</span> <span class="pre">baseline)</span> <span class="pre">/</span> <span class="pre">range</span></code>) that must be correctly grouped with parentheses before being added to a total score.</p></li>
+<li><p><strong>Lab Data Analysis:</strong> When analyzing lab panels, you might calculate ratios like Albumin/Globulin or complex indicators like the corrected calcium level: <code class="docutils literal notranslate"><span class="pre">Corrected</span> <span class="pre">Calcium</span> <span class="pre">=</span> <span class="pre">Measured</span> <span class="pre">Calcium</span> <span class="pre">+</span> <span class="pre">0.8</span> <span class="pre">*</span> <span class="pre">(4.0</span> <span class="pre">-</span> <span class="pre">Serum</span> <span class="pre">Albumin)</span></code>. The order of operations is critical to ensure the adjustment is calculated correctly before being added to the measured value.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how Python’s rigid order of operations (PEMDAS) is a foundational element for performing accurate calculations in a precision health context. We saw that while Python’s default rules work for some standard formulas, the use of parentheses is a non-negotiable skill for correctly implementing the vast majority of medical formulas.</p>
+<ul class="simple">
+<li><p><strong>PEMDAS is Python’s Rulebook:</strong> Python evaluates expressions in a fixed order: Parentheses, Exponents, Multiplication/Division, then Addition/Subtraction.</p></li>
+<li><p><strong>Parentheses Grant Control:</strong> Use parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> to force any part of an expression to be evaluated first, overriding the default PEMDAS rules.</p></li>
+<li><p><strong>Errors are Costly:</strong> A simple mistake in the order of operations can lead to a completely wrong result, which is unacceptable in a medical setting where calculations for dosages, lab values, and risk scores must be perfect.</p></li>
+<li><p><strong>Clarity is Safety:</strong> Using parentheses, even when not strictly necessary, makes your code easier to read and verify, which is a critical practice for building safe and reliable medical software.</p></li>
+</ul>
+<p>By mastering the order of operations, you have taken a crucial step toward writing code that is not only functional but also safe and accurate. Next, we will explore how to store and manage data using variables and different data types.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.4_multiplication_division.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.5_boolean_values_truthy_falsy_values.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Core Python for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-preventing-errors-in-medical-calculations">1. Introduction: Preventing Errors in Medical Calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-default-order-bmi-calculation">3.1 The Default Order: BMI Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overriding-the-order-with-parentheses">3.2 Overriding the Order with Parentheses</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-calculate-anion-gap">Exercise 1: Calculate Anion Gap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-pediatric-dosage-calculation">Exercise 2: Pediatric Dosage Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-calculate-mean-arterial-pressure-map">Exercise 3: Calculate Mean Arterial Pressure (MAP)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

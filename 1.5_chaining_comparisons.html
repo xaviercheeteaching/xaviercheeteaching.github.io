@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Foundational Python for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.5_chaining_comparisons';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: The Building Blocks of Clinical Logic" href="1.5_logical_operators.html" />
+    <link rel="prev" title="Chapter 1: Foundations of Python for Precision Health" href="1.5_comparison_operators.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.5_chaining_comparisons.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.5_chaining_comparisons.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Foundational Python for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-check-pediatric-resting-heart-rate">3.1 Example: Check Pediatric Resting Heart Rate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-assess-normal-body-temperature-basic">Exercise 1: Assess Normal Body Temperature (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-validate-fasting-blood-glucose-intermediate">Exercise 2: Validate Fasting Blood Glucose (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-identify-mild-hypoxemia-intermediate">Exercise 3: Identify Mild Hypoxemia (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-foundational-python-for-precision-health">
+<h1>Chapter 1: Foundational Python for Precision Health<a class="headerlink" href="#chapter-1-foundational-python-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In clinical settings, data is constantly evaluated against established norms. Is a patient’s heart rate too high? Is their body temperature within the normal range? This section introduces chained comparisons, a concise and highly readable Python feature for checking if a value falls within a specific range. This technique simplifies code, reduces the chance of logical errors, and directly mirrors how clinicians think about patient data. We will explore the syntax, see its practical application in checking vital signs, and practice using it to solve common clinical validation tasks.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Chained Comparison</strong>: A sequence of comparison operators written in a single expression, such as <code class="docutils literal notranslate"><span class="pre">lower_bound</span> <span class="pre">&lt;=</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">upper_bound</span></code>. Python evaluates this as a series of connected checks, offering a more intuitive syntax for range checking.</p></li>
+<li><p><strong>Range Checking</strong>: The process of verifying if a numerical value falls within a predefined lower and upper bound. In medicine, this is a fundamental task for interpreting clinical data, from lab results to vital signs, to determine if they are normal, abnormal, or critical.</p></li>
+<li><p><strong>Logical Equivalence</strong>: The principle that a chained comparison is a more concise and readable form of two separate comparisons joined by a logical <code class="docutils literal notranslate"><span class="pre">and</span></code> operator. For example, <code class="docutils literal notranslate"><span class="pre">80</span> <span class="pre">&lt;=</span> <span class="pre">heart_rate</span> <span class="pre">&lt;=</span> <span class="pre">130</span></code> is logically equivalent to <code class="docutils literal notranslate"><span class="pre">80</span> <span class="pre">&lt;=</span> <span class="pre">heart_rate</span> <span class="pre">and</span> <span class="pre">heart_rate</span> <span class="pre">&lt;=</span> <span class="pre">130</span></code>.</p></li>
+<li><p><strong>Vital Signs</strong>: A group of essential medical signs that indicate the status of the body’s life-sustaining functions. These measurements, including heart rate, body temperature, and blood pressure, are frequently checked against normal ranges to assess a patient’s health.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>Chained comparisons provide a powerful shorthand for determining if a value lies between two other values. This is especially useful in healthcare programming, where data validation against normal ranges is a constant requirement.</p>
+<section id="example-check-pediatric-resting-heart-rate">
+<h3>3.1 Example: Check Pediatric Resting Heart Rate<a class="headerlink" href="#example-check-pediatric-resting-heart-rate" title="Link to this heading">#</a></h3>
+<p>This function uses a chained comparison to check if a toddler’s resting heart rate is within the normal range of 80-130 beats per minute (bpm), according to data from Johns Hopkins Medicine (2023).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define constants for the medical range for clarity and maintainability</span>
+<span class="n">TODDLER_HR_MIN_BPM</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">TODDLER_HR_MAX_BPM</span> <span class="o">=</span> <span class="mi">130</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_toddler_resting_hr_normal</span><span class="p">(</span><span class="n">heart_rate</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if a resting heart rate is normal for a toddler.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        heart_rate: The toddler&#39;s resting heart rate in beats per minute.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the heart rate is within the normal range, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># This chained comparison checks if heart_rate is both &gt;= min and &lt;= max.</span>
+    <span class="k">return</span> <span class="n">TODDLER_HR_MIN_BPM</span> <span class="o">&lt;=</span> <span class="n">heart_rate</span> <span class="o">&lt;=</span> <span class="n">TODDLER_HR_MAX_BPM</span>
+
+<span class="c1"># Test cases</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resting heart rate 110 is normal: </span><span class="si">{</span><span class="n">is_toddler_resting_hr_normal</span><span class="p">(</span><span class="mi">110</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resting heart rate 75 is normal: </span><span class="si">{</span><span class="n">is_toddler_resting_hr_normal</span><span class="p">(</span><span class="mi">75</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resting heart rate 135 is normal: </span><span class="si">{</span><span class="n">is_toddler_resting_hr_normal</span><span class="p">(</span><span class="mi">135</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Resting heart rate 110 is normal: True</span>
+<span class="c1"># Resting heart rate 75 is normal: False</span>
+<span class="c1"># Resting heart rate 135 is normal: False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Normal vital signs, like resting heart rate, vary significantly with age. For a toddler (1-3 years), the typical range is 80-130 beats per minute (bpm). For adults, it’s lower, usually 60-100 bpm. Writing functions that check these ranges is a common task in pediatric and adult medical software.</p>
+</div></blockquote>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">TODDLER_HR_MIN_BPM</span> <span class="pre">&lt;=</span> <span class="pre">heart_rate</span> <span class="pre">&lt;=</span> <span class="pre">TODDLER_HR_MAX_BPM</span></code> is a clean and intuitive way to check if the <code class="docutils literal notranslate"><span class="pre">heart_rate</span></code> is within the inclusive range. Python automatically interprets this as <code class="docutils literal notranslate"><span class="pre">TODDLER_HR_MIN_BPM</span> <span class="pre">&lt;=</span> <span class="pre">heart_rate</span> <span class="pre">and</span> <span class="pre">heart_rate</span> <span class="pre">&lt;=</span> <span class="pre">TODDLER_HR_MAX_BPM</span></code>, but the chained version is less repetitive and easier to read at a glance.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Chaining comparisons like <code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">&lt;=</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">max</span></code> is not just shorter; it’s also more readable and less error-prone than the longer <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">&gt;=</span> <span class="pre">min</span> <span class="pre">and</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">max</span></code>. This Pythonic syntax clearly communicates the intent to check if a value is within a range.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-assess-normal-body-temperature-basic">
+<h3>Exercise 1: Assess Normal Body Temperature (Basic)<a class="headerlink" href="#exercise-1-assess-normal-body-temperature-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a chained comparison to validate a temperature value within a floating-point range.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> In clinical monitoring systems, automated checks for fever are crucial. A core clinical task is checking for fever (hyperthermia) or abnormally low body temperature (hypothermia). The normal adult range is typically 36.1°C to 37.2°C.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">is_temp_normal(temperature)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if a temperature is within the normal <strong>adult</strong> inclusive range of 36.1°C to 37.2°C.</p>
+<p>Assess Normal Body Temperature (Basic)</p>
+<p><strong>Objective:</strong> Use a chained comparison to validate a temperature value within a floating-point range.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> In clinical monitoring systems, automated checks for fever are crucial. A core clinical task is checking for fever (hyperthermia) or abnormally low body temperature (hypothermia). The normal adult range is typically 36.1°C to 37.2°C.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">is_temp_normal(temperature)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if a temperature is within the normal <strong>adult</strong> inclusive range of 36.1°C to 37.2°C.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write your function here.</span>
+
+
+<span class="c1"># Test your function with these values:</span>
+<span class="c1"># print(f&quot;36.5°C is normal: {is_temp_normal(36.5)}&quot;) # Expected: True</span>
+<span class="c1"># print(f&quot;38.0°C is normal: {is_temp_normal(38.0)}&quot;) # Expected: False</span>
+<span class="c1"># print(f&quot;36.1°C is normal: {is_temp_normal(36.1)}&quot;) # Expected: True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NORMAL_ADULT_TEMP_MIN_C</span> <span class="o">=</span> <span class="mf">36.1</span>
+<span class="n">NORMAL_ADULT_TEMP_MAX_C</span> <span class="o">=</span> <span class="mf">37.2</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_temp_normal</span><span class="p">(</span><span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if a body temperature is within the normal adult range.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        temperature: The body temperature in degrees Celsius.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the temperature is within the normal range, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">NORMAL_ADULT_TEMP_MIN_C</span> <span class="o">&lt;=</span> <span class="n">temperature</span> <span class="o">&lt;=</span> <span class="n">NORMAL_ADULT_TEMP_MAX_C</span>
+
+<span class="c1"># Test your function with these values:</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;36.5°C is normal: </span><span class="si">{</span><span class="n">is_temp_normal</span><span class="p">(</span><span class="mf">36.5</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;38.0°C is normal: </span><span class="si">{</span><span class="n">is_temp_normal</span><span class="p">(</span><span class="mf">38.0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;36.1°C is normal: </span><span class="si">{</span><span class="n">is_temp_normal</span><span class="p">(</span><span class="mf">36.1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># 36.5°C is normal: True</span>
+<span class="c1"># 38.0°C is normal: False</span>
+<span class="c1"># 36.1°C is normal: True</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The expression <code class="docutils literal notranslate"><span class="pre">NORMAL_ADULT_TEMP_MIN_C</span> <span class="pre">&lt;=</span> <span class="pre">temperature</span> <span class="pre">&lt;=</span> <span class="pre">NORMAL_ADULT_TEMP_MAX_C</span></code> directly and efficiently checks if the <code class="docutils literal notranslate"><span class="pre">temperature</span></code> falls within the specified inclusive range.
+<strong>Key Learning:</strong> Chained comparisons work seamlessly with floating-point numbers, which are common in medical measurements.</p>
+</div>
+</details></section>
+<section id="exercise-2-validate-fasting-blood-glucose-intermediate">
+<h3>Exercise 2: Validate Fasting Blood Glucose (Intermediate)<a class="headerlink" href="#exercise-2-validate-fasting-blood-glucose-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Write a function that checks for a normal fasting blood glucose range.
+<strong>Time:</strong> 4 minutes
+<strong>Medical Context:</strong> Fasting blood glucose levels are used to screen for and manage diabetes. A normal range is generally considered to be between 70 and 100 mg/dL.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">is_glucose_normal(glucose_level)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if a fasting glucose level is within the inclusive range of 70 to 100 mg/dL.</p>
+<p>Validate Fasting Blood Glucose (Intermediate)</p>
+<p><strong>Objective:</strong> Write a function that checks for a normal fasting blood glucose range.
+<strong>Time:</strong> 4 minutes
+<strong>Medical Context:</strong> Fasting blood glucose levels are used to screen for and manage diabetes. A normal range is generally considered to be between 70 and 100 mg/dL.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">is_glucose_normal(glucose_level)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if a fasting glucose level is within the inclusive range of 70 to 100 mg/dL.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write your function here.</span>
+
+
+<span class="c1"># Test your function with these values:</span>
+<span class="c1"># print(f&quot;Glucose 95 mg/dL is normal: {is_glucose_normal(95)}&quot;)   # Expected: True</span>
+<span class="c1"># print(f&quot;Glucose 65 mg/dL is normal: {is_glucose_normal(65)}&quot;)   # Expected: False</span>
+<span class="c1"># print(f&quot;Glucose 110 mg/dL is normal: {is_glucose_normal(110)}&quot;) # Expected: False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NORMAL_GLUCOSE_MIN_MG_DL</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">NORMAL_GLUCOSE_MAX_MG_DL</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_glucose_normal</span><span class="p">(</span><span class="n">glucose_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if a fasting blood glucose level is normal.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        glucose_level: The blood glucose level in mg/dL.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the glucose level is within the normal range, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">NORMAL_GLUCOSE_MIN_MG_DL</span> <span class="o">&lt;=</span> <span class="n">glucose_level</span> <span class="o">&lt;=</span> <span class="n">NORMAL_GLUCOSE_MAX_MG_DL</span>
+
+<span class="c1"># Test your function with these values:</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Glucose 95 mg/dL is normal: </span><span class="si">{</span><span class="n">is_glucose_normal</span><span class="p">(</span><span class="mi">95</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Glucose 65 mg/dL is normal: </span><span class="si">{</span><span class="n">is_glucose_normal</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Glucose 110 mg/dL is normal: </span><span class="si">{</span><span class="n">is_glucose_normal</span><span class="p">(</span><span class="mi">110</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Glucose 95 mg/dL is normal: True</span>
+<span class="c1"># Glucose 65 mg/dL is normal: False</span>
+<span class="c1"># Glucose 110 mg/dL is normal: False</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function uses a chained comparison to verify that <code class="docutils literal notranslate"><span class="pre">glucose_level</span></code> is greater than or equal to 70 AND less than or equal to 100.
+<strong>Key Learning:</strong> Chained comparisons are ideal for implementing clinical guidelines that are defined by a standard range.</p>
+</div>
+</details></section>
+<section id="exercise-3-identify-mild-hypoxemia-intermediate">
+<h3>Exercise 3: Identify Mild Hypoxemia (Intermediate)<a class="headerlink" href="#exercise-3-identify-mild-hypoxemia-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a chained comparison to identify a value within a specific clinical sub-category.
+<strong>Time:</strong> 4 minutes
+<strong>Medical Context:</strong> Pulse oximetry measures oxygen saturation (SpO2). While normal is typically &gt;95%, levels between 90% and 94% can indicate mild hypoxemia, a condition requiring clinical attention.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">is_mildly_hypoxemic(spo2)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if an SpO2 level is between 90% and 94% (inclusive).</p>
+<p>Identify Mild Hypoxemia (Intermediate)</p>
+<p><strong>Objective:</strong> Use a chained comparison to identify a value within a specific clinical sub-category.
+<strong>Time:</strong> 4 minutes
+<strong>Medical Context:</strong> Pulse oximetry measures oxygen saturation (SpO2). While normal is typically &gt;95%, levels between 90% and 94% can indicate mild hypoxemia, a condition requiring clinical attention.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">is_mildly_hypoxemic(spo2)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if an SpO2 level is between 90% and 94% (inclusive).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write your function here.</span>
+
+
+<span class="c1"># Test your function with these values:</span>
+<span class="c1"># print(f&quot;SpO2 92% indicates mild hypoxemia: {is_mildly_hypoxemic(92)}&quot;) # Expected: True</span>
+<span class="c1"># print(f&quot;SpO2 96% indicates mild hypoxemia: {is_mildly_hypoxemic(96)}&quot;) # Expected: False</span>
+<span class="c1"># print(f&quot;SpO2 89% indicates mild hypoxemia: {is_mildly_hypoxemic(89)}&quot;) # Expected: False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MILD_HYPOXEMIA_SPO2_MIN</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">MILD_HYPOXEMIA_SPO2_MAX</span> <span class="o">=</span> <span class="mi">94</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_mildly_hypoxemic</span><span class="p">(</span><span class="n">spo2</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if an SpO2 level indicates mild hypoxemia.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        spo2: The oxygen saturation level as a percentage.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the SpO2 level is within the mild hypoxemia range, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">MILD_HYPOXEMIA_SPO2_MIN</span> <span class="o">&lt;=</span> <span class="n">spo2</span> <span class="o">&lt;=</span> <span class="n">MILD_HYPOXEMIA_SPO2_MAX</span>
+
+<span class="c1"># Test your function with these values:</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SpO2 92% indicates mild hypoxemia: </span><span class="si">{</span><span class="n">is_mildly_hypoxemic</span><span class="p">(</span><span class="mi">92</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SpO2 96% indicates mild hypoxemia: </span><span class="si">{</span><span class="n">is_mildly_hypoxemic</span><span class="p">(</span><span class="mi">96</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SpO2 89% indicates mild hypoxemia: </span><span class="si">{</span><span class="n">is_mildly_hypoxemic</span><span class="p">(</span><span class="mi">89</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># SpO2 92% indicates mild hypoxemia: True</span>
+<span class="c1"># SpO2 96% indicates mild hypoxemia: False</span>
+<span class="c1"># SpO2 89% indicates mild hypoxemia: False</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function checks if the <code class="docutils literal notranslate"><span class="pre">spo2</span></code> value falls squarely within the 90-94 range, correctly identifying this specific clinical state.
+<strong>Key Learning:</strong> Chained comparisons are not just for “normal” ranges; they are effective for identifying any defined numerical bracket, such as different stages or severities of a condition.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p>Chained comparisons are fundamental in building reliable and readable clinical software.</p>
+<ul class="simple">
+<li><p><strong>Automated Clinical Alerts:</strong> In an Electronic Health Record (EHR), a chained comparison could instantly flag an abnormal vital sign on a patient’s chart, triggering an alert for the nursing staff to review. A rule like <code class="docutils literal notranslate"><span class="pre">3.5</span> <span class="pre">&lt;=</span> <span class="pre">potassium_level</span> <span class="pre">&lt;=</span> <span class="pre">5.2</span></code> can run automatically on new lab results. This simple line of code can be a critical first step in early detection of a patient’s deteriorating condition, providing critical decision support and preventing dangerous results from being overlooked.</p></li>
+<li><p><strong>Patient Triage Algorithms:</strong> Emergency department software uses chained comparisons to help categorize patient acuity based on vital signs. A patient’s respiratory rate might be checked with <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">&lt;</span> <span class="pre">resp_rate</span> <span class="pre">&lt;=</span> <span class="pre">30</span></code> to classify them as “Urgent.” This automates part of the triage process, helping staff prioritize patients more efficiently and ensuring those in greatest need are seen first.</p></li>
+<li><p><strong>Infusion Pump Safety Checks:</strong> Software for smart infusion pumps uses chained comparisons as a critical safety feature. Before starting an infusion, the pump’s software validates the programmed rate against pre-defined safe limits for the drug. An expression like <code class="docutils literal notranslate"><span class="pre">min_rate</span> <span class="pre">&lt;=</span> <span class="pre">programmed_rate</span> <span class="pre">&lt;=</span> <span class="pre">max_rate</span></code> acts as a guardrail, preventing a clinician from accidentally setting a dangerously high or ineffective low dose, thereby reducing the risk of medication errors.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to use chained comparisons to write cleaner and more intuitive code for clinical data validation. This simple but powerful technique is a cornerstone of safe and effective medical software development.</p>
+<ul class="simple">
+<li><p>Chained comparisons, such as <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">b</span></code>, provide a concise and highly readable syntax for checking if a value falls within a specific range.</p></li>
+<li><p>This syntax is a direct and more efficient equivalent to using the logical <code class="docutils literal notranslate"><span class="pre">and</span></code> operator, as in <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=</span> <span class="pre">x</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">b</span></code>.</p></li>
+<li><p>This technique is exceptionally useful in clinical programming for validating vital signs, lab results, and medication dosages against established normal or therapeutic ranges.</p></li>
+</ul>
+<p>Now that we can efficiently check ranges, we will next explore other powerful Python operators, <code class="docutils literal notranslate"><span class="pre">is</span></code> and <code class="docutils literal notranslate"><span class="pre">in</span></code>. These operators allow us to check for object identity and membership within collections, which are essential skills for tasks like verifying patient data against a list of known conditions or identifiers.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.5_comparison_operators.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Foundations of Python for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.5_logical_operators.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: The Building Blocks of Clinical Logic</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-check-pediatric-resting-heart-rate">3.1 Example: Check Pediatric Resting Heart Rate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-assess-normal-body-temperature-basic">Exercise 1: Assess Normal Body Temperature (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-validate-fasting-blood-glucose-intermediate">Exercise 2: Validate Fasting Blood Glucose (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-identify-mild-hypoxemia-intermediate">Exercise 3: Identify Mild Hypoxemia (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

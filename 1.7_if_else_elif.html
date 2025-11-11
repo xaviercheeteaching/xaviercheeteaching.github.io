@@ -1,0 +1,858 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.7_if_else_elif';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Foundations of Python for Precision Health" href="1.7_nested_conditionals.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.6_type_conversion.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.7_if_else_elif.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.7_if_else_elif.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-building-clinical-decision-pathways">1. Introduction: Building Clinical Decision Pathways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content-implementing-conditional-logic">3. Main Content: Implementing Conditional Logic</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-demonstration-interpreting-lab-results">3.1 Code Demonstration: Interpreting Lab Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-triage-by-oxygen-saturation-spo2-basic">Exercise 1: Triage by Oxygen Saturation (SpO2) Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-bmi-category-calculator-intermediate">Exercise 2: BMI Category Calculator Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-simple-sepsis-qsofa-flag-advanced">Exercise 3: Simple Sepsis (qSOFA) Flag Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction-building-clinical-decision-pathways">
+<h2>1. Introduction: Building Clinical Decision Pathways<a class="headerlink" href="#introduction-building-clinical-decision-pathways" title="Link to this heading">#</a></h2>
+<p>Welcome to conditional logic, the cornerstone of creating intelligent and responsive clinical applications. In medicine, decision-making is rarely linear; it depends on a multitude of factors like lab results, vital signs, and patient history. This section introduces the <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> statement, the fundamental programming tool that allows us to translate these complex clinical decision pathways into executable code. By the end of this section, you will be able to write Python scripts that can make decisions, categorize data, and trigger actions based on specific medical criteria.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Conditional Statement</strong>: A programming feature that performs different computations or actions depending on whether a programmer-specified boolean condition evaluates to true or false. In a clinical context, this is analogous to a decision point in a treatment algorithm (e.g., “If patient’s temperature is &gt; 38°C, consider sepsis protocol”).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">if</span></code> clause</strong>: The keyword that begins a conditional statement. The following code block executes only if its condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>. It asks the first question in a decision chain.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">elif</span></code> clause</strong>: Short for “else if.” It allows you to check multiple alternative conditions. It only runs if the preceding <code class="docutils literal notranslate"><span class="pre">if</span></code> or <code class="docutils literal notranslate"><span class="pre">elif</span></code> conditions were <code class="docutils literal notranslate"><span class="pre">False</span></code>. This is essential for creating multi-step decision logic, such as triaging patients into different priority levels.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">else</span></code> clause</strong>: Catches all other cases. Its code block runs only if all preceding <code class="docutils literal notranslate"><span class="pre">if</span></code> and <code class="docutils literal notranslate"><span class="pre">elif</span></code> conditions in the chain were <code class="docutils literal notranslate"><span class="pre">False</span></code>. It ensures that the program always has a defined path to follow.</p></li>
+<li><p><strong>Leukocytosis</strong>: An increase in the number of white blood cells (WBCs) in the blood, often a sign of an inflammatory response, most commonly the result of infection.</p></li>
+<li><p><strong>Leukopenia</strong>: A decrease in the number of white blood cells (WBCs) in the blood, which places individuals at increased risk of infection.</p></li>
+<li><p><strong>SpO2</strong>: An abbreviation for peripheral capillary oxygen saturation. It is an estimate of the amount of oxygen in the blood and is measured non-invasively by a device called a pulse oximeter.</p></li>
+<li><p><strong>Hypoxemia</strong>: An abnormally low level of oxygen in the blood. Severe hypoxemia can be life-threatening.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content-implementing-conditional-logic">
+<h2>3. Main Content: Implementing Conditional Logic<a class="headerlink" href="#main-content-implementing-conditional-logic" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> statement creates a sequential decision-making chain. Python evaluates each condition from top to bottom and executes the code block for the <em>first</em> condition that resolves to <code class="docutils literal notranslate"><span class="pre">True</span></code>. Once a block is executed, the rest of the chain is skipped entirely. This structure is highly efficient for modeling mutually exclusive outcomes, such as categorizing a lab value as “low,” “normal,” or “high.”</p>
+<section id="code-demonstration-interpreting-lab-results">
+<h3>3.1 Code Demonstration: Interpreting Lab Results<a class="headerlink" href="#code-demonstration-interpreting-lab-results" title="Link to this heading">#</a></h3>
+<p>Let’s model the clinical interpretation of a patient’s White Blood Cell (WBC) count. The normal range is a well-defined standard, making it a perfect candidate for an <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> structure.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> A White Blood Cell (WBC) count is a common blood test used to detect a wide range of disorders. Leukocytosis (high WBC count) can indicate an infection or inflammation, while Leukopenia (low WBC count) can be caused by autoimmune conditions, bone marrow problems, or severe infections.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A script to interpret a patient&#39;s White Blood Cell (WBC) count</span>
+<span class="c1"># Normal range: 4.5-11.0 (Merck Manuals, 2023)</span>
+<span class="n">WBC_UPPER_NORMAL</span> <span class="o">=</span> <span class="mf">11.0</span>  <span class="c1"># x 10^9/L</span>
+<span class="n">WBC_LOWER_NORMAL</span> <span class="o">=</span> <span class="mf">4.5</span>   <span class="c1"># x 10^9/L</span>
+
+<span class="c1"># This value could come from an electronic health record (EHR) API</span>
+<span class="n">wbc_count</span> <span class="o">=</span> <span class="mf">3.2</span> <span class="c1"># Patient&#39;s count in 10^9 cells/L</span>
+
+<span class="k">if</span> <span class="n">wbc_count</span> <span class="o">&gt;</span> <span class="n">WBC_UPPER_NORMAL</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;High WBC count (</span><span class="si">{</span><span class="n">wbc_count</span><span class="si">}</span><span class="s2"> x 10^9/L): Leukocytosis.&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">wbc_count</span> <span class="o">&lt;</span> <span class="n">WBC_LOWER_NORMAL</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Low WBC count (</span><span class="si">{</span><span class="n">wbc_count</span><span class="si">}</span><span class="s2"> x 10^9/L): Leukopenia.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WBC count (</span><span class="si">{</span><span class="n">wbc_count</span><span class="si">}</span><span class="s2"> x 10^9/L) is within the normal range.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output: Low WBC count (3.2 x 10^9/L): Leukopenia.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common error with <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> chains is incorrect order. If you checked for <code class="docutils literal notranslate"><span class="pre">wbc_count</span> <span class="pre">&lt;</span> <span class="pre">11.0</span></code> first, a value of <code class="docutils literal notranslate"><span class="pre">3.2</span></code> would incorrectly register as normal. Always structure your conditions from most specific to most general, or ensure they don’t overlap unintentionally.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Important:</strong> The code examples in this curriculum are for demonstrating Python logic and educational purposes only. They are not a substitute for professional clinical judgment or validated medical software.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>In Practice:</strong> Automated alerts are a cornerstone of modern patient monitoring systems. A simple script like the one you are about to write can serve as the foundational logic for a triage tool that flags patients requiring immediate attention, helping clinicians prioritize care more effectively.</p>
+</div></blockquote>
+<section id="exercise-1-triage-by-oxygen-saturation-spo2-basic">
+<h3>Exercise 1: Triage by Oxygen Saturation (SpO2) Basic<a class="headerlink" href="#exercise-1-triage-by-oxygen-saturation-spo2-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> to categorize patient urgency based on SpO2 levels.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Oxygen saturation (SpO2) is a critical vital sign. The World Health Organization (WHO) provides clear thresholds for emergency intervention.</p>
+<p>Create a variable named <code class="docutils literal notranslate"><span class="pre">sp_o2</span></code> and write a script to check its value. Print a message based on the following logic:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">sp_o2</span> <span class="pre">&lt;</span> <span class="pre">90</span></code>: “EMERGENCY: Hypoxemia.”</p></li>
+<li><p>Else if <code class="docutils literal notranslate"><span class="pre">sp_o2</span> <span class="pre">&lt;</span> <span class="pre">95</span></code>: “Seek medical attention.”</p></li>
+<li><p>Else: “Normal oxygen saturation.”</p></li>
+</ul>
+<p>Test your code with <code class="docutils literal notranslate"><span class="pre">sp_o2</span></code> values of <code class="docutils literal notranslate"><span class="pre">96</span></code>, <code class="docutils literal notranslate"><span class="pre">92</span></code>, and <code class="docutils literal notranslate"><span class="pre">88</span></code>.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> After testing your script, consider its limitations. What other factors, besides a single SpO2 reading, would a clinician consider during triage? How might you modify your script in the future to account for trends over time instead of a single data point?</p>
+</div></blockquote>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define clinical thresholds as constants</span>
+<span class="n">SPO2_EMERGENCY_THRESHOLD</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">SPO2_ATTENTION_THRESHOLD</span> <span class="o">=</span> <span class="mi">95</span>
+
+<span class="c1"># --- Test Case 1: Normal ---</span>
+<span class="n">sp_o2</span> <span class="o">=</span> <span class="mi">96</span> <span class="c1"># Oxygen saturation in %</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testing with SpO2: </span><span class="si">{</span><span class="n">sp_o2</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">sp_o2</span> <span class="o">&lt;</span> <span class="n">SPO2_EMERGENCY_THRESHOLD</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EMERGENCY: Hypoxemia.&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">sp_o2</span> <span class="o">&lt;</span> <span class="n">SPO2_ATTENTION_THRESHOLD</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seek medical attention.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Normal oxygen saturation.&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># --- Test Case 2: Attention Needed ---</span>
+<span class="n">sp_o2</span> <span class="o">=</span> <span class="mi">92</span> <span class="c1"># Oxygen saturation in %</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testing with SpO2: </span><span class="si">{</span><span class="n">sp_o2</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">sp_o2</span> <span class="o">&lt;</span> <span class="n">SPO2_EMERGENCY_THRESHOLD</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EMERGENCY: Hypoxemia.&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">sp_o2</span> <span class="o">&lt;</span> <span class="n">SPO2_ATTENTION_THRESHOLD</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seek medical attention.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Normal oxygen saturation.&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># --- Test Case 3: Emergency ---</span>
+<span class="n">sp_o2</span> <span class="o">=</span> <span class="mi">88</span> <span class="c1"># Oxygen saturation in %</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testing with SpO2: </span><span class="si">{</span><span class="n">sp_o2</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">sp_o2</span> <span class="o">&lt;</span> <span class="n">SPO2_EMERGENCY_THRESHOLD</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EMERGENCY: Hypoxemia.&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">sp_o2</span> <span class="o">&lt;</span> <span class="n">SPO2_ATTENTION_THRESHOLD</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seek medical attention.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Normal oxygen saturation.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The solution defines clinical thresholds as constants for clarity and maintainability. It then runs three separate tests, one for each required value (<code class="docutils literal notranslate"><span class="pre">96</span></code>, <code class="docutils literal notranslate"><span class="pre">92</span></code>, <code class="docutils literal notranslate"><span class="pre">88</span></code>), printing the status for each to demonstrate that all paths of the <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> logic work correctly. The expected output is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Testing</span> <span class="k">with</span> <span class="n">SpO2</span><span class="p">:</span> <span class="mi">96</span><span class="o">%</span>
+<span class="n">Normal</span> <span class="n">oxygen</span> <span class="n">saturation</span><span class="o">.</span>
+<span class="o">--------------------</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="n">SpO2</span><span class="p">:</span> <span class="mi">92</span><span class="o">%</span>
+<span class="n">Seek</span> <span class="n">medical</span> <span class="n">attention</span><span class="o">.</span>
+<span class="o">--------------------</span>
+<span class="n">Testing</span> <span class="k">with</span> <span class="n">SpO2</span><span class="p">:</span> <span class="mi">88</span><span class="o">%</span>
+<span class="n">EMERGENCY</span><span class="p">:</span> <span class="n">Hypoxemia</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><strong>Key Learning:</strong> Using constants for thresholds makes code more readable and easier to update. Testing all branches of a conditional statement is crucial to ensure its correctness.</p>
+</div>
+</details></section>
+<section id="exercise-2-bmi-category-calculator-intermediate">
+<h3>Exercise 2: BMI Category Calculator Intermediate<a class="headerlink" href="#exercise-2-bmi-category-calculator-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Write a script that calculates Body Mass Index (BMI) and classifies it into standard categories.
+<strong>Time:</strong> 8 minutes
+<strong>Medical Context:</strong> BMI is a widely used screening tool for weight categories that can indicate health risks. The formula is <code class="docutils literal notranslate"><span class="pre">weight</span> <span class="pre">(kg)</span> <span class="pre">/</span> <span class="pre">(height</span> <span class="pre">(m))^2</span></code>.</p>
+<p>Given <code class="docutils literal notranslate"><span class="pre">weight_kg</span></code> and <code class="docutils literal notranslate"><span class="pre">height_m</span></code> variables, first calculate the BMI. Then, use an <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> chain to print the BMI and its corresponding category:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BMI</span> <span class="pre">&lt;</span> <span class="pre">18.5</span></code>: “Underweight”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">18.5</span> <span class="pre">&lt;=</span> <span class="pre">BMI</span> <span class="pre">&lt;</span> <span class="pre">25</span></code>: “Normal weight”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">25</span> <span class="pre">&lt;=</span> <span class="pre">BMI</span> <span class="pre">&lt;</span> <span class="pre">30</span></code>: “Overweight”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BMI</span> <span class="pre">&gt;=</span> <span class="pre">30</span></code>: “Obesity”</p></li>
+</ul>
+<p>Test with <code class="docutils literal notranslate"><span class="pre">weight_kg</span> <span class="pre">=</span> <span class="pre">70</span></code> and <code class="docutils literal notranslate"><span class="pre">height_m</span> <span class="pre">=</span> <span class="pre">1.75</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weight_kg</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">height_m</span> <span class="o">=</span> <span class="mf">1.75</span>
+
+<span class="c1"># Calculate BMI and round to one decimal place for clarity</span>
+<span class="n">bmi</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">weight_kg</span> <span class="o">/</span> <span class="p">(</span><span class="n">height_m</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Classify the calculated BMI</span>
+<span class="k">if</span> <span class="n">bmi</span> <span class="o">&lt;</span> <span class="mf">18.5</span><span class="p">:</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;Underweight&quot;</span>
+<span class="k">elif</span> <span class="n">bmi</span> <span class="o">&lt;</span> <span class="mi">25</span><span class="p">:</span> <span class="c1"># No need to check for &gt;= 18.5, it&#39;s implied</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;Normal weight&quot;</span>
+<span class="k">elif</span> <span class="n">bmi</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span> <span class="c1"># Implies &gt;= 25</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;Overweight&quot;</span>
+<span class="k">else</span><span class="p">:</span> <span class="c1"># Implies &gt;= 30</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;Obesity&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient BMI is </span><span class="si">{</span><span class="n">bmi</span><span class="si">}</span><span class="s2">. Category: </span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Expected output for the given values:</span>
+<span class="c1"># Patient BMI is 22.9. Category: Normal weight.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code first performs a calculation and then uses the result in the conditional chain. The <code class="docutils literal notranslate"><span class="pre">elif</span></code> conditions don’t need to re-state the lower bound (e.g., <code class="docutils literal notranslate"><span class="pre">bmi</span> <span class="pre">&gt;=</span> <span class="pre">18.5</span> <span class="pre">and</span> <span class="pre">bmi</span> <span class="pre">&lt;</span> <span class="pre">25</span></code>) because the chain’s sequential nature handles it automatically.
+<strong>Key Learning:</strong> Combining calculations with conditional logic is a common pattern for creating powerful diagnostic or screening scripts.</p>
+</div>
+</details></section>
+<section id="exercise-3-simple-sepsis-qsofa-flag-advanced">
+<h3>Exercise 3: Simple Sepsis (qSOFA) Flag Advanced<a class="headerlink" href="#exercise-3-simple-sepsis-qsofa-flag-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Implement a simplified version of the qSOFA score to flag potential sepsis risk.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> The Quick Sequential Organ Failure Assessment (qSOFA) score is a bedside tool to identify patients at risk for sepsis. A score of 2 or more suggests high risk. The criteria are: Respiratory Rate ≥ 22/min, Altered Mental Status, and Systolic Blood Pressure ≤ 100 mm Hg.</p>
+<p>Create three boolean variables: <code class="docutils literal notranslate"><span class="pre">high_respiratory_rate</span></code>, <code class="docutils literal notranslate"><span class="pre">altered_mental_status</span></code>, and <code class="docutils literal notranslate"><span class="pre">low_systolic_bp</span></code>. Calculate a <code class="docutils literal notranslate"><span class="pre">qsofa_score</span></code> by counting how many of these are <code class="docutils literal notranslate"><span class="pre">True</span></code>. Then, use an <code class="docutils literal notranslate"><span class="pre">if-else</span></code> statement to print a risk assessment.</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">qsofa_score</span> <span class="pre">&gt;=</span> <span class="pre">2</span></code>: “High risk for sepsis (qSOFA score: [score]). Escalate care.”</p></li>
+<li><p>Else: “Low risk for sepsis (qSOFA score: [score]). Continue monitoring.”</p></li>
+</ul>
+<p>Test with a scenario where two criteria are <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patient data (True/False flags)</span>
+<span class="n">high_respiratory_rate</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">altered_mental_status</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">low_systolic_bp</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># In Python, True is treated as 1 and False as 0 in arithmetic.</span>
+<span class="n">qsofa_score</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">high_respiratory_rate</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">altered_mental_status</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">low_systolic_bp</span><span class="p">)</span>
+
+<span class="c1"># Assess risk based on the calculated score</span>
+<span class="k">if</span> <span class="n">qsofa_score</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;High risk for sepsis (qSOFA score: </span><span class="si">{</span><span class="n">qsofa_score</span><span class="si">}</span><span class="s2">). Escalate care.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Low risk for sepsis (qSOFA score: </span><span class="si">{</span><span class="n">qsofa_score</span><span class="si">}</span><span class="s2">). Continue monitoring.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Expected output for the given scenario:</span>
+<span class="c1"># High risk for sepsis (qSOFA score: 2). Escalate care.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This solution leverages a unique feature of Python where boolean <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> values can be treated as integers <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">0</span></code>, respectively. This provides a concise way to sum up the “points” for the qSOFA score before feeding the final score into a simple <code class="docutils literal notranslate"><span class="pre">if-else</span></code> check.
+<strong>Key Learning:</strong> Conditional logic can be used to implement established clinical scoring systems and automate risk assessment based on multiple input factors.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> statements are the engine behind many automated systems in precision health.</p>
+<ul class="simple">
+<li><p><strong>Automated Clinical Alerts:</strong> In an Electronic Health Record (EHR) system, a background script can continuously monitor patient data. If a patient’s potassium level drops below 3.5 mmol/L (<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">potassium</span> <span class="pre">&lt;</span> <span class="pre">3.5</span></code>), the system can automatically trigger an alert to the nursing station. This uses conditional logic to translate raw data into an actionable clinical notification, improving patient safety.</p></li>
+<li><p><strong>Genomic-Based Drug Dosing:</strong> Pharmacogenomics uses genetic information to guide drug therapy. A program can check a patient’s genetic markers using an <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> chain. For example, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">patient_has_variant('CYP2C19*2')</span></code>, the system might recommend a lower dose of the anticoagulant clopidogrel. This directly applies conditional logic to personalize medicine and reduce adverse drug reactions.</p></li>
+<li><p><strong>Dynamic Patient Triage in Emergency Departments:</strong> Triage systems can be automated to prioritize patients. A script can evaluate multiple inputs like age, SpO2, blood pressure, and chief complaint. An <code class="docutils literal notranslate"><span class="pre">if</span></code> statement could check for critical signs (<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">spO2</span> <span class="pre">&lt;</span> <span class="pre">90</span> <span class="pre">or</span> <span class="pre">heart_rate</span> <span class="pre">&gt;</span> <span class="pre">130</span></code>), an <code class="docutils literal notranslate"><span class="pre">elif</span></code> could check for urgent signs, and an <code class="docutils literal notranslate"><span class="pre">else</span></code> could classify the patient as non-urgent. This helps manage patient flow and ensures the most critical patients are seen first.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how the <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> statement forms the basis of decision-making in Python. We saw how this structure allows us to create clear, sequential logic that mirrors clinical decision pathways, from interpreting a single lab value to assessing complex risks like sepsis.</p>
+<ul class="simple">
+<li><p><strong>Core Concept:</strong> The <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> chain evaluates conditions sequentially and executes only the first block that is <code class="docutils literal notranslate"><span class="pre">True</span></code>, making it perfect for categorizing data into distinct groups.</p></li>
+<li><p><strong>Structure:</strong> An <code class="docutils literal notranslate"><span class="pre">if</span></code> statement begins the check, <code class="docutils literal notranslate"><span class="pre">elif</span></code> provides alternative conditions, and <code class="docutils literal notranslate"><span class="pre">else</span></code> serves as a default case when no other conditions are met.</p></li>
+<li><p><strong>Application:</strong> You can use this structure to build rules-based systems for alerts, triage, diagnostics, and personalized treatment recommendations.</p></li>
+<li><p><strong>Key Skill:</strong> The ability to translate a set of medical rules or a clinical flowchart into a functional <code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> statement is a fundamental skill in health informatics.</p></li>
+</ul>
+<p>With this understanding of conditional logic, you are now equipped to write programs that can react dynamically to data. Next, we will learn how to repeat actions using loops, allowing us to process entire datasets of patients efficiently.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.6_type_conversion.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.7_nested_conditionals.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Foundations of Python for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-building-clinical-decision-pathways">1. Introduction: Building Clinical Decision Pathways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content-implementing-conditional-logic">3. Main Content: Implementing Conditional Logic</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-demonstration-interpreting-lab-results">3.1 Code Demonstration: Interpreting Lab Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-triage-by-oxygen-saturation-spo2-basic">Exercise 1: Triage by Oxygen Saturation (SpO2) Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-bmi-category-calculator-intermediate">Exercise 2: BMI Category Calculator Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-simple-sepsis-qsofa-flag-advanced">Exercise 3: Simple Sepsis (qSOFA) Flag Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

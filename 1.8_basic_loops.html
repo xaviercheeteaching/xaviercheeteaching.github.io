@@ -1,0 +1,790 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.8_basic_loops';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.8_break_continue_statements_else_clause.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.7_ternary_operators.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.8_basic_loops.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.8_basic_loops.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-flag-high-glucose-levels-basic">Exercise 1: Flag High Glucose Levels Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calculate-average-heart-rate-intermediate">Exercise 2: Calculate Average Heart Rate Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-categorize-medications-advanced">Exercise 3: Categorize Medications Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In precision health, you will frequently need to perform the same action on a collection of items, whether it’s processing a list of patient lab results, analyzing a sequence of genetic markers, or checking a batch of sensor readings. This section introduces the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, a powerful and fundamental tool that allows you to automate these repetitive tasks. The learning journey will take you from understanding the core components of a loop to applying them in medically relevant scenarios. By the end of this section, you will be able to write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to access and process each item in a sequence.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>To effectively use <code class="docutils literal notranslate"><span class="pre">for</span></code> loops, it’s important to understand the following core terms. These concepts form the building blocks of iteration in Python.</p>
+<ul class="simple">
+<li><p><strong>Iterable</strong>: The sequence or collection that the loop iterates over, such as a list of patient IDs or a collection of blood pressure readings. In a medical analogy, this is the entire rack of patient files to be reviewed.</p></li>
+<li><p><strong>Loop Variable</strong>: A temporary variable that holds the value of the current item from the iterable for each pass of the loop. For example, if looping through a list of glucose readings, the loop variable would hold the value of one specific reading at a time.</p></li>
+<li><p><strong>Loop Body</strong>: The indented block of code that executes once for each item in the iterable. This is where you define the specific action to be performed, such as printing a value, performing a calculation, or checking a condition on the current item.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">for</span></code> loop provides a clean and efficient way to iterate over the items of a sequence. The basic structure is <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">[variable]</span> <span class="pre">in</span> <span class="pre">[iterable]:</span></code>, where the indented code block below it is executed for each item.</p>
+<p>Let’s break down a practical example using a list of blood glucose readings. Based on clinical best practices, we specify that these are post-meal readings to provide accurate context for any analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A list of 2-hour post-meal blood glucose readings (mg/dL).</span>
+<span class="n">glucose_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span> <span class="c1"># The iterable</span>
+
+<span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">glucose_levels</span><span class="p">:</span> <span class="c1"># &#39;level&#39; is the loop variable</span>
+    <span class="c1"># The indented code below is the loop body</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Logged reading: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2"> mg/dL&quot;</span><span class="p">)</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1"># Logged reading: 99 mg/dL</span>
+<span class="c1"># Logged reading: 145 mg/dL</span>
+<span class="c1"># Logged reading: 85 mg/dL</span>
+<span class="c1"># Logged reading: 160 mg/dL</span>
+</pre></div>
+</div>
+<p>This loop systematically goes through the <code class="docutils literal notranslate"><span class="pre">glucose_levels</span></code> list, assigning each value to the <code class="docutils literal notranslate"><span class="pre">level</span></code> variable one by one and printing it. Once the last item has been processed, the loop concludes.</p>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-flag-high-glucose-levels-basic">
+<h3>Exercise 1: Flag High Glucose Levels Basic<a class="headerlink" href="#exercise-1-flag-high-glucose-levels-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and a conditional <code class="docutils literal notranslate"><span class="pre">if</span></code> statement to identify and flag high glucose readings.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A 2-hour post-meal blood glucose level above 140 mg/dL can be an indicator for prediabetes screening. Automating the detection of high readings helps clinicians quickly identify patients who may need follow-up. This threshold is based on guidelines from the American Diabetes Association (2024).</p>
+<p>Write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to analyze the <code class="docutils literal notranslate"><span class="pre">glucose_levels</span></code> list. Use the provided constant to flag any reading above the threshold.</p>
+<p>Flag High Glucose Levels Basic</p>
+<p><strong>Objective:</strong> Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and a conditional <code class="docutils literal notranslate"><span class="pre">if</span></code> statement to identify and flag high glucose readings.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A 2-hour post-meal blood glucose level above 140 mg/dL can be an indicator for prediabetes screening. Automating the detection of high readings helps clinicians quickly identify patients who may need follow-up. This threshold is based on guidelines from the American Diabetes Association (2024).</p>
+<p>Write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to analyze the <code class="docutils literal notranslate"><span class="pre">glucose_levels</span></code> list. Use the provided constant to flag any reading above the threshold.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glucose_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span>
+<span class="n">HIGH_GLUCOSE_THRESHOLD</span> <span class="o">=</span> <span class="mi">140</span> <span class="c1"># mg/dL</span>
+
+<span class="c1"># Hint: Use an &#39;if&#39; statement with the HIGH_GLUCOSE_THRESHOLD constant</span>
+<span class="c1"># to print a warning for any level above the threshold.</span>
+<span class="c1"># This threshold is used to screen for prediabetes based on 2-hour post-meal glucose levels (American Diabetes Association 2024).</span>
+<span class="c1"># Your code here.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">glucose_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span>
+<span class="n">HIGH_GLUCOSE_THRESHOLD</span> <span class="o">=</span> <span class="mi">140</span> <span class="c1"># mg/dL</span>
+
+<span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">glucose_levels</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="o">&gt;</span> <span class="n">HIGH_GLUCOSE_THRESHOLD</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;High reading alert: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2"> mg/dL&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">for</span></code> loop iterates through each <code class="docutils literal notranslate"><span class="pre">level</span></code> in the <code class="docutils literal notranslate"><span class="pre">glucose_levels</span></code> list. Inside the loop, the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement checks if the current <code class="docutils literal notranslate"><span class="pre">level</span></code> is greater than the <code class="docutils literal notranslate"><span class="pre">HIGH_GLUCOSE_THRESHOLD</span></code>. If the condition is true, it prints the alert message.
+<strong>Key Learning:</strong> Combining a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with a constant and an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement to selectively process items in a list.</p>
+</div>
+</details></section>
+<section id="exercise-2-calculate-average-heart-rate-intermediate">
+<h3>Exercise 2: Calculate Average Heart Rate Intermediate<a class="headerlink" href="#exercise-2-calculate-average-heart-rate-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to calculate the average value of a list of numbers.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Calculating averages from time-series data is a common task, such as finding a patient’s average heart rate over a monitoring period to assess their cardiovascular stability.</p>
+<p>Given a list of hourly heart rate measurements (beats per minute), calculate and print the average heart rate.</p>
+<p>Calculate Average Heart Rate Intermediate</p>
+<p><strong>Objective:</strong> Use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to calculate the average value of a list of numbers.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Calculating averages from time-series data is a common task, such as finding a patient’s average heart rate over a monitoring period to assess their cardiovascular stability.</p>
+<p>Given a list of hourly heart rate measurements (beats per minute), calculate and print the average heart rate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heart_rates_bpm</span> <span class="o">=</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">74</span><span class="p">]</span>
+<span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heart_rates_bpm</span> <span class="o">=</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">74</span><span class="p">]</span>
+<span class="n">total_hr</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">heart_rates_bpm</span><span class="p">:</span>
+    <span class="n">total_hr</span> <span class="o">+=</span> <span class="n">rate</span> <span class="c1"># Add the current rate to the total</span>
+
+<span class="c1"># It&#39;s safer to check for an empty list to avoid a ZeroDivisionError</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">heart_rates_bpm</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">average_hr</span> <span class="o">=</span> <span class="n">total_hr</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">heart_rates_bpm</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Heart Rate: </span><span class="si">{</span><span class="n">average_hr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> bpm&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No heart rate data to average.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We initialize <code class="docutils literal notranslate"><span class="pre">total_hr</span></code> to zero. Inside the loop, each <code class="docutils literal notranslate"><span class="pre">rate</span></code> is added to <code class="docutils literal notranslate"><span class="pre">total_hr</span></code>. After the loop, the average is calculated by dividing the total sum by the number of items in the list, obtained using <code class="docutils literal notranslate"><span class="pre">len()</span></code>.
+<strong>Key Learning:</strong> Using a loop to aggregate data from a list, a pattern known as an “accumulator.”</p>
+</div>
+</details></section>
+<section id="exercise-3-categorize-medications-advanced">
+<h3>Exercise 3: Categorize Medications Advanced<a class="headerlink" href="#exercise-3-categorize-medications-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Iterate through a list of medication names and categorize them based on their prefix.
+<strong>Time:</strong> 8 minutes
+<strong>Medical Context:</strong> In pharmacy informatics, drugs are often grouped by class. Some classes share common naming conventions (e.g., beta-blockers often end in “-olol”). This exercise simulates a simple version of this categorization.</p>
+<p>Given a list of medication names, iterate through them. If a medication starts with “Levo-”, add it to the <code class="docutils literal notranslate"><span class="pre">thyroid_meds</span></code> list. If it starts with “Meta-”, add it to the <code class="docutils literal notranslate"><span class="pre">cardiac_meds</span></code> list.</p>
+<p>Categorize Medications Advanced</p>
+<p><strong>Objective:</strong> Iterate through a list of medication names and categorize them based on their prefix.
+<strong>Time:</strong> 8 minutes
+<strong>Medical Context:</strong> In pharmacy informatics, drugs are often grouped by class. Some classes share common naming conventions (e.g., beta-blockers often end in “-olol”). This exercise simulates a simple version of this categorization.</p>
+<p>Given a list of medication names, iterate through them. If a medication starts with “Levo-”, add it to the <code class="docutils literal notranslate"><span class="pre">thyroid_meds</span></code> list. If it starts with “Meta-”, add it to the <code class="docutils literal notranslate"><span class="pre">cardiac_meds</span></code> list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">medication_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Levo-thyroxine&quot;</span><span class="p">,</span> <span class="s2">&quot;Meta-prolol&quot;</span><span class="p">,</span> <span class="s2">&quot;Lisinopril&quot;</span><span class="p">,</span> <span class="s2">&quot;Levo-cetirizine&quot;</span><span class="p">]</span>
+<span class="n">thyroid_meds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cardiac_meds</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Your code here to populate the lists</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Thyroid Meds: </span><span class="si">{</span><span class="n">thyroid_meds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cardiac Meds: </span><span class="si">{</span><span class="n">cardiac_meds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">medication_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Levo-thyroxine&quot;</span><span class="p">,</span> <span class="s2">&quot;Meta-prolol&quot;</span><span class="p">,</span> <span class="s2">&quot;Lisinopril&quot;</span><span class="p">,</span> <span class="s2">&quot;Levo-cetirizine&quot;</span><span class="p">]</span>
+<span class="n">thyroid_meds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cardiac_meds</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">med</span> <span class="ow">in</span> <span class="n">medication_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">med</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Levo-&quot;</span><span class="p">):</span>
+        <span class="n">thyroid_meds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">med</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">med</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Meta-&quot;</span><span class="p">):</span>
+        <span class="n">cardiac_meds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">med</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Thyroid Meds: </span><span class="si">{</span><span class="n">thyroid_meds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cardiac Meds: </span><span class="si">{</span><span class="n">cardiac_meds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The loop iterates through each <code class="docutils literal notranslate"><span class="pre">med</span></code> string. The <code class="docutils literal notranslate"><span class="pre">startswith()</span></code> string method is used to check the prefix of each medication. Based on the result, the <code class="docutils literal notranslate"><span class="pre">append()</span></code> method adds the medication name to the appropriate category list.
+<strong>Key Learning:</strong> Using string methods and conditional logic within a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to sort and categorize data.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">For</span></code> loops are indispensable in precision health for automating repetitive data processing tasks. Each application uses the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop programming technique to achieve a significant real-world impact.</p>
+<ul class="simple">
+<li><p><strong>Automated Lab Result Analysis:</strong> At medical centers, laboratory information systems (LIS) use <code class="docutils literal notranslate"><span class="pre">for</span></code> loops to automatically process thousands of test results daily. The loop iterates through batches of results, flags abnormal values for clinician review, and routes them to the correct electronic health record (EHR), ensuring timely patient care.</p></li>
+<li><p><strong>Batch Processing Genomic Data:</strong> A bioinformatician might write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to iterate through a list of thousands of gene sequence files. The loop body would contain code to open each file, run an analysis (e.g., search for a specific mutation), and save the result, automating a process that would be impossible to do manually and accelerating genetic research.</p></li>
+<li><p><strong>Data Validation in EHRs:</strong> When importing a new set of patient records, a data scientist can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to iterate through each record. Inside the loop, they can run checks to ensure data integrity, such as verifying that every patient has a valid ID or that all lab values fall within a plausible range, improving data quality for clinical analytics.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, a cornerstone of programming for automation and data processing. We learned how to construct a loop to iterate over a sequence, use the loop variable to access each item, and execute a block of code for every item.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">for</span></code> loops are essential for automating repetitive tasks on sequences of data.</p></li>
+<li><p>The key components of a loop are the <code class="docutils literal notranslate"><span class="pre">iterable</span></code> (the sequence), the <code class="docutils literal notranslate"><span class="pre">loop</span> <span class="pre">variable</span></code> (the current item), and the <code class="docutils literal notranslate"><span class="pre">loop</span> <span class="pre">body</span></code> (the code to execute).</p></li>
+<li><p>By combining loops with conditional statements (<code class="docutils literal notranslate"><span class="pre">if</span></code>), you can perform powerful, selective actions on your data.</p></li>
+<li><p>Loops are frequently used in precision health for everything from data validation and analysis to report generation.</p></li>
+</ul>
+<p>This foundational understanding of loops is a critical step. As a final thought, besides flagging high values, what other automated checks could a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop perform on a list of patient lab results? Consider checking for critically low values or calculating the average of the readings. Next, we will explore how to gain more control over our loops using functions like <code class="docutils literal notranslate"><span class="pre">range()</span></code> and other advanced iteration techniques.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.7_ternary_operators.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.8_break_continue_statements_else_clause.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-flag-high-glucose-levels-basic">Exercise 1: Flag High Glucose Levels Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calculate-average-heart-rate-intermediate">Exercise 2: Calculate Average Heart Rate Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-categorize-medications-advanced">Exercise 3: Categorize Medications Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

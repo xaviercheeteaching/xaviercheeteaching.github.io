@@ -1,0 +1,825 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.2_naming_conventions_case_sensitivity';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: The Building Blocks of Medical Code" href="1.2_variable_naming_rules.html" />
+    <link rel="prev" title="Chapter 1: Foundations of Python for Precision Health" href="1.2_indentation_comments.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.2_naming_conventions_case_sensitivity.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.2_naming_conventions_case_sensitivity.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-rules">3.1 Naming Rules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions-snake-case">3.2 Naming Conventions (<code class="docutils literal notranslate"><span class="pre">snake_case</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-sensitivity">3.3 Case-Sensitivity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-define-and-print-clinical-variables-basic">Exercise 1: Define and Print Clinical Variables Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-identify-valid-and-invalid-variable-names-intermediate">Exercise 2: Identify Valid and Invalid Variable Names Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-refactor-to-snake-case-advanced">Exercise 3: Refactor to <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>This section introduces the foundational rules of Python syntax: how to name variables correctly and why case-sensitivity is critical. Following these standards is not just about writing clean code; in a clinical setting, it’s about ensuring patient safety and data integrity. By the end of this section, you will be able to define variables using standard Python naming conventions and understand the implications of case-sensitivity in your code.</p>
+<blockquote>
+<div><p><strong>Important:</strong> In a clinical application, a simple typo like <code class="docutils literal notranslate"><span class="pre">medication_dose_mg</span></code> vs. <code class="docutils literal notranslate"><span class="pre">Medication_dose_mg</span></code> could lead to a critical dosage error. Precision in variable naming is a matter of patient safety.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Variable</strong>: A named storage location in a computer’s memory that holds a value. In a medical context, a variable might store a patient’s heart rate (<code class="docutils literal notranslate"><span class="pre">patient_heart_rate_bpm</span> <span class="pre">=</span> <span class="pre">72</span></code>) or a lab result (<code class="docutils literal notranslate"><span class="pre">hba1c_level</span> <span class="pre">=</span> <span class="pre">5.7</span></code>).</p></li>
+<li><p><strong>Naming Convention</strong>: A set of agreed-upon rules for choosing the character sequence for identifiers (like variables). Following conventions makes code more readable and maintainable for a team of clinical researchers or developers.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">snake_case</span></code></strong>: The official Python style guide (PEP 8) recommendation for variable and function names. It uses all lowercase letters and separates words with underscores (<code class="docutils literal notranslate"><span class="pre">_</span></code>). For example, <code class="docutils literal notranslate"><span class="pre">patient_body_mass_index</span></code> is highly readable and less prone to error than other styles.</p></li>
+<li><p><strong>Case-Sensitivity</strong>: The principle that uppercase and lowercase letters are treated as distinct characters. In Python, <code class="docutils literal notranslate"><span class="pre">systolic_bp</span></code> and <code class="docutils literal notranslate"><span class="pre">Systolic_bp</span></code> are two completely different variables, a crucial distinction when handling sensitive patient data.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="naming-rules">
+<h3>3.1 Naming Rules<a class="headerlink" href="#naming-rules" title="Link to this heading">#</a></h3>
+<p>Variable names must follow specific rules to be valid in Python. If you break these rules, the code will produce a <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>.</p>
+<ul class="simple">
+<li><p>A variable name must start with a letter (a-z, A-Z) or an underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>). It cannot start with a number.</p></li>
+<li><p>The rest of the name can only contain letters, numbers (0-9), and underscores. No special characters like <code class="docutils literal notranslate"><span class="pre">!</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>, <code class="docutils literal notranslate"><span class="pre">#</span></code>, <code class="docutils literal notranslate"><span class="pre">$</span></code>, or <code class="docutils literal notranslate"><span class="pre">-</span></code> are allowed.</p></li>
+</ul>
+</section>
+<section id="naming-conventions-snake-case">
+<h3>3.2 Naming Conventions (<code class="docutils literal notranslate"><span class="pre">snake_case</span></code>)<a class="headerlink" href="#naming-conventions-snake-case" title="Link to this heading">#</a></h3>
+<p>While the rules define what is <em>possible</em>, conventions define what is <em>standard</em>. Python’s community standard for readable variables is <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> The <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> convention is part of PEP 8, Python’s official style guide. Following PEP 8 makes your code more readable and consistent for other developers, which is crucial for collaborative work on clinical software. A related best practice is including units in variable names (e.g., <code class="docutils literal notranslate"><span class="pre">_mmhg</span></code>, <code class="docutils literal notranslate"><span class="pre">_celsius</span></code>) to prevent ambiguity.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correct: Standard snake_case for variables is clear and readable.</span>
+<span class="n">patient_heart_rate_bpm</span> <span class="o">=</span> <span class="mi">72</span>
+
+<span class="c1"># Incorrect: PascalCase is reserved for class names in Python.</span>
+<span class="n">PatientHeartRate</span> <span class="o">=</span> <span class="mi">72</span>
+
+<span class="c1"># Incorrect: camelCase is not a standard Python convention.</span>
+<span class="n">patientHeartRate</span> <span class="o">=</span> <span class="mi">72</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="case-sensitivity">
+<h3>3.3 Case-Sensitivity<a class="headerlink" href="#case-sensitivity" title="Link to this heading">#</a></h3>
+<p>Python is a case-sensitive language. This means that it treats uppercase and lowercase letters as different characters. Therefore, <code class="docutils literal notranslate"><span class="pre">systolic_bp_mmhg</span></code> and <code class="docutils literal notranslate"><span class="pre">Systolic_bp_mmhg</span></code> are two completely different variables. This is a common source of <code class="docutils literal notranslate"><span class="pre">NameError</span></code> bugs for beginners.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a variable for systolic blood pressure in mmHg.</span>
+<span class="n">systolic_bp_mmhg</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">systolic_bp_mmhg</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># 120</span>
+
+<span class="c1"># Accessing a variable with a different case causes a NameError.</span>
+<span class="c1"># print(Systolic_bp_mmhg) # Causes NameError: name &#39;Systolic_bp_mmhg&#39; is not defined</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note:</strong> Trying to access a variable with a different case (e.g., <code class="docutils literal notranslate"><span class="pre">Systolic_bp_mmhg</span></code> instead of <code class="docutils literal notranslate"><span class="pre">systolic_bp_mmhg</span></code>) will result in a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>. The error message <code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">'...'</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">defined</span></code> means Python cannot find a variable with that exact name and capitalization.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-define-and-print-clinical-variables-basic">
+<h3>Exercise 1: Define and Print Clinical Variables Basic<a class="headerlink" href="#exercise-1-define-and-print-clinical-variables-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice defining variables using <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> and triggering a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> Body Mass Index (BMI) and body temperature are fundamental clinical measurements.</p>
+<p>Define two variables: <code class="docutils literal notranslate"><span class="pre">body_mass_index</span></code> with a value of <code class="docutils literal notranslate"><span class="pre">24.5</span></code> and <code class="docutils literal notranslate"><span class="pre">patient_temp_celsius</span></code> with a value of <code class="docutils literal notranslate"><span class="pre">37.0</span></code>. Print both variables. Then, try to print <code class="docutils literal notranslate"><span class="pre">Patient_temp_celsius</span></code> to trigger a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Body Mass Index (BMI) is a measure of body fat based on height and weight.</span>
+<span class="n">body_mass_index</span> <span class="o">=</span> <span class="mf">24.5</span>
+<span class="n">patient_temp_celsius</span> <span class="o">=</span> <span class="mf">37.0</span>
+
+<span class="c1"># Print both variables to the console</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">body_mass_index</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">patient_temp_celsius</span><span class="p">)</span>
+
+<span class="c1"># This line will cause an error because of case-sensitivity</span>
+<span class="c1"># print(Patient_temp_celsius)</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1"># 24.5</span>
+<span class="c1"># 37.0</span>
+<span class="c1"># NameError: name &#39;Patient_temp_celsius&#39; is not defined</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code successfully defines and prints the two lowercase variables. The final line is commented out but demonstrates that changing the case (<code class="docutils literal notranslate"><span class="pre">p</span></code> to <code class="docutils literal notranslate"><span class="pre">P</span></code>) makes Python see it as a completely new, undefined variable, triggering a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>.
+<strong>Key Learning:</strong> Reinforces <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> and the concept of case-sensitivity.</p>
+</div>
+</details></section>
+<section id="exercise-2-identify-valid-and-invalid-variable-names-intermediate">
+<h3>Exercise 2: Identify Valid and Invalid Variable Names Intermediate<a class="headerlink" href="#exercise-2-identify-valid-and-invalid-variable-names-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Distinguish between valid, invalid, and non-standard variable names.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Correctly naming variables for patient lab results is crucial for data integrity.</p>
+<p>Review the following list of potential variable names. For each one, identify if it is: <strong>Valid &amp; Standard</strong>, <strong>Valid but Non-Standard</strong>, or <strong>Invalid</strong>. Explain why.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hemoglobin_a1c</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2nd_patient_id</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plateletCount</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">patient-age</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_internal_data_flag</span></code></p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">hemoglobin_a1c</span></code></strong>: <strong>Valid &amp; Standard</strong>. It follows all naming rules and uses <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">2nd_patient_id</span></code></strong>: <strong>Invalid</strong>. It starts with a number.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">plateletCount</span></code></strong>: <strong>Valid but Non-Standard</strong>. It follows the basic rules but uses camelCase, which is not the Python convention for variables.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">patient-age</span></code></strong>: <strong>Invalid</strong>. It contains a hyphen (<code class="docutils literal notranslate"><span class="pre">-</span></code>), which is an illegal character for variable names (Python interprets it as a subtraction operator).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">_internal_data_flag</span></code></strong>: <strong>Valid &amp; Standard</strong>. It starts with an underscore, which is allowed. By convention, a single leading underscore suggests the variable is intended for internal use.</p></li>
+</ol>
+<p><strong>Key Learning:</strong> Understanding the difference between syntax rules (what makes code run) and style conventions (what makes code readable and maintainable).</p>
+</div>
+</details></section>
+<section id="exercise-3-refactor-to-snake-case-advanced">
+<h3>Exercise 3: Refactor to <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> Advanced<a class="headerlink" href="#exercise-3-refactor-to-snake-case-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Convert variable names from other casing styles to the standard Python <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> Standardizing data fields from different sources (e.g., labs, imaging reports) into a consistent format for analysis.</p>
+<p>You have received data from a legacy system that uses a mix of <code class="docutils literal notranslate"><span class="pre">PascalCase</span></code> and <code class="docutils literal notranslate"><span class="pre">camelCase</span></code>. Convert the following variable names to <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PatientFirstName</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bloodGlucoseLevel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WhiteBloodCellCount</span></code></p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Original non-standard names</span>
+<span class="n">PatientFirstName</span> <span class="o">=</span> <span class="s2">&quot;John&quot;</span>
+<span class="n">bloodGlucoseLevel</span> <span class="o">=</span> <span class="mi">110</span>
+<span class="n">WhiteBloodCellCount</span> <span class="o">=</span> <span class="mi">7500</span>
+
+<span class="c1"># Refactored to snake_case</span>
+<span class="n">patient_first_name</span> <span class="o">=</span> <span class="n">PatientFirstName</span>
+<span class="n">blood_glucose_level</span> <span class="o">=</span> <span class="n">bloodGlucoseLevel</span>
+<span class="n">white_blood_cell_count</span> <span class="o">=</span> <span class="n">WhiteBloodCellCount</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">patient_first_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">blood_glucose_level</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">white_blood_cell_count</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PatientFirstName</span></code> → <code class="docutils literal notranslate"><span class="pre">patient_first_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bloodGlucoseLevel</span></code> → <code class="docutils literal notranslate"><span class="pre">blood_glucose_level</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WhiteBloodCellCount</span></code> → <code class="docutils literal notranslate"><span class="pre">white_blood_cell_count</span></code></p></li>
+</ol>
+<p><strong>Key Learning:</strong> Practice applying the <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> convention to improve code readability and adhere to Python community standards.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Patient Vitals Monitoring</strong>: In an ICU monitoring system, variables must be named consistently to avoid life-threatening errors. Using <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> like <code class="docutils literal notranslate"><span class="pre">patient_heart_rate_bpm</span></code>, <code class="docutils literal notranslate"><span class="pre">respiratory_rate_rpm</span></code>, and <code class="docutils literal notranslate"><span class="pre">systolic_bp_mmhg</span></code> ensures that any developer or clinician reading the code can immediately understand what data is being tracked, improving the reliability of real-time patient dashboards.</p></li>
+<li><p><strong>Electronic Health Records (EHR) Management</strong>: When processing patient data from an EHR, variables like <code class="docutils literal notranslate"><span class="pre">patient_id</span></code>, <code class="docutils literal notranslate"><span class="pre">date_of_birth</span></code>, and <code class="docutils literal notranslate"><span class="pre">primary_diagnosis_code</span></code> are used. Strict adherence to naming conventions prevents data mix-ups, ensuring that the correct patient’s information is being accessed and updated, which is fundamental for patient safety and data integrity.</p></li>
+<li><p><strong>Pharmaceutical Research and Dosage Calculation</strong>: In scripts that calculate medication dosages, variable names must be precise. A variable <code class="docutils literal notranslate"><span class="pre">drug_concentration_mg_ml</span></code> is far safer than a vague name like <code class="docutils literal notranslate"><span class="pre">conc</span></code>. Case-sensitivity is also vital; <code class="docutils literal notranslate"><span class="pre">drug_A</span></code> and <code class="docutils literal notranslate"><span class="pre">drug_a</span></code> could represent different compounds, and confusing them could invalidate a clinical trial or harm a patient.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential rules for naming variables in Python and the critical concept of case-sensitivity. These are not just stylistic suggestions but foundational principles for writing safe, readable, and maintainable code in a precision health context.</p>
+<ul class="simple">
+<li><p>Variable names must start with a letter or underscore and can only contain letters, numbers, and underscores.</p></li>
+<li><p>The standard Python naming convention is <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>, which uses all lowercase words separated by underscores (e.g., <code class="docutils literal notranslate"><span class="pre">patient_age_years</span></code>).</p></li>
+<li><p>Python is case-sensitive, meaning <code class="docutils literal notranslate"><span class="pre">variable</span></code> and <code class="docutils literal notranslate"><span class="pre">Variable</span></code> are treated as two distinct identifiers. This requires careful attention to detail to prevent <code class="docutils literal notranslate"><span class="pre">NameError</span></code> exceptions and logical errors in clinical applications.</p></li>
+</ul>
+<p>With a solid grasp of naming conventions, you are now ready to learn about the different types of data these variables can hold. In the next section, we will explore Python’s basic data types.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Besides medication dosage, can you think of another area in a clinical or research setting where a case-sensitivity error in code could lead to a serious problem?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.2_indentation_comments.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Foundations of Python for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.2_variable_naming_rules.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: The Building Blocks of Medical Code</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-rules">3.1 Naming Rules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions-snake-case">3.2 Naming Conventions (<code class="docutils literal notranslate"><span class="pre">snake_case</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-sensitivity">3.3 Case-Sensitivity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-define-and-print-clinical-variables-basic">Exercise 1: Define and Print Clinical Variables Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-identify-valid-and-invalid-variable-names-intermediate">Exercise 2: Identify Valid and Invalid Variable Names Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-refactor-to-snake-case-advanced">Exercise 3: Refactor to <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

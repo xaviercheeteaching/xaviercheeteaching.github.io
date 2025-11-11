@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.6_escape_characters';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: The Building Blocks of Python for Precision Health" href="1.6_input%28%29_function.html" />
+    <link rel="prev" title="Chapter 1: The Building Blocks of Clinical Logic" href="1.5_logical_operators.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.6_escape_characters.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.6_escape_characters.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-reports-with-newlines-and-tabs">3.1 Formatting Reports with Newlines and Tabs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#including-special-characters-in-strings">3.2 Including Special Characters in Strings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-file-paths-with-raw-strings">3.3 Handling File Paths with Raw Strings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-formatting-a-prescription-label-basic">Exercise 1: Formatting a Prescription Label (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-constructing-a-network-file-path-basic">Exercise 2: Constructing a Network File Path (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-generating-a-structured-clinical-note-intermediate">Exercise 3: Generating a Structured Clinical Note (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In precision health, data must be not only accurate but also clearly presented. Whether you are generating a patient report, logging system events, or specifying the location of a medical image file, the structure of your text is critical. This section introduces escape characters, a fundamental tool in Python for controlling the layout and formatting of text. An escape character is a special sequence, starting with a backslash (<code class="docutils literal notranslate"><span class="pre">\</span></code>), that allows you to insert non-printable characters like newlines and tabs or include special symbols within a string. Mastering their use is the first step toward producing clean, readable, and structured textual output, a vital skill for any health data professional.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> In a hospital’s Electronic Health Record (EHR) system, patient data is often stored as raw text. When a doctor needs to generate a prescription or a discharge summary, the system uses formatting rules—like escape characters—to transform that raw data into a structured, readable document. Proper formatting is critical for preventing medical errors and ensuring clarity.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Escape Character</strong>: A backslash (<code class="docutils literal notranslate"><span class="pre">\</span></code>) followed by another character, used to represent special characters within a string. For example, it can create a new line or insert a tab, which is essential for formatting clinical notes for readability.</p></li>
+<li><p><strong>Newline (<code class="docutils literal notranslate"><span class="pre">\n</span></code>)</strong>: An escape sequence that moves the cursor to the beginning of the next line. In a patient summary, <code class="docutils literal notranslate"><span class="pre">\n</span></code> is used to separate the patient’s name, diagnosis, and treatment plan onto distinct lines, preventing a jumble of text.</p></li>
+<li><p><strong>Tab (<code class="docutils literal notranslate"><span class="pre">\t</span></code>)</strong>: An escape sequence that inserts a horizontal tab space. This is commonly used to indent sections of a report, such as listing prescribed medications under a “Prescriptions” heading, which visually organizes the information.</p></li>
+<li><p><strong>Backslash (<code class="docutils literal notranslate"><span class="pre">\\</span></code>)</strong>: An escape sequence used to insert a literal backslash character. This is critical when defining file paths on Windows systems, such as <code class="docutils literal notranslate"><span class="pre">C:\\data\\radiology\\scan.dcm</span></code>, as a single backslash would otherwise be misinterpreted.</p></li>
+<li><p><strong>Quote (<code class="docutils literal notranslate"><span class="pre">\'</span></code> or <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code>)</strong>: An escape sequence that allows you to include a single or double quote inside a string that is defined by the same type of quote. For instance, to record a note like <code class="docutils literal notranslate"><span class="pre">Patient's</span> <span class="pre">condition</span> <span class="pre">is</span> <span class="pre">'stable'</span></code>, you would use <code class="docutils literal notranslate"><span class="pre">\'</span></code> to prevent Python from ending the string prematurely.</p></li>
+<li><p><strong>Raw String (<code class="docutils literal notranslate"><span class="pre">r&quot;...&quot;</span></code>)</strong>: A string prefixed with an <code class="docutils literal notranslate"><span class="pre">r</span></code> that treats all backslashes as literal characters, ignoring any potential escape sequences. This is the preferred method for defining file paths (e.g., <code class="docutils literal notranslate"><span class="pre">r&quot;C:\treatment\new_notes.txt&quot;</span></code>) to avoid accidental formatting errors.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>The core function of escape characters is to give you precise control over string formatting. Below are demonstrations of the most common use cases you’ll encounter in health data contexts.</p>
+<section id="formatting-reports-with-newlines-and-tabs">
+<h3>3.1 Formatting Reports with Newlines and Tabs<a class="headerlink" href="#formatting-reports-with-newlines-and-tabs" title="Link to this heading">#</a></h3>
+<p>Cleanly structured reports are easier for clinicians to read. The <code class="docutils literal notranslate"><span class="pre">\n</span></code> (newline) and <code class="docutils literal notranslate"><span class="pre">\t</span></code> (tab) characters are essential for creating this structure. This example includes both a diagnosis and a condition for clinical accuracy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># \n creates a new line, and \t creates an indent</span>
+<span class="n">patient_notes</span> <span class="o">=</span> <span class="s2">&quot;Patient: Jane Doe</span><span class="se">\n\t</span><span class="s2">Diagnosis: Essential Hypertension</span><span class="se">\n\t</span><span class="s2">Condition: Stable&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">patient_notes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="n">Patient</span><span class="p">:</span> <span class="n">Jane</span> <span class="n">Doe</span>
+	<span class="n">Diagnosis</span><span class="p">:</span> <span class="n">Essential</span> <span class="n">Hypertension</span>
+	<span class="n">Condition</span><span class="p">:</span> <span class="n">Stable</span>
+</pre></div>
+</div>
+</section>
+<section id="including-special-characters-in-strings">
+<h3>3.2 Including Special Characters in Strings<a class="headerlink" href="#including-special-characters-in-strings" title="Link to this heading">#</a></h3>
+<p>Sometimes you need to include characters that have a special meaning in Python, like quotes or backslashes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To include a single quote within a single-quoted string, escape it with \&#39;.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Patient</span><span class="se">\&#39;</span><span class="s1">s condition is stable.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="n">Patient</span><span class="s1">&#39;s condition is stable.</span>
+</pre></div>
+</div>
+<p>An alternative is to enclose the string in the other type of quote, such as using double quotes to contain a single quote: <code class="docutils literal notranslate"><span class="pre">print(&quot;Patient's</span> <span class="pre">condition</span> <span class="pre">is</span> <span class="pre">stable.&quot;)</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use \\ to display a literal backslash, common in network paths.</span>
+<span class="n">network_drive</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">server</span><span class="se">\\</span><span class="s2">radiology_images&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">network_drive</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+\\<span class="n">server</span>\<span class="n">radiology_images</span>
+</pre></div>
+</div>
+</section>
+<section id="handling-file-paths-with-raw-strings">
+<h3>3.3 Handling File Paths with Raw Strings<a class="headerlink" href="#handling-file-paths-with-raw-strings" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common source of bugs, especially on Windows systems, is forgetting that Python interprets backslashes in regular strings as escape sequences. If you have a path like <code class="docutils literal notranslate"><span class="pre">&quot;C:\new_folder\test.csv&quot;</span></code>, Python will see <code class="docutils literal notranslate"><span class="pre">\n</span></code> and <code class="docutils literal notranslate"><span class="pre">\t</span></code> and try to insert a newline and a tab, corrupting the path. This often leads to “File Not Found” errors that can be difficult to diagnose.</p>
+</div></blockquote>
+<p>The example below shows how Python can misinterpret a standard file path and the correct way to handle it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Python interprets \t and \n in this file path as escape characters.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Problematic interpretation:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;C:</span><span class="se">\t</span><span class="s2">reatment</span><span class="se">\n</span><span class="s2">ew_notes.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use a raw string (r&quot;...&quot;) to treat backslashes as literal characters.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Correct interpretation:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\treatment\new_notes.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="n">Problematic</span> <span class="n">interpretation</span><span class="p">:</span>
+<span class="n">C</span><span class="p">:</span>	<span class="n">reatment</span>
+<span class="n">ew_notes</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="n">Correct</span> <span class="n">interpretation</span><span class="p">:</span>
+<span class="n">C</span><span class="p">:</span>\<span class="n">treatment</span>\<span class="n">new_notes</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> Using a raw string, prefixed with an <code class="docutils literal notranslate"><span class="pre">r</span></code>, is the standard and safest way to handle file paths in Python. It tells the interpreter to treat every backslash as a literal character, preventing accidental formatting and ensuring the path is read correctly by the operating system.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-formatting-a-prescription-label-basic">
+<h3>Exercise 1: Formatting a Prescription Label (Basic)<a class="headerlink" href="#exercise-1-formatting-a-prescription-label-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use escape characters to format a multi-line string for clarity.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> Generating a clear and readable prescription label is crucial for patient safety. Each piece of information needs to be distinctly separated.</p>
+<p>Declare variables for <code class="docutils literal notranslate"><span class="pre">patient_name</span></code>, <code class="docutils literal notranslate"><span class="pre">medication</span></code>, and <code class="docutils literal notranslate"><span class="pre">dosage</span></code>. Use a single <code class="docutils literal notranslate"><span class="pre">print()</span></code> statement with the <code class="docutils literal notranslate"><span class="pre">\n</span></code> and <code class="docutils literal notranslate"><span class="pre">\t</span></code> escape characters to create a formatted prescription label where the patient’s name is on the first line and the indented medication and dosage are on the second.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">patient_name</span> <span class="o">=</span> <span class="s2">&quot;John Smith&quot;</span>
+<span class="n">medication</span> <span class="o">=</span> <span class="s2">&quot;Lisinopril&quot;</span>
+<span class="n">dosage</span> <span class="o">=</span> <span class="s2">&quot;10mg Daily&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">patient_name</span><span class="si">}</span><span class="se">\n\t</span><span class="si">{</span><span class="n">medication</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">dosage</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This solution uses an f-string for easy variable insertion. The <code class="docutils literal notranslate"><span class="pre">\n</span></code> character is placed directly after the <code class="docutils literal notranslate"><span class="pre">patient_name</span></code> variable to move the following text to a new line. The <code class="docutils literal notranslate"><span class="pre">\t</span></code> character is then used to indent the <code class="docutils literal notranslate"><span class="pre">medication</span></code> and <code class="docutils literal notranslate"><span class="pre">dosage</span></code> information, creating a clear and professionally formatted label.
+<strong>Key Learning:</strong> Combining f-strings with escape characters is a powerful way to create dynamically formatted text.</p>
+</div>
+</details></section>
+<section id="exercise-2-constructing-a-network-file-path-basic">
+<h3>Exercise 2: Constructing a Network File Path (Basic)<a class="headerlink" href="#exercise-2-constructing-a-network-file-path-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Correctly represent a file path containing backslashes using the recommended method.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> Medical imaging files (like DICOM files) are often stored on network drives. Your code must be able to correctly specify the path to these files to retrieve them.</p>
+<p>Create a string variable <code class="docutils literal notranslate"><span class="pre">image_path</span></code> that represents the following Windows network path: <code class="docutils literal notranslate"><span class="pre">\\radiology-server\studies\patient_12345\ct_scan.dcm</span></code>. Print the variable to confirm it displays correctly.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The preferred solution uses a raw string (r&quot;...&quot;)</span>
+<span class="n">image_path_raw</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">radiology-server\studies\patient_12345\ct_scan.dcm&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">image_path_raw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The raw string (<code class="docutils literal notranslate"><span class="pre">r&quot;...&quot;</span></code>) treats all characters literally, which is easier to read and less error-prone than manually escaping every backslash (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;\\\\radiology-server\\studies\\...&quot;</span></code>).
+<strong>Key Learning:</strong> Raw strings are the standard, most reliable method for handling file paths in Python.</p>
+</div>
+</details></section>
+<section id="exercise-3-generating-a-structured-clinical-note-intermediate">
+<h3>Exercise 3: Generating a Structured Clinical Note (Intermediate)<a class="headerlink" href="#exercise-3-generating-a-structured-clinical-note-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine multiple escape characters to produce a structured, multi-line text block.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Clinical notes must be well-organized. Key sections like “Subjective,” “Objective,” “Assessment,” and “Plan” (SOAP) are often indented under a main header for quick scanning by clinicians.</p>
+<p>Generate a SOAP note for a patient. The output should have a main title, “SOAP Note:”, and then four indented lines, one for each section, using a single <code class="docutils literal notranslate"><span class="pre">print()</span></code> statement. The “Subjective” line should include the phrase ‘feeling better’ in single quotes.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SOAP Note:</span><span class="se">\n\t</span><span class="s2">Subjective: Patient reports </span><span class="se">\&#39;</span><span class="s2">feeling better</span><span class="se">\&#39;</span><span class="s2">.</span><span class="se">\n\t</span><span class="s2">Objective: Vitals are stable.</span><span class="se">\n\t</span><span class="s2">Assessment: Condition improving.</span><span class="se">\n\t</span><span class="s2">Plan: Continue current treatment.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This single <code class="docutils literal notranslate"><span class="pre">print</span></code> statement chains together text and escape characters. <code class="docutils literal notranslate"><span class="pre">\n\t</span></code> is used repeatedly to create a new, indented line for each part of the note. <code class="docutils literal notranslate"><span class="pre">\'</span></code> is used to correctly include the single quotes in the “Subjective” line without prematurely ending the string.
+<strong>Key Learning:</strong> Complex formatted text blocks can be constructed efficiently by chaining escape sequences within a single string.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong> Beyond prescription labels, what other types of medical information could be formatted more clearly using escape characters? Consider how you might structure lab results or daily patient monitoring notes for better readability.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Generating Structured EHR Reports</strong>: Python scripts are often used to pull data from electronic health records (EHRs) and generate daily summaries for physicians. Escape characters (<code class="docutils literal notranslate"><span class="pre">\n</span></code> and <code class="docutils literal notranslate"><span class="pre">\t</span></code>) are used to format these text-based reports, ensuring that patient vitals, lab results, and medication lists are neatly organized and easy to read, reducing cognitive load for clinicians.</p></li>
+<li><p><strong>Creating Delimited Data Files</strong>: When exporting data for analysis or for use in other systems, you might create tab-separated value (TSV) files. The <code class="docutils literal notranslate"><span class="pre">\t</span></code> character is used as the delimiter between columns, and <code class="docutils literal notranslate"><span class="pre">\n</span></code> is used to signify the end of a row. This is a common, standardized format for sharing data between different bioinformatics tools and systems.</p></li>
+<li><p><strong>Logging and Error Messages</strong>: When developing clinical decision support software, detailed logs are essential for debugging and auditing. Escape characters are used to format log entries, such as <code class="docutils literal notranslate"><span class="pre">2023-10-27</span> <span class="pre">10:30:15\tERROR\tFailed</span> <span class="pre">to</span> <span class="pre">access</span> <span class="pre">patient</span> <span class="pre">record</span></code>. The tabs align the columns, making the log file easy to parse and analyze automatically.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to use escape characters to control text formatting in Python. This skill is fundamental for presenting data in a structured and human-readable format, which is a constant requirement in health data science.</p>
+<ul class="simple">
+<li><p><strong>Core Concept</strong>: An escape character is a backslash (<code class="docutils literal notranslate"><span class="pre">\</span></code>) followed by a character that inserts special formatting into a string.</p></li>
+<li><p><strong>Key Characters</strong>: The most common escape characters are <code class="docutils literal notranslate"><span class="pre">\n</span></code> for newlines, <code class="docutils literal notranslate"><span class="pre">\t</span></code> for tabs, <code class="docutils literal notranslate"><span class="pre">\\</span></code> for literal backslashes, and <code class="docutils literal notranslate"><span class="pre">\'</span></code> or <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code> for quotes.</p></li>
+<li><p><strong>Best Practice for Paths</strong>: Raw strings (e.g., <code class="docutils literal notranslate"><span class="pre">r&quot;C:\data&quot;</span></code>) are the safest and most readable way to handle file paths, as they prevent Python from misinterpreting backslashes.</p></li>
+<li><p><strong>Application</strong>: You have seen how to apply these characters to format reports, labels, and clinical notes, turning raw data into structured information.</p></li>
+</ul>
+<p>With this foundation in basic text formatting, you are now prepared to tackle more advanced string manipulation techniques that are essential for processing and presenting complex health data.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.5_logical_operators.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: The Building Blocks of Clinical Logic</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.6_input%28%29_function.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: The Building Blocks of Python for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-reports-with-newlines-and-tabs">3.1 Formatting Reports with Newlines and Tabs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#including-special-characters-in-strings">3.2 Including Special Characters in Strings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-file-paths-with-raw-strings">3.3 Handling File Paths with Raw Strings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-formatting-a-prescription-label-basic">Exercise 1: Formatting a Prescription Label (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-constructing-a-network-file-path-basic">Exercise 2: Constructing a Network File Path (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-generating-a-structured-clinical-note-intermediate">Exercise 3: Generating a Structured Clinical Note (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

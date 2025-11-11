@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Core Python for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.5_boolean_values_truthy_falsy_values';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Foundations of Python for Precision Health" href="1.5_comparison_operators.html" />
+    <link rel="prev" title="Chapter 1: Foundations of Python for Precision Health" href="1.4_order_of_operations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.5_boolean_values_truthy_falsy_values.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.5_boolean_values_truthy_falsy_values.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Core Python for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-values-true-and-false">3.1. Boolean Values (<code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#truthy-values-assuming-presence">3.2. Truthy Values: Assuming Presence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#falsy-values-detecting-absence">3.3. Falsy Values: Detecting Absence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-value-validation">Exercise 1: Basic Value Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-patient-record-completeness-check">Exercise 2: Patient Record Completeness Check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-filtering-valid-lab-results">Exercise 3: Filtering Valid Lab Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-core-python-for-precision-health">
+<h1>Chapter 1: Core Python for Precision Health<a class="headerlink" href="#chapter-1-core-python-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the cornerstone of decision-making in programming: Boolean logic. In this section, we will explore how Python uses <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> values, along with the concepts of “truthiness” and “falsiness,” to control program flow. This is not just a technical detail; it’s a fundamental skill for building safe and reliable clinical software. Understanding this concept is critical for tasks like validating that a patient’s allergy list is not empty before making a treatment decision or ensuring a vital sign reading exists before it’s added to a chart. This lesson will empower you to write robust code that prevents errors by correctly handling both present and missing data.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Boolean</strong>: A data type that represents one of two values: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. In a medical context, a Boolean can represent the answer to a critical binary question, such as <code class="docutils literal notranslate"><span class="pre">is_patient_allergic</span> <span class="pre">=</span> <span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">is_fever_present</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p></li>
+<li><p><strong>Truthy</strong>: Any value that evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code> in a Boolean context. In Python, this includes non-empty strings, non-zero numbers, and populated data structures (lists, dictionaries). A “truthy” value in a clinical application often signifies the presence of data, like a patient’s name (<code class="docutils literal notranslate"><span class="pre">&quot;John</span> <span class="pre">Doe&quot;</span></code>) or a list of current medications.</p></li>
+<li><p><strong>Falsy</strong>: Any value that evaluates to <code class="docutils literal notranslate"><span class="pre">False</span></code> in a Boolean context. This includes <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>, zero of any numeric type (<code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">0.0</span></code>), and empty sequences or collections (<code class="docutils literal notranslate"><span class="pre">''</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">{}</span></code>). In a clinical setting, a “falsy” value is invaluable for detecting missing or null data, such as an empty list for <code class="docutils literal notranslate"><span class="pre">patient_allergies</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> for a medication dosage that has not yet been administered.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="boolean-values-true-and-false">
+<h3>3.1. Boolean Values (<code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>)<a class="headerlink" href="#boolean-values-true-and-false" title="Link to this heading">#</a></h3>
+<p>At its core, logic in Python revolves around the Boolean values <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>. These are most often the result of comparison operations. For instance, checking if a patient’s body temperature exceeds a clinical threshold for fever will result in a Boolean value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A common clinical threshold for fever is 38.0°C or higher.</span>
+<span class="n">FEVER_THRESHOLD_CELSIUS</span> <span class="o">=</span> <span class="mf">38.0</span>
+<span class="n">body_temp_celsius</span> <span class="o">=</span> <span class="mf">38.5</span>
+
+<span class="c1"># This comparison evaluates to a Boolean value</span>
+<span class="n">is_fever</span> <span class="o">=</span> <span class="n">body_temp_celsius</span> <span class="o">&gt;=</span> <span class="n">FEVER_THRESHOLD_CELSIUS</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient has a fever: </span><span class="si">{</span><span class="n">is_fever</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Expected Output: Patient has a fever: True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Medical Background:</strong> A body temperature of 38.0°C (100.4°F) or higher is a common clinical threshold for defining a fever in adults, as referenced in guidelines from organizations like the National Institute for Health and Care Excellence (NICE).</p>
+</div></blockquote>
+</section>
+<section id="truthy-values-assuming-presence">
+<h3>3.2. Truthy Values: Assuming Presence<a class="headerlink" href="#truthy-values-assuming-presence" title="Link to this heading">#</a></h3>
+<p>Python extends this binary logic with the concept of “truthiness.” Beyond the explicit <code class="docutils literal notranslate"><span class="pre">True</span></code> value, any object that has content is considered “truthy.” This is a powerful shortcut for checking if data exists. For example, a non-empty string containing a diagnosis is truthy, confirming that a diagnosis has been recorded.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;Hypertension&quot;</span> <span class="c1"># A common diagnosis, coded as I10 in ICD-10.</span>
+
+<span class="c1"># The &#39;if diagnosis:&#39; check uses the truthiness of the string.</span>
+<span class="k">if</span> <span class="n">diagnosis</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Diagnosis has been recorded.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Diagnosis is missing.&quot;</span><span class="p">)</span>
+<span class="c1"># Expected Output: Diagnosis has been recorded.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="falsy-values-detecting-absence">
+<h3>3.3. Falsy Values: Detecting Absence<a class="headerlink" href="#falsy-values-detecting-absence" title="Link to this heading">#</a></h3>
+<p>Conversely, values that are empty or represent zero are “falsy” and evaluate to <code class="docutils literal notranslate"><span class="pre">False</span></code> in a conditional check. This is extremely useful for data validation, allowing you to gracefully handle missing information.</p>
+<blockquote>
+<div><p><strong>Important:</strong> In Python, the following values are always considered “falsy” in a boolean context:</p>
+<ul class="simple">
+<li><p>The special value <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p>The boolean value <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p>Zero of any numeric type (e.g., <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">0.0</span></code>)</p></li>
+<li><p>Any empty sequence (e.g., an empty string <code class="docutils literal notranslate"><span class="pre">''</span></code>, an empty list <code class="docutils literal notranslate"><span class="pre">[]</span></code>, an empty tuple <code class="docutils literal notranslate"><span class="pre">()</span></code>)</p></li>
+<li><p>Any empty mapping (e.g., an empty dictionary <code class="docutils literal notranslate"><span class="pre">{}</span></code>)</p></li>
+</ul>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patient_allergies</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># The &#39;not&#39; operator inverts the Boolean value.</span>
+<span class="c1"># Since an empty list is falsy (False), &#39;not patient_allergies&#39; becomes True.</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">patient_allergies</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No known allergies recorded. Safe to proceed with standard medication.&quot;</span><span class="p">)</span>
+<span class="c1"># Expected Output: No known allergies recorded. Safe to proceed with standard medication.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Using <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">collection:</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">patient_allergies:</span></code>) is the preferred, “Pythonic” way to check if a list, string, or other collection is empty. It is more concise and readable than checking its length, like <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">len(patient_allergies)</span> <span class="pre">==</span> <span class="pre">0:</span></code>.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-basic-value-validation">
+<h3>Exercise 1: Basic Value Validation<a class="headerlink" href="#exercise-1-basic-value-validation" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Write a function to check if a given clinical value is present or missing using truthiness.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> In many clinical forms, fields can be left blank, be zero, or have a value. This function simulates checking if a field has been filled out.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">check_clinical_value(value)</span></code> that prints <code class="docutils literal notranslate"><span class="pre">'Clinical</span> <span class="pre">value</span> <span class="pre">recorded.'</span></code> if the value is truthy and <code class="docutils literal notranslate"><span class="pre">'Clinical</span> <span class="pre">value</span> <span class="pre">is</span> <span class="pre">missing</span> <span class="pre">or</span> <span class="pre">zero.'</span></code> if the value is falsy.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">check_clinical_value</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if a given clinical value is truthy or falsy and prints the result.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value (Any): The clinical value to evaluate (e.g., a number, string, or list).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None: This function prints the result directly to the console.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Clinical value recorded.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Clinical value is missing or zero.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Test cases</span>
+<span class="n">check_clinical_value</span><span class="p">(</span><span class="mi">98</span><span class="p">)</span>        <span class="c1"># Example: An oxygen saturation (SpO2) of 98% is truthy.</span>
+<span class="n">check_clinical_value</span><span class="p">(</span><span class="s2">&quot;Normal&quot;</span><span class="p">)</span>  <span class="c1"># A non-empty string is truthy.</span>
+<span class="n">check_clinical_value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>         <span class="c1"># 0 is falsy, representing a measured value.</span>
+<span class="n">check_clinical_value</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>      <span class="c1"># None is falsy, representing missing data.</span>
+<span class="n">check_clinical_value</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>        <span class="c1"># An empty string is falsy.</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1"># Clinical value recorded.</span>
+<span class="c1"># Clinical value recorded.</span>
+<span class="c1"># Clinical value is missing or zero.</span>
+<span class="c1"># Clinical value is missing or zero.</span>
+<span class="c1"># Clinical value is missing or zero.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function uses a simple <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">value:</span></code> statement. Python automatically evaluates the truthiness of the <code class="docutils literal notranslate"><span class="pre">value</span></code> argument. If it’s a non-zero number, a non-empty string, or any other “truthy” object, the <code class="docutils literal notranslate"><span class="pre">if</span></code> block runs. If it’s <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">''</span></code>, or any other “falsy” value, the <code class="docutils literal notranslate"><span class="pre">else</span></code> block runs.
+<strong>Key Learning:</strong> A simple <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is a powerful tool for validating the presence of data without needing complex comparisons.</p>
+</div>
+</details></section>
+<section id="exercise-2-patient-record-completeness-check">
+<h3>Exercise 2: Patient Record Completeness Check<a class="headerlink" href="#exercise-2-patient-record-completeness-check" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Check a patient record for the presence of critical information.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Before a patient record can be finalized, key fields like <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> and <code class="docutils literal notranslate"><span class="pre">primary_diagnosis</span></code> must be present. An empty string or <code class="docutils literal notranslate"><span class="pre">None</span></code> value indicates incomplete data.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">is_record_complete(patient_record)</span></code> that takes a dictionary and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> only if both <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> and <code class="docutils literal notranslate"><span class="pre">primary_diagnosis</span></code> have truthy values. Otherwise, it should return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_record_complete</span><span class="p">(</span><span class="n">patient_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if a patient record contains an ID and a primary diagnosis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Using &#39;and&#39; ensures both conditions must be met.</span>
+    <span class="c1"># The truthiness of the dictionary values is checked directly.</span>
+    <span class="c1"># .get() is used to safely access keys that might be missing.</span>
+    <span class="k">if</span> <span class="n">patient_record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;patient_id&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">patient_record</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;primary_diagnosis&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="c1"># Test cases</span>
+<span class="n">complete_record</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;patient_id&quot;</span><span class="p">:</span> <span class="s2">&quot;PID-12345&quot;</span><span class="p">,</span> <span class="s2">&quot;primary_diagnosis&quot;</span><span class="p">:</span> <span class="s2">&quot;Type 2 Diabetes&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">}</span>
+<span class="n">incomplete_record_1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;patient_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;primary_diagnosis&quot;</span><span class="p">:</span> <span class="s2">&quot;Type 2 Diabetes&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">}</span>
+<span class="n">incomplete_record_2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;patient_id&quot;</span><span class="p">:</span> <span class="s2">&quot;PID-12345&quot;</span><span class="p">,</span> <span class="s2">&quot;primary_diagnosis&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">67</span><span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Record 1 Complete: </span><span class="si">{</span><span class="n">is_record_complete</span><span class="p">(</span><span class="n">complete_record</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Record 2 Complete: </span><span class="si">{</span><span class="n">is_record_complete</span><span class="p">(</span><span class="n">incomplete_record_1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Record 3 Complete: </span><span class="si">{</span><span class="n">is_record_complete</span><span class="p">(</span><span class="n">incomplete_record_2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1"># Record 1 Complete: True</span>
+<span class="c1"># Record 2 Complete: False</span>
+<span class="c1"># Record 3 Complete: False</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function uses <code class="docutils literal notranslate"><span class="pre">patient_record.get(&quot;key&quot;)</span></code> to safely access dictionary values (it returns <code class="docutils literal notranslate"><span class="pre">None</span></code> if the key doesn’t exist, which is falsy). The <code class="docutils literal notranslate"><span class="pre">and</span></code> operator requires both <code class="docutils literal notranslate"><span class="pre">get()</span></code> calls to return a truthy value for the entire expression to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+<strong>Key Learning:</strong> Truthiness is highly effective for validating multiple fields in data structures like dictionaries.</p>
+</div>
+</details></section>
+<section id="exercise-3-filtering-valid-lab-results">
+<h3>Exercise 3: Filtering Valid Lab Results<a class="headerlink" href="#exercise-3-filtering-valid-lab-results" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Process a list of lab results, calculating the average of only the valid, non-zero readings.
+<strong>Time:</strong> 8 minutes
+<strong>Medical Context:</strong> A stream of data from a lab machine might contain errors, represented as <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, or empty strings. Your code must be robust enough to ignore these invalid entries when performing calculations.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">calculate_average_hba1c(results)</span></code> that takes a list of HbA1c readings. The list may contain numbers, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, and other falsy values. The function should calculate and return the average of only the truthy (valid, non-zero) numeric readings. If there are no valid readings, it should return <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_average_hba1c</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the average of valid (truthy, numeric) HbA1c results from a list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Use a list comprehension to filter for values that are both truthy and numeric.</span>
+    <span class="n">valid_readings</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))]</span>
+
+    <span class="c1"># Avoid division by zero if the filtered list is empty.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_readings</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">valid_readings</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_readings</span><span class="p">)</span>
+
+<span class="c1"># Test cases</span>
+<span class="n">hba1c_data</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+<span class="n">average</span> <span class="o">=</span> <span class="n">calculate_average_hba1c</span><span class="p">(</span><span class="n">hba1c_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average valid HbA1c: </span><span class="si">{</span><span class="n">average</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">empty_data</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+<span class="n">average_empty</span> <span class="o">=</span> <span class="n">calculate_average_hba1c</span><span class="p">(</span><span class="n">empty_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average of empty data: </span><span class="si">{</span><span class="n">average_empty</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1"># Average valid HbA1c: 6.88</span>
+<span class="c1"># Average of empty data: 0.0</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The list comprehension <code class="docutils literal notranslate"><span class="pre">[r</span> <span class="pre">for</span> <span class="pre">r</span> <span class="pre">in</span> <span class="pre">results</span> <span class="pre">if</span> <span class="pre">r</span> <span class="pre">and</span> <span class="pre">isinstance(r,</span> <span class="pre">(int,</span> <span class="pre">float))]</span></code> elegantly filters the list. The <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">r</span></code> part checks for truthiness, automatically excluding <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, and <code class="docutils literal notranslate"><span class="pre">''</span></code>. The <code class="docutils literal notranslate"><span class="pre">isinstance()</span></code> check adds robustness by ensuring we only average numbers. The final <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">valid_readings:</span></code> check is a crucial guard clause to prevent a <code class="docutils literal notranslate"><span class="pre">ZeroDivisionError</span></code>.
+<strong>Key Learning:</strong> Combining truthiness checks with list comprehensions provides a concise and powerful way to clean and process datasets.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong> Besides allergies, what are two other pieces of patient data where checking for a “falsy” value (e.g., <code class="docutils literal notranslate"><span class="pre">None</span></code> or an empty list) would be a critical safety step before proceeding with a calculation or clinical action?</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Clinical Decision Support Systems (CDSS):</strong> Before an algorithm recommends a medication, it must check if the patient has any recorded allergies. It can check if <code class="docutils literal notranslate"><span class="pre">patient.allergies</span></code> (a list) is truthy. If the list is empty (falsy), it’s safe to assume no allergies are known. This simple check prevents potentially fatal allergic reactions.</p></li>
+<li><p><strong>Data Ingestion and Cleaning:</strong> When importing patient data from an external source (like a CSV file or an API), scripts must validate that required fields like <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> or <code class="docutils literal notranslate"><span class="pre">admission_date</span></code> are not empty. A check like <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">row['patient_id']:</span></code> quickly determines if the essential identifier is present before attempting to create a new patient record in the database.</p></li>
+<li><p><strong>Real-Time Patient Monitoring:</strong> An ICU monitoring system might receive a continuous stream of heart rate data. To calculate an hourly average, the system must ignore intermittent <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code> values caused by sensor disconnects. By filtering for truthy values, the system ensures that only genuine readings contribute to the patient’s vital sign trends, preventing false alarms or inaccurate assessments.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how Python evaluates values in a Boolean context, distinguishing between explicit <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code> values and the broader concepts of “truthy” and “falsy.” We learned that this feature is not just a convenience but a powerful tool for writing robust, error-resistant code, especially in a clinical setting where data integrity is paramount.</p>
+<ul class="simple">
+<li><p><strong>Booleans are the Foundation:</strong> Comparisons result in <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, forming the basis of all logical operations.</p></li>
+<li><p><strong>Truthy Means “Content”:</strong> Any non-empty or non-zero object is treated as <code class="docutils literal notranslate"><span class="pre">True</span></code> in a conditional statement, making it easy to check for the presence of data.</p></li>
+<li><p><strong>Falsy Means “Absence”:</strong> <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>, and empty collections are treated as <code class="docutils literal notranslate"><span class="pre">False</span></code>, providing a simple way to detect missing or invalid data.</p></li>
+<li><p><strong>Practical Validation:</strong> Truthiness is the idiomatic Python way to validate data, from simple form fields to complex patient records, ensuring your code acts only on valid information.</p></li>
+</ul>
+<p>This understanding of Boolean logic is the essential prerequisite for our next topic, where we will use these principles to build complex decision-making structures with conditional statements.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.4_order_of_operations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Foundations of Python for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.5_comparison_operators.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Foundations of Python for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-values-true-and-false">3.1. Boolean Values (<code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#truthy-values-assuming-presence">3.2. Truthy Values: Assuming Presence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#falsy-values-detecting-absence">3.3. Falsy Values: Detecting Absence</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-value-validation">Exercise 1: Basic Value Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-patient-record-completeness-check">Exercise 2: Patient Record Completeness Check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-filtering-valid-lab-results">Exercise 3: Filtering Valid Lab Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

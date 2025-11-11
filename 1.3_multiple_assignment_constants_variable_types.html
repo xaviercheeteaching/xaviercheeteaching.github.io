@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.3_multiple_assignment_constants_variable_types';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.4_floor_division_modulus_exponentiation.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Health Data" href="1.3_assignment_operators.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_break_continue_statements_else_clause.html">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.3_multiple_assignment_constants_variable_types.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.3_multiple_assignment_constants_variable_types.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-initialization-with-multiple-assignment">3.1 Efficient Initialization with Multiple Assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensuring-data-integrity-with-constants">3.2 Ensuring Data Integrity with Constants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-python-s-dynamic-variable-types">3.3 Verifying Python’s Dynamic Variable Types</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-initializing-a-vitals-check-basic">Exercise 1: Initializing a Vitals Check Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-defining-clinical-thresholds-basic">Exercise 2: Defining Clinical Thresholds Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-setting-up-medication-data-intermediate">Exercise 3: Setting Up Medication Data Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to advanced variable techniques. In this section, we move beyond single variable assignments to explore more powerful and safer ways to handle data in a clinical context. We will learn how to initialize multiple related variables at once, define constants to protect critical clinical values from being changed, and confirm that our variables are of the correct data type to prevent dangerous errors. This journey will equip you with the skills to write Python code that is not only efficient but also robust and safe for precision health applications.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these core concepts is crucial for writing clean and reliable clinical code.</p>
+<ul class="simple">
+<li><p><strong>Multiple Assignment (Unpacking)</strong>: A Python feature that allows you to assign values to multiple variables in a single line of code. In a medical setting, this is highly efficient for initializing a set of related patient data, such as vitals or demographics, at the same time.</p></li>
+<li><p><strong>Constant</strong>: A variable whose value is not intended to change throughout the program’s execution. In clinical programming, constants are used to store fixed, critical values like diagnostic thresholds (e.g., the heart rate for tachycardia) or conversion factors. By convention, they are written in <code class="docutils literal notranslate"><span class="pre">UPPERCASE_SNAKE_CASE</span></code>.</p></li>
+<li><p><strong>Dynamic Typing</strong>: Python’s ability to automatically determine a variable’s data type at the moment a value is assigned. While convenient, it requires developers to be vigilant in ensuring that variables hold the expected type (e.g., a dosage is a <code class="docutils literal notranslate"><span class="pre">float</span></code>, not a <code class="docutils literal notranslate"><span class="pre">string</span></code>) to avoid errors in clinical calculations.</p></li>
+<li><p><strong>Hyponatremia</strong>: A condition characterized by an abnormally low level of sodium in the blood, clinically defined as a serum sodium level below 135 mEq/L.</p></li>
+<li><p><strong>Integer (<code class="docutils literal notranslate"><span class="pre">int</span></code>)</strong>: A data type representing whole numbers. It is used for countable data, such as a patient’s age in years, heart rate in beats per minute, or a room number.</p></li>
+<li><p><strong>Float (<code class="docutils literal notranslate"><span class="pre">float</span></code>)</strong>: A data type representing numbers with decimal points. This type is essential for precision measurements in medicine, such as drug dosages (e.g., <code class="docutils literal notranslate"><span class="pre">2.5</span></code> mg), body temperature (e.g., <code class="docutils literal notranslate"><span class="pre">37.5</span></code> °C), or lab results (e.g., serum sodium <code class="docutils literal notranslate"><span class="pre">140.5</span></code> mEq/L).</p></li>
+<li><p><strong>String (<code class="docutils literal notranslate"><span class="pre">str</span></code>)</strong>: A data type representing text, enclosed in quotes. It is used for non-numeric data like a patient’s name, medical record number, or medication name.</p></li>
+<li><p><strong>Boolean (<code class="docutils literal notranslate"><span class="pre">bool</span></code>)</strong>: A data type that can only have one of two values: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. It is fundamental for representing binary states in clinical logic, such as whether a patient has an allergy (<code class="docutils literal notranslate"><span class="pre">has_penicillin_allergy</span> <span class="pre">=</span> <span class="pre">True</span></code>) or if a condition is urgent.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>This section provides detailed explanations and code demonstrations for each advanced variable technique.</p>
+<section id="efficient-initialization-with-multiple-assignment">
+<h3>3.1 Efficient Initialization with Multiple Assignment<a class="headerlink" href="#efficient-initialization-with-multiple-assignment" title="Link to this heading">#</a></h3>
+<p>You can assign values to multiple variables in one line to initialize related patient data efficiently. This technique, also known as “unpacking,” makes your code more concise and readable when dealing with grouped data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign patient ID, age, and critical status in one line</span>
+<span class="n">patient_id</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">is_critical</span> <span class="o">=</span> <span class="s2">&quot;PT000789&quot;</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Using multiple assignment for related data, like a patient’s initial vitals, makes your code cleaner and more readable. It signals to other developers that these variables belong together.</p>
+</div></blockquote>
+</section>
+<section id="ensuring-data-integrity-with-constants">
+<h3>3.2 Ensuring Data Integrity with Constants<a class="headerlink" href="#ensuring-data-integrity-with-constants" title="Link to this heading">#</a></h3>
+<p>In clinical applications, some values must never change. Defining constants for these values, such as a diagnostic threshold, is a critical safety practice.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Hyponatremia (low sodium in the blood) is a common electrolyte imbalance. A serum sodium level below 135 mEq/L can lead to symptoms ranging from nausea to seizures or coma. Defining this threshold as a constant ensures it’s used consistently in any automated checks.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hyponatremia: Serum sodium &lt; 135 mEq/L</span>
+<span class="n">HYPONATREMIA_THRESHOLD_MEQ_L</span> <span class="o">=</span> <span class="mi">135</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> In Python, constants are a convention, not a rule enforced by the language. Using <code class="docutils literal notranslate"><span class="pre">UPPERCASE_SNAKE_CASE</span></code> is a critical signal to your team: “This value is a fixed threshold and must not be changed accidentally.” Altering a value like a clinical threshold could have serious patient safety implications.</p>
+</div></blockquote>
+</section>
+<section id="verifying-python-s-dynamic-variable-types">
+<h3>3.3 Verifying Python’s Dynamic Variable Types<a class="headerlink" href="#verifying-python-s-dynamic-variable-types" title="Link to this heading">#</a></h3>
+<p>Python uses dynamic typing, meaning it automatically identifies a variable’s type from its assigned value. While this is flexible, you must ensure the correct data type is used to maintain accuracy in clinical logic. You can check a variable’s type at any time using the built-in <code class="docutils literal notranslate"><span class="pre">type()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heart_rate_bpm</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">drug_dosage_mg</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="c1"># e.g., Dosage for a medication like warfarin</span>
+<span class="n">patient_name</span> <span class="o">=</span> <span class="s2">&quot;Maria&quot;</span>
+<span class="n">has_penicillin_allergy</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># Check the type of the dosage variable to ensure precision</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">drug_dosage_mg</span><span class="p">))</span>
+<span class="c1"># &lt;class &#39;float&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> Always use a <code class="docutils literal notranslate"><span class="pre">float</span></code> for measurements that require precision, like medication dosages. Using an <code class="docutils literal notranslate"><span class="pre">int</span></code> would discard the decimal part (e.g., <code class="docutils literal notranslate"><span class="pre">2.5</span></code> becomes <code class="docutils literal notranslate"><span class="pre">2</span></code>), leading to potentially dangerous under-dosing. Data types are not just a technical detail; they are a core part of ensuring clinical accuracy.</p>
+</div></blockquote>
+<p>Now that we’ve covered these foundational concepts, let’s apply them to a practical clinical scenario.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>Apply what you’ve learned with these hands-on exercises.</p>
+<section id="exercise-1-initializing-a-vitals-check-basic">
+<h3>Exercise 1: Initializing a Vitals Check Basic<a class="headerlink" href="#exercise-1-initializing-a-vitals-check-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use multiple assignment and constants to set up and verify initial variables for a patient’s vitals check.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> When a nurse begins a vitals check, they first identify the patient and define the alert thresholds relevant to the check.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Tachycardia is a heart rate that exceeds the normal resting rate. In adults, a resting heart rate over 100 beats per minute (BPM) is generally considered tachycardia. Setting this as a constant is a common practice in cardiac monitoring software.</p>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p>Use multiple assignment to declare <code class="docutils literal notranslate"><span class="pre">patient_initials</span></code> (str), <code class="docutils literal notranslate"><span class="pre">room_number</span></code> (int), and <code class="docutils literal notranslate"><span class="pre">is_urgent</span></code> (bool) with sample values.</p></li>
+<li><p>Define a constant <code class="docutils literal notranslate"><span class="pre">TACHYCARDIA_BPM_THRESHOLD</span></code> with the value <code class="docutils literal notranslate"><span class="pre">100</span></code>.</p></li>
+<li><p>Print each variable and its type using the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to confirm the assignments.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p>Our solution first uses multiple assignment to initialize the patient’s information, which is efficient. We then define the clinical threshold as an <code class="docutils literal notranslate"><span class="pre">UPPERCASE</span></code> constant, making our code’s intent clear. Finally, the <code class="docutils literal notranslate"><span class="pre">print()</span></code> statements use the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to verify that Python has correctly assigned <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, and <code class="docutils literal notranslate"><span class="pre">bool</span></code> types based on the values we provided.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Multiple assignment</span>
+<span class="n">patient_initials</span><span class="p">,</span> <span class="n">room_number</span><span class="p">,</span> <span class="n">is_urgent</span> <span class="o">=</span> <span class="s2">&quot;MG&quot;</span><span class="p">,</span> <span class="mi">302</span><span class="p">,</span> <span class="kc">True</span>
+
+<span class="c1"># 2. Constant definition</span>
+<span class="n">TACHYCARDIA_BPM_THRESHOLD</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># 3. Print variables and their types</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;patient_initials: </span><span class="si">{</span><span class="n">patient_initials</span><span class="si">}</span><span class="s2">, Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_initials</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;room_number: </span><span class="si">{</span><span class="n">room_number</span><span class="si">}</span><span class="s2">, Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">room_number</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;is_urgent: </span><span class="si">{</span><span class="n">is_urgent</span><span class="si">}</span><span class="s2">, Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">is_urgent</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;TACHYCARDIA_BPM_THRESHOLD: </span><span class="si">{</span><span class="n">TACHYCARDIA_BPM_THRESHOLD</span><span class="si">}</span><span class="s2">, Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">TACHYCARDIA_BPM_THRESHOLD</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># EXPECTED OUTPUT:</span>
+<span class="c1"># patient_initials: MG, Type: &lt;class &#39;str&#39;&gt;</span>
+<span class="c1"># room_number: 302, Type: &lt;class &#39;int&#39;&gt;</span>
+<span class="c1"># is_urgent: True, Type: &lt;class &#39;bool&#39;&gt;</span>
+<span class="c1"># TACHYCARDIA_BPM_THRESHOLD: 100, Type: &lt;class &#39;int&#39;&gt;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This code uses a single line to assign a string, an integer, and a boolean to three different variables. The <code class="docutils literal notranslate"><span class="pre">print()</span></code> statements then use f-strings and the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to confirm that Python correctly inferred the data type for each variable.
+<strong>Key Learning:</strong> Multiple assignment is a concise way to initialize a group of related variables, while constants help codify important clinical rules.</p>
+</div>
+</details></section>
+<section id="exercise-2-defining-clinical-thresholds-basic">
+<h3>Exercise 2: Defining Clinical Thresholds Basic<a class="headerlink" href="#exercise-2-defining-clinical-thresholds-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Define constants for standard clinical thresholds to ensure they are not accidentally modified.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Clinical decision support systems rely on standardized thresholds to flag abnormal conditions like fever or hypertension. These values must be protected from change.</p>
+<p>Define two constants: <code class="docutils literal notranslate"><span class="pre">FEVER_THRESHOLD_CELSIUS</span></code> for a body temperature of <code class="docutils literal notranslate"><span class="pre">38.0</span></code> and <code class="docutils literal notranslate"><span class="pre">HYPERTENSION_SYSTOLIC_THRESHOLD</span></code> for a systolic blood pressure of <code class="docutils literal notranslate"><span class="pre">140</span></code>. Print both constants to verify their values.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define constants for clinical thresholds using uppercase convention</span>
+<span class="n">FEVER_THRESHOLD_CELSIUS</span> <span class="o">=</span> <span class="mf">38.0</span>
+<span class="n">HYPERTENSION_SYSTOLIC_THRESHOLD</span> <span class="o">=</span> <span class="mi">140</span>
+
+<span class="c1"># Print the constants to verify their values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fever Threshold: </span><span class="si">{</span><span class="n">FEVER_THRESHOLD_CELSIUS</span><span class="si">}</span><span class="s2">°C&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hypertension Systolic Threshold: </span><span class="si">{</span><span class="n">HYPERTENSION_SYSTOLIC_THRESHOLD</span><span class="si">}</span><span class="s2"> mmHg&quot;</span><span class="p">)</span>
+
+<span class="c1"># EXPECTED OUTPUT:</span>
+<span class="c1"># Fever Threshold: 38.0°C</span>
+<span class="c1"># Hypertension Systolic Threshold: 140 mmHg</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The variables are named in <code class="docutils literal notranslate"><span class="pre">UPPERCASE_SNAKE_CASE</span></code> to indicate they are constants. <code class="docutils literal notranslate"><span class="pre">FEVER_THRESHOLD_CELSIUS</span></code> is a <code class="docutils literal notranslate"><span class="pre">float</span></code> for precision, while <code class="docutils literal notranslate"><span class="pre">HYPERTENSION_SYSTOLIC_THRESHOLD</span></code> is an <code class="docutils literal notranslate"><span class="pre">int</span></code>.
+<strong>Key Learning:</strong> Using uppercase naming conventions for constants is a critical practice for writing safe and maintainable clinical code.</p>
+</div>
+</details></section>
+<section id="exercise-3-setting-up-medication-data-intermediate">
+<h3>Exercise 3: Setting Up Medication Data Intermediate<a class="headerlink" href="#exercise-3-setting-up-medication-data-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine multiple assignment and type verification to correctly set up medication data.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Accurately representing medication information, including its name, dosage, and form, is vital for patient safety in electronic prescribing systems.</p>
+<ol class="arabic simple">
+<li><p>Use multiple assignment to define three variables for a medication: <code class="docutils literal notranslate"><span class="pre">drug_name</span></code> (e.g., “Lisinopril”), <code class="docutils literal notranslate"><span class="pre">dosage_mg</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">10.0</span></code>), and <code class="docutils literal notranslate"><span class="pre">is_tablet</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">True</span></code>).</p></li>
+<li><p>Print the value and type of each variable.</p></li>
+<li><p>Pay close attention to the data type for <code class="docutils literal notranslate"><span class="pre">dosage_mg</span></code>—it must be a <code class="docutils literal notranslate"><span class="pre">float</span></code> to allow for fractional doses.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Use multiple assignment to set up medication data</span>
+<span class="n">drug_name</span><span class="p">,</span> <span class="n">dosage_mg</span><span class="p">,</span> <span class="n">is_tablet</span> <span class="o">=</span> <span class="s2">&quot;Lisinopril&quot;</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="kc">True</span>
+
+<span class="c1"># 2. Print the value and type of each variable</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Drug: </span><span class="si">{</span><span class="n">drug_name</span><span class="si">}</span><span class="s2">, Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">drug_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dosage: </span><span class="si">{</span><span class="n">dosage_mg</span><span class="si">}</span><span class="s2"> mg, Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">dosage_mg</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is Tablet: </span><span class="si">{</span><span class="n">is_tablet</span><span class="si">}</span><span class="s2">, Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">is_tablet</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># EXPECTED OUTPUT:</span>
+<span class="c1"># Drug: Lisinopril, Type: &lt;class &#39;str&#39;&gt;</span>
+<span class="c1"># Dosage: 10.0 mg, Type: &lt;class &#39;float&#39;&gt;</span>
+<span class="c1"># Is Tablet: True, Type: &lt;class &#39;bool&#39;&gt;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code correctly initializes a string, a float, and a boolean in one line. Critically, <code class="docutils literal notranslate"><span class="pre">10.0</span></code> is used for the dosage, ensuring Python infers it as a <code class="docutils literal notranslate"><span class="pre">float</span></code>. If <code class="docutils literal notranslate"><span class="pre">10</span></code> were used, it would be an <code class="docutils literal notranslate"><span class="pre">int</span></code>, which is less suitable for dosages that may require fractional values.
+<strong>Key Learning:</strong> Choosing the correct data type (<code class="docutils literal notranslate"><span class="pre">float</span></code> for dosages, <code class="docutils literal notranslate"><span class="pre">bool</span></code> for flags) is essential for data integrity in medical applications.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong> Besides tachycardia, what other clinical thresholds in your area of practice would be good candidates for constants? Think about lab value ranges, vital sign alerts, or scoring systems.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p>These programming techniques are foundational to building real-world precision health tools.</p>
+<ul class="simple">
+<li><p><strong>Patient Admission Systems</strong>: When admitting a new patient, hospital information systems must capture multiple data points quickly. Multiple assignment (<code class="docutils literal notranslate"><span class="pre">id,</span> <span class="pre">name,</span> <span class="pre">dob</span> <span class="pre">=</span> <span class="pre">&quot;A123&quot;,</span> <span class="pre">&quot;John</span> <span class="pre">Doe&quot;,</span> <span class="pre">&quot;1980-05-15&quot;</span></code>) allows developers to create a new patient record from a row of data in a single, efficient operation.</p></li>
+<li><p><strong>Clinical Decision Support (CDS) Rules</strong>: CDS systems use rules to alert clinicians to potential issues. These rules are built on fixed clinical thresholds. Defining these as constants (<code class="docutils literal notranslate"><span class="pre">SEPSIS_QSOFA_SCORE_THRESHOLD</span> <span class="pre">=</span> <span class="pre">2</span></code>) ensures that the logic is consistent and cannot be accidentally altered during code maintenance, which directly impacts patient safety.</p></li>
+<li><p><strong>EHR Data Validation</strong>: Electronic Health Records (EHRs) receive data from many sources. Scripts use <code class="docutils literal notranslate"><span class="pre">type()</span></code> checks to validate incoming data. For example, a script can verify that <code class="docutils literal notranslate"><span class="pre">body_temperature</span></code> is a <code class="docutils literal notranslate"><span class="pre">float</span></code> before saving it to the database. If it receives <code class="docutils literal notranslate"><span class="pre">&quot;37.5&quot;</span></code> (a string), it can convert it or flag an error, preventing data corruption that could affect downstream analytics and patient care.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to write more robust and efficient Python code using advanced variable techniques. We learned that these methods are not just for convenience but are essential for ensuring safety and accuracy in clinical programming.</p>
+<ul class="simple">
+<li><p><strong>Multiple assignment</strong> allows you to initialize several related variables in one readable line, which is perfect for setting up patient or clinical data.</p></li>
+<li><p><strong>Constants</strong>, identified by their <code class="docutils literal notranslate"><span class="pre">UPPERCASE_NAME</span></code>, are used to protect critical, unchanging values like diagnostic thresholds from being modified.</p></li>
+<li><p>Python’s <strong>dynamic typing</strong> is powerful, but verifying variable types with <code class="docutils literal notranslate"><span class="pre">type()</span></code> is crucial to prevent errors, especially when dealing with precise measurements like medication dosages (<code class="docutils literal notranslate"><span class="pre">float</span></code>) versus countable data (<code class="docutils literal notranslate"><span class="pre">int</span></code>).</p></li>
+</ul>
+<p>By mastering these techniques, you can write cleaner, safer, and more maintainable code. In the next section, we will build on this foundation by learning how to perform calculations and comparisons using basic operators.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.3_assignment_operators.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Health Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.4_floor_division_modulus_exponentiation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-initialization-with-multiple-assignment">3.1 Efficient Initialization with Multiple Assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensuring-data-integrity-with-constants">3.2 Ensuring Data Integrity with Constants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-python-s-dynamic-variable-types">3.3 Verifying Python’s Dynamic Variable Types</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-initializing-a-vitals-check-basic">Exercise 1: Initializing a Vitals Check Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-defining-clinical-thresholds-basic">Exercise 2: Defining Clinical Thresholds Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-setting-up-medication-data-intermediate">Exercise 3: Setting Up Medication Data Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.8_break_continue_statements_else_clause';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.8_iterating_over_strings_lists.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.8_basic_loops.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_parameters.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_parameters.html">
+                    Chapter 1: Python Fundamentals for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_definition_parameters_arguments.html">1.1 Parameters Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_values.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.1_local_vs_global_variables.html">1.1 vs Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_comments_docstrings.html">1.2 Docstrings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_indentation_comments.html">1.2 Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_naming_conventions_case_sensitivity.html">1.2 Conventions Case Sensitivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variable_naming_rules.html">1.2 Naming Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_assignment_operators.html">1.3 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_multiple_assignment_constants_variable_types.html">1.3 Assignment Constants Variable Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_floor_division_modulus_exponentiation.html">1.4 Division Modulus Exponentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_addition_subtraction.html">1.4 Subtraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_multiplication_division.html">1.4 Division</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_order_of_operations.html">1.4 Of Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_boolean_values_truthy_falsy_values.html">1.5 Values Truthy Falsy Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_comparison_operators.html">1.5 Comparison Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_chaining_comparisons.html">1.5 Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_logical_operators.html">1.5 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_escape_characters.html">1.6 Characters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_input%28%29_function.html">1.6 Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_f_strings_string_formatting.html">1.6 Strings String Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_print%28%29_function_formatting.html">1.6 Function Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_type_conversion.html">1.6 Conversion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_if_else_elif.html">1.7 Else Elif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_nested_conditionals.html">1.7 Conditionals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_ternary_operators.html">1.7 Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_basic_loops.html">1.8 Basic Loops</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.8 Continue Statements Else Clause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_iterating_over_strings_lists.html">1.8 Over Strings Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_range%28%29_function.html">Chapter 1: Python Fundamentals for Precision Health</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="1.9_basic_loops.html">1.9 Basic Loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_infinite_loops_break_continue.html">1.9 Loops Break Continue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_loop_conditions.html">1.9 Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_nested_loops.html">Chapter 1: Control Flow and Looping</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.8_break_continue_statements_else_clause.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.8_break_continue_statements_else_clause.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-break-statement-exiting-a-loop-early">3.1 The <code class="docutils literal notranslate"><span class="pre">break</span></code> Statement: Exiting a Loop Early</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-continue-statement-skipping-an-iteration">3.2 The <code class="docutils literal notranslate"><span class="pre">continue</span></code> Statement: Skipping an Iteration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-else-clause-in-a-for-loop-the-no-break-clause">3.3 The <code class="docutils literal notranslate"><span class="pre">else</span></code> Clause in a For Loop: The “No Break” Clause</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-fever-detection-basic">Exercise 1: Fever Detection Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-filter-billing-codes-intermediate">Exercise 2: Filter Billing Codes Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-medication-safety-check-advanced">Exercise 3: Medication Safety Check Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the next level of loop mastery. While <code class="docutils literal notranslate"><span class="pre">for</span></code> loops are excellent for processing every item in a sequence, real-world scenarios often require more nuanced control. In this section, you will learn how to use the <code class="docutils literal notranslate"><span class="pre">break</span></code>, <code class="docutils literal notranslate"><span class="pre">continue</span></code>, and <code class="docutils literal notranslate"><span class="pre">for...else</span></code> statements to precisely manage loop execution. This is essential for writing efficient code, such as searching patient data for a single critical flag and stopping immediately, filtering out irrelevant records from a large dataset, or confirming the absence of a contraindication before administering treatment. By the end of this lesson, you will be able to build more responsive and intelligent loops for your precision health applications.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these control statements is key to writing efficient and readable loops.</p>
+<ul class="simple">
+<li><p><strong>Loop Control Statement</strong>: A command that alters the normal execution flow of a loop. In a clinical system, these are used to react to specific data points, like stopping a search for a genetic marker once it’s found or skipping over records that don’t need processing.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">break</span></code></strong>: This statement immediately terminates the innermost loop it is in. Think of it as a clinical “stat” order that stops all other processing to focus on a critical finding, such as halting a review of patient vitals once a value crosses a life-threatening threshold.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">continue</span></code></strong>: This statement skips the rest of the code inside the current iteration of a loop and proceeds to the next iteration. This is useful for filtering data, similar to a lab technician skipping over stable samples to focus only on those that are flagged for further analysis.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">for...else</span></code> Clause</strong>: The <code class="docutils literal notranslate"><span class="pre">else</span></code> block attached to a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop executes only when the loop has completed all its iterations naturally, without being terminated by a <code class="docutils literal notranslate"><span class="pre">break</span></code> statement. This is a powerful way to confirm a condition’s absence, such as verifying that a patient has no recorded allergies to a prescribed medication.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>Let’s explore how to use <code class="docutils literal notranslate"><span class="pre">break</span></code>, <code class="docutils literal notranslate"><span class="pre">continue</span></code>, and the <code class="docutils literal notranslate"><span class="pre">for...else</span></code> clause to write more sophisticated and efficient loops.</p>
+<section id="the-break-statement-exiting-a-loop-early">
+<h3>3.1 The <code class="docutils literal notranslate"><span class="pre">break</span></code> Statement: Exiting a Loop Early<a class="headerlink" href="#the-break-statement-exiting-a-loop-early" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">break</span></code> statement provides a way to exit a loop immediately. This is highly efficient for “search” operations where you only need to find the first occurrence of a condition.</p>
+<p><strong>Use Case:</strong> Find the first heart rate indicating tachycardia in a log. Once found, flag it and stop checking the rest of the log.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># In a real application, thresholds are often configured as constants.</span>
+<span class="n">ALERT_THRESHOLD</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">heart_rate_log</span> <span class="o">=</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">92</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">heart_rate</span> <span class="ow">in</span> <span class="n">heart_rate_log</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">heart_rate</span> <span class="o">&gt;</span> <span class="n">ALERT_THRESHOLD</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Heart rate </span><span class="si">{</span><span class="n">heart_rate</span><span class="si">}</span><span class="s2"> bpm exceeds threshold. Flagging for review.&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Heart rate stable: </span><span class="si">{</span><span class="n">heart_rate</span><span class="si">}</span><span class="s2"> bpm.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Heart</span> <span class="n">rate</span> <span class="n">stable</span><span class="p">:</span> <span class="mi">72</span> <span class="n">bpm</span><span class="o">.</span>
+<span class="n">Heart</span> <span class="n">rate</span> <span class="n">stable</span><span class="p">:</span> <span class="mi">75</span> <span class="n">bpm</span><span class="o">.</span>
+<span class="n">Heart</span> <span class="n">rate</span> <span class="n">stable</span><span class="p">:</span> <span class="mi">81</span> <span class="n">bpm</span><span class="o">.</span>
+<span class="n">Heart</span> <span class="n">rate</span> <span class="mi">105</span> <span class="n">bpm</span> <span class="n">exceeds</span> <span class="n">threshold</span><span class="o">.</span> <span class="n">Flagging</span> <span class="k">for</span> <span class="n">review</span><span class="o">.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The loop halts when <code class="docutils literal notranslate"><span class="pre">heart_rate</span></code> is <code class="docutils literal notranslate"><span class="pre">105</span></code>. This value indicates tachycardia (a heart rate over 100 beats per minute), so the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement prevents the remaining vitals from being checked.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>In Practice:</strong> In time-critical situations, such as monitoring a patient for sepsis or a cardiac event, finding the <em>first</em> sign of trouble is paramount. Using <code class="docutils literal notranslate"><span class="pre">break</span></code> ensures the system can issue an alert immediately without wasting precious seconds or milliseconds processing non-critical data that follows.</p>
+</div></blockquote>
+</section>
+<section id="the-continue-statement-skipping-an-iteration">
+<h3>3.2 The <code class="docutils literal notranslate"><span class="pre">continue</span></code> Statement: Skipping an Iteration<a class="headerlink" href="#the-continue-statement-skipping-an-iteration" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">continue</span></code> statement allows you to skip the remainder of the current iteration and move directly to the next one. It is ideal for filtering out items you don’t need to process.</p>
+<p><strong>Use Case:</strong> Process only core lab panels, such as a CBC (Complete Blood Count) or BMP (Basic Metabolic Panel), from a list of test orders.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lab_orders</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CBC&quot;</span><span class="p">,</span> <span class="s2">&quot;LIPID&quot;</span><span class="p">,</span> <span class="s2">&quot;BMP&quot;</span><span class="p">,</span> <span class="s2">&quot;TSH&quot;</span><span class="p">]</span>
+<span class="n">core_panels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CBC&quot;</span><span class="p">,</span> <span class="s2">&quot;BMP&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">lab_orders</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">test</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">core_panels</span><span class="p">:</span>
+        <span class="k">continue</span>  <span class="c1"># Skip non-core tests</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing core lab order: </span><span class="si">{</span><span class="n">test</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Processing</span> <span class="n">core</span> <span class="n">lab</span> <span class="n">order</span><span class="p">:</span> <span class="n">CBC</span>
+<span class="n">Processing</span> <span class="n">core</span> <span class="n">lab</span> <span class="n">order</span><span class="p">:</span> <span class="n">BMP</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">continue</span></code> statement causes the loop to skip the <code class="docutils literal notranslate"><span class="pre">print()</span></code> call for ‘LIPID’ and ‘TSH’, processing only the core tests.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> The <code class="docutils literal notranslate"><span class="pre">continue</span></code> statement is a powerful tool for data cleaning and validation. Before performing complex calculations or analysis on a dataset, you can loop through it and use <code class="docutils literal notranslate"><span class="pre">continue</span></code> to skip over rows with missing values, invalid entries, or data points that fall outside the scope of your current task.</p>
+</div></blockquote>
+</section>
+<section id="the-else-clause-in-a-for-loop-the-no-break-clause">
+<h3>3.3 The <code class="docutils literal notranslate"><span class="pre">else</span></code> Clause in a For Loop: The “No Break” Clause<a class="headerlink" href="#the-else-clause-in-a-for-loop-the-no-break-clause" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">else</span></code> clause runs only if the loop completes all its iterations without a <code class="docutils literal notranslate"><span class="pre">break</span></code>. Think of it as a ‘no break occurred’ block, perfect for confirming an item was not found.</p>
+<p><strong>Use Case:</strong> Check a patient’s recorded allergies before administering a drug.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patient_allergies</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Penicillin&quot;</span><span class="p">,</span> <span class="s2">&quot;Sulfa&quot;</span><span class="p">,</span> <span class="s2">&quot;Ibuprofen&quot;</span><span class="p">]</span>
+<span class="n">DRUG_TO_ADMINISTER</span> <span class="o">=</span> <span class="s2">&quot;Aspirin&quot;</span>
+
+<span class="k">for</span> <span class="n">allergy</span> <span class="ow">in</span> <span class="n">patient_allergies</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">allergy</span> <span class="o">==</span> <span class="n">DRUG_TO_ADMINISTER</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Allergy found: </span><span class="si">{</span><span class="n">allergy</span><span class="si">}</span><span class="s2">. Do not administer.&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Executes only because the loop finished without a &#39;break&#39;.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No allergy to </span><span class="si">{</span><span class="n">DRUG_TO_ADMINISTER</span><span class="si">}</span><span class="s2"> found. Proceed with safety protocols.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span> <span class="n">allergy</span> <span class="n">to</span> <span class="n">Aspirin</span> <span class="n">found</span><span class="o">.</span> <span class="n">Proceed</span> <span class="k">with</span> <span class="n">safety</span> <span class="n">protocols</span><span class="o">.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The loop finishes because <code class="docutils literal notranslate"><span class="pre">break</span></code> was never triggered. The <code class="docutils literal notranslate"><span class="pre">else</span></code> block executes, confirming the drug is not on the allergy list.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Think of the <code class="docutils literal notranslate"><span class="pre">else</span></code> on a loop as the “all-clear” signal. It only runs if the loop completed its full patrol (all iterations) without raising an alarm (<code class="docutils literal notranslate"><span class="pre">break</span></code>). This makes it perfect for confirming that a specific condition was <em>not</em> met in an entire dataset.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common mistake is confusing a loop’s <code class="docutils literal notranslate"><span class="pre">else</span></code> clause with a standard <code class="docutils literal notranslate"><span class="pre">if/else</span></code> statement. Remember, the loop’s <code class="docutils literal notranslate"><span class="pre">else</span></code> is tied to the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement, not the <code class="docutils literal notranslate"><span class="pre">if</span></code> condition. It will <em>not</em> run if the loop is exited via <code class="docutils literal notranslate"><span class="pre">break</span></code>.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-fever-detection-basic">
+<h3>Exercise 1: Fever Detection Basic<a class="headerlink" href="#exercise-1-fever-detection-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">break</span></code> to stop a loop as soon as a critical condition is met.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Early fever detection is crucial for timely intervention. This exercise simulates an automated system that scans recent temperature readings and flags the first sign of fever.</p>
+<p><strong>Task:</strong> Given <code class="docutils literal notranslate"><span class="pre">patient_temperatures_celsius</span></code>, write a loop that prints “Fever Alert!” and stops immediately when it finds the first temperature greater than or equal to 38.0°C (<code class="docutils literal notranslate"><span class="pre">&gt;=</span> <span class="pre">38.0</span></code>).</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">patient_temperatures_celsius</span> <span class="o">=</span> <span class="p">[</span><span class="mf">36.6</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">,</span> <span class="mf">37.1</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">,</span> <span class="mf">37.3</span><span class="p">]</span>
+<span class="n">FEVER_THRESHOLD_CELSIUS</span> <span class="o">=</span> <span class="mf">38.0</span>
+
+<span class="k">for</span> <span class="n">temp</span> <span class="ow">in</span> <span class="n">patient_temperatures_celsius</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">temp</span> <span class="o">&gt;=</span> <span class="n">FEVER_THRESHOLD_CELSIUS</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fever Alert! Temperature: </span><span class="si">{</span><span class="n">temp</span><span class="si">}</span><span class="s2">°C&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The loop checks each temperature. When it reaches <code class="docutils literal notranslate"><span class="pre">39.2</span></code>, the <code class="docutils literal notranslate"><span class="pre">if</span></code> condition (<code class="docutils literal notranslate"><span class="pre">39.2</span> <span class="pre">&gt;=</span> <span class="pre">38.0</span></code>) is met, the alert is printed, and the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement terminates the loop. The final temperature of <code class="docutils literal notranslate"><span class="pre">37.3</span></code> is never checked.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">break</span></code> is ideal for stopping a search the moment a condition is met, making code more efficient.</p>
+</div>
+</details></section>
+<section id="exercise-2-filter-billing-codes-intermediate">
+<h3>Exercise 2: Filter Billing Codes Intermediate<a class="headerlink" href="#exercise-2-filter-billing-codes-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">continue</span></code> to filter a list and process only relevant items.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A list of billing codes contains both office visit codes (CPT) and drug codes (HCPCS). For an audit, you need to process only the office visit codes.</p>
+<p><strong>Task:</strong> A list of billing codes is <code class="docutils literal notranslate"><span class="pre">['99213',</span> <span class="pre">'J0585',</span> <span class="pre">'99214']</span></code>. Write a loop that processes only office visit codes. Use <code class="docutils literal notranslate"><span class="pre">continue</span></code> to skip any code that does not start with the character ‘9’. Print only the valid office visit codes.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">billing_codes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;99213&#39;</span><span class="p">,</span> <span class="s1">&#39;J0585&#39;</span><span class="p">,</span> <span class="s1">&#39;99214&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">billing_codes</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">code</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;9&#39;</span><span class="p">):</span>
+        <span class="k">continue</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing office visit code: </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The loop iterates through the codes. For ‘J0585’, the <code class="docutils literal notranslate"><span class="pre">if</span></code> condition is true, and <code class="docutils literal notranslate"><span class="pre">continue</span></code> causes the loop to skip the <code class="docutils literal notranslate"><span class="pre">print</span></code> statement and move to the next item. The codes starting with ‘9’ are processed normally.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">continue</span></code> is effective for filtering out items in a list that do not meet processing criteria.</p>
+</div>
+</details></section>
+<section id="exercise-3-medication-safety-check-advanced">
+<h3>Exercise 3: Medication Safety Check Advanced<a class="headerlink" href="#exercise-3-medication-safety-check-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a <code class="docutils literal notranslate"><span class="pre">for...else</span></code> loop to confirm that an item is not present in a list.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Before prescribing a high-risk medication like Warfarin, a clinician must ensure it is not already on the patient’s active medication list to prevent dangerous interactions. This task simulates that safety check.</p>
+<p><strong>Task:</strong> A patient’s medication list is <code class="docutils literal notranslate"><span class="pre">['Lisinopril',</span> <span class="pre">'Metformin']</span></code>. Write a loop to check if ‘Warfarin’ is on the list. If the loop finishes without finding ‘Warfarin’, use the <code class="docutils literal notranslate"><span class="pre">else</span></code> clause to print “No Warfarin found in records.”</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">medication_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Lisinopril&#39;</span><span class="p">,</span> <span class="s1">&#39;Metformin&#39;</span><span class="p">]</span>
+<span class="n">DRUG_TO_CHECK</span> <span class="o">=</span> <span class="s1">&#39;Warfarin&#39;</span>
+
+<span class="k">for</span> <span class="n">med</span> <span class="ow">in</span> <span class="n">medication_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">med</span> <span class="o">==</span> <span class="n">DRUG_TO_CHECK</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">DRUG_TO_CHECK</span><span class="si">}</span><span class="s2"> is already on the medication list.&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No </span><span class="si">{</span><span class="n">DRUG_TO_CHECK</span><span class="si">}</span><span class="s2"> found in records.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The loop checks ‘Lisinopril’ and ‘Metformin’. Neither matches ‘Warfarin’, so the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement is never executed. Because the loop completes its full run, the <code class="docutils literal notranslate"><span class="pre">else</span></code> block is triggered, printing the confirmation message.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">for...else</span></code> structure is a clear and explicit way to handle cases where a loop completes a search without finding the target item.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Real-time Vitals Monitoring:</strong> An ICU monitoring system can loop through a patient’s vital signs. Using <code class="docutils literal notranslate"><span class="pre">break</span></code>, the system can immediately trigger an alarm and halt the routine check the instant any single vital sign crosses a critical threshold, ensuring the most urgent issue is addressed without delay.</p></li>
+<li><p><strong>Genomic Data Filtering:</strong> When analyzing a patient’s genomic sequence, researchers might search for a list of specific genetic markers. Using <code class="docutils literal notranslate"><span class="pre">continue</span></code>, a script can iterate through millions of base pairs, skipping over all non-marker sequences and only processing the ones that are relevant to the study, dramatically improving efficiency.</p></li>
+<li><p><strong>Clinical Trial Eligibility Screening:</strong> A program can screen a patient’s electronic health record to determine eligibility for a clinical trial. It can loop through a list of disqualifying conditions (e.g., specific allergies). If the loop completes without finding any disqualifying conditions (<code class="docutils literal notranslate"><span class="pre">break</span></code> is never called), the <code class="docutils literal notranslate"><span class="pre">else</span></code> block can run to flag the patient as “Potentially Eligible,” confirming they passed the initial screening.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to add sophisticated control to our loops. By learning to use <code class="docutils literal notranslate"><span class="pre">break</span></code>, <code class="docutils literal notranslate"><span class="pre">continue</span></code>, and the <code class="docutils literal notranslate"><span class="pre">for...else</span></code> clause, you can write more efficient, readable, and powerful code for handling complex health data.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">break</span></code> is your tool for stopping a loop entirely, perfect for when you’ve found what you’re looking for.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">continue</span></code> allows you to skip specific items, making it ideal for filtering data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">for...else</span></code> provides a clean way to confirm that a loop finished its entire course without being interrupted by a <code class="docutils literal notranslate"><span class="pre">break</span></code>, which is invaluable for verification tasks.</p></li>
+</ul>
+<p>These control statements are fundamental building blocks that you will use frequently as you build more complex applications. In the next section, we will learn how to encapsulate and reuse code by creating functions.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Consider a daily task in your clinical or research environment that involves reviewing a list of items (e.g., patient charts, medication orders, lab results). Which of these control statements—<code class="docutils literal notranslate"><span class="pre">break</span></code>, <code class="docutils literal notranslate"><span class="pre">continue</span></code>, or <code class="docutils literal notranslate"><span class="pre">else</span></code>—could make that process more efficient or reliable?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.8_basic_loops.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.8_iterating_over_strings_lists.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-break-statement-exiting-a-loop-early">3.1 The <code class="docutils literal notranslate"><span class="pre">break</span></code> Statement: Exiting a Loop Early</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-continue-statement-skipping-an-iteration">3.2 The <code class="docutils literal notranslate"><span class="pre">continue</span></code> Statement: Skipping an Iteration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-else-clause-in-a-for-loop-the-no-break-clause">3.3 The <code class="docutils literal notranslate"><span class="pre">else</span></code> Clause in a For Loop: The “No Break” Clause</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-fever-detection-basic">Exercise 1: Fever Detection Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-filter-billing-codes-intermediate">Exercise 2: Filter Billing Codes Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-medication-safety-check-advanced">Exercise 3: Medication Safety Check Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
