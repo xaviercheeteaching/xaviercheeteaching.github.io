@@ -1,0 +1,1353 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 2: Working with Clinical Data in Pandas &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2.6_manipulation_(sorting_merging_grouping)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 3: Foundations of Medical Visualization" href="3.1_to_matplotlib.html" />
+    <link rel="prev" title="Chapter 2: Data Manipulation with Pandas" href="2.5_selection_and_filtering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="1.1_and_environment_setup.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="1.1_and_environment_setup.html">
+                    Chapter 1: Setting Up Your Precision Health Analytics Environment
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.2_data_types_%28strings_integers_floats_booleans%29.html">1.2 Types (strings Integers Floats Booleans)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_and_expressions.html">1.3 Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_python_errors_and_exceptions.html">1.4 and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_and_tuples.html">1.4 Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_and_sets.html">1.5 Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_flow_if_elif_else_statements.html">1.6 If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_parameters.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_and_writing_files.html">1.9 Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_line_arguments_with_sys.argv.html">1.10 Arguments With Sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_methods_%28split_strip_startswith_replace%29.html">1.11 (split Strip Startswith Replace)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_to_numpy_arrays.html">2.1 Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_operations_and_indexing.html">2.2 and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_to_pandas_dataframes.html">2.3 Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_selection_and_filtering.html">2.5 and Filtering</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2.6 (sorting Merging Grouping)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_to_matplotlib.html">3.1 Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_plots_and_scatter_plots.html">3.2 and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_plots_and_histograms.html">3.3 and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_plots_%28labels_titles_colors_legends%29.html">3.4 (labels Titles Colors Legends)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.6_figures.html"> </a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/2.6_manipulation_(sorting_merging_grouping).ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2.6_manipulation_(sorting_merging_grouping).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 2: Working with Clinical Data in Pandas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-data-with-sort-values">3.1 Sorting Data with <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-dataframes-with-pd-merge">3.2 Merging DataFrames with <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-and-aggregating-data-with-groupby">3.3 Grouping and Aggregating Data with <code class="docutils literal notranslate"><span class="pre">groupby()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-sorting-lab-results-basic">Exercise 1: Sorting Lab Results Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-merging-patient-rosters-intermediate">Exercise 2: Merging Patient Rosters Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-summarizing-trial-data-intermediate">Exercise 3: Summarizing Trial Data Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patients-with-the-highest-hba1c-levels-for-follow-up-calls-sorting-the-patient-list-in-descending-order-by-hba1c-instantly-brings-the-most-critical-cases-to-the-top-ensuring-timely-intervention">patients with the highest HbA1c levels for follow-up calls. Sorting the patient list in descending order by <code class="docutils literal notranslate"><span class="pre">HbA1c</span></code> instantly brings the most critical cases to the top, ensuring timely intervention.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pd-merge-function-combines-dataframes-on-a-shared-key-this-is-essential-for-linking-separate-datasets-like-patient-demographics-and-their-lab-results">The <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> function combines DataFrames on a shared key. This is essential for linking separate datasets, like patient demographics and their lab results.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-groupby-method-splits-data-into-groups-to-perform-calculations-use-it-with-agg-to-calculate-summary-statistics-like-the-mean-and-count-for-each-treatment-group-in-a-clinical-trial">. The <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method splits data into groups to perform calculations. Use it with <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> to calculate summary statistics, like the mean and count, for each treatment group in a clinical trial.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-are-given-a-dataframe-of-lab-results-sort-the-lab-results-dataframe-first-by-cholesterol-in-descending-order-and-then-by-patient-id-in-ascending-order">You are given a DataFrame of lab results. Sort the <code class="docutils literal notranslate"><span class="pre">lab_results</span></code> DataFrame first by <code class="docutils literal notranslate"><span class="pre">cholesterol</span></code> in descending order, and then by <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> in ascending order.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-have-patient-registry-and-appointments-perform-a-merge-that-includes-all-patients-from-patient-registry-and-adds-their-appointment-date-if-one-exists">You have <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and <code class="docutils literal notranslate"><span class="pre">appointments</span></code>. Perform a merge that includes all patients from <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and adds their appointment date if one exists.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ame-from-the-lesson-group-the-data-by-treatment-group-only-use-a-single-agg-call-to-find-the-number-of-patients-patient-count-and-the-average-blood-pressure-reduction-avg-reduction">ame from the lesson, group the data by <code class="docutils literal notranslate"><span class="pre">treatment_group</span></code> only. Use a single <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> call to find the number of patients (<code class="docutils literal notranslate"><span class="pre">patient_count</span></code>) and the average blood pressure reduction (<code class="docutils literal notranslate"><span class="pre">avg_reduction</span></code>).</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-working-with-clinical-data-in-pandas">
+<h1>Chapter 2: Working with Clinical Data in Pandas<a class="headerlink" href="#chapter-2-working-with-clinical-data-in-pandas" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Now that we have our data loaded into DataFrames, a clinician at a medical center needs to start organizing it to uncover insights. In this section, we’ll learn the essential skills for preparing data for analysis: sorting records to prioritize cases, merging disparate datasets to create a complete patient picture, and grouping data to compare outcomes. By mastering these techniques, you will learn how to structure datasets into a cohesive, analyzable format, a critical first step in tasks like identifying high-risk patients or evaluating treatment outcomes.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Sorting</strong>: The process of reordering rows in a DataFrame based on the values in one or more columns. In a clinical context, this is used to rank patients by a specific biomarker or to order events chronologically.</p></li>
+<li><p><strong>Merging</strong>: The action of combining two or more DataFrames based on a shared column, known as a “key.” This is essential for creating a complete patient profile by linking demographic data with their corresponding lab results.</p></li>
+<li><p><strong>Key (or Join Key)</strong>: A column or set of columns containing common values that can be used to link rows between different DataFrames. A <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> is a classic key used to merge various datasets related to a single individual.</p></li>
+<li><p><strong>Grouping</strong>: The process of splitting a DataFrame into groups based on some criteria (e.g., treatment arm, gender). This allows for calculations to be performed on each group independently.</p></li>
+<li><p><strong>Aggregation</strong>: The computation of a summary statistic (like a mean, count, or sum) for each group created by the <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method. For example, aggregating clinical trial data to calculate the average outcome for the placebo group versus the active drug group.</p></li>
+<li><p><strong>Hemoglobin A1c (HbA1c)</strong>: A blood test that measures average blood glucose levels over the past 3 months, commonly used to diagnose and monitor diabetes.</p></li>
+<li><p><strong>Cholesterol</strong>: A waxy substance found in the blood. High levels can increase the risk of heart disease. Measured in milligrams per deciliter (mg/dL).</p></li>
+<li><p><strong>Blood Pressure (BP) Reduction</strong>: The decrease in blood pressure, typically measured in millimeters of mercury (mmHg), often used as an endpoint in clinical trials for hypertension treatments.</p></li>
+<li><p><strong>NaN (Not a Number)</strong>: A special floating-point value that represents missing or undefined data in Pandas. It often appears after a merge operation when a row in one DataFrame does not have a corresponding match in the other.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="sorting-data-with-sort-values">
+<h3>3.1 Sorting Data with <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code><a class="headerlink" href="#sorting-data-with-sort-values" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code> method reorders a DataFrame. Use it to rank patients by lab results like Hemoglobin A1c (HbA1c) or sort appointments chronologically.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> In a busy clinic, a nurse might need to quickly identify patients with the highest HbA1c levels for follow-up calls. Sorting the patient list in descending order by <code class="docutils literal notranslate"><span class="pre">HbA1c</span></code> instantly brings the most critical cases to the top, ensuring timely intervention.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Sample data of patient lab results</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000103&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000104&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+        <span class="s1">&#39;HbA1c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">6.8</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">]}</span> <span class="c1"># Hemoglobin A1c (%)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Sort by age (ascending=True is the default)</span>
+<span class="n">sorted_by_age</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>
+
+<span class="c1"># Sort by HbA1c (desc), then by age (asc)</span>
+<span class="n">sorted_multi</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HbA1c&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Sorted by Age (Ascending) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_by_age</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Sorted by HbA1c (Desc), then Age (Asc) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_multi</span><span class="p">)</span>
+
+<span class="c1"># --- Sorted by Age (Ascending) ---</span>
+<span class="c1">#   patient_id  age  HbA1c</span>
+<span class="c1"># 1   PT000101   34    5.5</span>
+<span class="c1"># 0   PT000103   45    6.8</span>
+<span class="c1"># 3   PT000104   50    7.1</span>
+<span class="c1"># 2   PT000102   62    7.1</span>
+<span class="c1">#</span>
+<span class="c1"># --- Sorted by HbA1c (Desc), then Age (Asc) ---</span>
+<span class="c1">#   patient_id  age  HbA1c</span>
+<span class="c1"># 3   PT000104   50    7.1</span>
+<span class="c1"># 2   PT000102   62    7.1</span>
+<span class="c1"># 0   PT000103   45    6.8</span>
+<span class="c1"># 1   PT000101   34    5.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Always assign the result of <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code> to a new variable (e.g., <code class="docutils literal notranslate"><span class="pre">sorted_df</span> <span class="pre">=</span> <span class="pre">df.sort_values(...)</span></code>). While using the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> parameter might seem convenient, it modifies your original DataFrame directly, which can make your code harder to debug if you make a mistake.</p>
+</div></blockquote>
+</section>
+<section id="merging-dataframes-with-pd-merge">
+<h3>3.2 Merging DataFrames with <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code><a class="headerlink" href="#merging-dataframes-with-pd-merge" title="Link to this heading">#</a></h3>
+<p>Sorting helps us order data, but patient information is often spread across multiple files. Next, we’ll learn how to combine these separate datasets into a single, unified DataFrame.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> A patient’s data is rarely stored in one place. You’ll often find demographic information in a hospital’s registration system, lab results in a separate lab information system (LIS), and appointment history in a scheduling system. Merging is the digital equivalent of collating these different documents into a single, comprehensive patient chart before a consultation.</p>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> function combines DataFrames on a shared key. This is essential for linking separate datasets, like patient demographics and their lab results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">patients</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000103&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span> <span class="s1">&#39;Jane Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Peter Jones&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">appointments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;appt_date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2025-11-20&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-11-21&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">vitals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_ref&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">],</span> <span class="c1"># Different key column name</span>
+    <span class="s1">&#39;heart_rate_bpm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">88</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Left merge: keeps all patients, filling missing appointments with NaN</span>
+<span class="n">merged_left</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">patients</span><span class="p">,</span> <span class="n">appointments</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Inner merge: keeps only patients with appointments</span>
+<span class="n">merged_inner</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">patients</span><span class="p">,</span> <span class="n">appointments</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+
+<span class="c1"># Merge with different key names</span>
+<span class="n">merged_keys</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">patients</span><span class="p">,</span> <span class="n">vitals</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;patient_ref&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Left Merge ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_left</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Inner Merge ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_inner</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Merge with Different Key Names ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_keys</span><span class="p">)</span>
+
+<span class="c1"># --- Left Merge ---</span>
+<span class="c1">#   patient_id         name   appt_date</span>
+<span class="c1"># 0   PT000101     John Doe  2025-11-20</span>
+<span class="c1"># 1   PT000102   Jane Smith  2025-11-21</span>
+<span class="c1"># 2   PT000103  Peter Jones         NaN</span>
+<span class="c1">#</span>
+<span class="c1"># --- Inner Merge ---</span>
+<span class="c1">#   patient_id        name   appt_date</span>
+<span class="c1"># 0   PT000101    John Doe  2025-11-20</span>
+<span class="c1"># 1   PT000102  Jane Smith  2025-11-21</span>
+<span class="c1">#</span>
+<span class="c1"># --- Merge with Different Key Names ---</span>
+<span class="c1">#   patient_id         name patient_ref  heart_rate_bpm</span>
+<span class="c1"># 0   PT000101     John Doe    PT000101              72</span>
+<span class="c1"># 1   PT000102   Jane Smith    PT000102              88</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> Choosing the right <code class="docutils literal notranslate"><span class="pre">how</span></code> parameter is critical. A <code class="docutils literal notranslate"><span class="pre">left</span></code> merge on a master patient list ensures you don’t accidentally drop patients from your analysis, even if they’re missing data in the other table (e.g., no recent appointments). An <code class="docutils literal notranslate"><span class="pre">inner</span></code> merge is useful only when you need to analyze the intersection of two datasets, but be aware it will exclude any records that don’t have a match.</p>
+</div></blockquote>
+</section>
+<section id="grouping-and-aggregating-data-with-groupby">
+<h3>3.3 Grouping and Aggregating Data with <code class="docutils literal notranslate"><span class="pre">groupby()</span></code><a class="headerlink" href="#grouping-and-aggregating-data-with-groupby" title="Link to this heading">#</a></h3>
+<p>With our data merged into a comprehensive view, we can now perform powerful summary analyses. Let’s explore how to group data to compare different patient cohorts, a cornerstone of clinical trial analysis. The <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method splits data into groups to perform calculations. Use it with <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> to calculate summary statistics, like the mean and count, for each treatment group in a clinical trial.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">trial_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000001&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000002&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000003&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000004&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000005&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;treatment_group&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;bp_reduction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="c1"># mmHg</span>
+<span class="p">})</span>
+
+<span class="c1"># Group by multiple columns and calculate multiple statistics</span>
+<span class="n">group_stats</span> <span class="o">=</span> <span class="n">trial_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;treatment_group&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">mean_reduction</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;bp_reduction&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
+    <span class="n">patient_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">group_stats</span><span class="p">)</span>
+
+<span class="c1">#   treatment_group gender  mean_reduction  patient_count</span>
+<span class="c1"># 0               A      F            12.0              1</span>
+<span class="c1"># 1               A      M             9.5              2</span>
+<span class="c1"># 2               B      F            16.5              2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common mistake is forgetting to add <code class="docutils literal notranslate"><span class="pre">.reset_index()</span></code> after a <code class="docutils literal notranslate"><span class="pre">groupby().agg()</span></code> operation. Without it, the grouping columns (<code class="docutils literal notranslate"><span class="pre">treatment_group</span></code>, <code class="docutils literal notranslate"><span class="pre">gender</span></code>) become the DataFrame’s index instead of regular columns, which can make subsequent data manipulation steps more complicated.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-sorting-lab-results-basic">
+<h3>Exercise 1: Sorting Lab Results Basic<a class="headerlink" href="#exercise-1-sorting-lab-results-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice sorting a DataFrame by multiple columns with different sort orders.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A clinician needs to review patient cholesterol levels, prioritizing the highest readings first. For patients with the same cholesterol level, they want to see them in order of their ID.</p>
+<p>You are given a DataFrame of lab results. Sort the <code class="docutils literal notranslate"><span class="pre">lab_results</span></code> DataFrame first by <code class="docutils literal notranslate"><span class="pre">cholesterol</span></code> in descending order, and then by <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> in ascending order.</p>
+<p>Sorting Lab Results Basic</p>
+<p><strong>Objective:</strong> Practice sorting a DataFrame by multiple columns with different sort orders.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A clinician needs to review patient cholesterol levels, prioritizing the highest readings first. For patients with the same cholesterol level, they want to see them in order of their ID.</p>
+<p>You are given a DataFrame of lab results. Sort the <code class="docutils literal notranslate"><span class="pre">lab_results</span></code> DataFrame first by <code class="docutils literal notranslate"><span class="pre">cholesterol</span></code> in descending order, and then by <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> in ascending order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">lab_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000201&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000202&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000203&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000204&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;cholesterol&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">220</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">210</span><span class="p">]</span> <span class="c1"># mg/dL</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<span class="n">sorted_labs</span> <span class="o">=</span> <span class="n">lab_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cholesterol&#39;</span><span class="p">,</span> <span class="s1">&#39;patient_id&#39;</span><span class="p">],</span> 
+    <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_labs</span><span class="p">)</span>
+
+<span class="c1">#    patient_id  cholesterol</span>
+<span class="c1"># 0    PT000201          220</span>
+<span class="c1"># 2    PT000203          220</span>
+<span class="c1"># 3    PT000204          210</span>
+<span class="c1"># 1    PT000202          195</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This code first sorts all patients by <code class="docutils literal notranslate"><span class="pre">cholesterol</span></code> from highest to lowest (<code class="docutils literal notranslate"><span class="pre">ascending=False</span></code>). For the two patients with the same cholesterol level (220), it then applies the second sorting rule, ordering them by <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> from lowest to highest (<code class="docutils literal notranslate"><span class="pre">ascending=True</span></code>). This two-level sorting is crucial for creating reproducible and consistently ordered reports.
+<strong>Key Learning:</strong> Sorting by multiple criteria is a common task for prioritizing data, such as identifying high-risk patients.</p>
+</div>
+</details></section>
+<section id="exercise-2-merging-patient-rosters-intermediate">
+<h3>Exercise 2: Merging Patient Rosters Intermediate<a class="headerlink" href="#exercise-2-merging-patient-rosters-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Perform a merge that retains all records from a primary DataFrame.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A hospital administrator needs a complete list of all registered patients and their scheduled appointment dates. It is critical that no patient is dropped from the list, even if they don’t have an upcoming appointment.</p>
+<p>You have <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and <code class="docutils literal notranslate"><span class="pre">appointments</span></code>. Perform a merge that includes all patients from <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and adds their appointment date if one exists.</p>
+<p>Merging Patient Rosters Intermediate</p>
+<p><strong>Objective:</strong> Perform a merge that retains all records from a primary DataFrame.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A hospital administrator needs a complete list of all registered patients and their scheduled appointment dates. It is critical that no patient is dropped from the list, even if they don’t have an upcoming appointment.</p>
+<p>You have <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and <code class="docutils literal notranslate"><span class="pre">appointments</span></code>. Perform a merge that includes all patients from <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and adds their appointment date if one exists.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">patient_registry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000301&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000302&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000303&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">appointments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000301&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000303&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;appt_date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2025-12-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-12-02&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<span class="n">all_patients_appts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">patient_registry</span><span class="p">,</span> 
+    <span class="n">appointments</span><span class="p">,</span> 
+    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> 
+    <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_patients_appts</span><span class="p">)</span>
+
+<span class="c1">#   patient_id     name   appt_date</span>
+<span class="c1"># 0   PT000301    Alice  2025-12-01</span>
+<span class="c1"># 1   PT000302      Bob         NaN</span>
+<span class="c1"># 2   PT000303  Charlie  2025-12-02</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The request was to include <em>all</em> patients from the <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code>. A <code class="docutils literal notranslate"><span class="pre">left</span></code> merge accomplishes this by using <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> as the “left” DataFrame and keeping every row from it. Notice that patient ‘Bob’ (ID <code class="docutils literal notranslate"><span class="pre">PT000302</span></code>), who does not have an appointment, is still in the final DataFrame, but his <code class="docutils literal notranslate"><span class="pre">appt_date</span></code> is <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (Not a Number), indicating missing data.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">how='left'</span></code> merge is crucial when you need to enrich a primary dataset without losing any of its original records.</p>
+</div>
+</details></section>
+<section id="exercise-3-summarizing-trial-data-intermediate">
+<h3>Exercise 3: Summarizing Trial Data Intermediate<a class="headerlink" href="#exercise-3-summarizing-trial-data-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice using <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> with <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> to calculate multiple summary statistics.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A data scientist is analyzing results from a small clinical trial. They need to calculate the number of patients and the average blood pressure reduction for each treatment group to prepare a preliminary efficacy report.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">trial_data</span></code> DataFrame from the lesson, group the data by <code class="docutils literal notranslate"><span class="pre">treatment_group</span></code> only. Use a single <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> call to find the number of patients (<code class="docutils literal notranslate"><span class="pre">patient_count</span></code>) and the average blood pressure reduction (<code class="docutils literal notranslate"><span class="pre">avg_reduction</span></code>).</p>
+<p>Summarizing Trial Data Intermediate</p>
+<p><strong>Objective:</strong> Practice using <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> with <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> to calculate multiple summary statistics.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A data scientist is analyzing results from a small clinical trial. They need to calculate the number of patients and the average blood pressure reduction for each treatment group to prepare a preliminary efficacy report.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">trial_data</span></code> DataFrame from the lesson, group the data by <code class="docutils literal notranslate"><span class="pre">treatment_group</span></code> only. Use a single <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> call to find the number of patients (<code class="docutils literal notranslate"><span class="pre">patient_count</span></code>) and the average blood pressure reduction (<code class="docutils literal notranslate"><span class="pre">avg_reduction</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">trial_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000001&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000002&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000003&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000004&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000005&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;treatment_group&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;bp_reduction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="c1"># mmHg</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<span class="n">summary_stats</span> <span class="o">=</span> <span class="n">trial_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;treatment_group&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">patient_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+    <span class="n">avg_reduction</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;bp_reduction&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary_stats</span><span class="p">)</span>
+
+<span class="c1">#   treatment_group  patient_count  avg_reduction</span>
+<span class="c1"># 0               A              3      10.333333</span>
+<span class="c1"># 1               B              2      16.500000</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This single command efficiently calculates multiple summary statistics for each subgroup. The named aggregation—<code class="docutils literal notranslate"><span class="pre">patient_count=('patient_id',</span> <span class="pre">'count')</span></code>—makes the resulting DataFrame immediately understandable. The output clearly shows the number of patients and the average blood pressure reduction for treatment groups ‘A’ and ‘B’, providing a powerful snapshot of the trial’s results.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">groupby().agg()</span></code> pattern is the standard and most readable way to generate summary statistics for different subgroups in your data.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Identifying High-Risk Patient Cohorts</strong>: A hospital can merge patient electronic health records (EHR) with recent lab results using <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code>. They can then use <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code> on columns like <code class="docutils literal notranslate"><span class="pre">HbA1c</span></code> or <code class="docutils literal notranslate"><span class="pre">LDL_cholesterol</span></code> to rank patients and identify those at highest risk for diabetes or cardiovascular events, enabling proactive outreach.</p></li>
+<li><p><strong>Evaluating Clinical Trial Efficacy</strong>: Researchers use <code class="docutils literal notranslate"><span class="pre">groupby('treatment_group')</span></code> and <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> to analyze clinical trial data. By calculating the mean, median, and standard deviation of outcome measures (like tumor size reduction or blood pressure change) for both the drug and placebo groups, they can rigorously assess a new therapy’s effectiveness.</p></li>
+<li><p><strong>Resource Allocation and Planning</strong>: A public health agency can merge demographic data with disease prevalence data from different regions. By grouping the combined data by <code class="docutils literal notranslate"><span class="pre">region</span></code> and <code class="docutils literal notranslate"><span class="pre">age_group</span></code> using <code class="docutils literal notranslate"><span class="pre">groupby()</span></code>, they can calculate incidence rates and identify hotspots, which informs where to allocate testing facilities, vaccines, or educational campaigns.</p></li>
+<li><p><strong>Creating a Longitudinal Patient View</strong>: To study disease progression, analysts merge multiple datasets containing patient visits over time using <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> on <code class="docutils literal notranslate"><span class="pre">patient_id</span></code>. They then use <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code> on <code class="docutils literal notranslate"><span class="pre">visit_date</span></code> to create a chronological history for each patient, which is essential for longitudinal analysis and modeling.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> In our example, we grouped by treatment arm and gender. What other variables in a clinical trial dataset (e.g., age group, pre-existing conditions, clinic location) might be useful for a <code class="docutils literal notranslate"><span class="pre">groupby</span></code> analysis? How could these deeper analyses help researchers understand a new drug’s effectiveness more thoroughly?</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the three core pillars of data manipulation in Pandas. We learned how to bring order to our data, combine it from different sources, and calculate meaningful summary statistics for different subgroups. These skills are not just technical exercises; they are the foundational activities for nearly all data analysis in precision health.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sort_values()</span></code></strong> is used to reorder data based on column values, which is critical for ranking and prioritization.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></strong> is the essential tool for combining disparate datasets into a single, unified DataFrame using a common key.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">groupby().agg()</span></code></strong> is the standard pattern for splitting data into groups, applying calculations, and</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="patients-with-the-highest-hba1c-levels-for-follow-up-calls-sorting-the-patient-list-in-descending-order-by-hba1c-instantly-brings-the-most-critical-cases-to-the-top-ensuring-timely-intervention">
+<h3>patients with the highest HbA1c levels for follow-up calls. Sorting the patient list in descending order by <code class="docutils literal notranslate"><span class="pre">HbA1c</span></code> instantly brings the most critical cases to the top, ensuring timely intervention.<a class="headerlink" href="#patients-with-the-highest-hba1c-levels-for-follow-up-calls-sorting-the-patient-list-in-descending-order-by-hba1c-instantly-brings-the-most-critical-cases-to-the-top-ensuring-timely-intervention" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Sample data of patient lab results</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000103&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000104&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+        <span class="s1">&#39;HbA1c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">6.8</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">]}</span> <span class="c1"># Hemoglobin A1c (%)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Sort by age (ascending=True is the default)</span>
+<span class="n">sorted_by_age</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>
+
+<span class="c1"># Sort by HbA1c (desc), then by age (asc)</span>
+<span class="n">sorted_multi</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HbA1c&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Sorted by Age (Ascending) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_by_age</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Sorted by HbA1c (Desc), then Age (Asc) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_multi</span><span class="p">)</span>
+
+<span class="c1"># --- Sorted by Age (Ascending) ---</span>
+<span class="c1">#   patient_id  age  HbA1c</span>
+<span class="c1"># 1   PT000101   34    5.5</span>
+<span class="c1"># 0   PT000103   45    6.8</span>
+<span class="c1"># 3   PT000104   50    7.1</span>
+<span class="c1"># 2   PT000102   62    7.1</span>
+<span class="c1">#</span>
+<span class="c1"># --- Sorted by HbA1c (Desc), then Age (Asc) ---</span>
+<span class="c1">#   patient_id  age  HbA1c</span>
+<span class="c1"># 3   PT000104   50    7.1</span>
+<span class="c1"># 2   PT000102   62    7.1</span>
+<span class="c1"># 0   PT000103   45    6.8</span>
+<span class="c1"># 1   PT000101   34    5.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-pd-merge-function-combines-dataframes-on-a-shared-key-this-is-essential-for-linking-separate-datasets-like-patient-demographics-and-their-lab-results">
+<h3>The <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> function combines DataFrames on a shared key. This is essential for linking separate datasets, like patient demographics and their lab results.<a class="headerlink" href="#the-pd-merge-function-combines-dataframes-on-a-shared-key-this-is-essential-for-linking-separate-datasets-like-patient-demographics-and-their-lab-results" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">patients</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000103&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span> <span class="s1">&#39;Jane Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;Peter Jones&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">appointments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;appt_date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2025-11-20&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-11-21&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">vitals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_ref&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000102&#39;</span><span class="p">],</span> <span class="c1"># Different key column name</span>
+    <span class="s1">&#39;heart_rate_bpm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">88</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Left merge: keeps all patients, filling missing appointments with NaN</span>
+<span class="n">merged_left</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">patients</span><span class="p">,</span> <span class="n">appointments</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Inner merge: keeps only patients with appointments</span>
+<span class="n">merged_inner</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">patients</span><span class="p">,</span> <span class="n">appointments</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+
+<span class="c1"># Merge with different key names</span>
+<span class="n">merged_keys</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">patients</span><span class="p">,</span> <span class="n">vitals</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;patient_ref&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Left Merge ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_left</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Inner Merge ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_inner</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Merge with Different Key Names ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merged_keys</span><span class="p">)</span>
+
+<span class="c1"># --- Left Merge ---</span>
+<span class="c1">#   patient_id         name   appt_date</span>
+<span class="c1"># 0   PT000101     John Doe  2025-11-20</span>
+<span class="c1"># 1   PT000102   Jane Smith  2025-11-21</span>
+<span class="c1"># 2   PT000103  Peter Jones         NaN</span>
+<span class="c1">#</span>
+<span class="c1"># --- Inner Merge ---</span>
+<span class="c1">#   patient_id        name   appt_date</span>
+<span class="c1"># 0   PT000101    John Doe  2025-11-20</span>
+<span class="c1"># 1   PT000102  Jane Smith  2025-11-21</span>
+<span class="c1">#</span>
+<span class="c1"># --- Merge with Different Key Names ---</span>
+<span class="c1">#   patient_id         name patient_ref  heart_rate_bpm</span>
+<span class="c1"># 0   PT000101     John Doe    PT000101              72</span>
+<span class="c1"># 1   PT000102   Jane Smith    PT000102              88</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-groupby-method-splits-data-into-groups-to-perform-calculations-use-it-with-agg-to-calculate-summary-statistics-like-the-mean-and-count-for-each-treatment-group-in-a-clinical-trial">
+<h3>. The <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method splits data into groups to perform calculations. Use it with <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> to calculate summary statistics, like the mean and count, for each treatment group in a clinical trial.<a class="headerlink" href="#the-groupby-method-splits-data-into-groups-to-perform-calculations-use-it-with-agg-to-calculate-summary-statistics-like-the-mean-and-count-for-each-treatment-group-in-a-clinical-trial" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">trial_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000001&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000002&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000003&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000004&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000005&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;treatment_group&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;bp_reduction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="c1"># mmHg</span>
+<span class="p">})</span>
+
+<span class="c1"># Group by multiple columns and calculate multiple statistics</span>
+<span class="n">group_stats</span> <span class="o">=</span> <span class="n">trial_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;treatment_group&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">mean_reduction</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;bp_reduction&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
+    <span class="n">patient_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">group_stats</span><span class="p">)</span>
+
+<span class="c1">#   treatment_group gender  mean_reduction  patient_count</span>
+<span class="c1"># 0               A      F            12.0              1</span>
+<span class="c1"># 1               A      M             9.5              2</span>
+<span class="c1"># 2               B      F            16.5              2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="you-are-given-a-dataframe-of-lab-results-sort-the-lab-results-dataframe-first-by-cholesterol-in-descending-order-and-then-by-patient-id-in-ascending-order">
+<h3>You are given a DataFrame of lab results. Sort the <code class="docutils literal notranslate"><span class="pre">lab_results</span></code> DataFrame first by <code class="docutils literal notranslate"><span class="pre">cholesterol</span></code> in descending order, and then by <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> in ascending order.<a class="headerlink" href="#you-are-given-a-dataframe-of-lab-results-sort-the-lab-results-dataframe-first-by-cholesterol-in-descending-order-and-then-by-patient-id-in-ascending-order" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">lab_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000201&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000202&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000203&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000204&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;cholesterol&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">220</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">210</span><span class="p">]</span> <span class="c1"># mg/dL</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<span class="n">sorted_labs</span> <span class="o">=</span> <span class="n">lab_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cholesterol&#39;</span><span class="p">,</span> <span class="s1">&#39;patient_id&#39;</span><span class="p">],</span> 
+    <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sorted_labs</span><span class="p">)</span>
+
+<span class="c1">#    patient_id  cholesterol</span>
+<span class="c1"># 0    PT000201          220</span>
+<span class="c1"># 2    PT000203          220</span>
+<span class="c1"># 3    PT000204          210</span>
+<span class="c1"># 1    PT000202          195</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="you-have-patient-registry-and-appointments-perform-a-merge-that-includes-all-patients-from-patient-registry-and-adds-their-appointment-date-if-one-exists">
+<h3>You have <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and <code class="docutils literal notranslate"><span class="pre">appointments</span></code>. Perform a merge that includes all patients from <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and adds their appointment date if one exists.<a class="headerlink" href="#you-have-patient-registry-and-appointments-perform-a-merge-that-includes-all-patients-from-patient-registry-and-adds-their-appointment-date-if-one-exists" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">patient_registry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000301&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000302&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000303&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">appointments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000301&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000303&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;appt_date&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2025-12-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2025-12-02&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3><summary>Solution</summary><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<span class="n">all_patients_appts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">patient_registry</span><span class="p">,</span> 
+    <span class="n">appointments</span><span class="p">,</span> 
+    <span class="n">on</span><span class="o">=</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> 
+    <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_patients_appts</span><span class="p">)</span>
+
+<span class="c1">#   patient_id     name   appt_date</span>
+<span class="c1"># 0   PT000301    Alice  2025-12-01</span>
+<span class="c1"># 1   PT000302      Bob         NaN</span>
+<span class="c1"># 2   PT000303  Charlie  2025-12-02</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>Try It Yourself:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ame-from-the-lesson-group-the-data-by-treatment-group-only-use-a-single-agg-call-to-find-the-number-of-patients-patient-count-and-the-average-blood-pressure-reduction-avg-reduction">
+<h3>ame from the lesson, group the data by <code class="docutils literal notranslate"><span class="pre">treatment_group</span></code> only. Use a single <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> call to find the number of patients (<code class="docutils literal notranslate"><span class="pre">patient_count</span></code>) and the average blood pressure reduction (<code class="docutils literal notranslate"><span class="pre">avg_reduction</span></code>).<a class="headerlink" href="#ame-from-the-lesson-group-the-data-by-treatment-group-only-use-a-single-agg-call-to-find-the-number-of-patients-patient-count-and-the-average-blood-pressure-reduction-avg-reduction" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">trial_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT000001&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000002&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000003&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000004&#39;</span><span class="p">,</span> <span class="s1">&#39;PT000005&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;treatment_group&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;bp_reduction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="c1"># mmHg</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3><summary>Solution</summary><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<span class="n">summary_stats</span> <span class="o">=</span> <span class="n">trial_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;treatment_group&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">patient_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+    <span class="n">avg_reduction</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;bp_reduction&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary_stats</span><span class="p">)</span>
+
+<span class="c1">#   treatment_group  patient_count  avg_reduction</span>
+<span class="c1"># 0               A              3      10.333333</span>
+<span class="c1"># 1               B              2      16.500000</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2.5_selection_and_filtering.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 2: Data Manipulation with Pandas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3.1_to_matplotlib.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 3: Foundations of Medical Visualization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-data-with-sort-values">3.1 Sorting Data with <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-dataframes-with-pd-merge">3.2 Merging DataFrames with <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-and-aggregating-data-with-groupby">3.3 Grouping and Aggregating Data with <code class="docutils literal notranslate"><span class="pre">groupby()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-sorting-lab-results-basic">Exercise 1: Sorting Lab Results Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-merging-patient-rosters-intermediate">Exercise 2: Merging Patient Rosters Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-summarizing-trial-data-intermediate">Exercise 3: Summarizing Trial Data Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patients-with-the-highest-hba1c-levels-for-follow-up-calls-sorting-the-patient-list-in-descending-order-by-hba1c-instantly-brings-the-most-critical-cases-to-the-top-ensuring-timely-intervention">patients with the highest HbA1c levels for follow-up calls. Sorting the patient list in descending order by <code class="docutils literal notranslate"><span class="pre">HbA1c</span></code> instantly brings the most critical cases to the top, ensuring timely intervention.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pd-merge-function-combines-dataframes-on-a-shared-key-this-is-essential-for-linking-separate-datasets-like-patient-demographics-and-their-lab-results">The <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> function combines DataFrames on a shared key. This is essential for linking separate datasets, like patient demographics and their lab results.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-groupby-method-splits-data-into-groups-to-perform-calculations-use-it-with-agg-to-calculate-summary-statistics-like-the-mean-and-count-for-each-treatment-group-in-a-clinical-trial">. The <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> method splits data into groups to perform calculations. Use it with <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> to calculate summary statistics, like the mean and count, for each treatment group in a clinical trial.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-are-given-a-dataframe-of-lab-results-sort-the-lab-results-dataframe-first-by-cholesterol-in-descending-order-and-then-by-patient-id-in-ascending-order">You are given a DataFrame of lab results. Sort the <code class="docutils literal notranslate"><span class="pre">lab_results</span></code> DataFrame first by <code class="docutils literal notranslate"><span class="pre">cholesterol</span></code> in descending order, and then by <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> in ascending order.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#you-have-patient-registry-and-appointments-perform-a-merge-that-includes-all-patients-from-patient-registry-and-adds-their-appointment-date-if-one-exists">You have <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and <code class="docutils literal notranslate"><span class="pre">appointments</span></code>. Perform a merge that includes all patients from <code class="docutils literal notranslate"><span class="pre">patient_registry</span></code> and adds their appointment date if one exists.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ame-from-the-lesson-group-the-data-by-treatment-group-only-use-a-single-agg-call-to-find-the-number-of-patients-patient-count-and-the-average-blood-pressure-reduction-avg-reduction">ame from the lesson, group the data by <code class="docutils literal notranslate"><span class="pre">treatment_group</span></code> only. Use a single <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> call to find the number of patients (<code class="docutils literal notranslate"><span class="pre">patient_count</span></code>) and the average blood pressure reduction (<code class="docutils literal notranslate"><span class="pre">avg_reduction</span></code>).</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
