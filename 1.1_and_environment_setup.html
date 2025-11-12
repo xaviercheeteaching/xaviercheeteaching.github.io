@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Chapter 1: Setting Up Your Precision Health Analytics Environment &#8212; Interactive Learning Book</title>
+    <title>Chapter 1: Setting Up Your Jupyter Environment &#8212; Interactive Learning Book</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.1_and_environment_setup';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chapter 1: Foundations of Python for Precision Health" href="1.2_data_types_%28strings_integers_floats_booleans%29.html" />
+    <link rel="next" title="Chapter 1: Data Types in Python" href="1.2_data_types_%28strings_integers_floats_booleans%29.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -170,7 +170,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Chapter 1: Setting Up Your Precision Health Analytics Environment
+                    Chapter 1: Setting Up Your Jupyter Environment
                 </a>
             </li>
         </ul>
@@ -382,7 +382,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 1: Setting Up Your Precision Health Analytics Environment</h1>
+    <h1>Chapter 1: Setting Up Your Jupyter Environment</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -395,19 +395,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-python">3.1 Install Python</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-project-environment">3.2 Create a Project Environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-and-manage-the-environment">3.3 Activate and Manage the Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-python-environment-in-jupyter">3.1 Checking Python environment in Jupyter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-if-a-package-exist">3.2 Checking if a Package exist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-and-importing-a-package">3.3 Installing and importing a package</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-environment-lifecycle-management">Exercise 1: Environment Lifecycle Management</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-package-isolation">Exercise 2: Package Isolation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-running-a-script">Exercise 3: Running a Script</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">4. Summary and Key Takeaways</a></li>
 </ul>
             </nav>
         </div>
@@ -419,17 +412,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-setting-up-your-precision-health-analytics-environment">
-<h1>Chapter 1: Setting Up Your Precision Health Analytics Environment<a class="headerlink" href="#chapter-1-setting-up-your-precision-health-analytics-environment" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-setting-up-your-jupyter-environment">
+<h1>Chapter 1: Setting Up Your Jupyter Environment<a class="headerlink" href="#chapter-1-setting-up-your-jupyter-environment" title="Link to this heading">#</a></h1>
 <section id="introduction">
 <h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>Welcome to the first lesson in Python!
 First, we will learn to setup your Python environment.</p>
-<p>An <strong>environment</strong> acts like a sterile lab, isolating the specific software libraries needed for this project to prevent version conflicts and ensure the analysis is reproducible—a critical standard for medical research. By mastering this setup, you ensure that an analysis you perform today will yield the exact same results months or years later, regardless of system-wide software updates.</p>
-<blockquote>
-<div><p><strong>In Practice:</strong> Think of a project environment like a sterile field for a medical procedure. It contains only the specific tools (libraries) needed for that one task, preventing contamination from other projects and ensuring the procedure is perfectly reproducible—a critical requirement for clinical research and FDA validation.</p>
-</div></blockquote>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>An <strong>environment</strong> acts like a container, isolating the specific software libraries needed for this project to prevent version conflicts and ensure the analysis is reproducible. By mastering this setup, you ensure that an analysis you perform today will yield the exact same results months or years later, regardless of system-wide software updates.</p>
 </section>
 <hr class="docutils" />
 <section id="key-concepts-and-definitions">
@@ -446,100 +435,15 @@ First, we will learn to setup your Python environment.</p>
 <hr class="docutils" />
 <section id="main-content">
 <h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
-<p>This section provides the step-by-step instructions for setting up your Python development environment. Follow each command carefully.</p>
-<section id="install-python">
-<h3>3.1 Install Python<a class="headerlink" href="#install-python" title="Link to this heading">#</a></h3>
-<p>First, install the latest stable version of Python from its official website, <code class="docutils literal notranslate"><span class="pre">python.org</span></code>. During the installation process on Windows, it is crucial that you check the box labeled <strong>“Add Python to PATH”</strong>. This simplifies running Python from the command line.</p>
-<p>To confirm the installation was successful, open your terminal (Terminal on macOS/Linux, Command Prompt or PowerShell on Windows) and run the appropriate command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify installation on macOS/Linux</span>
-python3<span class="w"> </span>--version
-<span class="c1"># Expected Output (version number will vary):</span>
-<span class="c1"># Python 3.11.5</span>
-
-<span class="c1"># Verify installation on Windows</span>
-py<span class="w"> </span>--version
-<span class="c1"># Expected Output (version number will vary):</span>
-<span class="c1"># Python 3.11.5</span>
+<p>In this work, you will be using <a class="reference external" href="https://jupyter.org/try-jupyter/lab/">Jupyter-Lite</a> to run your codes.</p>
+<p><strong>JupyterLite</strong> is a version of Jupyter that runs entirely in the web browser without needing a server, making it easy to use for quick analysis and deployment</p>
+<section id="checking-python-environment-in-jupyter">
+<h3>3.1 Checking Python environment in Jupyter<a class="headerlink" href="#checking-python-environment-in-jupyter" title="Link to this heading">#</a></h3>
+<p>First, to confirm that Jupyter-Lite has Python installed, run the command below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 </pre></div>
 </div>
-<blockquote>
-<div><p><strong>Pro Tip:</strong> Using <code class="docutils literal notranslate"><span class="pre">python3</span></code> (macOS/Linux) or <code class="docutils literal notranslate"><span class="pre">py</span></code> (Windows) helps avoid conflicts with older, system-installed versions of Python. This ensures you are always working with the modern version you just installed for this project.</p>
-</div></blockquote>
-</section>
-<section id="create-a-project-environment">
-<h3>3.2 Create a Project Environment<a class="headerlink" href="#create-a-project-environment" title="Link to this heading">#</a></h3>
-<p>Good practice dictates that every project should live in its own directory with its own virtual environment. We will create a directory for Dr. Chen’s clinical analysis project and then create a virtual environment folder inside it, conventionally named <code class="docutils literal notranslate"><span class="pre">env</span></code>.</p>
-<p><em>On macOS/Linux:</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>clinical_analyzer
-<span class="nb">cd</span><span class="w"> </span>clinical_analyzer
-python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
-</pre></div>
-</div>
-<p><em>On Windows:</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>clinical_analyzer
-<span class="nb">cd</span><span class="w"> </span>clinical_analyzer
-py<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">clinical_analyzer</span></code> creates a new folder (directory) for Dr. Chen’s project.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">clinical_analyzer</span></code> navigates your terminal session into that new directory.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">env</span></code> (or <code class="docutils literal notranslate"><span class="pre">py</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">env</span></code>) executes Python’s built-in <code class="docutils literal notranslate"><span class="pre">venv</span></code> module to create a new, isolated virtual environment in a sub-folder named <code class="docutils literal notranslate"><span class="pre">env</span></code>.</p></li>
-</ul>
-</section>
-<section id="activate-and-manage-the-environment">
-<h3>3.3 Activate and Manage the Environment<a class="headerlink" href="#activate-and-manage-the-environment" title="Link to this heading">#</a></h3>
-<p>Before you can use the environment, you must activate it. The activation command differs slightly between operating systems and terminal shells.</p>
-<blockquote>
-<div><p><strong>Important:</strong> On Windows, you must run this command <strong>once</strong> in PowerShell to allow activation scripts. Administrator rights are not needed. If you skip this, environment activation will fail.</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">RemoteSigned</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
-</pre></div>
-</div>
-</div></blockquote>
-<blockquote>
-<div><p><strong>Debug Note:</strong> If you see an error like “…scripts is disabled on this system” after trying to activate, it means the <code class="docutils literal notranslate"><span class="pre">Set-ExecutionPolicy</span></code> command failed or you are in a new terminal where it hasn’t been applied. Close and reopen PowerShell, then run the command again.</p>
-</div></blockquote>
-<p><strong>Activate the Environment</strong></p>
-<p><em>On macOS/Linux:</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>env/bin/activate
-</pre></div>
-</div>
-<p><em>On Windows (Command Prompt):</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
-</pre></div>
-</div>
-<p><em>On Windows (PowerShell):</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.ps1
-</pre></div>
-</div>
-<p>Once activated, your command prompt’s prefix will change to <code class="docutils literal notranslate"><span class="pre">(env)</span></code>, indicating that you are now working inside the virtual environment. Any packages you install will be confined to this environment.</p>
-<p><strong>Upgrade Pip and Deactivate</strong></p>
-<p>Inside your active environment, it’s a best practice to upgrade <code class="docutils literal notranslate"><span class="pre">pip</span></code> to the latest version.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># This command uses the &#39;python&#39; from your active environment</span>
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-</pre></div>
-</div>
-<p>To exit the environment and return to your system’s global Python context, simply use the <code class="docutils literal notranslate"><span class="pre">deactivate</span></code> command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exit the environment</span>
-deactivate
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>Notice the <code class="docutils literal notranslate"><span class="pre">(env)</span></code> prefix disappears from your command prompt.</p></li>
-</ul>
-</section>
-</section>
-<hr class="docutils" />
-<section id="practice-exercises">
-<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
-<p>Apply what you’ve learned with these hands-on exercises.</p>
-<section id="exercise-1-environment-lifecycle-management">
-<h3>Exercise 1: Environment Lifecycle Management<a class="headerlink" href="#exercise-1-environment-lifecycle-management" title="Link to this heading">#</a></h3>
-<p><strong>Objective:</strong> Practice the full create-activate-deactivate-delete lifecycle of a virtual environment to reinforce the concept that they are disposable workspaces.
-<strong>Time:</strong> 5 minutes
-<strong>Medical Context:</strong> In research, you often need to test a new library without affecting your main project. This exercise simulates that workflow by creating a “disposable” environment for experimentation.</p>
-<p>In your <code class="docutils literal notranslate"><span class="pre">clinical_analyzer</span></code> directory, create a second virtual environment named <code class="docutils literal notranslate"><span class="pre">test_env</span></code>. Activate it, verify the <code class="docutils literal notranslate"><span class="pre">(test_env)</span></code> prefix appears, deactivate it, and finally, delete the <code class="docutils literal notranslate"><span class="pre">test_env</span></code> directory, verifying each step.</p>
-<p><strong>📝 Your Solution:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
@@ -548,58 +452,16 @@ deactivate
 </div>
 </div>
 </div>
-<details>
-<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
-<strong>🔍 Click to reveal solution</strong>
-</summary>
-<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
-<p><strong>Solution</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. List contents to see only the &#39;env&#39; folder.</span>
-<span class="c1"># On macOS/Linux: ls</span>
-<span class="c1"># On Windows: dir</span>
-
-<span class="c1"># 2. Create the new environment (run from inside clinical_analyzer)</span>
-<span class="c1"># On macOS/Linux: python3 -m venv test_env</span>
-<span class="c1"># On Windows: py -m venv test_env</span>
-
-<span class="c1"># 3. List contents again to verify &#39;test_env&#39; was created.</span>
-<span class="c1"># On macOS/Linux: ls</span>
-<span class="c1"># On Windows: dir</span>
-
-<span class="c1"># 4. Activate the environment</span>
-<span class="c1"># On macOS/Linux: source test_env/bin/activate</span>
-<span class="c1"># On Windows (PowerShell): test_env\Scripts\activate.ps1</span>
-<span class="c1"># Your prompt should now show (test_env)</span>
-
-<span class="c1"># 5. Deactivate the environment</span>
-deactivate
-
-<span class="c1"># 6. Delete the environment directory</span>
-<span class="c1"># On macOS/Linux: rm -rf test_env</span>
-<span class="c1"># On Windows (PowerShell): Remove-Item -Recurse -Force test_env</span>
-
-<span class="c1"># 7. List contents a final time to confirm &#39;test_env&#39; is gone.</span>
-<span class="c1"># On macOS/Linux: ls</span>
-<span class="c1"># On Windows: dir</span>
+</section>
+<section id="checking-if-a-package-exist">
+<h3>3.2 Checking if a Package exist<a class="headerlink" href="#checking-if-a-package-exist" title="Link to this heading">#</a></h3>
+<p>A <strong>Python package</strong> is a collection of related code that someone has bundled together to perform specific tasks. Think of it as a toolkit you can add to Python to extend its capabilities.</p>
+<p>You can try and import Ipywidgets, an important package that makes interactive HTML widgets for Jupyter notebooks that make notebooks dynamic and user-friendly.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ipywidgets is available!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Version: </span><span class="si">{</span><span class="n">ipywidgets</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Explanation:</strong> This sequence demonstrates that virtual environments are just folders. They can be created and destroyed easily without any complex uninstallation process, making them lightweight and flexible tools for project management.
-<strong>Key Learning:</strong> Virtual environments are disposable and isolated.</p>
-</div>
-</details></section>
-<section id="exercise-2-package-isolation">
-<h3>Exercise 2: Package Isolation<a class="headerlink" href="#exercise-2-package-isolation" title="Link to this heading">#</a></h3>
-<p><strong>Objective:</strong> Demonstrate that packages installed in an active virtual environment are not available globally.
-<strong>Time:</strong> 5 minutes
-<strong>Medical Context:</strong> A project analyzing MRI scans might need the <code class="docutils literal notranslate"><span class="pre">pydicom</span></code> library, while another project on genomics needs <code class="docutils literal notranslate"><span class="pre">biopython</span></code>. Keeping these dependencies separate prevents conflicts and ensures each analysis pipeline is self-contained and reproducible.</p>
-<ol class="arabic simple">
-<li><p>Make sure your <code class="docutils literal notranslate"><span class="pre">env</span></code> environment is active.</p></li>
-<li><p>Install the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library, a fundamental package for numerical computing, using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p></li>
-<li><p>Verify <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is installed by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code>.</p></li>
-<li><p>Deactivate the <code class="docutils literal notranslate"><span class="pre">env</span></code> environment.</p></li>
-<li><p>Try to run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code> again and observe that <code class="docutils literal notranslate"><span class="pre">numpy</span></code> is no longer listed in your global packages.</p></li>
-</ol>
-<p><strong>📝 Your Solution:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
@@ -608,44 +470,13 @@ deactivate
 </div>
 </div>
 </div>
-<details>
-<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
-<strong>🔍 Click to reveal solution</strong>
-</summary>
-<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
-<p><strong>Solution</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Activate the environment (if not already active)</span>
-<span class="c1"># On macOS/Linux: source env/bin/activate</span>
-<span class="c1"># On Windows (PowerShell): env\Scripts\activate.ps1</span>
-
-<span class="c1"># 2. Install numpy</span>
-pip<span class="w"> </span>install<span class="w"> </span>numpy
-
-<span class="c1"># 3. Verify installation (you should see numpy in the list)</span>
-pip<span class="w"> </span>list
-
-<span class="c1"># 4. Deactivate the environment</span>
-deactivate
-
-<span class="c1"># 5. Check global packages (numpy should be absent, unless you had it installed globally before)</span>
-pip<span class="w"> </span>list
+</section>
+<section id="installing-and-importing-a-package">
+<h3>3.3 Installing and importing a package<a class="headerlink" href="#installing-and-importing-a-package" title="Link to this heading">#</a></h3>
+<p>Now, let’s try and import another Python package called Plotly, an interactive browser-based graphing library for Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly</span>
 </pre></div>
 </div>
-<p><strong>Explanation:</strong> When <code class="docutils literal notranslate"><span class="pre">env</span></code> was active, <code class="docutils literal notranslate"><span class="pre">pip</span></code> installed <code class="docutils literal notranslate"><span class="pre">numpy</span></code> inside the <code class="docutils literal notranslate"><span class="pre">env/lib/</span></code> directory. After deactivating, the <code class="docutils literal notranslate"><span class="pre">pip</span></code> command refers to your global Python installation, which does not have access to the packages inside <code class="docutils literal notranslate"><span class="pre">env</span></code>.
-<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span></code> installs packages into the currently active environment, ensuring project isolation.</p>
-</div>
-</details></section>
-<section id="exercise-3-running-a-script">
-<h3>Exercise 3: Running a Script<a class="headerlink" href="#exercise-3-running-a-script" title="Link to this heading">#</a></h3>
-<p><strong>Objective:</strong> Confirm that you can run a Python script using the environment’s interpreter.
-<strong>Time:</strong> 5 minutes
-<strong>Medical Context:</strong> This simulates the real-world workflow of executing a data cleaning or analysis script (<code class="docutils literal notranslate"><span class="pre">process_patient_data.py</span></code>) within its correct, validated environment to ensure it uses the right library versions.</p>
-<ol class="arabic simple">
-<li><p>Activate your <code class="docutils literal notranslate"><span class="pre">env</span></code> environment.</p></li>
-<li><p>Create a simple Python file named <code class="docutils literal notranslate"><span class="pre">hello.py</span></code> in your <code class="docutils literal notranslate"><span class="pre">clinical_analyzer</span></code> directory with the content: <code class="docutils literal notranslate"><span class="pre">print(&quot;Analysis</span> <span class="pre">environment</span> <span class="pre">is</span> <span class="pre">active</span> <span class="pre">and</span> <span class="pre">ready.&quot;)</span></code></p></li>
-<li><p>Execute the script from your terminal.</p></li>
-</ol>
-<p><strong>📝 Your Solution:</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
@@ -654,58 +485,58 @@ pip<span class="w"> </span>list
 </div>
 </div>
 </div>
-<details>
-<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
-<strong>🔍 Click to reveal solution</strong>
-</summary>
-<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
-<p><strong>Solution</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Activate the environment (if not already active)</span>
-<span class="c1"># On macOS/Linux: source env/bin/activate</span>
-<span class="c1"># On Windows (PowerShell): env\Scripts\activate.ps1</span>
-
-<span class="c1"># 2. Create the file. You can use a text editor or the command line:</span>
-<span class="c1"># On macOS/Linux: echo &#39;print(&quot;Analysis environment is active and ready.&quot;)&#39; &gt; hello.py</span>
-<span class="c1"># On Windows: echo &#39;print(&quot;Analysis environment is active and ready.&quot;)&#39; &gt; hello.py</span>
-
-<span class="c1"># 3. Run the script</span>
-python<span class="w"> </span>hello.py
-</pre></div>
-</div>
-<p><strong>Expected Output:</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Analysis</span> <span class="n">environment</span> <span class="ow">is</span> <span class="n">active</span> <span class="ow">and</span> <span class="n">ready</span><span class="o">.</span>
-</pre></div>
-</div>
-<p><strong>Explanation:</strong> When the environment is active, the <code class="docutils literal notranslate"><span class="pre">python</span></code> command points to the interpreter <em>inside</em> the <code class="docutils literal notranslate"><span class="pre">env</span></code> folder. This ensures your script runs with the isolated set of packages you’ve installed, not the global ones.
-<strong>Key Learning:</strong> An active environment controls which Python executable and libraries are used to run your scripts.</p>
-</div>
-</details><blockquote>
-<div><p><strong>Reflection Moment:</strong> Why is it so powerful to be able to create and destroy environments easily? How could this ‘disposable’ nature help you when testing a new data visualization tool or a different version of a statistics library for the <code class="docutils literal notranslate"><span class="pre">clinical_analyzer</span></code> project?</p>
-</div></blockquote>
-</section>
-</section>
-<hr class="docutils" />
-<section id="practical-applications">
-<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
-<p>Setting up environments correctly is not just a technical formality; it has direct and critical implications in precision health.</p>
+<p>Oh no! You have run into an error.
+The error tells you that the plotly module is either not <strong>installed</strong> or <strong>imported</strong> in Jupyter-lite.</p>
+<blockquote>
+<div><p>There is a different between <strong>installed</strong> and <strong>imported</strong></p>
+<p>The simplest way to think about it is using an analogy: a toolbox and a workbench.</p>
 <ul class="simple">
-<li><p><strong>Reproducible Genomic Analysis:</strong> A bioinformatics researcher analyzing gene sequences for cancer markers uses a virtual environment with a specific version of <code class="docutils literal notranslate"><span class="pre">Biopython</span></code> (e.g., v1.78) and <code class="docutils literal notranslate"><span class="pre">Samtools</span></code>. By documenting these dependencies in a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file, they ensure that six months later, a regulatory body or a collaborating lab can perfectly recreate the environment and validate the findings—a crucial step for clinical research to be considered credible.</p></li>
-<li><p><strong>Deploying a Clinical AI Diagnostic Model:</strong> A data science team develops a machine learning model to detect diabetic retinopathy from retinal scans. The model is built using <code class="docutils literal notranslate"><span class="pre">TensorFlow</span> <span class="pre">v2.8</span></code> and <code class="docutils literal notranslate"><span class="pre">Scikit-learn</span> <span class="pre">v1.0</span></code>. By containerizing the application with its virtual environment, they can deploy the exact same software stack to a hospital’s server. This prevents subtle prediction errors that could arise from running the model with newer, untested library versions, ensuring patient safety and diagnostic consistency.</p></li>
-<li><p><strong>Maintaining Clinical Trial Data Pipelines:</strong> A data manager writes a Python script to clean, anonymize, and process patient data from an ongoing clinical trial. The script relies on <code class="docutils literal notranslate"><span class="pre">Pandas</span> <span class="pre">v1.4</span></code>. By running this script exclusively within its dedicated virtual environment, they guarantee the data processing logic remains stable and consistent over the multi-year duration of the trial, even as other software on the system is updated. This maintains the integrity and auditability of the trial data.</p></li>
+<li><p><strong>Installing</strong> is like buying a new tool (e.g., a specific wrench) and placing it in your toolbox. The tool is now in your possession and available for you to use whenever you need it.</p></li>
+<li><p><strong>Importing</strong> is like taking that specific wrench out of the toolbox and placing it on your workbench to use for your current project.</p></li>
 </ul>
+<p>You only need to install the tool once. But, every time you start a new project (or run a new script), you need to import the tools you need for that specific job.</p>
+</div></blockquote>
+<p>Let’s first install Plotly</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">plotly</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once installed, now you can import Plotly and check the version that you are running.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotly is available!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Version: </span><span class="si">{</span><span class="n">plotly</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hooray! You’ve installed Plotly onto your Jupyter-lite environment!</p>
+</section>
 </section>
 <hr class="docutils" />
 <section id="summary-and-key-takeaways">
-<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
-<p>In this section, we’ve explored the essential first step in any data analysis project: setting up a robust and isolated Python environment. This foundational skill ensures your work is reproducible, scalable, and free from dependency conflicts.</p>
+<h2>4. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential first step in any data analysis project: setting up a robust and isolated Python environment.</p>
 <ul class="simple">
-<li><p>You learned to install Python and add it to your system’s PATH for easy access.</p></li>
-<li><p>The core purpose of a virtual environment (<code class="docutils literal notranslate"><span class="pre">venv</span></code>) is to create an isolated “lab” for each project, preventing library version conflicts.</p></li>
-<li><p>The key workflow is to create (<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">env</span></code>), activate (<code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">env/bin/activate</span></code>), and deactivate (<code class="docutils literal notranslate"><span class="pre">deactivate</span></code>) an environment.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code> is the package manager used <em>within</em> an active environment to install project-specific tools like <code class="docutils literal notranslate"><span class="pre">numpy</span></code> or <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
-<li><p>Proper environment management is not just a best practice but a requirement for credible, reproducible, and safe analysis in precision health.</p></li>
+<li><p>You learned to check for Python version in your environment.</p></li>
+<li><p>A Python package is a folder containing related code files that work together to perform specific tasks, which you can install and reuse in your projects.</p></li>
+<li><p>You also learned how to check if a Python package exist and how to import it to your Python environment</p></li>
+<li><p>You can also now install and import a Python package if it is missing</p></li>
+<li><p>Installing downloads the package files to your computer, while importing loads that package into your current Python script so you can actually use its functions.</p></li>
 </ul>
-<p>With your professional development environment now configured, you are ready to start using powerful tools for interactive analysis. In the next section, we will introduce Jupyter Notebooks, the primary tool for exploratory data science.</p>
+<p>With your professional development environment now configured, you are ready to start using powerful tools for interactive analysis.</p>
 </section>
 <hr class="docutils" />
 <div class="toctree-wrapper compound">
@@ -747,7 +578,7 @@ python<span class="w"> </span>hello.py
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chapter 1: Foundations of Python for Precision Health</p>
+        <p class="prev-next-title">Chapter 1: Data Types in Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -770,19 +601,12 @@ python<span class="w"> </span>hello.py
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-python">3.1 Install Python</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-project-environment">3.2 Create a Project Environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activate-and-manage-the-environment">3.3 Activate and Manage the Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-python-environment-in-jupyter">3.1 Checking Python environment in Jupyter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-if-a-package-exist">3.2 Checking if a Package exist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-and-importing-a-package">3.3 Installing and importing a package</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-environment-lifecycle-management">Exercise 1: Environment Lifecycle Management</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-package-isolation">Exercise 2: Package Isolation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-running-a-script">Exercise 3: Running a Script</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">4. Summary and Key Takeaways</a></li>
 </ul>
   </nav></div>
 
