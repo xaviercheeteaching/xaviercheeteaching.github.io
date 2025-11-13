@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction to Python &#8212; Introduction to Python</title>
+    <title>Chapter 1: Setting Up Your Jupyter Environment &#8212; Introduction to Python</title>
   
   
   
@@ -57,10 +57,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.1_python_installation_and_environment_setup';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chapter 1: Setting Up Your Jupyter Environment" href="1.1_python_installation_and_environment_setup.html" />
+    <link rel="next" title="Chapter 1: Data Types in Python" href="1.2_variables_and_data_types.html" />
+    <link rel="prev" title="Introduction to Python" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -123,8 +124,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -143,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -168,14 +167,14 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     Introduction to Python
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.1 - Python Installation and Environment Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
@@ -253,7 +252,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/index.md" target="_blank"
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.1_python_installation_and_environment_setup.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -302,24 +301,7 @@
       
       
       
-      <li><a href="_sources/index.ipynb" target="_blank"
-   class="btn btn-sm btn-download-notebook-button dropdown-item"
-   title="Download notebook file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="_sources/index.md" target="_blank"
+      <li><a href="_sources/1.1_python_installation_and_environment_setup.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -329,7 +311,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -403,7 +385,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction to Python</h1>
+    <h1>Chapter 1: Setting Up Your Jupyter Environment</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,12 +395,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome">Welcome</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-book">How to Use This Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-features">Interactive Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-python-environment-in-jupyter">3.1 Checking Python environment in Jupyter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-if-a-package-exist">3.2 Checking if a Package exist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-and-importing-a-package">3.3 Installing and importing a package</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">4. Summary and Key Takeaways</a></li>
 </ul>
             </nav>
         </div>
@@ -430,83 +415,136 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-python">
-<h1>Introduction to Python<a class="headerlink" href="#introduction-to-python" title="Link to this heading">#</a></h1>
-<p><strong>Author:</strong> Dr Xavier Chee
-<strong>Generated:</strong> November 13, 2025</p>
-<section id="welcome">
-<h2>Welcome<a class="headerlink" href="#welcome" title="Link to this heading">#</a></h2>
-<p>Welcome to this interactive learning book! This comprehensive guide contains 24 chapters covering essential topics in Python programming and data analysis.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-setting-up-your-jupyter-environment">
+<h1>Chapter 1: Setting Up Your Jupyter Environment<a class="headerlink" href="#chapter-1-setting-up-your-jupyter-environment" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the first lesson in Python!
+First, we will learn to setup your Python environment.</p>
+<p>An <strong>environment</strong> acts like a container, isolating the specific software libraries needed for this project to prevent version conflicts and ensure the analysis is reproducible. By mastering this setup, you ensure that an analysis you perform today will yield the exact same results months or years later, regardless of system-wide software updates.</p>
 </section>
-<section id="how-to-use-this-book">
-<h2>How to Use This Book<a class="headerlink" href="#how-to-use-this-book" title="Link to this heading">#</a></h2>
-<p>This book is built with Jupyter Book and supports interactive code execution through Thebe. You can:</p>
-<ul class="simple">
-<li><p><strong>Read</strong> the content like a traditional textbook</p></li>
-<li><p><strong>Execute</strong> code cells directly in your browser</p></li>
-<li><p><strong>Modify</strong> code examples to experiment and learn</p></li>
-<li><p><strong>Download</strong> individual notebooks for offline practice</p></li>
-</ul>
-</section>
-<section id="table-of-contents">
-<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
-<p><strong>Chapter 1.1:</strong> <a class="reference internal" href="1.1_python_installation_and_environment_setup.html"><span class="std std-doc">Python Installation and Environment Setup</span></a><br />
-<strong>Chapter 1.10:</strong> <a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html"><span class="std std-doc">Command Line Arguments with sys.argv</span></a><br />
-<strong>Chapter 1.11:</strong> <a class="reference internal" href="1.11_reading_and_writing_files.html"><span class="std std-doc">Reading and Writing Files</span></a><br />
-<strong>Chapter 1.12:</strong> <a class="reference internal" href="1.12_string_methods.html"><span class="std std-doc">String Methods</span></a><br />
-<strong>Chapter 1.2:</strong> <a class="reference internal" href="1.2_variables_and_data_types.html"><span class="std std-doc">Variables and Data Types</span></a><br />
-<strong>Chapter 1.3:</strong> <a class="reference internal" href="1.3_basic_operators_and_expressions.html"><span class="std std-doc">Basic Operators and Expressions</span></a><br />
-<strong>Chapter 1.4:</strong> <a class="reference internal" href="1.4_common_python_errors_and_exceptions.html"><span class="std std-doc">Common Python Errors and Exceptions</span></a><br />
-<strong>Chapter 1.5:</strong> <a class="reference internal" href="1.5_lists_and_tuples.html"><span class="std std-doc">Lists and Tuples</span></a><br />
-<strong>Chapter 1.6:</strong> <a class="reference internal" href="1.6_dictionaries_and_sets.html"><span class="std std-doc">Dictionaries and Sets</span></a><br />
-<strong>Chapter 1.7:</strong> <a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html"><span class="std std-doc">Control Flow If Elif Else Statements</span></a><br />
-<strong>Chapter 1.8:</strong> <a class="reference internal" href="1.8_loops_for_and_while.html"><span class="std std-doc">Loops for and While</span></a><br />
-<strong>Chapter 1.9:</strong> <a class="reference internal" href="1.9_functions_and_parameters.html"><span class="std std-doc">Functions and Parameters</span></a><br />
-<strong>Chapter 2.1:</strong> <a class="reference internal" href="2.1_introduction_to_numpy_arrays.html"><span class="std std-doc">Introduction to Numpy Arrays</span></a><br />
-<strong>Chapter 2.2:</strong> <a class="reference internal" href="2.2_array_operations_and_indexing.html"><span class="std std-doc">Array Operations and Indexing</span></a><br />
-<strong>Chapter 2.3:</strong> <a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html"><span class="std std-doc">Introduction to Pandas Dataframes</span></a><br />
-<strong>Chapter 2.4:</strong> <a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html"><span class="std std-doc">Reading Csv and Excel Files with Pandas</span></a><br />
-<strong>Chapter 2.5:</strong> <a class="reference internal" href="2.5_data_selection_and_filtering.html"><span class="std std-doc">Data Selection and Filtering</span></a><br />
-<strong>Chapter 2.6:</strong> <a class="reference internal" href="2.6_basic_data_manipulation.html"><span class="std std-doc">Basic Data Manipulation</span></a><br />
-<strong>Chapter 3.1:</strong> <a class="reference internal" href="3.1_introduction_to_matplotlib.html"><span class="std std-doc">Introduction to Matplotlib</span></a><br />
-<strong>Chapter 3.2:</strong> <a class="reference internal" href="3.2_line_plots_and_scatter_plots.html"><span class="std std-doc">Line Plots and Scatter Plots</span></a><br />
-<strong>Chapter 3.3:</strong> <a class="reference internal" href="3.3_bar_plots_and_histograms.html"><span class="std std-doc">Bar Plots and Histograms</span></a><br />
-<strong>Chapter 3.4:</strong> <a class="reference internal" href="3.4_customizing_plots.html"><span class="std std-doc">Customizing Plots</span></a><br />
-<strong>Chapter 3.5:</strong> <a class="reference internal" href="3.5_subplots_and_multiple_figures.html"><span class="std std-doc">Subplots and Multiple Figures</span></a><br />
-<strong>Chapter 3.6:</strong> <a class="reference internal" href="3.6_saving_figures.html"><span class="std std-doc">Saving Figures</span></a></p>
-</section>
-<section id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
-<p>To begin your learning journey, click on any chapter above or use the navigation sidebar on the left. Each chapter includes:</p>
-<ul class="simple">
-<li><p>Clear explanations of concepts</p></li>
-<li><p>Interactive code examples</p></li>
-<li><p>Practice exercises with solutions</p></li>
-<li><p>Real-world applications</p></li>
-</ul>
-</section>
-<section id="interactive-features">
-<h2>Interactive Features<a class="headerlink" href="#interactive-features" title="Link to this heading">#</a></h2>
-<p>This book includes interactive features powered by Thebe:</p>
-<ul class="simple">
-<li><p>Click the <strong>Live Code</strong> button at the top of any page to activate interactive mode</p></li>
-<li><p>Edit and run code cells to see immediate results</p></li>
-<li><p>Experiment with different inputs and parameters</p></li>
-</ul>
-</section>
-<section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
-<p>This book assumes:</p>
-<ul class="simple">
-<li><p>Basic computer literacy</p></li>
-<li><p>No prior programming experience required</p></li>
-<li><p>Willingness to learn and experiment</p></li>
-</ul>
 <hr class="docutils" />
-<p><em>Happy Learning!</em></p>
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these core terms is essential for managing your analytics workspace effectively.</p>
+<ul class="simple">
+<li><p><strong>Python</strong>: A versatile, high-level programming language renowned for its readability and extensive libraries. In precision health, it is the workhorse for everything from processing genomic data and analyzing clinical trial results to building predictive diagnostic models.</p></li>
+<li><p><strong>Virtual Environment (<code class="docutils literal notranslate"><span class="pre">venv</span></code>)</strong>: An isolated, self-contained directory tree that contains a specific Python installation and its own set of libraries. In a medical context, this is like having a dedicated, sealed-off lab for each experiment. It guarantees that your analysis of “Patient Cohort A” using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> version 1.5 is completely unaffected by a different project that requires <code class="docutils literal notranslate"><span class="pre">pandas</span></code> version 2.0, preventing cross-contamination of your digital tools.</p></li>
+<li><p><strong>PATH Variable</strong>: An environment variable on your operating system that specifies a set of directories where executable programs are located. When you type a command like <code class="docutils literal notranslate"><span class="pre">python</span></code> in your terminal, the system searches these directories to find the program. Adding Python to your PATH during installation makes it universally accessible, which is critical for running analysis scripts from any location.</p></li>
+<li><p><strong>pip (Pip Installs Packages)</strong>: The standard package manager for Python. It allows you to install, update, and manage the third-party libraries and dependencies your project needs. For a clinical data scientist, <code class="docutils literal notranslate"><span class="pre">pip</span></code> is the tool used to procure specialized instruments like <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> for numerical analysis, <code class="docutils literal notranslate"><span class="pre">SciPy</span></code> for statistical tests, and <code class="docutils literal notranslate"><span class="pre">Scikit-learn</span></code> for machine learning.</p></li>
+<li><p><strong>Execution Policy (PowerShell)</strong>: A security feature in Windows PowerShell that determines whether scripts can be run. By default, it’s often restricted. Setting it to <code class="docutils literal notranslate"><span class="pre">RemoteSigned</span></code> for the current user is a necessary one-time configuration that allows you to run trusted local scripts, such as the virtual environment activation script, without compromising system security.</p></li>
+</ul>
 </section>
-<div class="toctree-wrapper compound">
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>In this work, you will be using <a class="reference external" href="https://jupyter.org/try-jupyter/lab/">Jupyter-Lite</a> to run your codes.</p>
+<p><strong>JupyterLite</strong> is a version of Jupyter that runs entirely in the web browser without needing a server, making it easy to use for quick analysis and deployment</p>
+<section id="checking-python-environment-in-jupyter">
+<h3>3.1 Checking Python environment in Jupyter<a class="headerlink" href="#checking-python-environment-in-jupyter" title="Link to this heading">#</a></h3>
+<p>First, to confirm that Jupyter-Lite has Python installed, run the command below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+</pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="checking-if-a-package-exist">
+<h3>3.2 Checking if a Package exist<a class="headerlink" href="#checking-if-a-package-exist" title="Link to this heading">#</a></h3>
+<p>A <strong>Python package</strong> is a collection of related code that someone has bundled together to perform specific tasks. Think of it as a toolkit you can add to Python to extend its capabilities.</p>
+<p>You can try and import Ipywidgets, an important package that makes interactive HTML widgets for Jupyter notebooks that make notebooks dynamic and user-friendly.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ipywidgets is available!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Version: </span><span class="si">{</span><span class="n">ipywidgets</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="installing-and-importing-a-package">
+<h3>3.3 Installing and importing a package<a class="headerlink" href="#installing-and-importing-a-package" title="Link to this heading">#</a></h3>
+<p>Now, let’s try and import another Python package called Plotly, an interactive browser-based graphing library for Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Oh no! You have run into an error.
+The error tells you that the plotly module is either not <strong>installed</strong> or <strong>imported</strong> in Jupyter-lite.</p>
+<blockquote>
+<div><p>There is a different between <strong>installed</strong> and <strong>imported</strong></p>
+<p>The simplest way to think about it is using an analogy: a toolbox and a workbench.</p>
+<ul class="simple">
+<li><p><strong>Installing</strong> is like buying a new tool (e.g., a specific wrench) and placing it in your toolbox. The tool is now in your possession and available for you to use whenever you need it.</p></li>
+<li><p><strong>Importing</strong> is like taking that specific wrench out of the toolbox and placing it on your workbench to use for your current project.</p></li>
+</ul>
+<p>You only need to install the tool once. But, every time you start a new project (or run a new script), you need to import the tools you need for that specific job.</p>
+</div></blockquote>
+<p>Let’s first install Plotly</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">plotly</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>NOTE: The <code class="docutils literal notranslate"><span class="pre">!</span></code> tells Jupyter notebooks/IPython to run the command in your system’s terminal/shell instead of treating it as Python code—in a regular terminal, you’d just use pip install plotly without the <code class="docutils literal notranslate"><span class="pre">!</span></code>.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once installed, now you can import Plotly and check the version that you are running.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">plotly</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotly is available!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Version: </span><span class="si">{</span><span class="n">plotly</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hooray! You’ve installed Plotly onto your Jupyter-lite environment!</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>4. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential first step in any data analysis project: setting up a robust and isolated Python environment.</p>
+<ul class="simple">
+<li><p>You learned to check for Python version in your environment.</p></li>
+<li><p>A Python package is a folder containing related code files that work together to perform specific tasks, which you can install and reuse in your projects.</p></li>
+<li><p>You also learned how to check if a Python package exist and how to import it to your Python environment</p></li>
+<li><p>You can also now install and import a Python package if it is missing</p></li>
+<li><p>Installing downloads the package files to your computer, while importing loads that package into your current Python script so you can actually use its functions.</p></li>
+</ul>
+<p>With your professional development environment now configured, you are ready to start using powerful tools for interactive analysis.</p>
+<hr class="docutils" />
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -521,13 +559,13 @@ document.write(`
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            name: "python",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'python'</script>
 
                 </article>
               
@@ -539,12 +577,21 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to Python</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="1.1_python_installation_and_environment_setup.html"
+       href="1.2_variables_and_data_types.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chapter 1: Setting Up Your Jupyter Environment</p>
+        <p class="prev-next-title">Chapter 1: Data Types in Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -564,12 +611,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome">Welcome</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-book">How to Use This Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-features">Interactive Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-python-environment-in-jupyter">3.1 Checking Python environment in Jupyter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-if-a-package-exist">3.2 Checking if a Package exist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-and-importing-a-package">3.3 Installing and importing a package</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">4. Summary and Key Takeaways</a></li>
 </ul>
   </nav></div>
 

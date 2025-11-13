@@ -1,0 +1,1116 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Data Types in Python &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.2_variables_and_data_types';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Operators and Expressions" href="1.3_basic_operators_and_expressions.html" />
+    <link rel="prev" title="Chapter 1: Setting Up Your Jupyter Environment" href="1.1_python_installation_and_environment_setup.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.12_string_methods.html">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.6_saving_figures.html">3.6 - Saving Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.2_variables_and_data_types.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.2_variables_and_data_types.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Data Types in Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions-and-best-practices">3.1 Naming Conventions and Best Practices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-and-converting-data-types">3.2 Verifying and Converting Data Types</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-creating-a-new-patient-profile-basic">Exercise 1: Creating a New Patient Profile Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-correcting-lab-data-types-intermediate">Exercise 2: Correcting Lab Data Types Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-investigating-data-loss-intermediate">Exercise 3: Investigating Data Loss Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-built-in-type-function-to-check-a-variable-s-data-type-this-is-an-essential-debugging-tool-to-confirm-that-data-is-in-the-expected-format-before-you-use-it">Use the built-in <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to check a variable’s data type. This is an essential debugging tool to confirm that data is in the expected format before you use it.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-between-compatible-types-using-the-str-int-and-float-functions-this-is-often-required-when-a-lab-value-is-read-from-a-file-as-text-but-is-needed-as-a-number-for-analysis">convert data between compatible types using the <code class="docutils literal notranslate"><span class="pre">str()</span></code>, <code class="docutils literal notranslate"><span class="pre">int()</span></code>, and <code class="docutils literal notranslate"><span class="pre">float()</span></code> functions. This is often required when a lab value is read from a file as text but is needed as a number for analysis.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-round-this-causes-a-loss-of-precision-that-can-be-dangerous-in-a-medical-context-for-example-casting-a-dosage-of-1-9-ml-to-an-integer-would-result-in-1-ml-a-potentially-critical-underdose">t round. This causes a loss of precision that can be dangerous in a medical context. For example, casting a dosage of <code class="docutils literal notranslate"><span class="pre">1.9</span></code> mL to an integer would result in <code class="docutils literal notranslate"><span class="pre">1</span></code> mL, a potentially critical underdose.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-data-types-in-python">
+<h1>Chapter 1: Data Types in Python<a class="headerlink" href="#chapter-1-data-types-in-python" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Next, let’s look at the building blocks of programming in Python. In this section, you will learn how to assign medical data to variables using Python’s fundamental data types.</p>
+<blockquote>
+<div><p><strong>Note</strong> Using the correct data type ensures that all data are stored and can be processed without errors. Incorrect data types may stall your programme!</p>
+</div></blockquote>
+<p>This journey will take you from basic definitions to practical application, ensuring you understand how choosing between text, whole numbers, decimals, and true/false values impacts data integrity and patient safety.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Variable</strong>: A named storage location in a computer’s memory used to hold a value. In a medical context, a variable might hold a patient’s name (<code class="docutils literal notranslate"><span class="pre">patient_name</span></code>), age (<code class="docutils literal notranslate"><span class="pre">patient_age</span></code>), or a specific lab result (<code class="docutils literal notranslate"><span class="pre">serum_creatinine</span></code>).</p></li>
+<li><p><strong>String (<code class="docutils literal notranslate"><span class="pre">str</span></code>)</strong>: A sequence of characters used to store text data. Strings are enclosed in single (<code class="docutils literal notranslate"><span class="pre">'</span></code>) or double (<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>) quotes. They are essential for identifiers like Medical Record Numbers (MRNs) or patient names, as they preserve all characters.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>In Practice:</strong> Medical Record Numbers (MRNs), billing codes, and other identifiers often have leading zeros or specific formatting (e.g., <code class="docutils literal notranslate"><span class="pre">MRN0019234</span></code>). Storing them as strings (<code class="docutils literal notranslate"><span class="pre">str</span></code>) is the standard practice to prevent data corruption, such as <code class="docutils literal notranslate"><span class="pre">0019234</span></code> being incorrectly simplified to <code class="docutils literal notranslate"><span class="pre">19234</span></code>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Integer (<code class="docutils literal notranslate"><span class="pre">int</span></code>)</strong>: A whole number without a fractional part. Integers are used for discrete, countable data, such as a patient’s age in years (<code class="docutils literal notranslate"><span class="pre">52</span></code>), the number of hospital admissions, or heart rate in beats per minute.</p></li>
+<li><p><strong>Float (<code class="docutils literal notranslate"><span class="pre">float</span></code>)</strong>: A number that contains a decimal point. Floats are critical for representing continuous measurements where precision is vital, such as body temperature (<code class="docutils literal notranslate"><span class="pre">37.0</span></code> °C), drug dosages (<code class="docutils literal notranslate"><span class="pre">1.25</span></code> mg), or lab values like hemoglobin A1c (<code class="docutils literal notranslate"><span class="pre">6.5</span></code> %).</p></li>
+<li><p><strong>Boolean (<code class="docutils literal notranslate"><span class="pre">bool</span></code>)</strong>: A data type that can only have one of two values: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. Booleans are perfect for representing binary states in clinical data, such as an allergy status (<code class="docutils literal notranslate"><span class="pre">is_allergic_to_penicillin</span> <span class="pre">=</span> <span class="pre">True</span></code>) or the presence of a comorbidity (<code class="docutils literal notranslate"><span class="pre">has_diabetes</span> <span class="pre">=</span> <span class="pre">False</span></code>).</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common mistake for new programmers is typing <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code> in lowercase. Python is case-sensitive, so these must be capitalized (<code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>). Using lowercase will result in a <code class="docutils literal notranslate"><span class="pre">NameError</span></code> because Python will think you are trying to use a variable that hasn’t been defined.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Type Casting</strong>: The process of converting a variable from one data type to another (e.g., converting a string <code class="docutils literal notranslate"><span class="pre">&quot;14.5&quot;</span></code> to a float <code class="docutils literal notranslate"><span class="pre">14.5</span></code>). This is a common task when processing data imported from text files or databases.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="naming-conventions-and-best-practices">
+<h3>3.1 Naming Conventions and Best Practices<a class="headerlink" href="#naming-conventions-and-best-practices" title="Link to this heading">#</a></h3>
+<p>To ensure your code is readable and maintainable, especially in collaborative medical research projects, it’s crucial to follow standard naming conventions.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Use <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> for variable names (e.g., <code class="docutils literal notranslate"><span class="pre">patient_age_years</span></code> instead of <code class="docutils literal notranslate"><span class="pre">patientageyears</span></code> or <code class="docutils literal notranslate"><span class="pre">PatientAgeYears</span></code>). This is the standard convention in Python (see PEP 8 style guide) and makes your code significantly more readable for you and your colleagues.</p>
+</div></blockquote>
+<p>Additionally, adding comments to note units for clinical measurements is a vital best practice that prevents misinterpretation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good practice: specify units in a comment</span>
+<span class="n">serum_creatinine_mg_dl</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="c1"># Unit: mg/dL</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">serum_creatinine_mg_dl</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="verifying-and-converting-data-types">
+<h3>3.2 Verifying and Converting Data Types<a class="headerlink" href="#verifying-and-converting-data-types" title="Link to this heading">#</a></h3>
+<p>In data processing pipelines, you often need to check a variable’s type or change it to perform calculations.</p>
+<p><strong>Verifying a Type</strong>
+Use the built-in <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to check a variable’s data type. This is an essential debugging tool to confirm that data is in the expected format before you use it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">patient_name</span> <span class="o">=</span> <span class="s1">&#39;John Doe&#39;</span>
+<span class="n">patient_age_years</span> <span class="o">=</span> <span class="mi">37</span>
+<span class="n">patient_temperature</span> <span class="o">=</span> <span class="mf">37.2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type of patient_name: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type of patient_age_years: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_age_years</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type of patient_temperature: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_temperature</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Did you see the difference in types between &#39;37&#39; and &#39;37.0&#39;?&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Changing a Type (Casting)</strong>
+You can convert data between compatible types using the <code class="docutils literal notranslate"><span class="pre">str()</span></code>, <code class="docutils literal notranslate"><span class="pre">int()</span></code>, and <code class="docutils literal notranslate"><span class="pre">float()</span></code> functions. This is often required when a lab value is read from a file as text but is needed as a number for analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lab result read from a file as a string</span>
+<span class="n">hemoglobin_g_dl</span> <span class="o">=</span> <span class="s2">&quot;14.5&quot;</span> <span class="c1"># Unit: g/dL</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type of hemoglobin_g_dl BEFORE conversion: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">hemoglobin_g_dl</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting now...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Cast the string to a float for calculations</span>
+<span class="n">hemoglobin_g_dl</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">hemoglobin_g_dl</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Conversion completed&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hemoglobin_g_dl</span><span class="p">)</span>
+<span class="c1"># Output: 14.5</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type of hemoglobin_g_dl AFTER conversion: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">hemoglobin_g_dl</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Data type of hemoglobin_g_dl: &lt;class &#39;float&#39;&gt;</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Casting can fail with a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if the conversion is impossible (e.g., <code class="docutils literal notranslate"><span class="pre">int('hello')</span></code>).</p>
+<blockquote>
+<div><p><strong>Debug Note:</strong> You will encounter a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if you try to convert a string that doesn’t look like a number (e.g., <code class="docutils literal notranslate"><span class="pre">int(&quot;N/A&quot;)</span></code> or <code class="docutils literal notranslate"><span class="pre">float(&quot;pending&quot;)</span></code>).</p>
+</div></blockquote>
+<p><strong>Data Loss During Casting</strong>
+Be extremely cautious when casting a <code class="docutils literal notranslate"><span class="pre">float</span></code> to an <code class="docutils literal notranslate"><span class="pre">int</span></code>. This action can cause a loss of precision.</p>
+<blockquote>
+<div><p><strong>Important:</strong> Casting a float to an integer <strong>truncates</strong> (cuts off) the decimal portion; it does not round. This causes a loss of precision that can be dangerous in a medical context. For example, casting a dosage of <code class="docutils literal notranslate"><span class="pre">1.9</span></code> mL to an integer would result in <code class="docutils literal notranslate"><span class="pre">1</span></code> mL, a potentially critical underdose.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A precise lab value</span>
+<span class="n">hemoglobin_level_float</span> <span class="o">=</span> <span class="mf">14.99999999</span>
+
+<span class="c1"># Casting to an integer truncates the decimal</span>
+<span class="n">hemoglobin_level_truncated</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hemoglobin_level_float</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Truncated hemoglobin level: </span><span class="si">{</span><span class="n">hemoglobin_level_truncated</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Truncated hemoglobin level: 14</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>To practice these concepts, create a new Python script to handle the intake of a new patient at the National University of Singapore Hospital (NUHS).</p>
+<section id="exercise-1-creating-a-new-patient-profile-basic">
+<h3>Exercise 1: Creating a New Patient Profile Basic<a class="headerlink" href="#exercise-1-creating-a-new-patient-profile-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Define variables for a new patient using four different data types.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Creating a basic digital record for a new patient is the first step in any electronic health record (EHR) system.</p>
+<p>In your script, define four variables for a patient:</p>
+<ol class="arabic simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">patient_name</span></code> holding the value <code class="docutils literal notranslate"><span class="pre">&quot;Richard</span> <span class="pre">Wang&quot;</span></code>.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> holding the string <code class="docutils literal notranslate"><span class="pre">&quot;NUHS000117&quot;</span></code>. Remember to use a string to preserve the format.</p></li>
+<li><p>A variable named <code class="docutils literal notranslate"><span class="pre">serum_creatinine_mg_dl</span></code> holding the float value <code class="docutils literal notranslate"><span class="pre">1.2</span></code>. This is a common blood test used to monitor kidney function.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">has_diabetes</span></code> boolean set to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ol>
+<p>For each variable, print its value and verify its data type using <code class="docutils literal notranslate"><span class="pre">type()</span></code>. You can generate descriptive output using f-strings, like <code class="docutils literal notranslate"><span class="pre">print(f&quot;Patient</span> <span class="pre">Name:</span> <span class="pre">{patient_name}&quot;)</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Define patient name (string)</span>
+<span class="n">patient_name</span> <span class="o">=</span> <span class="s2">&quot;Richard Wang&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient Name: </span><span class="si">{</span><span class="n">patient_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Define patient ID (string)</span>
+<span class="n">patient_id</span> <span class="o">=</span> <span class="s2">&quot;NUHS000117&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient ID: </span><span class="si">{</span><span class="n">patient_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_id</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Define serum creatinine (float)</span>
+<span class="n">serum_creatinine_mg_dl</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="c1"># Unit: mg/dL</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serum Creatinine: </span><span class="si">{</span><span class="n">serum_creatinine_mg_dl</span><span class="si">}</span><span class="s2"> mg/dL&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">serum_creatinine_mg_dl</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4. Define diabetes status (boolean)</span>
+<span class="n">has_diabetes</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Has Diabetes: </span><span class="si">{</span><span class="n">has_diabetes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">has_diabetes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> Each variable is assigned a value using the <code class="docutils literal notranslate"><span class="pre">=</span></code> operator. The <code class="docutils literal notranslate"><span class="pre">f-string</span></code> formatting is used to create clear, descriptive printouts. The <code class="docutils literal notranslate"><span class="pre">type()</span></code> function confirms that each variable was created with the correct data type.
+<strong>Key Learning:</strong> Correctly assigning values to variables with appropriate data types (<code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>).</p>
+</div>
+</details></section>
+<section id="exercise-2-correcting-lab-data-types-intermediate">
+<h3>Exercise 2: Correcting Lab Data Types Intermediate<a class="headerlink" href="#exercise-2-correcting-lab-data-types-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice type casting to convert lab data from strings to numerical types for analysis.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Lab results are often imported from external systems as text. They must be converted to numbers before they can be used in calculations, such as checking if a value is within a normal range.</p>
+<p>You have received two lab values as strings: <code class="docutils literal notranslate"><span class="pre">platelet_count_str</span> <span class="pre">=</span> <span class="pre">&quot;250&quot;</span></code> (normal range: 150-400) and <code class="docutils literal notranslate"><span class="pre">ph_level_str</span> <span class="pre">=</span> <span class="pre">&quot;7.41&quot;</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Convert <code class="docutils literal notranslate"><span class="pre">platelet_count_str</span></code> to an integer named <code class="docutils literal notranslate"><span class="pre">platelet_count_int</span></code>.</p></li>
+<li><p>Convert <code class="docutils literal notranslate"><span class="pre">ph_level_str</span></code> to a float named <code class="docutils literal notranslate"><span class="pre">ph_level_float</span></code>.</p></li>
+<li><p>Print the new variables and their types to confirm the conversion was successful.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+
+<span class="n">platelet_count_str</span> <span class="o">=</span> <span class="s2">&quot;250&quot;</span>
+<span class="n">ph_level_str</span> <span class="o">=</span> <span class="s2">&quot;7.41&quot;</span>
+
+<span class="c1"># Continue from the code below</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">platelet_count_str</span> <span class="o">=</span> <span class="s2">&quot;250&quot;</span> 
+<span class="n">ph_level_str</span> <span class="o">=</span> <span class="s2">&quot;7.41&quot;</span>
+
+<span class="c1"># 1. Convert platelet count to an integer</span>
+<span class="n">platelet_count_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">platelet_count_str</span><span class="p">)</span>
+
+<span class="c1"># 2. Convert pH level to a float</span>
+<span class="n">ph_level_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ph_level_str</span><span class="p">)</span>
+
+<span class="c1"># 3. Print the results and their types</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Platelet Count: </span><span class="si">{</span><span class="n">platelet_count_int</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">platelet_count_int</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pH Level: </span><span class="si">{</span><span class="n">ph_level_float</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">ph_level_float</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">int()</span></code> function was used for the platelet count because it’s a whole number. The <code class="docutils literal notranslate"><span class="pre">float()</span></code> function was used for the pH level because it requires decimal precision.
+<strong>Key Learning:</strong> Using <code class="docutils literal notranslate"><span class="pre">int()</span></code> and <code class="docutils literal notranslate"><span class="pre">float()</span></code> to cast strings into numerical types suitable for clinical data analysis.</p>
+</div>
+</details></section>
+<section id="exercise-3-investigating-data-loss-intermediate">
+<h3>Exercise 3: Investigating Data Loss Intermediate<a class="headerlink" href="#exercise-3-investigating-data-loss-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Observe the effect of data loss when casting a float to an integer.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Inaccurate data can lead to incorrect clinical decisions. Understanding how programming operations can cause data loss is critical for patient safety.</p>
+<p>A patient’s temperature is recorded as <code class="docutils literal notranslate"><span class="pre">temperature_celsius_float</span> <span class="pre">=</span> <span class="pre">38.8</span></code>. A legacy system requires the temperature as an integer.</p>
+<ol class="arabic simple">
+<li><p>Create a new variable <code class="docutils literal notranslate"><span class="pre">temperature_celsius_int</span></code> by casting <code class="docutils literal notranslate"><span class="pre">temperature_celsius_float</span></code> to an integer.</p></li>
+<li><p>Print both the original float value and the new integer value.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temperature_celsius_float</span> <span class="o">=</span> <span class="mf">38.8</span> <span class="c1"># Unit: Celsius</span>
+
+<span class="c1"># 1. Cast the float to an integer</span>
+<span class="n">temperature_celsius_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">temperature_celsius_float</span><span class="p">)</span>
+
+<span class="c1"># 2. Print both values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original Precise Temperature: </span><span class="si">{</span><span class="n">temperature_celsius_float</span><span class="si">}</span><span class="s2">°C&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature after Integer Casting: </span><span class="si">{</span><span class="n">temperature_celsius_int</span><span class="si">}</span><span class="s2">°C&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Explain the risk</span>
+<span class="n">difference</span> <span class="o">=</span> <span class="n">temperature_celsius_float</span> <span class="o">-</span> <span class="n">temperature_celsius_int</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Warning: Casting to an integer truncated the value, causing a data loss of </span><span class="si">{</span><span class="n">difference</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">°C.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">int()</span></code> function truncated the <code class="docutils literal notranslate"><span class="pre">.8</span></code> from the float value, changing <code class="docutils literal notranslate"><span class="pre">38.8</span></code> to <code class="docutils literal notranslate"><span class="pre">38</span></code>. The output explicitly highlights this loss of precision.
+<strong>Key Learning:</strong> Casting a <code class="docutils literal notranslate"><span class="pre">float</span></code> to an <code class="docutils literal notranslate"><span class="pre">int</span></code> causes data loss by truncation, not rounding, which can have significant clinical implications.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Patient Record Management:</strong> In any Electronic Health Record (EHR) system, data types are fundamental. <code class="docutils literal notranslate"><span class="pre">str</span></code> is used for patient names and MRNs, <code class="docutils literal notranslate"><span class="pre">int</span></code> for age or number of dependents, <code class="docutils literal notranslate"><span class="pre">float</span></code> for height and weight, and <code class="docutils literal notranslate"><span class="pre">bool</span></code> to flag conditions like allergies (<code class="docutils literal notranslate"><span class="pre">is_allergic</span> <span class="pre">=</span> <span class="pre">True</span></code>) or consent status (<code class="docutils literal notranslate"><span class="pre">has_signed_consent</span> <span class="pre">=</span> <span class="pre">True</span></code>). Using the wrong type could corrupt records.</p></li>
+<li><p><strong>Clinical Lab Data Analysis:</strong> When analyzing lab results, <code class="docutils literal notranslate"><span class="pre">float</span></code> is essential for precision (e.g., <code class="docutils literal notranslate"><span class="pre">glucose</span> <span class="pre">=</span> <span class="pre">101.3</span></code> mg/dL). If glucose were stored as an <code class="docutils literal notranslate"><span class="pre">int</span></code>, the value would be truncated to <code class="docutils literal notranslate"><span class="pre">101</span></code>, losing information that could be clinically relevant for diagnosing pre-diabetes. Python scripts use these floats to flag values outside normal ranges.</p></li>
+<li><p><strong>Risk Stratification Models:</strong> Predictive models in healthcare use variables to calculate patient risk scores. A model might use <code class="docutils literal notranslate"><span class="pre">bool</span></code> variables like <code class="docutils literal notranslate"><span class="pre">is_smoker</span></code> or <code class="docutils literal notranslate"><span class="pre">has_hypertension</span></code> alongside <code class="docutils literal notranslate"><span class="pre">int</span></code> (age) and <code class="docutils literal notranslate"><span class="pre">float</span></code> (BMI) variables. The data type of each variable must be correct for the mathematical model to execute properly and produce a valid risk score.</p></li>
+<li><p><strong>Pharmacogenomics and Dosage Calculation:</strong> Patient-specific drug dosages are often calculated based on precise factors. A <code class="docutils literal notranslate"><span class="pre">float</span></code> is used for the dosage itself (e.g., <code class="docutils literal notranslate"><span class="pre">1.25</span></code> mg), while a <code class="docutils literal notranslate"><span class="pre">str</span></code> might be used to identify a specific genetic variant (e.g., <code class="docutils literal notranslate"><span class="pre">variant_id</span> <span class="pre">=</span> <span class="pre">&quot;rs1801133&quot;</span></code>) that influences drug metabolism. Incorrect data types would make these personalized calculations impossible.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to declare variables and assign data using Python’s four fundamental types. We learned that selecting the correct data type is not just a technical requirement but a crucial step for ensuring data integrity and safety in medical applications.</p>
+<ul class="simple">
+<li><p><strong>Choose the Right Tool:</strong> Use <code class="docutils literal notranslate"><span class="pre">str</span></code> for text, <code class="docutils literal notranslate"><span class="pre">int</span></code> for whole numbers, <code class="docutils literal notranslate"><span class="pre">float</span></code> for decimals, and <code class="docutils literal notranslate"><span class="pre">bool</span></code> for true/false states.</p></li>
+<li><p><strong>Preserve Identifiers:</strong> Always use strings for identifiers like MRNs or ID numbers to protect leading zeros and special characters.</p></li>
+<li><p><strong>Verify Before You Trust:</strong> Use the <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to check a variable’s data type, which is a key step in debugging and data validation.</p></li>
+<li><p><strong>Beware of Data Loss:</strong> Casting a <code class="docutils literal notranslate"><span class="pre">float</span></code> to an <code class="docutils literal notranslate"><span class="pre">int</span></code> truncates the decimal value, causing a loss of precision that can be clinically significant.</p></li>
+<li><p><strong>Write Clean Code:</strong> Use <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> for variable names to improve readability.</p></li>
+</ul>
+<p>With a solid understanding of how to store individual pieces of data, we are now ready to explore how to group and manage collections of data using Python’s data structures in the next section.</p>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good practice: specify units in a comment</span>
+<span class="n">serum_creatinine_mg_dl</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="c1"># Unit: mg/dL</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-the-built-in-type-function-to-check-a-variable-s-data-type-this-is-an-essential-debugging-tool-to-confirm-that-data-is-in-the-expected-format-before-you-use-it">
+<h3>Use the built-in <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to check a variable’s data type. This is an essential debugging tool to confirm that data is in the expected format before you use it.<a class="headerlink" href="#use-the-built-in-type-function-to-check-a-variable-s-data-type-this-is-an-essential-debugging-tool-to-confirm-that-data-is-in-the-expected-format-before-you-use-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patient_age_years</span> <span class="o">=</span> <span class="mi">52</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type of patient_age_years: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_age_years</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Data type of patient_age_years: &lt;class &#39;int&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="convert-data-between-compatible-types-using-the-str-int-and-float-functions-this-is-often-required-when-a-lab-value-is-read-from-a-file-as-text-but-is-needed-as-a-number-for-analysis">
+<h3>convert data between compatible types using the <code class="docutils literal notranslate"><span class="pre">str()</span></code>, <code class="docutils literal notranslate"><span class="pre">int()</span></code>, and <code class="docutils literal notranslate"><span class="pre">float()</span></code> functions. This is often required when a lab value is read from a file as text but is needed as a number for analysis.<a class="headerlink" href="#convert-data-between-compatible-types-using-the-str-int-and-float-functions-this-is-often-required-when-a-lab-value-is-read-from-a-file-as-text-but-is-needed-as-a-number-for-analysis" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lab result read from a file as a string</span>
+<span class="n">hemoglobin_g_dl_str</span> <span class="o">=</span> <span class="s2">&quot;14.5&quot;</span> <span class="c1"># Unit: g/dL</span>
+
+<span class="c1"># Cast the string to a float for calculations</span>
+<span class="n">hemoglobin_g_dl_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">hemoglobin_g_dl_str</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">hemoglobin_g_dl_float</span><span class="p">)</span>
+<span class="c1"># Output: 14.5</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type of hemoglobin_g_dl_float: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">hemoglobin_g_dl_float</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Data type of hemoglobin_g_dl_float: &lt;class &#39;float&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="t-round-this-causes-a-loss-of-precision-that-can-be-dangerous-in-a-medical-context-for-example-casting-a-dosage-of-1-9-ml-to-an-integer-would-result-in-1-ml-a-potentially-critical-underdose">
+<h3>t round. This causes a loss of precision that can be dangerous in a medical context. For example, casting a dosage of <code class="docutils literal notranslate"><span class="pre">1.9</span></code> mL to an integer would result in <code class="docutils literal notranslate"><span class="pre">1</span></code> mL, a potentially critical underdose.<a class="headerlink" href="#t-round-this-causes-a-loss-of-precision-that-can-be-dangerous-in-a-medical-context-for-example-casting-a-dosage-of-1-9-ml-to-an-integer-would-result-in-1-ml-a-potentially-critical-underdose" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A precise lab value</span>
+<span class="n">hemoglobin_level_float</span> <span class="o">=</span> <span class="mf">14.5</span>
+
+<span class="c1"># Casting to an integer truncates the decimal</span>
+<span class="n">hemoglobin_level_truncated</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hemoglobin_level_float</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Truncated hemoglobin level: </span><span class="si">{</span><span class="n">hemoglobin_level_truncated</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Truncated hemoglobin level: 14</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Define patient name (string)</span>
+<span class="n">patient_name</span> <span class="o">=</span> <span class="s2">&quot;John Appleseed&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient Name: </span><span class="si">{</span><span class="n">patient_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_name</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Define patient ID (string)</span>
+<span class="n">patient_id</span> <span class="o">=</span> <span class="s2">&quot;PID000117&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient ID: </span><span class="si">{</span><span class="n">patient_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_id</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Define serum creatinine (float)</span>
+<span class="n">serum_creatinine_mg_dl</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="c1"># Unit: mg/dL</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serum Creatinine: </span><span class="si">{</span><span class="n">serum_creatinine_mg_dl</span><span class="si">}</span><span class="s2"> mg/dL&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">serum_creatinine_mg_dl</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4. Define diabetes status (boolean)</span>
+<span class="n">has_diabetes</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Has Diabetes: </span><span class="si">{</span><span class="n">has_diabetes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">has_diabetes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3><summary>Solution</summary><a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">platelet_count_str</span> <span class="o">=</span> <span class="s2">&quot;250&quot;</span> <span class="c1"># Unit: x10^9/L</span>
+<span class="n">ph_level_str</span> <span class="o">=</span> <span class="s2">&quot;7.41&quot;</span>
+
+<span class="c1"># 1. Convert platelet count to an integer</span>
+<span class="n">platelet_count_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">platelet_count_str</span><span class="p">)</span>
+
+<span class="c1"># 2. Convert pH level to a float</span>
+<span class="n">ph_level_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ph_level_str</span><span class="p">)</span>
+
+<span class="c1"># 3. Print the results and their types</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Platelet Count: </span><span class="si">{</span><span class="n">platelet_count_int</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">platelet_count_int</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pH Level: </span><span class="si">{</span><span class="n">ph_level_float</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">ph_level_float</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature_celsius_float</span> <span class="o">=</span> <span class="mf">38.8</span> <span class="c1"># Unit: Celsius</span>
+
+<span class="c1"># 1. Cast the float to an integer</span>
+<span class="n">temperature_celsius_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">temperature_celsius_float</span><span class="p">)</span>
+
+<span class="c1"># 2. Print both values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original Precise Temperature: </span><span class="si">{</span><span class="n">temperature_celsius_float</span><span class="si">}</span><span class="s2">°C&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature after Integer Casting: </span><span class="si">{</span><span class="n">temperature_celsius_int</span><span class="si">}</span><span class="s2">°C&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Explain the risk</span>
+<span class="n">difference</span> <span class="o">=</span> <span class="n">temperature_celsius_float</span> <span class="o">-</span> <span class="n">temperature_celsius_int</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Warning: Casting to an integer truncated the value, causing a data loss of </span><span class="si">{</span><span class="n">difference</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">°C.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This could mask a fever&#39;s severity, as 38.8°C is a higher-grade fever than 38°C.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.1_python_installation_and_environment_setup.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Setting Up Your Jupyter Environment</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.3_basic_operators_and_expressions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Operators and Expressions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions-and-best-practices">3.1 Naming Conventions and Best Practices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-and-converting-data-types">3.2 Verifying and Converting Data Types</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-creating-a-new-patient-profile-basic">Exercise 1: Creating a New Patient Profile Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-correcting-lab-data-types-intermediate">Exercise 2: Correcting Lab Data Types Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-investigating-data-loss-intermediate">Exercise 3: Investigating Data Loss Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-built-in-type-function-to-check-a-variable-s-data-type-this-is-an-essential-debugging-tool-to-confirm-that-data-is-in-the-expected-format-before-you-use-it">Use the built-in <code class="docutils literal notranslate"><span class="pre">type()</span></code> function to check a variable’s data type. This is an essential debugging tool to confirm that data is in the expected format before you use it.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-between-compatible-types-using-the-str-int-and-float-functions-this-is-often-required-when-a-lab-value-is-read-from-a-file-as-text-but-is-needed-as-a-number-for-analysis">convert data between compatible types using the <code class="docutils literal notranslate"><span class="pre">str()</span></code>, <code class="docutils literal notranslate"><span class="pre">int()</span></code>, and <code class="docutils literal notranslate"><span class="pre">float()</span></code> functions. This is often required when a lab value is read from a file as text but is needed as a number for analysis.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#t-round-this-causes-a-loss-of-precision-that-can-be-dangerous-in-a-medical-context-for-example-casting-a-dosage-of-1-9-ml-to-an-integer-would-result-in-1-ml-a-potentially-critical-underdose">t round. This causes a loss of precision that can be dangerous in a medical context. For example, casting a dosage of <code class="docutils literal notranslate"><span class="pre">1.9</span></code> mL to an integer would result in <code class="docutils literal notranslate"><span class="pre">1</span></code> mL, a potentially critical underdose.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

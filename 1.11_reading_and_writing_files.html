@@ -1,0 +1,1118 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Health Data &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.11_reading_and_writing_files';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Health Data" href="1.12_string_methods.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.10_command_line_arguments_with_sys.argv.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.12_string_methods.html">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.6_saving_figures.html">3.6 - Saving Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.11_reading_and_writing_files.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.11_reading_and_writing_files.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Health Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-to-a-new-file-w-mode">3.1. Writing to a New File (<code class="docutils literal notranslate"><span class="pre">'w'</span></code> mode)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appending-to-an-existing-file-a-mode">3.2. Appending to an Existing File (<code class="docutils literal notranslate"><span class="pre">'a'</span></code> mode)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-from-a-file-r-mode">3.3. Reading from a File (<code class="docutils literal notranslate"><span class="pre">'r'</span></code> mode)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-common-file-errors">3.4. Handling Common File Errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-example-filtering-critical-lab-notes">3.5. Integrated Example: Filtering Critical Lab Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-update-a-patient-schedule-basic">Exercise 1: Create and Update a Patient Schedule Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calculate-average-heart-rate-from-a-log-intermediate">Exercise 2: Calculate Average Heart Rate from a Log Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-archive-critical-patient-notes-advanced">Exercise 3: Archive Critical Patient Notes Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-health-data">
+<h1>Chapter 1: Python Fundamentals for Health Data<a class="headerlink" href="#chapter-1-python-fundamentals-for-health-data" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the crucial skill of file handling. In precision health, data is everything, but it’s useless if it disappears when a program closes. This section introduces the fundamental techniques for making data persistent by reading from and writing to files. You will learn how to create new patient reports, append notes to existing medical logs, read patient histories, and handle common errors gracefully. Mastering file I/O (Input/Output) is the first step toward building robust applications that can manage and analyze vast amounts of patient data, from simple text logs to complex genomic datasets.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>File Handle</strong>: A temporary link or reference to a file on your system, created when you <code class="docutils literal notranslate"><span class="pre">open()</span></code> a file. In a clinical setting, think of a file handle as the act of pulling a specific patient’s chart from the records room; you have it in your hands to read or write on, and you must return it (close it) when you are done. The <code class="docutils literal notranslate"><span class="pre">with</span></code> statement handles this automatically.</p></li>
+<li><p><strong>File Mode</strong>: A single-character string that tells Python what you intend to do with a file. Each mode corresponds to a common clinical data task.</p>
+<ul>
+<li><p><strong>Write Mode (<code class="docutils literal notranslate"><span class="pre">'w'</span></code>)</strong>: Creates a new file or completely overwrites an existing one. Analogous to starting a fresh daily report for a hospital ward, discarding the previous day’s draft.</p></li>
+<li><p><strong>Append Mode (<code class="docutils literal notranslate"><span class="pre">'a'</span></code>)</strong>: Adds new data to the end of an existing file. This is like adding a new entry to a patient’s ongoing Medication Administration Record (MAR).</p></li>
+<li><p><strong>Read Mode (<code class="docutils literal notranslate"><span class="pre">'r'</span></code>)</strong>: Opens a file for reading only. This is the most common operation, used for reviewing a patient’s history, lab results, or admission notes.</p></li>
+<li><p><strong>Exclusive Creation Mode (<code class="docutils literal notranslate"><span class="pre">'x'</span></code>)</strong>: Creates a new file but fails with an error if the file already exists. This is a safety measure, perfect for creating a unique, timestamped log file that should never be accidentally overwritten.</p></li>
+</ul>
+</li>
+<li><p><strong>Text File</strong>: A simple file format that stores data as human-readable characters. Patient notes, lab reports, and configuration files are often stored as text files. We specify <code class="docutils literal notranslate"><span class="pre">encoding='utf-8'</span></code> to ensure compatibility with a wide range of characters.</p></li>
+<li><p><strong>Exception Handling</strong>: A mechanism using <code class="docutils literal notranslate"><span class="pre">try...except</span></code> blocks to manage errors during program execution without crashing. In a medical application, this is non-negotiable. If a patient file is missing, the program should report the error and continue running, not shut down the entire system.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="writing-to-a-new-file-w-mode">
+<h3>3.1. Writing to a New File (<code class="docutils literal notranslate"><span class="pre">'w'</span></code> mode)<a class="headerlink" href="#writing-to-a-new-file-w-mode" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">'w'</span></code> mode creates a new file for writing.</p>
+<blockquote>
+<div><p><strong>Important:</strong> Using <code class="docutils literal notranslate"><span class="pre">'w'</span></code> mode on an existing file will permanently erase all of its contents. This action cannot be undone.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>In Practice:</strong> This mode is ideal for tasks like generating a new, unique report file, such as a discharge summary for a specific patient encounter (e.g., <code class="docutils literal notranslate"><span class="pre">summary_PT004598_20251111.txt</span></code>).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">discharge_summary</span> <span class="o">=</span> <span class="s2">&quot;Patient discharged in stable condition. Follow up in 2 weeks.&quot;</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;summary_report.txt&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">summary_file</span><span class="p">:</span>
+    <span class="n">summary_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">discharge_summary</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully wrote to </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">wrote</span> <span class="n">to</span> <span class="n">summary_report</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">(</span><span class="n">A</span> <span class="n">file</span> <span class="n">named</span> <span class="s1">&#39;summary_report.txt&#39;</span> <span class="ow">is</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">content</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="appending-to-an-existing-file-a-mode">
+<h3>3.2. Appending to an Existing File (<code class="docutils literal notranslate"><span class="pre">'a'</span></code> mode)<a class="headerlink" href="#appending-to-an-existing-file-a-mode" title="Link to this heading">#</a></h3>
+<p>Append mode (<code class="docutils literal notranslate"><span class="pre">'a'</span></code>) adds data to the end of a file without erasing existing content.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> Append mode is essential for maintaining running logs, such as a patient’s Medication Administration Record (MAR) or continuous vital signs monitoring, where each new entry is added chronologically without altering past data.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assume &#39;patient_mar.txt&#39; already contains &quot;09:00 - Administered aspirin 81mg PO.&quot;</span>
+<span class="n">new_log_entry</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">09:15 - Administered metformin 500mg PO.&quot;</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;patient_mar.txt&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">log_file</span><span class="p">:</span>
+    <span class="n">log_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_log_entry</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully appended to </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">appended</span> <span class="n">to</span> <span class="n">patient_mar</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">(</span><span class="n">The</span> <span class="n">file</span> <span class="s1">&#39;patient_mar.txt&#39;</span> <span class="n">now</span> <span class="n">contains</span><span class="p">:</span>
+<span class="mi">09</span><span class="p">:</span><span class="mi">00</span> <span class="o">-</span> <span class="n">Administered</span> <span class="n">aspirin</span> <span class="mi">81</span><span class="n">mg</span> <span class="n">PO</span><span class="o">.</span>
+<span class="mi">09</span><span class="p">:</span><span class="mi">15</span> <span class="o">-</span> <span class="n">Administered</span> <span class="n">metformin</span> <span class="mi">500</span><span class="n">mg</span> <span class="n">PO</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="reading-from-a-file-r-mode">
+<h3>3.3. Reading from a File (<code class="docutils literal notranslate"><span class="pre">'r'</span></code> mode)<a class="headerlink" href="#reading-from-a-file-r-mode" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Choosing the right reading method depends on file size. For large files like multi-year patient histories, iterating line-by-line is memory-efficient. For small configuration files or single-line records, <code class="docutils literal notranslate"><span class="pre">.read()</span></code> or <code class="docutils literal notranslate"><span class="pre">.readlines()</span></code> are more convenient.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Read Entire File (<code class="docutils literal notranslate"><span class="pre">.read()</span></code>)</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Setup: Create the file to be read ---</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;patient_id.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;PT004598&quot;</span><span class="p">)</span>
+    <span class="c1"># -----------------------------------------</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;patient_id.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">id_file</span><span class="p">:</span>
+        <span class="n">patient_identifier</span> <span class="o">=</span> <span class="n">id_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient Identifier: </span><span class="si">{</span><span class="n">patient_identifier</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Patient</span> <span class="n">Identifier</span><span class="p">:</span> <span class="n">PT004598</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p><strong>Read Line-by-Line (Iteration)</strong></p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Notice the use of <code class="docutils literal notranslate"><span class="pre">.strip()</span></code>. This helpful string method removes unwanted whitespace and newline characters from the beginning and end of a line. We’ll cover it and other powerful string methods in detail in sub-chapter 1.11.</p>
+</div></blockquote>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Setup: Create the file to be read ---</span>
+    <span class="n">notes_content</span> <span class="o">=</span> <span class="s2">&quot;10:00 - Patient reports mild headache.</span><span class="se">\n</span><span class="s2">11:30 - Administered pain relief.</span><span class="se">\n</span><span class="s2">12:00 - Patient resting.&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;patient_notes.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">notes_content</span><span class="p">)</span>
+    <span class="c1"># -----------------------------------------</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Patient Notes ---&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;patient_notes.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">notes_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">notes_file</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span> <span class="n">Patient</span> <span class="n">Notes</span> <span class="o">---</span>
+<span class="mi">10</span><span class="p">:</span><span class="mi">00</span> <span class="o">-</span> <span class="n">Patient</span> <span class="n">reports</span> <span class="n">mild</span> <span class="n">headache</span><span class="o">.</span>
+<span class="mi">11</span><span class="p">:</span><span class="mi">30</span> <span class="o">-</span> <span class="n">Administered</span> <span class="n">pain</span> <span class="n">relief</span><span class="o">.</span>
+<span class="mi">12</span><span class="p">:</span><span class="mi">00</span> <span class="o">-</span> <span class="n">Patient</span> <span class="n">resting</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Read into a List (<code class="docutils literal notranslate"><span class="pre">.readlines()</span></code>)</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Setup: Create the file to be read ---</span>
+    <span class="c1"># Assume lab_results.txt contains:</span>
+    <span class="c1"># WBC,11.5,x10^9/L,High</span>
+    <span class="c1"># RBC,4.8,x10^12/L,Normal</span>
+    <span class="n">lab_data</span> <span class="o">=</span> <span class="s2">&quot;WBC,11.5,x10^9/L,High</span><span class="se">\n</span><span class="s2">RBC,4.8,x10^12/L,Normal</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;lab_results.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">lab_data</span><span class="p">)</span>
+    <span class="c1"># -----------------------------------------</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;lab_results.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">results_file</span><span class="p">:</span>
+        <span class="n">all_results</span> <span class="o">=</span> <span class="n">results_file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First result: </span><span class="si">{</span><span class="n">all_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">First</span> <span class="n">result</span><span class="p">:</span> <span class="n">WBC</span><span class="p">,</span><span class="mf">11.5</span><span class="p">,</span><span class="n">x10</span><span class="o">^</span><span class="mi">9</span><span class="o">/</span><span class="n">L</span><span class="p">,</span><span class="n">High</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="handling-common-file-errors">
+<h3>3.4. Handling Common File Errors<a class="headerlink" href="#handling-common-file-errors" title="Link to this heading">#</a></h3>
+<p>You can now read from and write to files, but in the real world, things can go wrong—a file might be missing, or you might try to write to a protected file. Let’s learn how to handle these situations gracefully using <code class="docutils literal notranslate"><span class="pre">try...except</span></code> blocks.</p>
+<ul>
+<li><p><strong>Handling Missing Files (<code class="docutils literal notranslate"><span class="pre">FileNotFoundError</span></code>)</strong></p>
+<blockquote>
+<div><p><strong>Debug Note:</strong> <code class="docutils literal notranslate"><span class="pre">FileNotFoundError</span></code> is one of the most common issues you’ll encounter. It simply means the program couldn’t find the file at the specified path. Always double-check file names and directory locations.</p>
+</div></blockquote>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;non_existent_log.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Log file not found. Cannot process records.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">Log</span> <span class="n">file</span> <span class="ow">not</span> <span class="n">found</span><span class="o">.</span> <span class="n">Cannot</span> <span class="n">process</span> <span class="n">records</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p><strong>Preventing Accidental Overwrites (<code class="docutils literal notranslate"><span class="pre">'x'</span></code> and <code class="docutils literal notranslate"><span class="pre">FileExistsError</span></code>)</strong></p>
+<blockquote>
+<div><p><strong>In Practice:</strong> The <code class="docutils literal notranslate"><span class="pre">'x'</span></code> mode is a critical safety feature. It prevents accidental overwriting of unique, time-sensitive data, such as a one-time-per-day financial report or a definitive lab result file that should never be altered once created.</p>
+</div></blockquote>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Setup: Ensure the file already exists ---</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;new_log_20251111.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Existing log data.&quot;</span><span class="p">)</span>
+    <span class="c1"># -------------------------------------------</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;new_log_20251111.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Log file created.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Log file for this date already exists. No new file created.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">Log</span> <span class="n">file</span> <span class="k">for</span> <span class="n">this</span> <span class="n">date</span> <span class="n">already</span> <span class="n">exists</span><span class="o">.</span> <span class="n">No</span> <span class="n">new</span> <span class="n">file</span> <span class="n">created</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="integrated-example-filtering-critical-lab-notes">
+<h3>3.5. Integrated Example: Filtering Critical Lab Notes<a class="headerlink" href="#integrated-example-filtering-critical-lab-notes" title="Link to this heading">#</a></h3>
+<p>This script reads <code class="docutils literal notranslate"><span class="pre">lab_notes.txt</span></code>, filters for lines containing “CRITICAL”, and writes them to <code class="docutils literal notranslate"><span class="pre">critical_alerts.txt</span></code>.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> This example provides a preview of two powerful string methods, <code class="docutils literal notranslate"><span class="pre">.upper()</span></code> and <code class="docutils literal notranslate"><span class="pre">.startswith()</span></code>, which you will master in sub-chapter 1.11. They allow for flexible and case-insensitive text matching.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Setup: Create the lab notes file ---</span>
+<span class="c1"># Example line in lab_notes.txt: &quot;CRITICAL: Potassium level low (2.9 mmol/L). Notify provider immediately.&quot;</span>
+<span class="n">notes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Glucose: 150 mg/dL - HIGH&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CRITICAL: Potassium level is 2.1 mEq/L. Immediate action required.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WBC: 11.5 x10^9/L&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CRITICAL: Troponin level elevated. Possible cardiac event.&quot;</span>
+<span class="p">]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;lab_notes.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">notes</span><span class="p">))</span>
+<span class="c1"># -----------------------------------------</span>
+
+<span class="n">CRITICAL_KEYWORD</span> <span class="o">=</span> <span class="s2">&quot;CRITICAL&quot;</span>
+<span class="n">critical_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;lab_notes.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">notes_file</span><span class="p">,</span> \
+         <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;critical_alerts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">alerts_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">notes_file</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">CRITICAL_KEYWORD</span><span class="p">):</span>
+                <span class="n">alerts_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">critical_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="k">if</span> <span class="n">critical_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">alerts_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;No critical notes found.&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing complete. </span><span class="si">{</span><span class="n">critical_count</span><span class="si">}</span><span class="s2"> alerts written to critical_alerts.txt.&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: &#39;lab_notes.txt&#39; not found.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Expected Console Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Processing</span> <span class="n">complete</span><span class="o">.</span> <span class="mi">2</span> <span class="n">alerts</span> <span class="n">written</span> <span class="n">to</span> <span class="n">critical_alerts</span><span class="o">.</span><span class="n">txt</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><strong>Content of ‘critical_alerts.txt’</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CRITICAL</span><span class="p">:</span> <span class="n">Potassium</span> <span class="n">level</span> <span class="ow">is</span> <span class="mf">2.1</span> <span class="n">mEq</span><span class="o">/</span><span class="n">L</span><span class="o">.</span> <span class="n">Immediate</span> <span class="n">action</span> <span class="n">required</span><span class="o">.</span>
+<span class="n">CRITICAL</span><span class="p">:</span> <span class="n">Troponin</span> <span class="n">level</span> <span class="n">elevated</span><span class="o">.</span> <span class="n">Possible</span> <span class="n">cardiac</span> <span class="n">event</span><span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-create-and-update-a-patient-schedule-basic">
+<h3>Exercise 1: Create and Update a Patient Schedule Basic<a class="headerlink" href="#exercise-1-create-and-update-a-patient-schedule-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice writing, appending, and reading a simple text file.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> As part of your duties at City Medical Center, you need to create and manage the daily appointment schedule.</p>
+<p><strong>Task:</strong> Write a single Python script that performs the following actions:</p>
+<ol class="arabic simple">
+<li><p>Creates a new file named <code class="docutils literal notranslate"><span class="pre">schedule.txt</span></code> and writes <code class="docutils literal notranslate"><span class="pre">09:00</span> <span class="pre">-</span> <span class="pre">PT009876</span></code> into it.</p></li>
+<li><p>Appends <code class="docutils literal notranslate"><span class="pre">\n10:00</span> <span class="pre">-</span> <span class="pre">PT001234</span></code> to the same <code class="docutils literal notranslate"><span class="pre">schedule.txt</span></code> file.</p></li>
+<li><p>Reads the entire contents of <code class="docutils literal notranslate"><span class="pre">schedule.txt</span></code> and prints it to the console.</p></li>
+<li><p>Attempts to read a file named <code class="docutils literal notranslate"><span class="pre">daily_log.txt</span></code>. If it does not exist, it should print the message “Error: Daily log not found.”</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Create and write to the file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;schedule.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;09:00 - PT009876&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Append to the file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;schedule.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">10:00 - PT001234&#39;</span><span class="p">)</span>
+
+<span class="c1"># 3. Read the file and print its contents</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Daily Schedule ---&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;schedule.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">schedule_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">schedule_content</span><span class="p">)</span>
+
+<span class="c1"># 4. Handle a missing file</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;daily_log.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">log_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Error: Daily log not found.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The script uses <code class="docutils literal notranslate"><span class="pre">'w'</span></code> to create the schedule, <code class="docutils literal notranslate"><span class="pre">'a'</span></code> to add to it, and <code class="docutils literal notranslate"><span class="pre">'r'</span></code> to read it. A <code class="docutils literal notranslate"><span class="pre">try...except</span></code> block is used to gracefully handle the case where <code class="docutils literal notranslate"><span class="pre">daily_log.txt</span></code> is missing.
+<strong>Key Learning:</strong> Using the correct file mode for each task and implementing basic error handling.</p>
+</div>
+</details></section>
+<section id="exercise-2-calculate-average-heart-rate-from-a-log-intermediate">
+<h3>Exercise 2: Calculate Average Heart Rate from a Log Intermediate<a class="headerlink" href="#exercise-2-calculate-average-heart-rate-from-a-log-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Read numerical data from a file and perform a simple calculation.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> A monitoring device has logged a patient’s heart rate every hour to a file named <code class="docutils literal notranslate"><span class="pre">hr_log.txt</span></code>. Each line contains one integer reading. You need to calculate the average heart rate.</p>
+<p><strong>Task:</strong></p>
+<ol class="arabic simple">
+<li><p>Write a Python script that first creates a file named <code class="docutils literal notranslate"><span class="pre">hr_log.txt</span></code> with the content <code class="docutils literal notranslate"><span class="pre">72\n75\n68\n81\n78</span></code>.</p></li>
+<li><p>The script should then read <code class="docutils literal notranslate"><span class="pre">hr_log.txt</span></code>, calculate the average heart rate, and print the result in the format: <code class="docutils literal notranslate"><span class="pre">Average</span> <span class="pre">heart</span> <span class="pre">rate:</span> <span class="pre">[average_value]</span></code>.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Setup: Create the log file</span>
+<span class="n">hr_data</span> <span class="o">=</span> <span class="s2">&quot;72</span><span class="se">\n</span><span class="s2">75</span><span class="se">\n</span><span class="s2">68</span><span class="se">\n</span><span class="s2">81</span><span class="se">\n</span><span class="s2">78&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;hr_log.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">hr_data</span><span class="p">)</span>
+
+<span class="c1"># 2. Read the file and calculate the average</span>
+<span class="n">total_hr</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;hr_log.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">total_hr</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">average_hr</span> <span class="o">=</span> <span class="n">total_hr</span> <span class="o">/</span> <span class="n">count</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average heart rate: </span><span class="si">{</span><span class="n">average_hr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Log file is empty.&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: &#39;hr_log.txt&#39; not found.&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Log file contains non-numeric data.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The script first creates the necessary file. It then iterates through each line, converts the string to an integer, and adds it to a running total. It also counts the lines to calculate the average. Error handling is included for a missing file or invalid data.
+<strong>Key Learning:</strong> Reading a file line-by-line and converting string data to numerical types for computation.</p>
+</div>
+</details></section>
+<section id="exercise-3-archive-critical-patient-notes-advanced">
+<h3>Exercise 3: Archive Critical Patient Notes Advanced<a class="headerlink" href="#exercise-3-archive-critical-patient-notes-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine reading, writing, and error handling to process and archive data.
+<strong>Time:</strong> 15 minutes
+<strong>Medical Context:</strong> You have a main patient notes file, <code class="docutils literal notranslate"><span class="pre">all_notes.txt</span></code>. You need to write a script that extracts all notes marked as “URGENT” and saves them to a new file, <code class="docutils literal notranslate"><span class="pre">urgent_archive.txt</span></code>, without overwriting any existing archive.</p>
+<p><strong>Task:</strong></p>
+<ol class="arabic simple">
+<li><p>Create a file <code class="docutils literal notranslate"><span class="pre">all_notes.txt</span></code> with the content:
+<code class="docutils literal notranslate"><span class="pre">14:30</span> <span class="pre">-</span> <span class="pre">Patient</span> <span class="pre">stable.\n15:00</span> <span class="pre">-</span> <span class="pre">URGENT:</span> <span class="pre">Patient</span> <span class="pre">reporting</span> <span class="pre">severe</span> <span class="pre">headache.\n16:00</span> <span class="pre">-</span> <span class="pre">URGENT:</span> <span class="pre">Blood</span> <span class="pre">pressure</span> <span class="pre">drop</span> <span class="pre">detected.</span></code></p></li>
+<li><p>Write a script that:
+a. Reads <code class="docutils literal notranslate"><span class="pre">all_notes.txt</span></code>.
+b. Tries to create a <em>new</em> file <code class="docutils literal notranslate"><span class="pre">urgent_archive.txt</span></code> using exclusive creation (<code class="docutils literal notranslate"><span class="pre">'x'</span></code>).
+c. Writes all lines containing “URGENT” into <code class="docutils literal notranslate"><span class="pre">urgent_archive.txt</span></code>.
+d. If <code class="docutils literal notranslate"><span class="pre">urgent_archive.txt</span></code> already exists, it should print an error message and not modify the file.
+e. If <code class="docutils literal notranslate"><span class="pre">all_notes.txt</span></code> is not found, it should print a different error message.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup: Create the source notes file</span>
+<span class="n">notes_content</span> <span class="o">=</span> <span class="s2">&quot;14:30 - Patient stable.</span><span class="se">\n</span><span class="s2">15:00 - URGENT: Patient reporting severe headache.</span><span class="se">\n</span><span class="s2">16:00 - URGENT: Blood pressure drop detected.&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;all_notes.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">notes_content</span><span class="p">)</span>
+
+<span class="n">urgent_notes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># First, try to read the source file and collect urgent notes</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;all_notes.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">source_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">source_file</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;URGENT&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">urgent_notes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="c1"># If urgent notes were found, try to write them to the archive file</span>
+    <span class="k">if</span> <span class="n">urgent_notes</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;urgent_archive.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">archive_file</span><span class="p">:</span>
+                <span class="n">archive_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">urgent_notes</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully archived </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urgent_notes</span><span class="p">)</span><span class="si">}</span><span class="s2"> urgent notes.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: &#39;urgent_archive.txt&#39; already exists. Archiving aborted to prevent data loss.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No urgent notes found in &#39;all_notes.txt&#39;.&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Source file &#39;all_notes.txt&#39; not found.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This solution first reads the source file and collects data into a list. Only if data is found does it proceed to the writing phase. It uses a nested <code class="docutils literal notranslate"><span class="pre">try...except</span></code> block to handle the <code class="docutils literal notranslate"><span class="pre">FileExistsError</span></code> specifically for the writing operation, demonstrating robust, multi-stage error handling.
+<strong>Key Learning:</strong> Using <code class="docutils literal notranslate"><span class="pre">'x'</span></code> mode for safe file creation and structuring nested <code class="docutils literal notranslate"><span class="pre">try...except</span></code> blocks to handle different errors at different stages of a program.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Electronic Health Record (EHR) Data Logging:</strong> Every patient interaction, from physician notes to medication administration, must be logged. Python scripts can use append mode (<code class="docutils literal notranslate"><span class="pre">'a'</span></code>) to add timestamped entries to a patient’s master log file. This creates a secure, chronological, and auditable record of care, which is fundamental to modern healthcare.</p></li>
+<li><p><strong>Generating Daily Clinical Reports:</strong> Hospitals need to summarize vast amounts of data daily. A Python program can be scheduled to run every night, reading data from dozens of files (e.g., <code class="docutils literal notranslate"><span class="pre">lab_results.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">vitals.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">admissions.txt</span></code>) and using write mode (<code class="docutils literal notranslate"><span class="pre">'w'</span></code>) to generate a single, consolidated <code class="docutils literal notranslate"><span class="pre">summary_report_YYYY-MM-DD.txt</span></code>. This automates a critical administrative task, providing clinicians with a concise overview for their morning rounds.</p></li>
+<li><p><strong>Genomic Data Processing Pipelines:</strong> Genomic files (like FASTA or VCF formats) can be gigabytes in size. Loading such a file entirely into memory with <code class="docutils literal notranslate"><span class="pre">.read()</span></code> is impossible. The line-by-line iteration technique (<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">line</span> <span class="pre">in</span> <span class="pre">file:</span></code>) is essential here. Bioinformaticians use this method to build pipelines that read these massive files piece by piece, filtering for specific genes or mutations and writing results to a new file, enabling large-scale analysis on standard hardware.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential skills for file input and output in Python, a cornerstone of any data-driven health application. We learned how to permanently store and retrieve information, ensuring that valuable patient data persists beyond a single program run.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">open(...)</span> <span class="pre">as</span> <span class="pre">...:</span></code> syntax is the standard, safe way to work with files, as it guarantees they are closed automatically.</p></li>
+<li><p>File modes control file access: <code class="docutils literal notranslate"><span class="pre">'w'</span></code> for writing (and overwriting), <code class="docutils literal notranslate"><span class="pre">'a'</span></code> for appending, <code class="docutils literal notranslate"><span class="pre">'r'</span></code> for reading, and <code class="docutils literal notranslate"><span class="pre">'x'</span></code> for safe, exclusive creation.</p></li>
+<li><p>Reading methods must be chosen based on file size: <code class="docutils literal notranslate"><span class="pre">.read()</span></code> for small files, and line-by-line iteration for large files to conserve memory.</p></li>
+<li><p>Robust programs anticipate errors. Using <code class="docutils literal notranslate"><span class="pre">try...except</span></code> blocks for <code class="docutils literal notranslate"><span class="pre">FileNotFoundError</span></code> and <code class="docutils literal notranslate"><span class="pre">FileExistsError</span></code> prevents crashes and data loss.</p></li>
+</ul>
+<p>You are now equipped to build programs that can interact with the file system to manage patient records, process logs, and generate reports. Next, we will dive deeper into manipulating the data you read from files in <strong>Sub-chapter 1.11: Advanced String Methods</strong>.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Think about your own work environment. What is one daily or weekly task that currently involves manual data entry or copying? How could you use the file reading and writing techniques from this section to start automating that process?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.10_command_line_arguments_with_sys.argv.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.12_string_methods.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Health Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-to-a-new-file-w-mode">3.1. Writing to a New File (<code class="docutils literal notranslate"><span class="pre">'w'</span></code> mode)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#appending-to-an-existing-file-a-mode">3.2. Appending to an Existing File (<code class="docutils literal notranslate"><span class="pre">'a'</span></code> mode)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-from-a-file-r-mode">3.3. Reading from a File (<code class="docutils literal notranslate"><span class="pre">'r'</span></code> mode)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-common-file-errors">3.4. Handling Common File Errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-example-filtering-critical-lab-notes">3.5. Integrated Example: Filtering Critical Lab Notes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-update-a-patient-schedule-basic">Exercise 1: Create and Update a Patient Schedule Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calculate-average-heart-rate-from-a-log-intermediate">Exercise 2: Calculate Average Heart Rate from a Log Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-archive-critical-patient-notes-advanced">Exercise 3: Archive Critical Patient Notes Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
