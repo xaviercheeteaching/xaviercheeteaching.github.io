@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.5_lists_and_tuples';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chapter 1: Python Data Structures" href="1.6_dictionaries_and_sets.html" />
+    <link rel="next" title="Chapter 1: Dictionaries and Sets" href="1.6_dictionaries_and_sets.html" />
     <link rel="prev" title="Chapter 1: Common Python Errors and Exceptions" href="1.4_common_python_errors_and_exceptions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -182,6 +182,7 @@
 <li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
@@ -252,7 +253,25 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.5_lists_and_tuples.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/1.5_lists_and_tuples.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/1.5_lists_and_tuples.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -399,14 +418,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-lists-the-dynamic-data-container">3.1 Working with Lists: The Dynamic Data Container</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-tuples-the-immutable-data-record">3.2 Working with Tuples: The Immutable Data Record</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-operations-slicing-concatenation-and-repetition">3.3 Common Operations: Slicing, Concatenation, and Repetition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-operations-slicing-concatenation-and-repetition">3.2 Common Operations: Slicing, Concatenation, and Repetition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-tuples-the-immutable-data-record">3.3 Working with Tuples: The Immutable Data Record</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-manage-a-patient-queue">Exercise 1: Manage a Patient Queue**</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-update-patient-vitals">Exercise 2: Update Patient Vitals**</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-medication-protocol-management">Exercise 3: Medication Protocol Management**</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-manage-a-patient-queue">Exercise 1: Manage a Patient Queue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-update-patient-vitals">Exercise 2: Update Patient Vitals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-medication-protocol-management">Exercise 3: Medication Protocol Management</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
@@ -427,20 +446,13 @@ document.write(`
 <section id="introduction">
 <h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>In precision health, we constantly work with sequences of information, from a patient’s vital signs over time to a fixed protocol for a lab test. This section introduces two essential Python data structures for this task: <strong>lists</strong> and <strong>tuples</strong>. You will learn how to use mutable lists for data that needs to change, like a patient’s medication list, and immutable tuples for data that must remain constant, like a genetic reference code. Mastering these structures is the first step toward building robust and reliable health data applications.</p>
-<blockquote>
-<div><p><strong>Key Terms:</strong>
-<strong>Mutable:</strong> An object that can be changed after it is created. Lists <code class="docutils literal notranslate"><span class="pre">[]</span></code> are mutable.
-<strong>Immutable:</strong> An object that cannot be changed after it is created. Tuples <code class="docutils literal notranslate"><span class="pre">()</span></code> are immutable.</p>
-</div></blockquote>
-<blockquote>
-<div><p><strong>In Practice:</strong>
-Think of a mutable list as a patient’s ongoing medication chart, which is updated frequently. An immutable tuple is like a patient’s date of birth or medical record number (MRN)—a piece of data that is fixed and should never change.</p>
-</div></blockquote>
 </section>
 <hr class="docutils" />
 <section id="key-concepts-and-definitions">
 <h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong>Mutable:</strong> An object that can be changed after it is created. Lists <code class="docutils literal notranslate"><span class="pre">[]</span></code> are mutable.</p></li>
+<li><p><strong>Immutable:</strong> An object that cannot be changed after it is created. Tuples <code class="docutils literal notranslate"><span class="pre">()</span></code> are immutable.</p></li>
 <li><p><strong>List</strong>: A mutable (changeable), ordered collection of items enclosed in square brackets <code class="docutils literal notranslate"><span class="pre">[]</span></code>. In a clinical setting, lists are perfect for managing dynamic data, such as a patient’s hourly vital signs or a list of active medications that can be updated.</p></li>
 <li><p><strong>Tuple</strong>: An immutable (unchangeable), ordered collection of items enclosed in parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code>. Tuples are used to store data that should not be altered after creation, providing data integrity. A medical analogy is a finalized lab report’s header, containing the patient ID, test code, and collection date, which must not be accidentally changed.</p></li>
 <li><p><strong>Index</strong>: The numerical position of an element in a sequence, starting from zero. For example, in a list of vitals <code class="docutils literal notranslate"><span class="pre">[120,</span> <span class="pre">80,</span> <span class="pre">98]</span></code>, the systolic pressure <code class="docutils literal notranslate"><span class="pre">120</span></code> is at index <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
@@ -450,7 +462,6 @@ Think of a mutable list as a patient’s ongoing medication chart, which is upda
 <blockquote>
 <div><p><strong>Reflection:</strong> Can you think of any other examples where it would be beneficial to use lists or tuples?</p>
 </div></blockquote>
-<p><img alt="Difference between List and tuples" src="_images/difference_lists_tuples.png" /></p>
 </section>
 <hr class="docutils" />
 <section id="main-content">
@@ -531,9 +542,7 @@ Because lists are mutable, you can update elements directly by their index.</p>
 Use <code class="docutils literal notranslate"><span class="pre">.append()</span></code> for chronological additions, like adding a new patient to the end of a queue. Use <code class="docutils literal notranslate"><span class="pre">.insert()</span></code> when the specific position is critical, such as adding a high-priority medication to the beginning of a treatment protocol.</p>
 </div></blockquote>
 <p><strong>Removing Elements</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Manage a medication list</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Manage a medication list</span>
 <span class="n">medication_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;atorvastatin&#39;</span><span class="p">,</span> <span class="s1">&#39;aspirin&#39;</span><span class="p">,</span> <span class="s1">&#39;metformin&#39;</span><span class="p">,</span> <span class="s1">&#39;lisinopril&#39;</span><span class="p">]</span>
 <span class="n">medication_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;aspirin&#39;</span><span class="p">)</span>      <span class="c1"># Removes &#39;aspirin&#39; by its value</span>
 
@@ -545,8 +554,6 @@ Use <code class="docutils literal notranslate"><span class="pre">.append()</span
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final list: </span><span class="si">{</span><span class="n">medication_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="c1"># Output: Final list: [&#39;lisinopril&#39;]</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -562,9 +569,7 @@ Use <code class="docutils literal notranslate"><span class="pre">.append()</span
 When managing a list of patient allergies, would you be more likely to use <code class="docutils literal notranslate"><span class="pre">.remove('penicillin')</span></code> or <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">allergy_list[2]</span></code>? Why is removing by value often safer and more readable in a clinical context?</p>
 </div></blockquote>
 <p><strong>Checking for Membership and Finding Position</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">medication_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lisinopril&#39;</span><span class="p">,</span> <span class="s1">&#39;metformin&#39;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">medication_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lisinopril&#39;</span><span class="p">,</span> <span class="s1">&#39;metformin&#39;</span><span class="p">]</span>
 <span class="n">drug_to_find</span> <span class="o">=</span> <span class="s1">&#39;lisinopril&#39;</span>
 
 <span class="c1"># Check for existence first</span>
@@ -573,8 +578,6 @@ When managing a list of patient allergies, would you be more likely to use <code
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">drug_to_find</span><span class="si">}</span><span class="s2"> is at index </span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 <span class="c1"># Output: lisinopril is at index 0.</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -590,9 +593,7 @@ When managing a list of patient allergies, would you be more likely to use <code
 Always check if an item is <code class="docutils literal notranslate"><span class="pre">in</span></code> a list before using <code class="docutils literal notranslate"><span class="pre">.index()</span></code>. If the item is not found, <code class="docutils literal notranslate"><span class="pre">.index()</span></code> will raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> and crash the script. This pre-check is a crucial defensive programming habit.</p>
 </div></blockquote>
 <p><strong>Nested Lists for Tabular Data</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Each inner list contains [Patient_ID, Age (years), HR (bpm)]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Each inner list contains [Patient_ID, Age (years), HR (bpm)]</span>
 <span class="n">patient_cohort</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">[</span><span class="s1">&#39;PT001&#39;</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">72</span><span class="p">],</span>
     <span class="p">[</span><span class="s1">&#39;PT002&#39;</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">95</span><span class="p">],</span>
@@ -602,8 +603,6 @@ Always check if an item is <code class="docutils literal notranslate"><span clas
 <span class="nb">print</span><span class="p">(</span><span class="n">patient_2_hr</span><span class="p">)</span>
 <span class="c1"># Output: 95</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -619,18 +618,71 @@ Always check if an item is <code class="docutils literal notranslate"><span clas
 Nested lists are a fundamental way to structure tabular data. This structure is the conceptual basis for powerful data analysis libraries like Pandas, where you will manage large patient cohorts in a format called a DataFrame, which functions like a sophisticated version of a nested list.</p>
 </div></blockquote>
 </section>
-<section id="working-with-tuples-the-immutable-data-record">
-<h3>3.2 Working with Tuples: The Immutable Data Record<a class="headerlink" href="#working-with-tuples-the-immutable-data-record" title="Link to this heading">#</a></h3>
-<p><strong>Creating and Accessing Tuples</strong></p>
+<section id="common-operations-slicing-concatenation-and-repetition">
+<h3>3.2 Common Operations: Slicing, Concatenation, and Repetition<a class="headerlink" href="#common-operations-slicing-concatenation-and-repetition" title="Link to this heading">#</a></h3>
+<p>Slicing <code class="docutils literal notranslate"><span class="pre">[start:end:step]</span></code> extracts a portion into a new sequence.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Vitals: Name, Temp(°C), HR(bpm), BP_Sys(mmHg), BP_Dia(mmHg)</span>
+<span class="n">patient_vitals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span> <span class="mf">37.2</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
+
+<span class="c1"># Extract BP readings from a list</span>
+<span class="n">bp_readings</span> <span class="o">=</span> <span class="n">patient_vitals</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># Extracts from index 3 up to (not including) 5</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bp_readings</span><span class="p">)</span> 
+<span class="c1"># Output: [120, 80]</span>
+
+<span class="c1"># Extract BP readings from a list with steps</span>
+<span class="n">bp_readings</span> <span class="o">=</span> <span class="n">patient_vitals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># Extracts from index 0 up to (not including) 5 with steps of 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bp_readings</span><span class="p">)</span> 
+<span class="c1"># Output: [&#39;John Doe&#39;, 105, 80]</span>
+
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Info: Test Code, Full Name, Department</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><img alt="Slicing and Concatenation in List" src="_images/list_slicing_concat.png" /></p>
+</section>
+<section id="working-with-tuples-the-immutable-data-record">
+<h3>3.3 Working with Tuples: The Immutable Data Record<a class="headerlink" href="#working-with-tuples-the-immutable-data-record" title="Link to this heading">#</a></h3>
+<p><strong>Creating and Accessing Tuples</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Info: Test Code, Full Name, Department</span>
 <span class="n">lab_test_info</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;CBC&#39;</span><span class="p">,</span> <span class="s1">&#39;Complete Blood Count&#39;</span><span class="p">,</span> <span class="s1">&#39;Hematology&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">lab_test_info</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="c1"># Output: Complete Blood Count</span>
 </pre></div>
 </div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
 </div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong>
+You can quickly create a copy of a list using a full slice: <code class="docutils literal notranslate"><span class="pre">new_vitals</span> <span class="pre">=</span> <span class="pre">patient_vitals[:]</span></code>. This is useful when you want to modify a list while preserving the original version for comparison or record-keeping.</p>
+</div></blockquote>
+<p>Concatenation (<code class="docutils literal notranslate"><span class="pre">+</span></code>) and repetition (<code class="docutils literal notranslate"><span class="pre">*</span></code>) create new sequences.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">primary_meds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lisinopril&#39;</span><span class="p">]</span>
+<span class="n">secondary_meds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aspirin&#39;</span><span class="p">,</span> <span class="s1">&#39;metformin&#39;</span><span class="p">]</span>
+
+<span class="c1"># Concatenation (+) creates a new list</span>
+<span class="n">all_meds</span> <span class="o">=</span> <span class="n">primary_meds</span> <span class="o">+</span> <span class="n">secondary_meds</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_meds</span><span class="p">)</span>
+<span class="c1"># Output: [&#39;lisinopril&#39;, &#39;aspirin&#39;, &#39;metformin&#39;]</span>
+
+<span class="c1"># Repetition (*) creates a new list with repeated items</span>
+<span class="n">initial_doses</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">initial_doses</span><span class="p">)</span>
+<span class="c1"># Output: [0, 0, 0]</span>
+</pre></div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -647,44 +699,16 @@ Forgetting the trailing comma in a single-element tuple is a frequent error. <co
 </div></blockquote>
 <p><strong>Immutability and Unpacking</strong>
 Attempting to modify a tuple raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>. Unpacking assigns elements to variables, improving readability.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lab_test_info</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;CBC&#39;</span><span class="p">,</span> <span class="s1">&#39;Complete Blood Count&#39;</span><span class="p">,</span> <span class="s1">&#39;Hematology&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lab_test_info</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;CBC&#39;</span><span class="p">,</span> <span class="s1">&#39;Complete Blood Count&#39;</span><span class="p">,</span> <span class="s1">&#39;Hematology&#39;</span><span class="p">)</span>
 <span class="c1"># The following line will cause a TypeError: lab_test_info[0] = &#39;CMP&#39;</span>
 
 <span class="c1"># Unpacking assigns tuple elements to clear, readable variables.</span>
 <span class="n">test_code</span><span class="p">,</span> <span class="n">full_name</span><span class="p">,</span> <span class="n">department</span> <span class="o">=</span> <span class="n">lab_test_info</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_code</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">department</span><span class="p">)</span>
 <span class="c1"># Output: Complete Blood Count</span>
 </pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
-<span class="c1"># Hint: Try modifying the example above</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="common-operations-slicing-concatenation-and-repetition">
-<h3>3.3 Common Operations: Slicing, Concatenation, and Repetition<a class="headerlink" href="#common-operations-slicing-concatenation-and-repetition" title="Link to this heading">#</a></h3>
-<p>Slicing <code class="docutils literal notranslate"><span class="pre">[start:end:step]</span></code> extracts a portion into a new sequence.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Vitals: Name, Temp(°C), HR(bpm), BP_Sys(mmHg), BP_Dia(mmHg)</span>
-<span class="n">patient_vitals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;John Doe&#39;</span><span class="p">,</span> <span class="mf">37.2</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
-
-<span class="c1"># Extract BP readings from a list</span>
-<span class="n">bp_readings</span> <span class="o">=</span> <span class="n">patient_vitals</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># Extracts from index 3 up to (not including) 5</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bp_readings</span><span class="p">)</span> 
-<span class="c1"># Output: [120, 80]</span>
-</pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -696,44 +720,15 @@ Attempting to modify a tuple raises a <code class="docutils literal notranslate"
 </div>
 </div>
 <blockquote>
-<div><p><strong>Pro Tip:</strong>
-You can quickly create a copy of a list using a full slice: <code class="docutils literal notranslate"><span class="pre">new_vitals</span> <span class="pre">=</span> <span class="pre">patient_vitals[:]</span></code>. This is useful when you want to modify a list while preserving the original version for comparison or record-keeping.</p>
+<div><p>Similarly, you can <strong>concatenate or slice tuples</strong> the same way as what you did with lists</p>
 </div></blockquote>
-<p>Concatenation (<code class="docutils literal notranslate"><span class="pre">+</span></code>) and repetition (<code class="docutils literal notranslate"><span class="pre">*</span></code>) create new sequences.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">primary_meds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lisinopril&#39;</span><span class="p">]</span>
-<span class="n">secondary_meds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aspirin&#39;</span><span class="p">,</span> <span class="s1">&#39;metformin&#39;</span><span class="p">]</span>
-
-<span class="c1"># Concatenation (+) creates a new list</span>
-<span class="n">all_meds</span> <span class="o">=</span> <span class="n">primary_meds</span> <span class="o">+</span> <span class="n">secondary_meds</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">all_meds</span><span class="p">)</span>
-<span class="c1"># Output: [&#39;lisinopril&#39;, &#39;aspirin&#39;, &#39;metformin&#39;]</span>
-
-<span class="c1"># Repetition (*) creates a new list with repeated items</span>
-<span class="n">initial_doses</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">initial_doses</span><span class="p">)</span>
-<span class="c1"># Output: [0, 0, 0]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
-<span class="c1"># Hint: Try modifying the example above</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <hr class="docutils" />
 <section id="practice-exercises">
 <h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
 <section id="exercise-1-manage-a-patient-queue">
-<h3>Exercise 1: Manage a Patient Queue**<a class="headerlink" href="#exercise-1-manage-a-patient-queue" title="Link to this heading">#</a></h3>
+<h3>Exercise 1: Manage a Patient Queue<a class="headerlink" href="#exercise-1-manage-a-patient-queue" title="Link to this heading">#</a></h3>
 <p><strong>Objective:</strong> Practice adding elements to a list using <code class="docutils literal notranslate"><span class="pre">.append()</span></code>.
 <strong>Time:</strong> 3 minutes
 <strong>Medical Context:</strong> As a triage nurse, you are managing a digital patient queue. A new patient arrives and must be added to the end of the line.</p>
@@ -764,7 +759,7 @@ You can quickly create a copy of a list using a full slice: <code class="docutil
 </div>
 </details></section>
 <section id="exercise-2-update-patient-vitals">
-<h3>Exercise 2: Update Patient Vitals**<a class="headerlink" href="#exercise-2-update-patient-vitals" title="Link to this heading">#</a></h3>
+<h3>Exercise 2: Update Patient Vitals<a class="headerlink" href="#exercise-2-update-patient-vitals" title="Link to this heading">#</a></h3>
 <p><strong>Objective:</strong> Practice modifying an element in a list by its index.
 <strong>Time:</strong> 4 minutes
 <strong>Medical Context:</strong> You are monitoring a patient’s vitals. A new reading shows the temperature has risen, and the record must be updated.</p>
@@ -796,7 +791,7 @@ You can quickly create a copy of a list using a full slice: <code class="docutil
 </div>
 </details></section>
 <section id="exercise-3-medication-protocol-management">
-<h3>Exercise 3: Medication Protocol Management**<a class="headerlink" href="#exercise-3-medication-protocol-management" title="Link to this heading">#</a></h3>
+<h3>Exercise 3: Medication Protocol Management<a class="headerlink" href="#exercise-3-medication-protocol-management" title="Link to this heading">#</a></h3>
 <p><strong>Objective:</strong> Integrate the use of tuples (for fixed data) and lists (for dynamic data), and practice unpacking, adding, and removing elements.
 <strong>Time:</strong> 5 minutes
 <strong>Medical Context:</strong> A medication protocol has a fixed identifier and name (a tuple) but a list of approved dosages that can be updated by a clinical review board (a list).</p>
@@ -814,6 +809,14 @@ You can quickly create a copy of a list using a full slice: <code class="docutil
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
 <span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ibuprofen
+[200, 400, 600]
+[200, 400, 600, 800]
+[400, 600, 800]
 </pre></div>
 </div>
 </div>
@@ -865,6 +868,7 @@ You can quickly create a copy of a list using a full slice: <code class="docutil
 <hr class="docutils" />
 <section id="summary-and-key-takeaways">
 <h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p><img alt="Difference between List and tuples" src="_images/difference_lists_tuples.png" /></p>
 <p>In this section, we’ve explored Python’s fundamental sequence types: lists and tuples. We learned how their core difference—mutability versus immutability—dictates their use in precision health applications, from managing dynamic patient data to safeguarding fixed clinical protocols.</p>
 <ul class="simple">
 <li><p><strong>Lists <code class="docutils literal notranslate"><span class="pre">[]</span></code> are for dynamic data:</strong> They are ideal for collections of data that need to change, such as patient queues or medication lists. You can add, remove, and modify elements after creation.</p></li>
@@ -881,21 +885,21 @@ You can quickly create a copy of a list using a full slice: <code class="docutil
     {
         requestKernel: true,
         binderOptions: {
-            repo: "executablebooks/jupyter-book",
-            ref: "master",
+            repo: "binder-examples/conda",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
             mode: "python"
         },
         kernelOptions: {
-            name: "python",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -921,7 +925,7 @@ You can quickly create a copy of a list using a full slice: <code class="docutil
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chapter 1: Python Data Structures</p>
+        <p class="prev-next-title">Chapter 1: Dictionaries and Sets</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -945,14 +949,14 @@ You can quickly create a copy of a list using a full slice: <code class="docutil
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-lists-the-dynamic-data-container">3.1 Working with Lists: The Dynamic Data Container</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-tuples-the-immutable-data-record">3.2 Working with Tuples: The Immutable Data Record</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-operations-slicing-concatenation-and-repetition">3.3 Common Operations: Slicing, Concatenation, and Repetition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-operations-slicing-concatenation-and-repetition">3.2 Common Operations: Slicing, Concatenation, and Repetition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-tuples-the-immutable-data-record">3.3 Working with Tuples: The Immutable Data Record</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-manage-a-patient-queue">Exercise 1: Manage a Patient Queue**</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-update-patient-vitals">Exercise 2: Update Patient Vitals**</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-medication-protocol-management">Exercise 3: Medication Protocol Management**</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-manage-a-patient-queue">Exercise 1: Manage a Patient Queue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-update-patient-vitals">Exercise 2: Update Patient Vitals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-medication-protocol-management">Exercise 3: Medication Protocol Management</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>

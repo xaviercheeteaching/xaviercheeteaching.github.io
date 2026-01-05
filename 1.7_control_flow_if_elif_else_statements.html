@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '1.7_control_flow_if_elif_else_statements';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.8_loops_for_and_while.html" />
-    <link rel="prev" title="Chapter 1: Python Data Structures" href="1.6_dictionaries_and_sets.html" />
+    <link rel="next" title="Chapter 1: Loops" href="1.8_loops_for_and_while.html" />
+    <link rel="prev" title="Chapter 1: Dictionaries and Sets" href="1.6_dictionaries_and_sets.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,6 +182,7 @@
 <li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">1.7 - Control Flow If Elif Else Statements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
@@ -252,7 +253,25 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.7_control_flow_if_elif_else_statements.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/1.7_control_flow_if_elif_else_statements.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/1.7_control_flow_if_elif_else_statements.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -449,9 +468,7 @@ document.write(`
 <section id="the-if-statement-for-a-single-condition">
 <h3>3.1 The <code class="docutils literal notranslate"><span class="pre">if</span></code> Statement: For a Single Condition<a class="headerlink" href="#the-if-statement-for-a-single-condition" title="Link to this heading">#</a></h3>
 <p>An <code class="docutils literal notranslate"><span class="pre">if</span></code> statement executes a code block only if its condition is true. It is the simplest form of decision-making, perfect for when you only need to act in one specific scenario.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature_c</span> <span class="o">=</span> <span class="mf">38.5</span> <span class="c1"># degrees Celsius</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temperature_c</span> <span class="o">=</span> <span class="mf">38.5</span> <span class="c1"># degrees Celsius</span>
 
 <span class="k">if</span> <span class="n">temperature_c</span> <span class="o">&gt;</span> <span class="mf">38.0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fever Alert: Patient temperature is high.&quot;</span><span class="p">)</span>
@@ -459,8 +476,6 @@ document.write(`
 <span class="c1"># Expected Output:</span>
 <span class="c1"># Fever Alert: Patient temperature is high.</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -479,9 +494,7 @@ document.write(`
 <section id="the-if-else-statement-for-two-outcomes">
 <h3>3.2 The <code class="docutils literal notranslate"><span class="pre">if-else</span></code> Statement: For Two Outcomes<a class="headerlink" href="#the-if-else-statement-for-two-outcomes" title="Link to this heading">#</a></h3>
 <p>An <code class="docutils literal notranslate"><span class="pre">if-else</span></code> statement provides an alternative action when the <code class="docutils literal notranslate"><span class="pre">if</span></code> condition is false, handling binary decisions based on metrics like peripheral capillary oxygen saturation (SpO2).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spO2</span> <span class="o">=</span> <span class="mi">91</span> <span class="c1"># %</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spO2</span> <span class="o">=</span> <span class="mi">91</span> <span class="c1"># %</span>
 
 <span class="k">if</span> <span class="n">spO2</span> <span class="o">&lt;</span> <span class="mi">92</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Alert: Low SpO2. Clinical review recommended.&quot;</span><span class="p">)</span>
@@ -491,8 +504,6 @@ document.write(`
 <span class="c1"># Expected Output:</span>
 <span class="c1"># Alert: Low SpO2. Clinical review recommended.</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -511,9 +522,7 @@ document.write(`
 <section id="compound-conditions-with-and-or">
 <h3>3.3 Compound Conditions with <code class="docutils literal notranslate"><span class="pre">and</span></code> / <code class="docutils literal notranslate"><span class="pre">or</span></code><a class="headerlink" href="#compound-conditions-with-and-or" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> operators allow you to evaluate multiple conditions in a single <code class="docutils literal notranslate"><span class="pre">if</span></code> statement, enabling more complex and realistic clinical rules.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simplified shock alert for abnormal vitals</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simplified shock alert for abnormal vitals</span>
 <span class="n">systolic_bp</span> <span class="o">=</span> <span class="mi">85</span>      <span class="c1"># mmHg</span>
 <span class="n">heart_rate</span> <span class="o">=</span> <span class="mi">110</span>      <span class="c1"># beats per minute</span>
 
@@ -523,8 +532,6 @@ document.write(`
 <span class="c1"># Expected Output:</span>
 <span class="c1"># Critical Alert: Patient may be in shock. Review immediately.</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -553,9 +560,7 @@ document.write(`
 <blockquote>
 <div><p><strong>Medical Background:</strong> Body Mass Index (BMI) is a value derived from the mass and height of a person. It’s a common, though imperfect, way to categorize whether a person has a healthy body weight. The ranges used here (<code class="docutils literal notranslate"><span class="pre">Underweight</span></code>, <code class="docutils literal notranslate"><span class="pre">Normal</span> <span class="pre">weight</span></code>, <code class="docutils literal notranslate"><span class="pre">Overweight</span></code>, <code class="docutils literal notranslate"><span class="pre">Obesity</span></code>) are standard classifications used in public health.</p>
 </div></blockquote>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Classify a patient&#39;s Body Mass Index (BMI)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Classify a patient&#39;s Body Mass Index (BMI)</span>
 <span class="n">bmi</span> <span class="o">=</span> <span class="mf">27.5</span>
 
 <span class="k">if</span> <span class="n">bmi</span> <span class="o">&gt;=</span> <span class="mi">30</span><span class="p">:</span>
@@ -572,8 +577,6 @@ document.write(`
 <span class="c1"># Expected Output:</span>
 <span class="c1"># Patient BMI (27.5) classifies as: Overweight</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -649,6 +652,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>High-grade fever, consult pediatrician
+</pre></div>
+</div>
+</div>
 </div>
 <details>
 <summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
@@ -688,9 +696,6 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Normal</span></code>: Systolic &lt; 120 <strong>AND</strong> Diastolic &lt; 80.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Requires</span> <span class="pre">Manual</span> <span class="pre">Review</span></code>: Any other case should be caught by a final <code class="docutils literal notranslate"><span class="pre">else</span></code> block.</p></li>
 </ul>
-<blockquote>
-<div><p><strong>Important:</strong> These rules are a simplified model based on the ACC/AHA 2017 guidelines for an educational exercise. This script is not for clinical use.</p>
-</div></blockquote>
 <blockquote>
 <div><p><strong>Reflection Moment:</strong> After you complete the task, consider this: What would happen if you checked for the ‘Elevated’ category <em>before</em> checking for ‘Hypertension Stage 1’? Test it with <code class="docutils literal notranslate"><span class="pre">systolic_bp</span> <span class="pre">=</span> <span class="pre">135</span></code> and <code class="docutils literal notranslate"><span class="pre">diastolic_bp</span> <span class="pre">=</span> <span class="pre">75</span></code>. This will help solidify why order is so crucial.</p>
 </div></blockquote>
@@ -799,6 +804,7 @@ document.write(`
 <hr class="docutils" />
 <section id="summary-and-key-takeaways">
 <h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p><img alt="Conditional statements" src="_images/condition_statements.png" /></p>
 <p>In this section, we’ve explored how to control the flow of our Python programs using <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, and <code class="docutils literal notranslate"><span class="pre">else</span></code> statements to make decisions. This is a crucial skill for translating clinical rules and logic into functional code.</p>
 <ul class="simple">
 <li><p>Control flow allows programs to execute different code paths based on whether conditions evaluate to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
@@ -816,8 +822,8 @@ document.write(`
     {
         requestKernel: true,
         binderOptions: {
-            repo: "executablebooks/jupyter-book",
-            ref: "master",
+            repo: "binder-examples/conda",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
@@ -848,7 +854,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Chapter 1: Python Data Structures</p>
+        <p class="prev-next-title">Chapter 1: Dictionaries and Sets</p>
       </div>
     </a>
     <a class="right-next"
@@ -856,7 +862,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+        <p class="prev-next-title">Chapter 1: Loops</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

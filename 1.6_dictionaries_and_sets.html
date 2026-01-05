@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Chapter 1: Python Data Structures &#8212; Introduction to Python</title>
+    <title>Chapter 1: Dictionaries and Sets &#8212; Introduction to Python</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -182,6 +182,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">1.6 - Dictionaries and Sets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
@@ -252,7 +253,25 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/1.6_dictionaries_and_sets.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/1.6_dictionaries_and_sets.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/1.6_dictionaries_and_sets.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -385,7 +404,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 1: Python Data Structures</h1>
+    <h1>Chapter 1: Dictionaries and Sets</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -421,8 +440,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-data-structures">
-<h1>Chapter 1: Python Data Structures<a class="headerlink" href="#chapter-1-python-data-structures" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-dictionaries-and-sets">
+<h1>Chapter 1: Dictionaries and Sets<a class="headerlink" href="#chapter-1-dictionaries-and-sets" title="Link to this heading">#</a></h1>
 <section id="introduction">
 <h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>In precision health, data is rarely a simple, ordered sequence. It’s often complex, labeled, and interconnected. While lists are excellent for ordered data, we need more powerful tools to model real-world entities like patient records or unique sets of genetic markers. This section introduces two of Python’s most versatile data structures: dictionaries and sets.</p>
@@ -448,28 +467,13 @@ document.write(`
 <hr class="docutils" />
 <section id="main-content">
 <h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># No imports are needed for these examples,</span>
-<span class="c1"># but production code should follow a standard import order.</span>
-<span class="c1">#</span>
-<span class="c1"># # Standard library imports first</span>
-<span class="c1"># from datetime import datetime</span>
-<span class="c1">#</span>
-<span class="c1"># # Third-party imports (e.g., pandas, numpy)</span>
-<span class="c1"># import pandas as pd</span>
-<span class="c1">#</span>
-<span class="c1"># # Medical/scientific library imports</span>
-<span class="c1"># import pydicom</span>
-</pre></div>
-</div>
 <section id="dictionaries-the-digital-patient-record">
 <h3>3.1 Dictionaries: The Digital Patient Record<a class="headerlink" href="#dictionaries-the-digital-patient-record" title="Link to this heading">#</a></h3>
 <blockquote>
 <div><p><strong>Medical Background:</strong> Think of a Python dictionary as a digital patient chart. Each piece of information, like “Patient ID” or “Blood Type,” is a unique <code class="docutils literal notranslate"><span class="pre">key</span></code> that points to a specific <code class="docutils literal notranslate"><span class="pre">value</span></code> (e.g., “PT123456” or “O+”). This structure is ideal for organizing and accessing related data points for a single entity.</p>
 </div></blockquote>
 <p><strong>Creating, Accessing, and Modifying</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A patient record using a dictionary</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A patient record using a dictionary</span>
 <span class="n">patient_data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;patient_id&quot;</span><span class="p">:</span> <span class="s2">&quot;PT123456&quot;</span><span class="p">,</span>
     <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">45</span>
@@ -477,20 +481,33 @@ document.write(`
 
 <span class="c1"># Update a value using its key</span>
 <span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">46</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span>
 
 <span class="c1"># Add a structured lab result</span>
 <span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;hba1c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">7.2</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span>
 
 <span class="c1"># Safely access a key that might not exist</span>
-<span class="n">allergies</span> <span class="o">=</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;allergies&quot;</span><span class="p">,</span> <span class="s2">&quot;None Recorded&quot;</span><span class="p">)</span>
+<span class="n">allergies</span> <span class="o">=</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;allergies&quot;</span><span class="p">,</span> <span class="s2">&quot;None Recorded&quot;</span><span class="p">)</span> <span class="c1"># Gets the &quot;allergies&quot; value; returns &quot;None Recorded&quot; if the key is missing.</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Allergies: </span><span class="si">{</span><span class="n">allergies</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="c1"># The &#39;in&#39; keyword provides a fast check for a key&#39;s existence</span>
 <span class="n">has_age</span> <span class="o">=</span> <span class="s2">&quot;age&quot;</span> <span class="ow">in</span> <span class="n">patient_data</span> <span class="c1"># Returns True</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># {&#39;patient_id&#39;: &#39;PT123456&#39;, &#39;age&#39;: 46}</span>
+<span class="c1"># {&#39;patient_id&#39;: &#39;PT123456&#39;, &#39;age&#39;: 46, &#39;hba1c&#39;: {&#39;value&#39;: 7.2, &#39;unit&#39;: &#39;%&#39;}}</span>
+<span class="c1"># Allergies: None Recorded</span>
 </pre></div>
 </div>
+<blockquote>
+<div><p><strong>Note:</strong> Why Use .get() Instead of Square Brackets []?</p>
+<p>You can equally write the code like this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">allergies</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;allergies&quot;</span><span class="p">]</span>
+</pre></div>
 </div>
-</div>
+<p>Have a think. What happens when you do this? Why would this method be more risky?</p>
+</div></blockquote>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -499,10 +516,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
-<span class="c1"># Allergies: None Recorded</span>
-</pre></div>
 </div>
 <blockquote>
 <div><p><strong>Pro Tip:</strong> Always prefer using the <code class="docutils literal notranslate"><span class="pre">.get()</span></code> method to access dictionary keys that might be optional, like “allergies” or “secondary_diagnosis”. It prevents your program from crashing with a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> and allows you to provide a safe, meaningful default value.</p>
@@ -511,15 +524,16 @@ document.write(`
 <div><p><strong>Important:</strong> Dictionary keys must be immutable. This means you can use strings, numbers, or tuples as keys, but you cannot use mutable types like lists or other dictionaries. This rule ensures that a key’s value remains constant and reliable for data retrieval.</p>
 </div></blockquote>
 <p><strong>Iterating Over Dictionaries</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through key-value pairs using .items()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through key-value pairs using .items()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Patient Details:&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Patient Details:</span>
+<span class="c1"># - patient_id: PT123456</span>
+<span class="c1"># - age: 46</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -530,17 +544,8 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
-<span class="c1"># Patient Details:</span>
-<span class="c1"># - patient_id: PT123456</span>
-<span class="c1"># - age: 46</span>
-<span class="c1"># - hba1c: {&#39;value&#39;: 7.2, &#39;unit&#39;: &#39;%&#39;}</span>
-</pre></div>
-</div>
 <p><strong>Removing Entries</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># .pop() removes a key and returns its value</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># .pop() removes a key and returns its value</span>
 <span class="n">hba1c_result</span> <span class="o">=</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;hba1c&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Value returned by pop: </span><span class="si">{</span><span class="n">hba1c_result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dictionary after pop: </span><span class="si">{</span><span class="n">patient_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -548,9 +553,12 @@ document.write(`
 <span class="c1"># del removes a key-value pair without returning anything</span>
 <span class="k">del</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final dictionary after del: </span><span class="si">{</span><span class="n">patient_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Value returned by pop: {&#39;value&#39;: 7.2, &#39;unit&#39;: &#39;%&#39;}</span>
+<span class="c1"># Dictionary after pop: {&#39;patient_id&#39;: &#39;PT123456&#39;, &#39;age&#39;: 46}</span>
+<span class="c1"># Final dictionary after del: {&#39;patient_id&#39;: &#39;PT123456&#39;}</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -560,12 +568,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
-<span class="c1"># Value returned by pop: {&#39;value&#39;: 7.2, &#39;unit&#39;: &#39;%&#39;}</span>
-<span class="c1"># Dictionary after pop: {&#39;patient_id&#39;: &#39;PT123456&#39;, &#39;age&#39;: 46}</span>
-<span class="c1"># Final dictionary after del: {&#39;patient_id&#39;: &#39;PT123456&#39;}</span>
-</pre></div>
 </div>
 <blockquote>
 <div><p><strong>Reflection Moment:</strong> How could you use a dictionary to structure the data from a patient’s vital signs monitor over a 24-hour period? What would be the keys, and what kind of data structures might you use for the values?</p>
@@ -578,9 +580,7 @@ document.write(`
 <div><p><strong>In Practice:</strong> Epidemiologists use set operations constantly to analyze patient cohorts. For example, finding the intersection of patients with ‘symptom A’ and patients exposed to ‘factor B’ can help identify correlations. The union of all reported symptoms in an outbreak can quickly provide a complete picture for public health alerts.</p>
 </div></blockquote>
 <p><strong>Creating, Adding, and Removing</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a set from a list to instantly remove duplicates</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a set from a list to instantly remove duplicates</span>
 <span class="n">symptoms_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;headache&quot;</span><span class="p">]</span>
 <span class="n">unique_symptoms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">symptoms_list</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unique Symptoms: </span><span class="si">{</span><span class="n">unique_symptoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -590,9 +590,11 @@ document.write(`
 <span class="n">unique_symptoms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;headache&quot;</span><span class="p">)</span>  <span class="c1"># Raises KeyError if not found</span>
 <span class="n">unique_symptoms</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s2">&quot;rash&quot;</span><span class="p">)</span>     <span class="c1"># Safely does nothing if not found</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final Symptoms: </span><span class="si">{</span><span class="n">unique_symptoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Unique Symptoms: {&#39;cough&#39;, &#39;fever&#39;, &#39;headache&#39;}</span>
+<span class="c1"># Final Symptoms: {&#39;cough&#39;, &#39;fever&#39;, &#39;fatigue&#39;}</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
@@ -603,12 +605,6 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
-<span class="c1"># Unique Symptoms: {&#39;cough&#39;, &#39;fever&#39;, &#39;headache&#39;}</span>
-<span class="c1"># Final Symptoms: {&#39;cough&#39;, &#39;fever&#39;, &#39;fatigue&#39;}</span>
-</pre></div>
-</div>
-<p><em>(Note: The order of elements in set output may vary.)</em></p>
 <blockquote>
 <div><p><strong>Important:</strong> Like dictionary keys, set elements must be immutable. Trying to add a list or dictionary to a set will result in a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
 </div></blockquote>
@@ -616,9 +612,7 @@ document.write(`
 <div><p><strong>Debug Note:</strong> A common error is using <code class="docutils literal notranslate"><span class="pre">.remove()</span></code> for an element that might not be in the set, which causes a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> and crashes the program. Use <code class="docutils literal notranslate"><span class="pre">.discard()</span></code> when you need to safely remove an element without knowing for sure if it exists.</p>
 </div></blockquote>
 <p><strong>Set Operations</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cohort_a_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;sore throat&quot;</span><span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cohort_a_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;sore throat&quot;</span><span class="p">}</span>
 <span class="n">cohort_b_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;headache&quot;</span><span class="p">,</span> <span class="s2">&quot;fatigue&quot;</span><span class="p">}</span>
 
 <span class="c1"># Union (|): All unique symptoms from both cohorts</span>
@@ -635,39 +629,14 @@ document.write(`
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Union: </span><span class="si">{</span><span class="n">all_symptoms</span><span class="si">}</span><span class="se">\n</span><span class="s2">Intersection: </span><span class="si">{</span><span class="n">common_symptoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Difference (A-B): </span><span class="si">{</span><span class="n">unique_to_a</span><span class="si">}</span><span class="se">\n</span><span class="s2">Symmetric Difference: </span><span class="si">{</span><span class="n">non_overlapping</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
-<span class="c1"># Hint: Try modifying the example above</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+
+<span class="c1"># Output:</span>
 <span class="c1"># Union: {&#39;headache&#39;, &#39;sore throat&#39;, &#39;fatigue&#39;, &#39;fever&#39;, &#39;cough&#39;}</span>
 <span class="c1"># Intersection: {&#39;fever&#39;}</span>
 <span class="c1"># Difference (A-B): {&#39;sore throat&#39;, &#39;cough&#39;}</span>
 <span class="c1"># Symmetric Difference: {&#39;headache&#39;, &#39;sore throat&#39;, &#39;fatigue&#39;, &#39;cough&#39;}</span>
 </pre></div>
 </div>
-<blockquote>
-<div><p><strong>Pro Tip:</strong> Checking for an element’s existence (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;fever&quot;</span> <span class="pre">in</span> <span class="pre">cohort_a_symptoms</span></code>) is significantly faster with a set than with a list, especially for large datasets. If you need to perform many membership checks, converting a list to a set first can dramatically improve your code’s performance.</p>
-</div></blockquote>
-<p><strong>Set Comparisons</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">required_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">}</span>
-<span class="n">is_subset</span> <span class="o">=</span> <span class="n">required_symptoms</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">cohort_a_symptoms</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required symptoms are a subset of Cohort A: </span><span class="si">{</span><span class="n">is_subset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -677,9 +646,27 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Checking for an element’s existence (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;fever&quot;</span> <span class="pre">in</span> <span class="pre">cohort_a_symptoms</span></code>) is significantly faster with a set than with a list, especially for large datasets. If you need to perform many membership checks, converting a list to a set first can dramatically improve your code’s performance.</p>
+</div></blockquote>
+<p><img alt="Set operations" src="_images/set_operations.png" /></p>
+<p><strong>Set Comparisons</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">required_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">}</span>
+<span class="n">is_subset</span> <span class="o">=</span> <span class="n">required_symptoms</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">cohort_a_symptoms</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required symptoms are a subset of Cohort A: </span><span class="si">{</span><span class="n">is_subset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
 <span class="c1"># Required symptoms are a subset of Cohort A: True</span>
 </pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
 </div>
 <blockquote>
 <div><p><strong>Reflection Moment:</strong> Imagine you are consolidating medication lists from three different hospital departments for a single patient. How could you use sets to quickly generate a final, de-duplicated list of all medications the patient is prescribed?</p>
@@ -827,6 +814,7 @@ document.write(`
 <hr class="docutils" />
 <section id="summary-and-key-takeaways">
 <h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p><img alt="Differences in Dictionaries and Sets" src="_images/difference_sets_dictionaries.png" /></p>
 <p>In this section, we’ve explored how dictionaries and sets provide sophisticated ways to structure complex health data, moving beyond the simple sequences of lists and tuples.</p>
 <ul class="simple">
 <li><p>Dictionaries store data as <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs, making them ideal for structured, labeled information like patient records or configuration settings.</p></li>
@@ -844,8 +832,8 @@ document.write(`
     {
         requestKernel: true,
         binderOptions: {
-            repo: "executablebooks/jupyter-book",
-            ref: "master",
+            repo: "binder-examples/conda",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
