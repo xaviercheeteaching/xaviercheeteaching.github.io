@@ -11,7 +11,7 @@ const TRACKER_CONFIG = {
     EXCEL_FILE_PATH: 'YOUR_EXCEL_FILE_PATH',
     EXCEL_SHEET_NAME: 'Sheet1',
     
-    // Tracking settings
+    // Settings
     DEBUG_MODE: true, // Set to false in production
     
     // Storage keys
@@ -20,6 +20,7 @@ const TRACKER_CONFIG = {
         STUDENT_EMAIL: 'medchem_student_email',
         SESSION_ID: 'medchem_session_id',
         AUTH_TOKEN: 'medchem_auth_token',
+        OFFLINE_QUEUE: 'medchem_offline_queue',
         TRACKING_CONSENT: 'medchem_tracking_consent'
     }
 };

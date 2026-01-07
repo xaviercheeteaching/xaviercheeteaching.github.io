@@ -1,36 +1,26 @@
-// Ultra-Simplified Student Activity Tracker
-// Tracks locally, sends only when leaving page
+// Simplified Student Activity Tracker - Page Views Only
 class StudentTracker {
     constructor() {
         this.config = TRACKER_CONFIG;
-        this.sessionId = this.getOrCreateSessionId();
-        this.pageLoadTime = Date.now();
-        this.pageStartTime = new Date().toISOString();
-        this.lastSaveTime = Date.now();
+        this.isOnline = navigator.onLine;
         
         this.init();
     }
 
     init() {
+        // Check if user has consented to tracking
         if (!this.hasTrackingConsent()) {
-            if (this.config.DEBUG_MODE) {
-                console.log('Tracking consent not provided');
-            }
             return;
         }
 
-        // Save periodically as backup (every 5 minutes)
-        this.startPeriodicSave();
+        // Track this page view
+        this.trackPageView();
         
-        // Send final data before page unload
-        this.setupBeforeUnload();
+        // Setup online/offline detection
+        this.setupOnlineStatusTracking();
 
         if (this.config.DEBUG_MODE) {
-            console.log('Tracker initialized', {
-                sessionId: this.sessionId,
-                studentId: this.getStudentId(),
-                page: this.getPageInfo().page
-            });
+            console.log('Student Tracker initialized - Page view tracked');
         }
     }
 
@@ -42,21 +32,14 @@ class StudentTracker {
         return localStorage.getItem(this.config.STORAGE_KEYS.STUDENT_ID) || 'unknown';
     }
 
-    getOrCreateSessionId() {
-        let sessionId = localStorage.getItem(this.config.STORAGE_KEYS.SESSION_ID);
-        if (!sessionId) {
-            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem(this.config.STORAGE_KEYS.SESSION_ID, sessionId);
-        }
-        return sessionId;
+    getSessionId() {
+        return localStorage.getItem(this.config.STORAGE_KEYS.SESSION_ID) || 'unknown';
     }
 
     getPageInfo() {
         const path = window.location.pathname;
         const pageTitle = document.title;
-        
-        const chapterMatch = pageTitle.match(/Chapter\s+(\d+)/i) || 
-                           pageTitle.match(/^(\d+)\./);
+        const chapterMatch = pageTitle.match(/Chapter\s+(\d+)/i) || pageTitle.match(/^(\d+\.\d+)/);
         const chapter = chapterMatch ? `Chapter ${chapterMatch[1]}` : 'Unknown';
         
         return {
@@ -67,59 +50,33 @@ class StudentTracker {
         };
     }
 
-    getCurrentDuration() {
-        // Calculate duration in seconds
-        return Math.round((Date.now() - this.pageLoadTime) / 1000);
-    }
-
-    createPageEntry() {
+    createEvent() {
         const pageInfo = this.getPageInfo();
-        const duration = this.getCurrentDuration();
-        const endTime = new Date().toISOString();
         
         return {
             studentId: this.getStudentId(),
-            sessionId: this.sessionId,
+            sessionId: this.getSessionId(),
             page: pageInfo.page,
             chapter: pageInfo.chapter,
             url: pageInfo.url,
-            path: pageInfo.path,
-            startTime: this.pageStartTime,
-            endTime: endTime,
-            duration: duration,
-            userAgent: navigator.userAgent,
-            screenResolution: `${screen.width}x${screen.height}`,
-            timestamp: endTime
+            timestamp: new Date().toISOString()
         };
     }
 
-    // ==================== PERIODIC SAVE (BACKUP) ====================
-    
-    startPeriodicSave() {
-        // Save every 5 minutes as backup in case browser crashes
-        this.saveInterval = setInterval(() => {
-            const timeSinceLastSave = Math.round((Date.now() - this.lastSaveTime) / 1000);
-            
-            // Only save if it's been at least 5 minutes
-            if (timeSinceLastSave >= 300) {
-                this.sendPageData();
-                this.lastSaveTime = Date.now();
-                
-                if (this.config.DEBUG_MODE) {
-                    console.log('Periodic backup save completed');
-                }
-            }
-        }, 60000); // Check every minute
+    trackPageView() {
+        const event = this.createEvent();
+        this.sendEvent(event);
     }
 
-    // ==================== SEND TO POWER AUTOMATE ====================
-    
-    async sendPageData() {
-        const pageEntry = this.createPageEntry();
+    async sendEvent(event) {
+        if (!this.isOnline) {
+            this.saveToOfflineQueue(event);
+            return;
+        }
 
         try {
             if (this.config.DEBUG_MODE) {
-                console.log('Sending to Power Automate:', pageEntry);
+                console.log('Sending page view:', event);
             }
 
             const response = await fetch(this.config.POWER_AUTOMATE_URL, {
@@ -127,7 +84,7 @@ class StudentTracker {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(pageEntry)
+                body: JSON.stringify(event)
             });
 
             if (!response.ok) {
@@ -135,53 +92,94 @@ class StudentTracker {
             }
 
             if (this.config.DEBUG_MODE) {
-                console.log('Successfully sent to Power Automate');
+                console.log('Page view sent successfully');
             }
 
+            // Try to send offline queue if it exists
+            this.sendOfflineQueue();
+
         } catch (error) {
-            console.error('Failed to send page data:', error);
+            console.error('Failed to send page view:', error);
+            this.saveToOfflineQueue(event);
         }
     }
 
-    // ==================== PAGE UNLOAD ====================
-    
-    setupBeforeUnload() {
-        window.addEventListener('beforeunload', () => {
-            const pageEntry = this.createPageEntry();
-            
-            // Use sendBeacon for reliable sending during page unload
-            if (navigator.sendBeacon) {
-                const blob = new Blob(
-                    [JSON.stringify(pageEntry)], 
-                    { type: 'application/json' }
-                );
-                navigator.sendBeacon(this.config.POWER_AUTOMATE_URL, blob);
-                
-                if (this.config.DEBUG_MODE) {
-                    console.log('Final data sent via sendBeacon:', pageEntry);
-                }
+    setupOnlineStatusTracking() {
+        window.addEventListener('online', () => {
+            this.isOnline = true;
+            if (this.config.DEBUG_MODE) {
+                console.log('Connection restored');
             }
+            this.sendOfflineQueue();
         });
-        
-        // Also try pagehide event (more reliable on mobile)
-        window.addEventListener('pagehide', () => {
-            const pageEntry = this.createPageEntry();
-            
-            if (navigator.sendBeacon) {
-                const blob = new Blob(
-                    [JSON.stringify(pageEntry)], 
-                    { type: 'application/json' }
-                );
-                navigator.sendBeacon(this.config.POWER_AUTOMATE_URL, blob);
+
+        window.addEventListener('offline', () => {
+            this.isOnline = false;
+            if (this.config.DEBUG_MODE) {
+                console.log('Connection lost');
             }
         });
     }
 
-    // ==================== CLEANUP ====================
-    
-    destroy() {
-        if (this.saveInterval) {
-            clearInterval(this.saveInterval);
+    // ==================== OFFLINE QUEUE MANAGEMENT ====================
+    saveToOfflineQueue(event) {
+        try {
+            const queue = this.loadOfflineQueue();
+            queue.push(event);
+            
+            // Limit queue size to 50
+            if (queue.length > 50) {
+                queue.splice(0, queue.length - 50);
+            }
+            
+            localStorage.setItem(
+                this.config.STORAGE_KEYS.OFFLINE_QUEUE,
+                JSON.stringify(queue)
+            );
+
+            if (this.config.DEBUG_MODE) {
+                console.log('Saved to offline queue');
+            }
+        } catch (error) {
+            console.error('Failed to save offline queue:', error);
+        }
+    }
+
+    loadOfflineQueue() {
+        try {
+            const queueData = localStorage.getItem(this.config.STORAGE_KEYS.OFFLINE_QUEUE);
+            return queueData ? JSON.parse(queueData) : [];
+        } catch (error) {
+            console.error('Failed to load offline queue:', error);
+            return [];
+        }
+    }
+
+    async sendOfflineQueue() {
+        const queue = this.loadOfflineQueue();
+        if (queue.length === 0) return;
+
+        // Send each event individually
+        for (const event of queue) {
+            try {
+                await fetch(this.config.POWER_AUTOMATE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(event)
+                });
+            } catch (error) {
+                console.error('Failed to send queued event:', error);
+                return; // Stop if sending fails
+            }
+        }
+
+        // Clear offline queue after successful send
+        localStorage.removeItem(this.config.STORAGE_KEYS.OFFLINE_QUEUE);
+        
+        if (this.config.DEBUG_MODE) {
+            console.log('Offline queue sent successfully');
         }
     }
 }
