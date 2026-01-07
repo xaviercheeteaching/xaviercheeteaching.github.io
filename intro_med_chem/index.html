@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to Computer-driven Drug Discovery &#8212; Introduction to Medicinal Chemistry</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script src="_static/custom-thebe.js?v=895bbc1d"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Protein Structures and Hierachy" href="1.1_protein_structure_hierarchy_primary.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Medicinal Chemistry</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Introduction to Computer-driven Drug Discovery
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_protein_structure_hierarchy_primary.html">1.1 - Protein Structure Hierarchy Primary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_intrinsically_disordered_proteins.html">1.2 - Intrinsically Disordered Proteins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_protein_families_and_classification.html">1.3 - Protein Families and Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_domain_architecture_and_motifs.html">1.4 - Domain Architecture and Motifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_protein_flexibility_and_conformational_changes.html">1.5 - Protein Flexibility and Conformational Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_atoms_and_chemical_bonding.html">2.1 - Atoms and Chemical Bonding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_common_functional_groups_in_drug_molecules.html">2.2 - Common Functional Groups in Drug Molecules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_aromaticity_and_resonance.html">2.3 - Aromaticity and Resonance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_hybridization_and_molecular_geometry.html">2.4 - Hybridization and Molecular Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_molecular_conformations_and_rotatable_bonds.html">2.5 - Molecular Conformations and Rotatable Bonds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_stereochemistry_chirality_and_isomerism.html">2.6 - Stereochemistry Chirality and Isomerism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.7_configurational_and_conformational_isomers.html">2.7 - Configurational and Conformational Isomers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.8_physicochemical_properties_logp_pka_solubility.html">2.8 - Physicochemical Properties Logp Pka Solubility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.9_hydrogen_bond_donors_and_acceptors.html">2.9 - Hydrogen Bond Donors and Acceptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.10_hydrogen_bonding_in_protein_ligand_interactions.html">2.10 - Hydrogen Bonding in Protein Ligand Interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.11_van_der_waals_forces_and_hydrophobic_effects.html">2.11 - Van Der Waals Forces and Hydrophobic Effects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.12_electrostatic_interactions_and_pi_interactions.html">2.12 - Electrostatic Interactions and Pi Interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_basic_concepts_of_enthalpy_and_entropy.html">3.1 - Basic Concepts of Enthalpy and Entropy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_gibbs_free_energy_and_spontaneity.html">3.2 - Gibbs Free Energy and Spontaneity</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/index.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/index.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/index.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="_sources/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Computer-driven Drug Discovery</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome">Welcome</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-book">How to Use This Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-features">Interactive Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-computer-driven-drug-discovery">
+<h1>Introduction to Computer-driven Drug Discovery<a class="headerlink" href="#introduction-to-computer-driven-drug-discovery" title="Link to this heading">#</a></h1>
+<p><strong>Author:</strong> Dr Xavier Chee
+<strong>Updated:</strong> 5 January, 2026</p>
+<p><strong>Technical Acknowledgement:</strong>
+The interactive visualizations, widgets, and associated Python code used in this course material were developed with the assistance of AI coding assistants, specifically Google Gemini 3 and Anthropic Claude.</p>
+<section id="welcome">
+<h2>Welcome<a class="headerlink" href="#welcome" title="Link to this heading">#</a></h2>
+<p>Welcome to this interactive learning book! This comprehensive guide contains 20 chapters covering essential topics in basic biology and chemistry for Drug Discovery.
+This book contains the pre-requisite knowledge for the PHM5013 Precision Drug Discovery and Pharmacogenomics course</p>
+</section>
+<section id="how-to-use-this-book">
+<h2>How to Use This Book<a class="headerlink" href="#how-to-use-this-book" title="Link to this heading">#</a></h2>
+<p>This book is built with Jupyter Book and supports interactive code execution through Thebe. You can:</p>
+<ul class="simple">
+<li><p><strong>Read</strong> the content like a traditional textbook</p></li>
+<li><p><strong>Execute</strong> code cells directly in your browser</p></li>
+<li><p><strong>Interact</strong> with the widgets and animations</p></li>
+</ul>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<p><strong>Chapter 1.1:</strong> <a class="reference internal" href="1.1_protein_structure_hierarchy_primary.html"><span class="std std-doc">Protein Structure Hierarchy Primary</span></a><br />
+<strong>Chapter 1.2:</strong> <a class="reference internal" href="1.2_intrinsically_disordered_proteins.html"><span class="std std-doc">Intrinsically Disordered Proteins</span></a><br />
+<strong>Chapter 1.3:</strong> <a class="reference internal" href="1.3_protein_families_and_classification.html"><span class="std std-doc">Protein Families and Classification</span></a><br />
+<strong>Chapter 1.4:</strong> <a class="reference internal" href="1.4_domain_architecture_and_motifs.html"><span class="std std-doc">Domain Architecture and Motifs</span></a><br />
+<strong>Chapter 1.5:</strong> <a class="reference internal" href="1.5_protein_flexibility_and_conformational_changes.html"><span class="std std-doc">Protein Flexibility and Conformational Changes</span></a><br />
+<strong>Chapter 2.1:</strong> <a class="reference internal" href="2.1_atoms_and_chemical_bonding.html"><span class="std std-doc">Atoms and Chemical Bonding</span></a><br />
+<strong>Chapter 2.2:</strong> <a class="reference internal" href="2.2_common_functional_groups_in_drug_molecules.html"><span class="std std-doc">Common Functional Groups in Drug Molecules</span></a><br />
+<strong>Chapter 2.3:</strong> <a class="reference internal" href="2.3_aromaticity_and_resonance.html"><span class="std std-doc">Aromaticity and Resonance</span></a><br />
+<strong>Chapter 2.4:</strong> <a class="reference internal" href="2.4_hybridization_and_molecular_geometry.html"><span class="std std-doc">Hybridization and Molecular Geometry</span></a><br />
+<strong>Chapter 2.5:</strong> <a class="reference internal" href="2.5_molecular_conformations_and_rotatable_bonds.html"><span class="std std-doc">Molecular Conformations and Rotatable Bonds</span></a><br />
+<strong>Chapter 2.6:</strong> <a class="reference internal" href="2.6_stereochemistry_chirality_and_isomerism.html"><span class="std std-doc">Stereochemistry Chirality and Isomerism</span></a><br />
+<strong>Chapter 2.7:</strong> <a class="reference internal" href="2.7_configurational_and_conformational_isomers.html"><span class="std std-doc">Configurational and Conformational Isomers</span></a><br />
+<strong>Chapter 2.8:</strong> <a class="reference internal" href="2.8_physicochemical_properties_logp_pka_solubility.html"><span class="std std-doc">Physicochemical Properties Logp Pka Solubility</span></a><br />
+<strong>Chapter 2.9:</strong> <a class="reference internal" href="2.9_hydrogen_bond_donors_and_acceptors.html"><span class="std std-doc">Hydrogen Bond Donors and Acceptors</span></a><br />
+<strong>Chapter 2.10:</strong> <a class="reference internal" href="2.10_hydrogen_bonding_in_protein_ligand_interactions.html"><span class="std std-doc">Hydrogen Bonding in Protein Ligand Interactions</span></a><br />
+<strong>Chapter 2.11:</strong> <a class="reference internal" href="2.11_van_der_waals_forces_and_hydrophobic_effects.html"><span class="std std-doc">Van Der Waals Forces and Hydrophobic Effects</span></a><br />
+<strong>Chapter 2.12:</strong> <a class="reference internal" href="2.12_electrostatic_interactions_and_pi_interactions.html"><span class="std std-doc">Electrostatic Interactions and Pi Interactions</span></a><br />
+<strong>Chapter 3.1:</strong> <a class="reference internal" href="3.1_basic_concepts_of_enthalpy_and_entropy.html"><span class="std std-doc">Basic Concepts of Enthalpy and Entropy</span></a><br />
+<strong>Chapter 3.2:</strong> <a class="reference internal" href="3.2_gibbs_free_energy_and_spontaneity.html"><span class="std std-doc">Gibbs Free Energy and Spontaneity</span></a></p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>To begin your learning journey, click on any chapter above or use the navigation sidebar on the left.</p>
+</section>
+<section id="interactive-features">
+<h2>Interactive Features<a class="headerlink" href="#interactive-features" title="Link to this heading">#</a></h2>
+<p>This book includes interactive features powered by Thebe:</p>
+<ul class="simple">
+<li><p>Click the <strong>Live Code</strong> button at the top of any page to activate interactive mode</p></li>
+<li><p>Edit and run code cells to see immediate results</p></li>
+<li><p>Experiment with different inputs and parameters</p></li>
+</ul>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<p>This book assumes:</p>
+<ul class="simple">
+<li><p>Basic computer literacy</p></li>
+<li><p>Willingness to learn and experiment</p></li>
+</ul>
+<hr class="docutils" />
+<p><em>Happy Learning!</em></p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="1.1_protein_structure_hierarchy_primary.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Protein Structures and Hierachy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#welcome">Welcome</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-book">How to Use This Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-features">Interactive Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
