@@ -9,14 +9,18 @@ kernelspec:
   name: python3
 ---
 
-# Introduction to Python
+# Introduction to Computer-driven Drug Discovery
 
 **Author:** Dr Xavier Chee
-**Generated:** November 13, 2025
+**Updated:** 5 January, 2026
+
+**Technical Acknowledgement:** 
+The interactive visualizations, widgets, and associated Python code used in this course material were developed with the assistance of AI coding assistants, specifically Google Gemini 3 and Anthropic Claude.
 
 ## Welcome
 
-Welcome to this interactive learning book! This comprehensive guide contains 24 chapters covering essential topics in Python programming and data analysis.
+Welcome to this interactive learning book! This comprehensive guide contains 20 chapters covering essential topics in basic biology and chemistry for Drug Discovery.
+This book contains the pre-requisite knowledge for the PHM5013 Precision Drug Discovery and Pharmacogenomics course 
 
 ## How to Use This Book
 
@@ -24,45 +28,34 @@ This book is built with Jupyter Book and supports interactive code execution thr
 
 - **Read** the content like a traditional textbook
 - **Execute** code cells directly in your browser
-- **Modify** code examples to experiment and learn
-- **Download** individual notebooks for offline practice
+- **Interact** with the widgets and animations
 
 ## Table of Contents
 
-**Chapter 1.1:** [Python Installation and Environment Setup](1.1_python_installation_and_environment_setup.md)  
-**Chapter 1.10:** [Command Line Arguments with sys.argv](1.10_command_line_arguments_with_sys.argv.md)  
-**Chapter 1.11:** [Reading and Writing Files](1.11_reading_and_writing_files.md)  
-**Chapter 1.12:** [String Methods](1.12_string_methods.md)  
-**Chapter 1.2:** [Variables and Data Types](1.2_variables_and_data_types.md)  
-**Chapter 1.3:** [Basic Operators and Expressions](1.3_basic_operators_and_expressions.md)  
-**Chapter 1.4:** [Common Python Errors and Exceptions](1.4_common_python_errors_and_exceptions.md)  
-**Chapter 1.5:** [Lists and Tuples](1.5_lists_and_tuples.md)  
-**Chapter 1.6:** [Dictionaries and Sets](1.6_dictionaries_and_sets.md)  
-**Chapter 1.7:** [Control Flow If Elif Else Statements](1.7_control_flow_if_elif_else_statements.md)  
-**Chapter 1.8:** [Loops for and While](1.8_loops_for_and_while.md)  
-**Chapter 1.9:** [Functions and Parameters](1.9_functions_and_parameters.md)  
-**Chapter 2.1:** [Introduction to Numpy Arrays](2.1_introduction_to_numpy_arrays.md)  
-**Chapter 2.2:** [Array Operations and Indexing](2.2_array_operations_and_indexing.md)  
-**Chapter 2.3:** [Introduction to Pandas Dataframes](2.3_introduction_to_pandas_dataframes.md)  
-**Chapter 2.4:** [Reading Csv and Excel Files with Pandas](2.4_reading_csv_and_excel_files_with_pandas.md)  
-**Chapter 2.5:** [Data Selection and Filtering](2.5_data_selection_and_filtering.md)  
-**Chapter 2.6:** [Basic Data Manipulation](2.6_basic_data_manipulation.md)  
-**Chapter 3.1:** [Introduction to Matplotlib](3.1_introduction_to_matplotlib.md)  
-**Chapter 3.2:** [Line Plots and Scatter Plots](3.2_line_plots_and_scatter_plots.md)  
-**Chapter 3.3:** [Bar Plots and Histograms](3.3_bar_plots_and_histograms.md)  
-**Chapter 3.4:** [Customizing Plots](3.4_customizing_plots.md)  
-**Chapter 3.5:** [Subplots and Multiple Figures](3.5_subplots_and_multiple_figures.md)  
-**Chapter 3.6:** [Saving Figures](3.6_saving_figures.md)  
+**Chapter 1.1:** [Protein Structure Hierarchy Primary](1.1_protein_structure_hierarchy_primary.ipynb)  
+**Chapter 1.2:** [Intrinsically Disordered Proteins](1.2_intrinsically_disordered_proteins.ipynb)  
+**Chapter 1.3:** [Protein Families and Classification](1.3_protein_families_and_classification.ipynb)  
+**Chapter 1.4:** [Domain Architecture and Motifs](1.4_domain_architecture_and_motifs.ipynb)  
+**Chapter 1.5:** [Protein Flexibility and Conformational Changes](1.5_protein_flexibility_and_conformational_changes.ipynb)  
+**Chapter 2.1:** [Atoms and Chemical Bonding](2.1_atoms_and_chemical_bonding.ipynb)  
+**Chapter 2.2:** [Common Functional Groups in Drug Molecules](2.2_common_functional_groups_in_drug_molecules.ipynb)  
+**Chapter 2.3:** [Aromaticity and Resonance](2.3_aromaticity_and_resonance.ipynb)  
+**Chapter 2.4:** [Hybridization and Molecular Geometry](2.4_hybridization_and_molecular_geometry.ipynb)  
+**Chapter 2.5:** [Molecular Conformations and Rotatable Bonds](2.5_molecular_conformations_and_rotatable_bonds.ipynb)  
+**Chapter 2.6:** [Stereochemistry Chirality and Isomerism](2.6_stereochemistry_chirality_and_isomerism.ipynb)  
+**Chapter 2.7:** [Configurational and Conformational Isomers](2.7_configurational_and_conformational_isomers.ipynb)  
+**Chapter 2.8:** [Physicochemical Properties Logp Pka Solubility](2.8_physicochemical_properties_logp_pka_solubility.ipynb)  
+**Chapter 2.9:** [Hydrogen Bond Donors and Acceptors](2.9_hydrogen_bond_donors_and_acceptors.ipynb)  
+**Chapter 2.10:** [Hydrogen Bonding in Protein Ligand Interactions](2.10_hydrogen_bonding_in_protein_ligand_interactions.ipynb)  
+**Chapter 2.11:** [Van Der Waals Forces and Hydrophobic Effects](2.11_van_der_waals_forces_and_hydrophobic_effects.ipynb)  
+**Chapter 2.12:** [Electrostatic Interactions and Pi Interactions](2.12_electrostatic_interactions_and_pi_interactions.ipynb)  
+**Chapter 3.1:** [Basic Concepts of Enthalpy and Entropy](3.1_basic_concepts_of_enthalpy_and_entropy.ipynb)  
+**Chapter 3.2:** [Gibbs Free Energy and Spontaneity](3.2_gibbs_free_energy_and_spontaneity.ipynb)  
 
 
 ## Getting Started
 
-To begin your learning journey, click on any chapter above or use the navigation sidebar on the left. Each chapter includes:
-
-- Clear explanations of concepts
-- Interactive code examples
-- Practice exercises with solutions
-- Real-world applications
+To begin your learning journey, click on any chapter above or use the navigation sidebar on the left. 
 
 ## Interactive Features
 
@@ -76,7 +69,6 @@ This book includes interactive features powered by Thebe:
 
 This book assumes:
 - Basic computer literacy
-- No prior programming experience required
 - Willingness to learn and experiment
 
 ---

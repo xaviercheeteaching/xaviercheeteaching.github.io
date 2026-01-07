@@ -1,0 +1,988 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 2: Electrostatic Interactions in Ligand-protein Interactions &#8212; Introduction to Medicinal Chemistry</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2.12_electrostatic_interactions_and_pi_interactions';</script>
+    <script src="_static/custom-thebe.js?v=895bbc1d"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 3: The Thermodynamics of Binding: Entropy and Enthalpy in Drug Discovery" href="3.1_basic_concepts_of_enthalpy_and_entropy.html" />
+    <link rel="prev" title="Chapter 2: Van der Waals forces and Hydrophobic Interactions in Ligand-protein Interactions" href="2.11_van_der_waals_forces_and_hydrophobic_effects.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Medicinal Chemistry</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Computer-driven Drug Discovery
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_protein_structure_hierarchy_primary.html">1.1 - Protein Structure Hierarchy Primary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_intrinsically_disordered_proteins.html">1.2 - Intrinsically Disordered Proteins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_protein_families_and_classification.html">1.3 - Protein Families and Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_domain_architecture_and_motifs.html">1.4 - Domain Architecture and Motifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_protein_flexibility_and_conformational_changes.html">1.5 - Protein Flexibility and Conformational Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_atoms_and_chemical_bonding.html">2.1 - Atoms and Chemical Bonding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_common_functional_groups_in_drug_molecules.html">2.2 - Common Functional Groups in Drug Molecules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_aromaticity_and_resonance.html">2.3 - Aromaticity and Resonance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_hybridization_and_molecular_geometry.html">2.4 - Hybridization and Molecular Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_molecular_conformations_and_rotatable_bonds.html">2.5 - Molecular Conformations and Rotatable Bonds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_stereochemistry_chirality_and_isomerism.html">2.6 - Stereochemistry Chirality and Isomerism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.7_configurational_and_conformational_isomers.html">2.7 - Configurational and Conformational Isomers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.8_physicochemical_properties_logp_pka_solubility.html">2.8 - Physicochemical Properties Logp Pka Solubility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.9_hydrogen_bond_donors_and_acceptors.html">2.9 - Hydrogen Bond Donors and Acceptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.10_hydrogen_bonding_in_protein_ligand_interactions.html">2.10 - Hydrogen Bonding in Protein Ligand Interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.11_van_der_waals_forces_and_hydrophobic_effects.html">2.11 - Van Der Waals Forces and Hydrophobic Effects</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2.12 - Electrostatic Interactions and Pi Interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_basic_concepts_of_enthalpy_and_entropy.html">3.1 - Basic Concepts of Enthalpy and Entropy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_gibbs_free_energy_and_spontaneity.html">3.2 - Gibbs Free Energy and Spontaneity</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/2.12_electrostatic_interactions_and_pi_interactions.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/2.12_electrostatic_interactions_and_pi_interactions.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2.12_electrostatic_interactions_and_pi_interactions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 2: Electrostatic Interactions in Ligand-protein Interactions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types-and-strengths-of-electrostatic-interactions">3.1 Types and Strengths of Electrostatic Interactions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-and-geometry-dependence">3.2 Distance and Geometry Dependence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-in-binding-affinity-and-selectivity">3.3 Role in Binding Affinity and Selectivity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">4. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">5. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-electrostatic-interactions-in-ligand-protein-interactions">
+<h1>Chapter 2: Electrostatic Interactions in Ligand-protein Interactions<a class="headerlink" href="#chapter-2-electrostatic-interactions-in-ligand-protein-interactions" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Electrostatic interactions are among the strongest non-covalent forces governing protein-ligand binding, with energies ranging from 5-10 kcal/mol for salt bridges in proteins. Unlike hydrogen bonds or van der Waals forces, electrostatic interactions are long-range (effective up to ~10 Å) and highly directional, making them critical anchoring points in drug-protein recognition. Understanding these interactions is essential for rational drug design, as approximately 75% of marketed drugs contain ionizable groups that form electrostatic contacts with their targets.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Ionic interaction (salt bridge):</strong> Strong electrostatic attraction between oppositely charged groups (e.g., carboxylate COO⁻ and protonated amine NH₃⁺), typically contributing 3-7 kcal/mol in desolvated protein binding sites.</p></li>
+<li><p><strong>Electrostatic potential surface:</strong> Three-dimensional map showing the distribution of electrostatic potential around a molecule, revealing regions of positive (blue), negative (red), and neutral (white) character that guide complementary binding.</p></li>
+<li><p><strong>Charge complementarity:</strong> Spatial matching of opposite charges between drug and target that maximizes attractive interactions while minimizing repulsive forces, essential for high-affinity binding.</p></li>
+<li><p><strong>Dielectric constant (ε):</strong> Measure of a medium’s ability to screen electrostatic interactions; water has ε ≈ 80, while protein interiors have ε ≈ 4, making buried salt bridges 20× stronger than surface interactions.</p></li>
+<li><p><strong>Coulomb’s Law:</strong> Fundamental equation describing electrostatic interaction energy: E = (q₁ × q₂)/(4πε₀εᵣr), where energy decreases with distance (r) and increases with lower dielectric constant (εᵣ).</p></li>
+<li><p><strong>Ionization state:</strong> The protonation/deprotonation state of ionizable groups (amines, carboxylic acids, phosphates) at physiological pH 7.4, determining whether groups are charged and capable of electrostatic interactions.</p></li>
+<li><p><strong>Charge-dipole interaction:</strong> Electrostatic attraction between a fully charged group and a permanent dipole (e.g., carbonyl C=O), weaker than ionic interactions but still contributing 1-3 kcal/mol.</p></li>
+<li><p><strong>Desolvation penalty:</strong> Energy cost of removing water molecules (hydration shell) from charged groups before binding, which can offset up to 50-70% of the favorable electrostatic binding energy.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="types-and-strengths-of-electrostatic-interactions">
+<h3>3.1 Types and Strengths of Electrostatic Interactions<a class="headerlink" href="#types-and-strengths-of-electrostatic-interactions" title="Link to this heading">#</a></h3>
+<p>Electrostatic interactions span a continuum from strong ionic interactions to weak charge-dipole effects:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Interaction Type</p></th>
+<th class="head text-left"><p>Typical Partners</p></th>
+<th class="head text-left"><p>Energy (kcal/mol)</p></th>
+<th class="head text-left"><p>Distance Range (Å)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Salt bridge (buried)</strong></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\text{Arg/Lys}^+ \leftrightarrow \text{Asp/Glu}^-\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(5 - 10\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(2.5 - 4.0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Salt bridge (surface)</strong></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\text{Arg/Lys}^+ \leftrightarrow \text{Asp/Glu}^-\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(1 - 3\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(2.5 - 4.0\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Charge-dipole</strong></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\text{-NH}_3^+ \leftrightarrow \text{C=O}\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(1 - 3\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(3.0 - 5.0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Metal coordination</strong></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\text{His/Asp} \leftrightarrow \text{Zn}^{2+}/\text{Mg}^{2+}\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(10 - 25\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(2.0 - 2.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Dipole-dipole</strong></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\text{C=O} \leftrightarrow \text{N-H}\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(0.5 - 2\)</span></p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(3.0 - 4.0\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The strength of these interactions is highly <strong>context-dependent</strong>. Buried salt bridges in hydrophobic pockets are exceptionally strong because the low dielectric environment (ε ≈ 4) reduces electrostatic screening. Conversely, surface salt bridges contribute minimally because water (ε ≈ 80) effectively shields the charges.</p>
+</section>
+<section id="distance-and-geometry-dependence">
+<h3>3.2 Distance and Geometry Dependence<a class="headerlink" href="#distance-and-geometry-dependence" title="Link to this heading">#</a></h3>
+<p>Electrostatic interactions follow an inverse relationship with distance (E ∝ 1/r), making them highly sensitive to molecular geometry:</p>
+<p><strong>Distance effects:</strong></p>
+<ul class="simple">
+<li><p>At 3 Å (optimal salt bridge): E = -6 kcal/mol (buried)</p></li>
+<li><p>At 4 Å: E = -4.5 kcal/mol (25% weaker)</p></li>
+<li><p>At 6 Å: E = -3 kcal/mol (50% weaker)</p></li>
+<li><p>At 10 Å: Still measurable effects on binding orientation</p></li>
+</ul>
+</section>
+<section id="role-in-binding-affinity-and-selectivity">
+<h3>3.3 Role in Binding Affinity and Selectivity<a class="headerlink" href="#role-in-binding-affinity-and-selectivity" title="Link to this heading">#</a></h3>
+<p>Electrostatic interactions serve three critical functions in drug-target recognition:</p>
+<p><strong>1. Initial Recognition (Long-range attraction):</strong>
+Electrostatic forces guide drug molecules toward binding sites from distances of 10-20 Å, accelerating association rates (kon) by 10-100 fold. This “electrostatic steering” explains why charged drugs often have faster binding kinetics than uncharged analogs.</p>
+<p><strong>2. Binding Affinity Enhancement:</strong>
+Well-placed salt bridges can contribute 3-7 kcal/mol to binding free energy, equivalent to a 100-10,000 fold improvement in binding affinity (Kd). However, the desolvation penalty typically reduces the net contribution to 1-3 kcal/mol for surface interactions.</p>
+<p><strong>3. Selectivity Discrimination:</strong>
+Electrostatic complementarity enables selectivity between similar binding sites. Kinases share &gt;60% sequence homology but differ in charge distribution. Acidic drugs (e.g., fostamatinib) selectively target kinases with positively charged pockets, while basic drugs (e.g., dasatinib) prefer negatively charged sites.</p>
+<p>Strong binders exhibit electrostatic complementarity: positive regions of the ligand align with negative regions of the protein, and vice versa. This is quantified by comparing electrostatic potential surfaces.</p>
+<p>For example, Atorvastatin (Lipitor) achieves selectivity for HMG-CoA reductase over other enzymes through precise positioning of its anionic groups to match positively charged Arg and Lys residues in the active site. Off-target proteins lacking this charge pattern bind much more weakly.</p>
+<p>The visualization below demonstrates a critical salt bridge interaction between atorvastatin’s
+carboxylate group (COO⁻) and lysine residue K692 (NH₃⁺) in HMG-CoA reductase. The
+electrostatic potential surfaces are shown only for these two functional groups:</p>
+<ul class="simple">
+<li><p>Red surface: Negative potential around atorvastatin’s carboxylate oxygens</p></li>
+<li><p>Blue surface: Positive potential around K692’s amino group</p></li>
+</ul>
+<p>This charge-charge interaction (ionic bond) is a major contributor to binding affinity,
+with typical interaction energies of 5-10 kcal/mol in the protein environment. The
+visualization illustrates how complementary charges create strong, directional
+electrostatic attraction that anchors the drug in the active site.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">py3Dmol</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">visualize_atorvastatin_carboxylate_k692</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Focused visualization of Atorvastatin carboxylate group and K692 lysine</span>
+<span class="sd">    with electrostatic potential surfaces - ONLY carboxylate functional group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">viewer_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;viewer_</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span><span class="w"> </span><span class="mi">999999</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">pdb_id</span> <span class="o">=</span> <span class="s2">&quot;1HWK&quot;</span>
+    <span class="n">ligand_name</span> <span class="o">=</span> <span class="s2">&quot;117&quot;</span>
+    
+    <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &lt;script src=&quot;https://3Dmol.org/build/3Dmol-min.js&quot;&gt;&lt;/script&gt;</span>
+
+<span class="s2">    &lt;div style=&quot;font-family: Arial, sans-serif; max-width: 900px; margin: 20px auto; border-radius: 12px; border: 1px solid #ddd; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);&quot;&gt;</span>
+<span class="s2">        &lt;div style=&quot;background: #ffffff; padding: 20px; border-bottom: 1px solid #eee;&quot;&gt;</span>
+<span class="s2">            &lt;h3 style=&quot;margin: 0; color: #333; text-align: center;&quot;&gt;Atorvastatin Carboxylate - K692 Electrostatic Interaction&lt;/h3&gt;</span>
+<span class="s2">            &lt;p style=&quot;margin: 5px 0 0 0; color: #666; font-size: 14px; text-align: center;&quot;&gt;</span>
+<span class="s2">                PDB: 1HWK (Chain A) | Ionic Interaction: COO⁻ ↔ NH₃⁺</span>
+<span class="s2">            &lt;/p&gt;</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">        &lt;div id=&quot;</span><span class="si">{</span><span class="n">viewer_id</span><span class="si">}</span><span class="s2">&quot; style=&quot;width: 100%; height: 500px; background: #f8f8f8; margin: 0; padding: 0; display: block; position: relative;&quot;&gt;&lt;/div&gt;</span>
+<span class="s2">        &lt;div style=&quot;padding: 15px; background: #f8f9fa; font-size: 13px; line-height: 1.6; margin: 0; border-top: 1px solid #eee;&quot;&gt;</span>
+<span class="s2">            &lt;div style=&quot;margin: 0;&quot;&gt;&lt;strong&gt;Visualization Key:&lt;/strong&gt;&lt;/div&gt;</span>
+<span class="s2">            &lt;div style=&quot;margin-top: 8px;&quot;&gt;</span>
+<span class="s2">                • &lt;b&gt;Protein Context:&lt;/b&gt; Light gray cartoon (low opacity)&lt;br&gt;</span>
+<span class="s2">                • &lt;b&gt;Atorvastatin:&lt;/b&gt; Yellow carbon sticks (full molecule)&lt;br&gt;</span>
+<span class="s2">                • &lt;b&gt;Carboxylate Group (COO⁻):&lt;/b&gt; &lt;span style=&quot;color: #e74c3c; font-weight: bold;&quot;&gt;Red surface&lt;/span&gt; indicating negative charge&lt;br&gt;</span>
+<span class="s2">                • &lt;b&gt;K692 (Lysine):&lt;/b&gt; Cyan sticks with &lt;span style=&quot;color: #3498db; font-weight: bold;&quot;&gt;blue surface&lt;/span&gt; indicating positive charge (NH₃⁺)&lt;br&gt;</span>
+<span class="s2">                • &lt;b&gt;Interaction:&lt;/b&gt; Ionic attraction (~5-10 kcal/mol) between complementary charges</span>
+<span class="s2">            &lt;/div&gt;</span>
+<span class="s2">        &lt;/div&gt;</span>
+<span class="s2">    &lt;/div&gt;</span>
+<span class="s2">    &lt;script&gt;</span>
+<span class="s2">    (function() </span><span class="se">{{</span>
+<span class="s2">        // We check if $3Dmol is loaded, if not we wait a fraction of a second</span>
+<span class="s2">        var checkLib = setInterval(function() </span><span class="se">{{</span>
+<span class="s2">            if (typeof $3Dmol !== &#39;undefined&#39;) </span><span class="se">{{</span>
+<span class="s2">                clearInterval(checkLib);</span>
+<span class="s2">                </span>
+<span class="s2">                var container = document.getElementById(&#39;</span><span class="si">{</span><span class="n">viewer_id</span><span class="si">}</span><span class="s2">&#39;);</span>
+<span class="s2">                var viewer = $3Dmol.createViewer(container, </span><span class="se">{{</span><span class="s2">backgroundColor: &#39;#f8f8f8&#39;</span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                </span>
+<span class="s2">                $3Dmol.download(&#39;pdb:</span><span class="si">{</span><span class="n">pdb_id</span><span class="si">}</span><span class="s2">&#39;, viewer, </span><span class="se">{{}}</span><span class="s2">, function() </span><span class="se">{{</span>
+<span class="s2">                    // 1. Full protein as very light cartoon for context</span>
+<span class="s2">                    viewer.setStyle(</span><span class="se">{{}}</span><span class="s2">, </span><span class="se">{{}}</span><span class="s2">);</span>
+<span class="s2">                    viewer.setStyle(</span><span class="se">{{</span><span class="s2">chain: &#39;A&#39;</span><span class="se">}}</span><span class="s2">, </span><span class="se">{{</span><span class="s2">cartoon: </span><span class="se">{{</span><span class="s2">color: &#39;#e8e8e8&#39;, opacity: 0.5</span><span class="se">}}}}</span><span class="s2">);</span>
+<span class="s2">                    </span>
+<span class="s2">                    // 2. Atorvastatin ligand as prominent sticks (full molecule)</span>
+<span class="s2">                    viewer.addStyle(</span><span class="se">{{</span><span class="s2">resn: &#39;</span><span class="si">{</span><span class="n">ligand_name</span><span class="si">}</span><span class="s2">&#39;, chain: &#39;A&#39;</span><span class="se">}}</span><span class="s2">, </span>
+<span class="s2">                                   </span><span class="se">{{</span><span class="s2">stick: </span><span class="se">{{</span><span class="s2">colorscheme: &#39;yellowCarbon&#39;, radius: 0.35</span><span class="se">}}}}</span><span class="s2">);</span>
+<span class="s2">                    </span>
+<span class="s2">                    // 3. K692 lysine as prominent sticks</span>
+<span class="s2">                    viewer.addStyle(</span><span class="se">{{</span><span class="s2">resi: 692, chain: &#39;A&#39;</span><span class="se">}}</span><span class="s2">, </span>
+<span class="s2">                                   </span><span class="se">{{</span><span class="s2">stick: </span><span class="se">{{</span><span class="s2">colorscheme: &#39;cyanCarbon&#39;, radius: 0.3</span><span class="se">}}}}</span><span class="s2">);</span>
+<span class="s2">                    </span>
+<span class="s2">                    // 4. Get all ligand atoms to find carboxylate oxygens</span>
+<span class="s2">                    var ligandAtoms = viewer.selectedAtoms(</span><span class="se">{{</span><span class="s2">resn: &#39;</span><span class="si">{</span><span class="n">ligand_name</span><span class="si">}</span><span class="s2">&#39;, chain: &#39;A&#39;</span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span>
+<span class="s2">                    // Find carboxylate oxygens (Logic to find O1/O2 or OXT)</span>
+<span class="s2">                    var carboxylateAtoms = ligandAtoms.filter(function(atom) </span><span class="se">{{</span>
+<span class="s2">                        return atom.elem === &#39;O&#39; &amp;&amp; (</span>
+<span class="s2">                            atom.atom === &#39;O1&#39; || </span>
+<span class="s2">                            atom.atom === &#39;O2&#39; || </span>
+<span class="s2">                            atom.atom === &#39;OXT&#39; ||</span>
+<span class="s2">                            atom.atom === &#39;O&#39; ||</span>
+<span class="s2">                            atom.atom === &#39;O3&#39; ||</span>
+<span class="s2">                            atom.atom === &#39;O4&#39;</span>
+<span class="s2">                        );</span>
+<span class="s2">                    </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span>
+<span class="s2">                    if (carboxylateAtoms.length &gt;= 2) </span><span class="se">{{</span>
+<span class="s2">                        var carboxylateSelection = carboxylateAtoms.slice(0, 2);</span>
+<span class="s2">                        </span>
+<span class="s2">                        carboxylateSelection.forEach(function(atom) </span><span class="se">{{</span>
+<span class="s2">                            viewer.addSurface($3Dmol.SurfaceType.VDW, </span><span class="se">{{</span>
+<span class="s2">                                opacity: 0.90,</span>
+<span class="s2">                                colorscheme: &#39;charge&#39;,</span>
+<span class="s2">                                vdwscaling: 1.4</span>
+<span class="s2">                            </span><span class="se">}}</span><span class="s2">, </span><span class="se">{{</span>
+<span class="s2">                                serial: atom.serial</span>
+<span class="s2">                            </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                        </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span><span class="se">}}</span><span class="s2"> else </span><span class="se">{{</span>
+<span class="s2">                        // Fallback if specific atom names aren&#39;t found</span>
+<span class="s2">                        var oxygenAtoms = ligandAtoms.filter(function(atom) </span><span class="se">{{</span>
+<span class="s2">                            return atom.elem === &#39;O&#39;;</span>
+<span class="s2">                        </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                        </span>
+<span class="s2">                        oxygenAtoms.slice(0, 2).forEach(function(atom) </span><span class="se">{{</span>
+<span class="s2">                            viewer.addSurface($3Dmol.SurfaceType.VDW, </span><span class="se">{{</span>
+<span class="s2">                                opacity: 0.90,</span>
+<span class="s2">                                colorscheme: &#39;charge&#39;,</span>
+<span class="s2">                                vdwscaling: 1.4</span>
+<span class="s2">                            </span><span class="se">}}</span><span class="s2">, </span><span class="se">{{</span>
+<span class="s2">                                serial: atom.serial</span>
+<span class="s2">                            </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                        </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span><span class="se">}}</span>
+<span class="s2">                    </span>
+<span class="s2">                    // 5. Electrostatic surface for K692 side chain</span>
+<span class="s2">                    viewer.addSurface($3Dmol.SurfaceType.VDW, </span><span class="se">{{</span>
+<span class="s2">                        opacity: 0.90,</span>
+<span class="s2">                        colorscheme: &#39;charge&#39;,</span>
+<span class="s2">                        vdwscaling: 1.3</span>
+<span class="s2">                    </span><span class="se">}}</span><span class="s2">, </span><span class="se">{{</span>
+<span class="s2">                        resi: 692,</span>
+<span class="s2">                        chain: &#39;A&#39;</span>
+<span class="s2">                    </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span>
+<span class="s2">                    // 6. Add labels</span>
+<span class="s2">                    var lysAtoms = viewer.selectedAtoms(</span><span class="se">{{</span><span class="s2">resi: 692, chain: &#39;A&#39;</span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span>
+<span class="s2">                    if (ligandAtoms.length &gt; 0) </span><span class="se">{{</span>
+<span class="s2">                        viewer.addLabel(&#39;Atorvastatin (COO⁻)&#39;, </span><span class="se">{{</span>
+<span class="s2">                            position: ligandAtoms[0],</span>
+<span class="s2">                            backgroundColor: &#39;#fef9e7&#39;,</span>
+<span class="s2">                            backgroundOpacity: 0.9,</span>
+<span class="s2">                            fontColor: &#39;#d68910&#39;,</span>
+<span class="s2">                            fontSize: 14,</span>
+<span class="s2">                            fontWeight: &#39;bold&#39;,</span>
+<span class="s2">                            borderThickness: 2,</span>
+<span class="s2">                            showBackground: true</span>
+<span class="s2">                        </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span><span class="se">}}</span>
+<span class="s2">                    </span>
+<span class="s2">                    if (lysAtoms.length &gt; 0) </span><span class="se">{{</span>
+<span class="s2">                        viewer.addLabel(&#39;Lys 692 (NH₃⁺)&#39;, </span><span class="se">{{</span>
+<span class="s2">                            position: lysAtoms[0],</span>
+<span class="s2">                            backgroundColor: &#39;#ebf5fb&#39;,</span>
+<span class="s2">                            backgroundOpacity: 0.9,</span>
+<span class="s2">                            fontColor: &#39;#1f618d&#39;,</span>
+<span class="s2">                            fontSize: 14,</span>
+<span class="s2">                            fontWeight: &#39;bold&#39;,</span>
+<span class="s2">                            borderThickness: 2,</span>
+<span class="s2">                            showBackground: true</span>
+<span class="s2">                        </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span><span class="se">}}</span>
+<span class="s2">                    </span>
+<span class="s2">                    // 7. Center view on K692 to capture both components</span>
+<span class="s2">                    viewer.zoomTo(</span><span class="se">{{</span><span class="s2">resi: 692, chain: &#39;A&#39;</span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    viewer.rotate(90, &#39;y&#39;);</span>
+<span class="s2">                    viewer.render();</span>
+<span class="s2">                </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">            </span><span class="se">}}</span>
+<span class="s2">        </span><span class="se">}}</span><span class="s2">, 100); // Check every 100ms</span>
+<span class="s2">    </span><span class="se">}}</span><span class="s2">)();</span>
+<span class="s2">    &lt;/script&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+
+<span class="n">visualize_atorvastatin_carboxylate_k692</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html">
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+
+    <div style="font-family: Arial, sans-serif; max-width: 900px; margin: 20px auto; border-radius: 12px; border: 1px solid #ddd; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div style="background: #ffffff; padding: 20px; border-bottom: 1px solid #eee;">
+            <h3 style="margin: 0; color: #333; text-align: center;">Atorvastatin Carboxylate - K692 Electrostatic Interaction</h3>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 14px; text-align: center;">
+                PDB: 1HWK (Chain A) | Ionic Interaction: COO⁻ ↔ NH₃⁺
+            </p>
+        </div>
+        <div id="viewer_963314" style="width: 100%; height: 500px; background: #f8f8f8; margin: 0; padding: 0; display: block; position: relative;"></div>
+        <div style="padding: 15px; background: #f8f9fa; font-size: 13px; line-height: 1.6; margin: 0; border-top: 1px solid #eee;">
+            <div style="margin: 0;"><strong>Visualization Key:</strong></div>
+            <div style="margin-top: 8px;">
+                • <b>Protein Context:</b> Light gray cartoon (low opacity)<br>
+                • <b>Atorvastatin:</b> Yellow carbon sticks (full molecule)<br>
+                • <b>Carboxylate Group (COO⁻):</b> <span style="color: #e74c3c; font-weight: bold;">Red surface</span> indicating negative charge<br>
+                • <b>K692 (Lysine):</b> Cyan sticks with <span style="color: #3498db; font-weight: bold;">blue surface</span> indicating positive charge (NH₃⁺)<br>
+                • <b>Interaction:</b> Ionic attraction (~5-10 kcal/mol) between complementary charges
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+        // We check if $3Dmol is loaded, if not we wait a fraction of a second
+        var checkLib = setInterval(function() {
+            if (typeof $3Dmol !== 'undefined') {
+                clearInterval(checkLib);
+                
+                var container = document.getElementById('viewer_963314');
+                var viewer = $3Dmol.createViewer(container, {backgroundColor: '#f8f8f8'});
+                
+                $3Dmol.download('pdb:1HWK', viewer, {}, function() {
+                    // 1. Full protein as very light cartoon for context
+                    viewer.setStyle({}, {});
+                    viewer.setStyle({chain: 'A'}, {cartoon: {color: '#e8e8e8', opacity: 0.5}});
+                    
+                    // 2. Atorvastatin ligand as prominent sticks (full molecule)
+                    viewer.addStyle({resn: '117', chain: 'A'}, 
+                                   {stick: {colorscheme: 'yellowCarbon', radius: 0.35}});
+                    
+                    // 3. K692 lysine as prominent sticks
+                    viewer.addStyle({resi: 692, chain: 'A'}, 
+                                   {stick: {colorscheme: 'cyanCarbon', radius: 0.3}});
+                    
+                    // 4. Get all ligand atoms to find carboxylate oxygens
+                    var ligandAtoms = viewer.selectedAtoms({resn: '117', chain: 'A'});
+                    
+                    // Find carboxylate oxygens (Logic to find O1/O2 or OXT)
+                    var carboxylateAtoms = ligandAtoms.filter(function(atom) {
+                        return atom.elem === 'O' && (
+                            atom.atom === 'O1' || 
+                            atom.atom === 'O2' || 
+                            atom.atom === 'OXT' ||
+                            atom.atom === 'O' ||
+                            atom.atom === 'O3' ||
+                            atom.atom === 'O4'
+                        );
+                    });
+                    
+                    if (carboxylateAtoms.length >= 2) {
+                        var carboxylateSelection = carboxylateAtoms.slice(0, 2);
+                        
+                        carboxylateSelection.forEach(function(atom) {
+                            viewer.addSurface($3Dmol.SurfaceType.VDW, {
+                                opacity: 0.90,
+                                colorscheme: 'charge',
+                                vdwscaling: 1.4
+                            }, {
+                                serial: atom.serial
+                            });
+                        });
+                    } else {
+                        // Fallback if specific atom names aren't found
+                        var oxygenAtoms = ligandAtoms.filter(function(atom) {
+                            return atom.elem === 'O';
+                        });
+                        
+                        oxygenAtoms.slice(0, 2).forEach(function(atom) {
+                            viewer.addSurface($3Dmol.SurfaceType.VDW, {
+                                opacity: 0.90,
+                                colorscheme: 'charge',
+                                vdwscaling: 1.4
+                            }, {
+                                serial: atom.serial
+                            });
+                        });
+                    }
+                    
+                    // 5. Electrostatic surface for K692 side chain
+                    viewer.addSurface($3Dmol.SurfaceType.VDW, {
+                        opacity: 0.90,
+                        colorscheme: 'charge',
+                        vdwscaling: 1.3
+                    }, {
+                        resi: 692,
+                        chain: 'A'
+                    });
+                    
+                    // 6. Add labels
+                    var lysAtoms = viewer.selectedAtoms({resi: 692, chain: 'A'});
+                    
+                    if (ligandAtoms.length > 0) {
+                        viewer.addLabel('Atorvastatin (COO⁻)', {
+                            position: ligandAtoms[0],
+                            backgroundColor: '#fef9e7',
+                            backgroundOpacity: 0.9,
+                            fontColor: '#d68910',
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                            borderThickness: 2,
+                            showBackground: true
+                        });
+                    }
+                    
+                    if (lysAtoms.length > 0) {
+                        viewer.addLabel('Lys 692 (NH₃⁺)', {
+                            position: lysAtoms[0],
+                            backgroundColor: '#ebf5fb',
+                            backgroundOpacity: 0.9,
+                            fontColor: '#1f618d',
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                            borderThickness: 2,
+                            showBackground: true
+                        });
+                    }
+                    
+                    // 7. Center view on K692 to capture both components
+                    viewer.zoomTo({resi: 692, chain: 'A'});
+                    viewer.rotate(90, 'y');
+                    viewer.render();
+                });
+            }
+        }, 100); // Check every 100ms
+    })();
+    </script>
+    </div></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>4. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Precision Oncology with Kinase Inhibitors:</strong> The design of Imatinib (Gleevec) is a landmark case in precision medicine. Its high affinity and specificity for the ABL kinase are critically dependent on a specific salt bridge with residue Glu286. This application demonstrates how targeting a single, well-placed electrostatic interaction can be the difference between a successful targeted therapy for chronic myeloid leukemia (CML) and a non-specific, toxic compound.</p></li>
+<li><p><strong>Symptomatic Treatment of Alzheimer’s Disease:</strong> The cation-pi interaction is the cornerstone of Donepezil’s (Aricept) mechanism. This powerful force allows the drug to potently and selectively inhibit the acetylcholinesterase enzyme in the brain. This real-world application shows how cation-pi interactions can be exploited to achieve high potency, even in the competitive, water-filled environment of an enzyme active site.</p></li>
+<li><p><strong>Chemotherapy via DNA Intercalation:</strong> The anticancer activity of drugs like Daunorubicin relies on pi-pi stacking. The drug’s flat, aromatic structure slides between the base pairs of DNA, physically distorting the helix. This application illustrates how pi-pi stacking can be used to disrupt fundamental biological processes like DNA replication, forming the basis of a powerful chemotherapeutic strategy against certain leukemias.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>5. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the structural basis and energetic contributions of three powerful non-covalent interactions that are vital for drug design. We learned to identify, visualize, and appreciate their role in creating high-affinity ligands.</p>
+<ul class="simple">
+<li><p><strong>Electrostatic interactions</strong> are powerful binding forces (5-10 kcal/mol for salt bridges) that provide both affinity and selectivity through long-range, directional charge complementarity between drugs and protein binding sites.</p></li>
+<li><p><strong>Electrostatic complementarity</strong> drives selectivity; drugs achieve target specificity by matching their charge distribution to the unique electrostatic landscape of the binding site, as seen in atorvastatin’s selectivity for HMG-CoA reductase.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2.11_van_der_waals_forces_and_hydrophobic_effects.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 2: Van der Waals forces and Hydrophobic Interactions in Ligand-protein Interactions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3.1_basic_concepts_of_enthalpy_and_entropy.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 3: The Thermodynamics of Binding: Entropy and Enthalpy in Drug Discovery</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types-and-strengths-of-electrostatic-interactions">3.1 Types and Strengths of Electrostatic Interactions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-and-geometry-dependence">3.2 Distance and Geometry Dependence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-in-binding-affinity-and-selectivity">3.3 Role in Binding Affinity and Selectivity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">4. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">5. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
