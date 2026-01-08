@@ -85,7 +85,7 @@ class StudentAuth {
                         type="email" 
                         id="student-email" 
                         required 
-                        placeholder="your.email@university.edu"
+                        placeholder="your NUS student email address"
                         style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;"
                     />
                 </div>
