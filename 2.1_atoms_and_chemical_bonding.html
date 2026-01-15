@@ -59,6 +59,9 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '2.1_atoms_and_chemical_bonding';</script>
     <script src="_static/custom-thebe.js?v=895bbc1d"></script>
+    <script src="_static/student-auth.js?v=627e5815"></script>
+    <script src="_static/student-tracker.js?v=cbd4553a"></script>
+    <script src="_static/tracker-config.js?v=218cb5f6"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Chapter 2: Common Functional Groups in Drugs" href="2.2_common_functional_groups_in_drug_molecules.html" />
@@ -684,11 +687,11 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output text_html">
 <div style="font-family: sans-serif; max-width: 850px;">
-    <div id="buttons_e3b43ed3" style="margin-bottom: 15px; text-align: center;">
-        <button onclick="window.showDrug_e3b43ed3('Aspirin')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Aspirin</button><button onclick="window.showDrug_e3b43ed3('Paracetamol')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Paracetamol</button><button onclick="window.showDrug_e3b43ed3('Ibuprofen')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Ibuprofen</button><button onclick="window.showDrug_e3b43ed3('Caffeine')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Caffeine</button><button onclick="window.showDrug_e3b43ed3('Penicillin G')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Penicillin G</button>
+    <div id="buttons_9d1a6716" style="margin-bottom: 15px; text-align: center;">
+        <button onclick="window.showDrug_9d1a6716('Aspirin')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Aspirin</button><button onclick="window.showDrug_9d1a6716('Paracetamol')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Paracetamol</button><button onclick="window.showDrug_9d1a6716('Ibuprofen')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Ibuprofen</button><button onclick="window.showDrug_9d1a6716('Caffeine')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Caffeine</button><button onclick="window.showDrug_9d1a6716('Penicillin G')" style="margin: 4px; padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc; background-color: #eef; cursor: pointer; font-weight: bold;">Penicillin G</button>
     </div>
     
-    <div id="desc_e3b43ed3" style="background-color: #f9f9fa; padding: 10px; border-left: 4px solid #007bff; margin-bottom: 15px; border-radius: 4px; min-height: 40px;">
+    <div id="desc_9d1a6716" style="background-color: #f9f9fa; padding: 10px; border-left: 4px solid #007bff; margin-bottom: 15px; border-radius: 4px; min-height: 40px;">
         Select a drug to see its description.
     </div>
 
@@ -696,13 +699,13 @@ document.write(`
         
         <div style="width: 48%;">
             <div style="text-align: center; font-weight: bold; margin-bottom: 5px;">2D Structure (Chemical Graph)</div>
-            <div id="viewer_2d_e3b43ed3" style="width: 100%; height: 400px; border: 1px solid #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; background-color: white;">
+            <div id="viewer_2d_9d1a6716" style="width: 100%; height: 400px; border: 1px solid #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; background-color: white;">
                 </div>
         </div>
         
         <div style="width: 48%;">
              <div style="text-align: center; font-weight: bold; margin-bottom: 5px;">3D Conformer</div>
-             <div id="viewer_3d_e3b43ed3" style="width: 100%; height: 400px; position: relative; border: 1px solid #ddd; border-radius: 8px;"></div>
+             <div id="viewer_3d_9d1a6716" style="width: 100%; height: 400px; position: relative; border: 1px solid #ddd; border-radius: 8px;"></div>
         </div>
     </div>
 </div>
@@ -715,8 +718,8 @@ document.write(`
         const descriptions = {"Aspirin": "A non-steroidal anti-inflammatory drug (NSAID) used to reduce pain, fever, and inflammation.", "Paracetamol": "A common medication used to treat mild to moderate pain and fever.", "Ibuprofen": "An NSAID used for treating pain, fever, and inflammation. It works by inhibiting cyclooxygenase (COX) enzymes.", "Caffeine": "A central nervous system stimulant associated with alertness and preventing tiredness.", "Penicillin G": "An antibiotic used to treat a wide variety of bacterial infections."};
         
         let viewer_3d = null;
-        const viewer_2d = document.getElementById('viewer_2d_e3b43ed3');
-        const desc_div = document.getElementById('desc_e3b43ed3');
+        const viewer_2d = document.getElementById('viewer_2d_9d1a6716');
+        const desc_div = document.getElementById('desc_9d1a6716');
         
         // Check for 3Dmol
         let scriptLoaded = typeof $3Dmol !== 'undefined';
@@ -724,12 +727,12 @@ document.write(`
         function init3DMol() {
             try {
                 viewer_3d = $3Dmol.createViewer(
-                    document.getElementById('viewer_3d_e3b43ed3'),
+                    document.getElementById('viewer_3d_9d1a6716'),
                     {backgroundColor: 'white'}
                 );
                 
                 // Global function to switch drugs
-                window.showDrug_e3b43ed3 = function(name) {
+                window.showDrug_9d1a6716 = function(name) {
                     if (!viewer_3d || !viewer_2d) return;
                     
                     // 1. Update Description
@@ -754,7 +757,7 @@ document.write(`
                 
                 // Initialize with the first drug in the list
                 const firstDrug = Object.keys(structures_pdb)[0];
-                if(firstDrug) window.showDrug_e3b43ed3(firstDrug);
+                if(firstDrug) window.showDrug_9d1a6716(firstDrug);
                 
             } catch(e) {
                 console.error('Error initializing 3Dmol:', e);
@@ -777,7 +780,7 @@ document.write(`
 </section>
 <section id="electronegativity-and-bond-polarity">
 <h3>3.3 Electronegativity and Bond Polarity<a class="headerlink" href="#electronegativity-and-bond-polarity" title="Link to this heading">#</a></h3>
-<p>Different atoms have different electronegativities. Electronegativity refers to ability of an atom to pull and electron toewards itself.
+<p>Different atoms have different electronegativities. Electronegativity refers to ability of an atom to pull an electron towards itself.
 The electronegativity of an atom can be expressed in terms of Pauling scale values.</p>
 <p>For example, fluorine has an electronegativity of 3.98 on the Pauling scale, while carbon has an electronegativity value of 2.55.
 Therefore, fluorine is more electronegative than carbon.</p>
@@ -924,6 +927,12 @@ By Dr Xavier Chee
   
   <div class="footer-item">
     
+<div class="extra_footer">
+  <script src="_static/tracker-config.js"></script>
+<script src="_static/student-auth.js"></script>
+<script src="_static/student-tracker.js"></script>
+
+</div>
   </div>
   
 </div>
