@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHM5013 - Project Check-in Scheduler</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #E8F4F8 0%, #FFFFFF 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 50%, #3498DB 100%);
+            border-radius: 12px;
+            padding: 35px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(10, 77, 143, 0.25);
+        }
+        
+        .header h1 {
+            color: #FFFFFF;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .header p {
+            color: #E8F4F8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        /* Instructions Box */
+        .instructions {
+            background: #E8F4F8;
+            border-left: 4px solid #1B74BD;
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin-bottom: 35px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .instructions h3 {
+            color: #0A4D8F;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .instructions ul {
+            color: #1A1A2E;
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .instructions strong {
+            color: #0A4D8F;
+        }
+        
+        /* Booking Form */
+        .booking-form {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .booking-form.active {
+            display: block;
+        }
+        
+        .form-title {
+            color: #0A4D8F;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498DB;
+            display: inline-block;
+        }
+        
+        .selected-time {
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+            color: #FFFFFF;
+            padding: 20px 24px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .selected-time p:first-child {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .selected-time p:last-child {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #1A1A2E;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            max-width: 600px;
+            padding: 12px 16px;
+            border: 2px solid #E8F4F8;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498DB;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: Arial, sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(10, 77, 143, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(10, 77, 143, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #FFFFFF;
+            color: #4A5568;
+            border: 2px solid #E8F4F8;
+        }
+        
+        .btn-secondary:hover {
+            background: #F8F9FA;
+            border-color: #D1D5DB;
+        }
+        
+        /* Schedule Section */
+        .schedule-section {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .schedule-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .schedule-date h2 {
+            color: #0A4D8F;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .schedule-date p {
+            color: #4A5568;
+            font-size: 1.1rem;
+        }
+        
+        .schedule-badge {
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .time-slot {
+            flex: 1 1 180px;
+            min-width: 180px;
+            padding: 18px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid #3498DB;
+            background: #FFFFFF;
+            color: #1A1A2E;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+        }
+        
+        .time-slot:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+            background: linear-gradient(135deg, #E8F4F8 0%, #FFFFFF 100%);
+        }
+        
+        .time-slot.booked {
+            background: #E8F4F8;
+            color: #9CA3AF;
+            border-color: #D1D5DB;
+            cursor: not-allowed;
+            opacity: 0.6;
+            box-shadow: none;
+        }
+        
+        .time-slot.booked:hover {
+            transform: none;
+            background: #E8F4F8;
+        }
+        
+        .time-slot.booked::after {
+            content: " (Booked)";
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 4px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 12px 48px rgba(10, 77, 143, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #FFFFFF;
+        }
+        
+        .modal-content h2 {
+            color: #0A4D8F;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .booking-details {
+            background: #E8F4F8;
+            border-left: 4px solid #3498DB;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 25px 0;
+        }
+        
+        .booking-details p {
+            color: #1A1A2E;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        .booking-details p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .booking-details strong {
+            color: #0A4D8F;
+        }
+        
+        .preparation-checklist {
+            background: #FFF3CD;
+            border-left: 4px solid #FFC107;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 25px;
+        }
+        
+        .preparation-checklist h3 {
+            color: #856404;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .preparation-checklist ul {
+            color: #856404;
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .preparation-checklist strong {
+            font-weight: 700;
+        }
+        
+        .modal-footer {
+            color: #4A5568;
+            text-align: center;
+            margin: 0 0 20px 0;
+            font-size: 0.95rem;
+        }
+        
+        .btn-close {
+            width: 100%;
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+            color: #FFFFFF;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(10, 77, 143, 0.3);
+        }
+        
+        .btn-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(10, 77, 143, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .schedule-date h2 {
+                font-size: 1.5rem;
+            }
+            
+            .time-slot {
+                flex: 1 1 140px;
+                min-width: 140px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Project Check-in Scheduler</h1>
+            <p>PHM5013 Precision Drug Discovery and Development<br>
+            Schedule your group's project check-in with Dr. Xavier Chee</p>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3>📋 Instructions for Group Representatives</h3>
+            <ul>
+                <li><strong>One booking per group</strong> - Group representative should schedule on behalf of the entire group</li>
+                <li>Each check-in session is <strong>30 minutes</strong></li>
+                <li>Select an available time slot below</li>
+                <li>Fill in your group details in the booking form</li>
+                <li>Booked slots appear greyed out and are unavailable</li>
+                <li>All group members should attend the scheduled check-in</li>
+            </ul>
+        </div>
+
+        <!-- Check-in Color Legend -->
+        <div style="background: #FFFFFF; border-radius: 12px; padding: 25px 30px; margin-bottom: 35px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);">
+            <h3 style="color: #1A1A2E; font-size: 1.2rem; font-weight: 600; margin-bottom: 15px;">Check-in Schedule Legend</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%); flex-shrink: 0;"></div>
+                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 1</span>
+                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 3: Jan 26-29)</span>
+                </div>
+                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%); flex-shrink: 0;"></div>
+                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 2</span>
+                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 5: Feb 9-12)</span>
+                </div>
+                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #EA580C 0%, #F97316 100%); flex-shrink: 0;"></div>
+                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 3</span>
+                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 9: Mar 23-25)</span>
+                </div>
+                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%); flex-shrink: 0;"></div>
+                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 4</span>
+                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 12: Apr 6-9)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Form (Hidden Initially) -->
+        <div class="booking-form" id="bookingForm">
+            <h3 class="form-title">Group Booking Details</h3>
+            
+            <div class="selected-time" id="selectedTimeDisplay">
+                <p>Selected Time Slot:</p>
+                <p id="selectedTimeText"></p>
+            </div>
+            
+            <div class="form-group">
+                <label for="groupName">Group Name / Number *</label>
+                <input type="text" id="groupName" placeholder="e.g., Group 3" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="repName">Group Representative Name *</label>
+                <input type="text" id="repName" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="repEmail">Group Representative Email *</label>
+                <input type="email" id="repEmail" placeholder="e.g., your.email@u.nus.edu" required>
+            </div>
+            
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="confirmBooking()">Confirm Booking</button>
+                <button class="btn btn-secondary" onclick="cancelBooking()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Schedule Container -->
+        <div id="scheduleContainer"></div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">✓</div>
+            <h2>Booking Confirmed!</h2>
+            
+            <div class="booking-details" id="bookingDetails">
+                <p><strong>Date & Time:</strong> <span id="bookedDateTime"></span></p>
+                <p><strong>Purpose:</strong> <span id="bookedPurpose"></span></p>
+                <p><strong>Group:</strong> <span id="bookedGroup"></span></p>
+                <p><strong>Representative:</strong> <span id="bookedRep"></span></p>
+            </div>
+
+            <div class="preparation-checklist">
+                <h3>📊 Preparation Checklist</h3>
+                <ul>
+                    <li><strong>Prepare PowerPoint slides</strong> (5-10 slides recommended) summarizing your progress</li>
+                    <li>Include: Research question, methodology, preliminary results, and challenges</li>
+                    <li>Show data visualizations, QSAR models, docking results, or MD simulations as applicable</li>
+                    <li>Prepare <strong>specific questions</strong> where you need Dr. Chee's guidance</li>
+                    <li>Discuss your next steps and timeline for project completion</li>
+                    <li><strong>All group members</strong> should be familiar with the presentation</li>
+                    <li>Test your presentation setup before the meeting</li>
+                    <li>Aim to maximize the 30-minute session with focused, productive discussion</li>
+                </ul>
+            </div>
+            
+            <p class="modal-footer">A confirmation email has been sent to <span id="confirmedEmail"></span></p>
+            
+            <button class="btn-close" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Schedule data from Excel
+        const scheduleData = [
+            { date: '2026-01-26', time: '17:00:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-26', time: '17:30:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-27', time: '12:00:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-27', time: '12:30:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-27', time: '17:00:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-27', time: '17:30:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-28', time: '17:00:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-28', time: '17:30:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-29', time: '17:00:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-01-29', time: '17:30:00', purpose: 'Check in 1', booked: false },
+            { date: '2026-02-09', time: '17:00:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-09', time: '17:30:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-10', time: '12:00:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-10', time: '12:30:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-10', time: '14:30:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-10', time: '15:00:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-12', time: '16:00:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-12', time: '16:30:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-12', time: '17:00:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-02-12', time: '17:30:00', purpose: 'Check in 2', booked: false },
+            { date: '2026-03-23', time: '12:00:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-23', time: '12:30:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-23', time: '17:00:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-23', time: '17:30:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-24', time: '12:00:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-24', time: '12:30:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-24', time: '17:00:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-24', time: '17:30:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-25', time: '17:00:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-03-25', time: '17:30:00', purpose: 'Check in 3', booked: false },
+            { date: '2026-04-06', time: '17:00:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-06', time: '17:30:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-07', time: '12:00:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-07', time: '12:30:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-07', time: '17:00:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-07', time: '17:30:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-08', time: '17:00:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-08', time: '17:30:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-09', time: '17:00:00', purpose: 'Check in 4', booked: false },
+            { date: '2026-04-09', time: '17:30:00', purpose: 'Check in 4', booked: false }
+        ];
+
+        let selectedSlot = null;
+
+        // Color coding for different check-ins
+        function getCheckInColors(purpose) {
+            const colors = {
+                'Check in 1': {
+                    primary: '#0A4D8F',
+                    secondary: '#1B74BD',
+                    light: '#E8F4F8',
+                    gradient: 'linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%)'
+                },
+                'Check in 2': {
+                    primary: '#16A34A',
+                    secondary: '#22C55E',
+                    light: '#DCFCE7',
+                    gradient: 'linear-gradient(135deg, #16A34A 0%, #22C55E 100%)'
+                },
+                'Check in 3': {
+                    primary: '#EA580C',
+                    secondary: '#F97316',
+                    light: '#FFEDD5',
+                    gradient: 'linear-gradient(135deg, #EA580C 0%, #F97316 100%)'
+                },
+                'Check in 4': {
+                    primary: '#7C3AED',
+                    secondary: '#8B5CF6',
+                    light: '#EDE9FE',
+                    gradient: 'linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%)'
+                }
+            };
+            return colors[purpose] || colors['Check in 1'];
+        }
+
+        // Helper: Get day of week
+        function getDayOfWeek(dateString) {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const date = new Date(dateString + 'T00:00:00');
+            return days[date.getDay()];
+        }
+
+        // Helper: Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString + 'T00:00:00');
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Helper: Format time
+        function formatTime(timeString) {
+            const [hours, minutes] = timeString.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+            return `${displayHour}:${minutes} ${ampm}`;
+        }
+
+        // Group schedule by date
+        function groupByDate(data) {
+            const grouped = {};
+            data.forEach(slot => {
+                if (!grouped[slot.date]) {
+                    grouped[slot.date] = [];
+                }
+                grouped[slot.date].push(slot);
+            });
+            return grouped;
+        }
+
+        // Load booked slots from localStorage
+        function loadBookedSlots() {
+            const booked = localStorage.getItem('phm5013_bookings');
+            if (booked) {
+                const bookedSlots = JSON.parse(booked);
+                bookedSlots.forEach(bookedSlot => {
+                    const slot = scheduleData.find(s => 
+                        s.date === bookedSlot.date && s.time === bookedSlot.time
+                    );
+                    if (slot) {
+                        slot.booked = true;
+                        slot.bookingInfo = bookedSlot;
+                    }
+                });
+            }
+        }
+
+        // Save booked slot to localStorage
+        function saveBookedSlot(bookingData) {
+            const booked = localStorage.getItem('phm5013_bookings');
+            const bookings = booked ? JSON.parse(booked) : [];
+            bookings.push(bookingData);
+            localStorage.setItem('phm5013_bookings', JSON.stringify(bookings));
+        }
+
+        // Render schedule
+        function renderSchedule() {
+            const container = document.getElementById('scheduleContainer');
+            const grouped = groupByDate(scheduleData);
+            const sortedDates = Object.keys(grouped).sort();
+            
+            let html = '';
+            
+            sortedDates.forEach(date => {
+                const dayOfWeek = getDayOfWeek(date);
+                const formattedDate = formatDate(date);
+                const slots = grouped[date];
+                const purpose = slots[0].purpose;
+                const colors = getCheckInColors(purpose);
+                
+                html += `
+                    <div class="schedule-section">
+                        <div class="schedule-header">
+                            <div class="schedule-date">
+                                <h2>${dayOfWeek}</h2>
+                                <p>${formattedDate}</p>
+                            </div>
+                            <div class="schedule-badge" style="background: ${colors.gradient};">${purpose}</div>
+                        </div>
+                        <div class="time-slots">
+                `;
+                
+                slots.forEach(slot => {
+                    const isBooked = slot.booked;
+                    const bookedClass = isBooked ? 'booked' : '';
+                    const onclick = isBooked ? '' : `onclick="selectSlot('${date}', '${slot.time}', '${slot.purpose}')"`;
+                    
+                    html += `
+                        <button class="time-slot ${bookedClass}" ${onclick}>
+                            ${formatTime(slot.time)}
+                        </button>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Select time slot
+        function selectSlot(date, time, purpose) {
+            selectedSlot = { date, time, purpose };
+            
+            const dayOfWeek = getDayOfWeek(date);
+            const formattedDate = formatDate(date);
+            const formattedTime = formatTime(time);
+            const colors = getCheckInColors(purpose);
+            
+            document.getElementById('selectedTimeText').textContent = 
+                `${dayOfWeek}, ${formattedDate} at ${formattedTime}`;
+            
+            // Update selected time display color
+            const selectedTimeDisplay = document.getElementById('selectedTimeDisplay');
+            selectedTimeDisplay.style.background = colors.gradient;
+            
+            document.getElementById('bookingForm').classList.add('active');
+            document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Clear form
+            document.getElementById('groupName').value = '';
+            document.getElementById('repName').value = '';
+            document.getElementById('repEmail').value = '';
+        }
+
+        // Cancel booking
+        function cancelBooking() {
+            selectedSlot = null;
+            document.getElementById('bookingForm').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Validate email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Confirm booking
+        function confirmBooking() {
+            const groupName = document.getElementById('groupName').value.trim();
+            const repName = document.getElementById('repName').value.trim();
+            const repEmail = document.getElementById('repEmail').value.trim();
+            
+            // Validation
+            if (!groupName || !repName || !repEmail) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            if (!validateEmail(repEmail)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // Create booking data
+            const bookingData = {
+                date: selectedSlot.date,
+                time: selectedSlot.time,
+                purpose: selectedSlot.purpose,
+                groupName,
+                repName,
+                repEmail,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Mark slot as booked
+            const slotIndex = scheduleData.findIndex(
+                slot => slot.date === selectedSlot.date && slot.time === selectedSlot.time
+            );
+            
+            if (slotIndex !== -1) {
+                scheduleData[slotIndex].booked = true;
+                scheduleData[slotIndex].bookingInfo = bookingData;
+                saveBookedSlot(bookingData);
+            }
+            
+            // Send to Power Automate
+            sendToPowerAutomate(bookingData);
+            
+            // Show success modal
+            showSuccessModal(bookingData);
+            
+            // Re-render schedule
+            renderSchedule();
+            
+            // Hide booking form
+            document.getElementById('bookingForm').classList.remove('active');
+        }
+
+        // Show success modal
+        function showSuccessModal(data) {
+            const dayOfWeek = getDayOfWeek(data.date);
+            const formattedDate = formatDate(data.date);
+            const formattedTime = formatTime(data.time);
+            
+            document.getElementById('bookedDateTime').textContent = 
+                `${dayOfWeek}, ${formattedDate} at ${formattedTime}`;
+            document.getElementById('bookedPurpose').textContent = data.purpose;
+            document.getElementById('bookedGroup').textContent = data.groupName;
+            document.getElementById('bookedRep').textContent = data.repName;
+            document.getElementById('confirmedEmail').textContent = data.repEmail;
+            
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+            selectedSlot = null;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Send to Power Automate
+        function sendToPowerAutomate(data) {
+            // Replace with your Power Automate webhook URL
+            const webhookUrl = 'YOUR_POWER_AUTOMATE_WEBHOOK_URL';
+            
+            // For production, uncomment this:
+            /*
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your booking. Please contact Dr. Chee directly.');
+            });
+            */
+            
+            // For testing:
+            console.log('Booking data to be sent to Power Automate:', data);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookedSlots();
+            renderSchedule();
+        });
+    </script>
+</body>
+</html>
