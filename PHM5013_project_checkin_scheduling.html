@@ -677,7 +677,7 @@
         
         const CONFIG = {
             // Power Automate: Flow that READS from Excel and returns JSON
-            READ_WEBHOOK_URL: 'YOUR_READ_FLOW_URL_HERE',
+            READ_WEBHOOK_URL: 'https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/4a4ca051851241f4bcaddbdf0bbb29f4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=e1ymbVI6s9sQqrezfHtf4RdKiE2im0-cGG2ibsLdczU',
             
             // Power Automate: Flow that WRITES booking to Excel
             WRITE_WEBHOOK_URL: 'https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/79c738df2baa4ec4a22e8fecaae3b7cc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KwDQUdQMooEbUMW6d2Y5RvfRPP5ZpYB8W-O71k2pC4w',
@@ -861,7 +861,7 @@
         // =============================================================================
         
         async function fetchScheduleFromExcel() {
-            if (CONFIG.USE_FALLBACK_DATA || CONFIG.READ_WEBHOOK_URL === 'YOUR_READ_FLOW_URL_HERE') {
+            if (CONFIG.USE_FALLBACK_DATA || CONFIG.READ_WEBHOOK_URL === 'https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/4a4ca051851241f4bcaddbdf0bbb29f4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=e1ymbVI6s9sQqrezfHtf4RdKiE2im0-cGG2ibsLdczU') {
                 console.log('Using fallback schedule data');
                 return getFallbackScheduleData();
             }
