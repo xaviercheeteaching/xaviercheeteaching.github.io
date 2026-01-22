@@ -23,7 +23,6 @@
             margin: 0 auto;
         }
         
-        /* Header */
         .header {
             background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 50%, #3498DB 100%);
             border-radius: 12px;
@@ -47,7 +46,6 @@
             margin: 0;
         }
         
-        /* Loading State */
         .loading-container {
             text-align: center;
             padding: 60px 20px;
@@ -76,7 +74,6 @@
             font-size: 1.1rem;
         }
         
-        /* Error State */
         .error-container {
             text-align: center;
             padding: 40px 20px;
@@ -111,7 +108,6 @@
             background: #B91C1C;
         }
         
-        /* Instructions Box */
         .instructions {
             background: #E8F4F8;
             border-left: 4px solid #1B74BD;
@@ -138,7 +134,6 @@
             color: #0A4D8F;
         }
         
-        /* Legend */
         .legend {
             background: #FFFFFF;
             border-radius: 12px;
@@ -184,7 +179,6 @@
             font-size: 0.9rem;
         }
         
-        /* Booking Form */
         .booking-form {
             background: #FFFFFF;
             border-radius: 12px;
@@ -239,8 +233,7 @@
             font-size: 1rem;
         }
         
-        .form-group input,
-        .form-group textarea {
+        .form-group input {
             width: 100%;
             max-width: 600px;
             padding: 12px 16px;
@@ -251,8 +244,7 @@
             transition: border-color 0.3s ease;
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group input:focus {
             outline: none;
             border-color: #3498DB;
         }
@@ -307,7 +299,6 @@
             border-color: #D1D5DB;
         }
         
-        /* Schedule Section */
         .schedule-section {
             background: #FFFFFF;
             border-radius: 12px;
@@ -405,7 +396,6 @@
             color: #9CA3AF;
         }
         
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -532,7 +522,6 @@
             box-shadow: 0 6px 16px rgba(10, 77, 143, 0.4);
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -555,13 +544,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>Project Check-in Scheduler</h1>
             <p>PHM5013 Precision Drug Discovery and Development</p>
         </div>
 
-        <!-- Instructions -->
         <div class="instructions">
             <h3>Instructions for Group Representatives</h3>
             <ul>
@@ -574,34 +561,32 @@
             </ul>
         </div>
 
-        <!-- Legend -->
         <div class="legend">
             <h3>Check-in Schedule Legend</h3>
             <div class="legend-items">
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);"></div>
-                    <span>Check-in 1</span>
+                    <span>Check in 1</span>
                     <span>(Week 3: Jan 26-29)</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%);"></div>
-                    <span>Check-in 2</span>
+                    <span>Check in 2</span>
                     <span>(Week 5: Feb 9-12)</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);"></div>
-                    <span>Check-in 3</span>
+                    <span>Check in 3</span>
                     <span>(Week 9: Mar 23-25)</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-color" style="background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);"></div>
-                    <span>Check-in 4</span>
+                    <span>Check in 4</span>
                     <span>(Week 12: Apr 6-9)</span>
                 </div>
             </div>
         </div>
 
-        <!-- Booking Form (Hidden Initially) -->
         <div class="booking-form" id="bookingForm">
             <h3 class="form-title">Group Booking Details</h3>
             
@@ -631,24 +616,20 @@
             </div>
         </div>
 
-        <!-- Loading State -->
         <div class="loading-container" id="loadingState">
             <div class="loading-spinner"></div>
             <p class="loading-text">Loading available time slots...</p>
         </div>
 
-        <!-- Error State (Hidden Initially) -->
         <div class="error-container" id="errorState" style="display: none;">
             <h3>Unable to Load Schedule</h3>
             <p id="errorMessage">Please check your connection and try again.</p>
             <button class="btn-retry" onclick="loadSchedule()">Retry</button>
         </div>
 
-        <!-- Schedule Container -->
         <div id="scheduleContainer"></div>
     </div>
 
-    <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
             <div class="modal-icon success">✓</div>
@@ -678,7 +659,6 @@
         </div>
     </div>
 
-    <!-- Error Modal -->
     <div class="modal" id="errorModal">
         <div class="modal-content">
             <div class="modal-icon error">✕</div>
@@ -692,24 +672,22 @@
 
     <script>
         // =============================================================================
-        // CONFIGURATION
+        // CONFIGURATION - UPDATE THESE URLs
         // =============================================================================
         
         const CONFIG = {
-            // Power Automate webhook URL for READING schedule from Excel
-            // This flow should: Read Excel → Return JSON array of slots
-            READ_WEBHOOK_URL: 'YOUR_READ_WEBHOOK_URL_HERE',
+            // Power Automate: Flow that READS from Excel and returns JSON
+            READ_WEBHOOK_URL: 'YOUR_READ_FLOW_URL_HERE',
             
-            // Power Automate webhook URL for WRITING bookings to Excel
-            // This flow should: Receive booking data → Write to Excel → Return success/error
-            WRITE_WEBHOOK_URL: 'https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/79c738df2baa4ec4a22e8fecaae3b7cc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KwDQUdQMooEbUMW6d2Y5RvfRPP5ZpYB8W-O71k2pC4w',
+            // Power Automate: Flow that WRITES booking to Excel
+            WRITE_WEBHOOK_URL: 'YOUR_WRITE_FLOW_URL_HERE',
             
-            // Set to true to use fallback data when READ webhook is not configured
+            // Set to false once your READ flow is working
             USE_FALLBACK_DATA: true
         };
 
         // =============================================================================
-        // STATE MANAGEMENT
+        // STATE
         // =============================================================================
         
         let scheduleData = [];
@@ -717,7 +695,7 @@
         let isSubmitting = false;
 
         // =============================================================================
-        // COLOR SCHEME FOR CHECK-INS
+        // COLOR SCHEME
         // =============================================================================
         
         const CHECK_IN_COLORS = {
@@ -744,27 +722,67 @@
         }
 
         // =============================================================================
-        // UTILITY FUNCTIONS
+        // DATE/TIME UTILITIES - MATCHING YOUR EXCEL FORMAT
         // =============================================================================
         
-        function getDayOfWeek(dateString) {
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const date = new Date(dateString + 'T00:00:00');
-            return days[date.getDay()];
+        // Parse Excel date format: "26-Jan-2026" → Date object
+        function parseExcelDate(dateStr) {
+            if (!dateStr) return null;
+            
+            // Handle different formats
+            if (dateStr instanceof Date) return dateStr;
+            
+            // Format: "26-Jan-2026"
+            const months = {
+                'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+                'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+            };
+            
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                const day = parseInt(parts[0]);
+                const month = months[parts[1]];
+                const year = parseInt(parts[2]);
+                if (!isNaN(day) && month !== undefined && !isNaN(year)) {
+                    return new Date(year, month, day);
+                }
+            }
+            
+            // Fallback: try native parsing
+            return new Date(dateStr);
         }
 
-        function formatDate(dateString) {
-            const date = new Date(dateString + 'T00:00:00');
-            return date.toLocaleDateString('en-US', { 
+        // Convert Date to sortable string: "2026-01-26"
+        function dateToSortKey(date) {
+            const d = date instanceof Date ? date : parseExcelDate(date);
+            if (!d || isNaN(d)) return '';
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getDayOfWeek(date) {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const d = date instanceof Date ? date : parseExcelDate(date);
+            return days[d.getDay()];
+        }
+
+        function formatDateDisplay(date) {
+            const d = date instanceof Date ? date : parseExcelDate(date);
+            return d.toLocaleDateString('en-US', { 
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
             });
         }
 
-        function formatTime(timeString) {
-            const [hours, minutes] = timeString.split(':');
-            const hour = parseInt(hours);
+        // Parse Excel time: "17:00" or "17:00:00" → "5:00 PM"
+        function formatTime(timeStr) {
+            if (!timeStr) return '';
+            const parts = timeStr.toString().split(':');
+            const hour = parseInt(parts[0]);
+            const minutes = parts[1] || '00';
             const ampm = hour >= 12 ? 'PM' : 'AM';
             const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
             return `${displayHour}:${minutes} ${ampm}`;
@@ -773,67 +791,68 @@
         function groupByDate(data) {
             const grouped = {};
             data.forEach(slot => {
-                if (!grouped[slot.date]) {
-                    grouped[slot.date] = [];
+                const sortKey = dateToSortKey(slot.Date);
+                if (!grouped[sortKey]) {
+                    grouped[sortKey] = [];
                 }
-                grouped[slot.date].push(slot);
+                grouped[sortKey].push(slot);
             });
             return grouped;
         }
 
         // =============================================================================
-        // FALLBACK DATA (used when Power Automate READ is not configured)
+        // FALLBACK DATA (matches your Excel structure)
         // =============================================================================
         
         function getFallbackScheduleData() {
             return [
                 // Check-in 1: Week 3 (Jan 26-29)
-                { date: '2026-01-26', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-26', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-27', time: '12:00:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-27', time: '12:30:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-27', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-27', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-28', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-28', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-29', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
-                { date: '2026-01-29', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { Date: '26-Jan-2026', Time: '17:00', Purpose: 'Check in 1', SlotID: '26-01-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '26-Jan-2026', Time: '17:30', Purpose: 'Check in 1', SlotID: '26-01-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '27-Jan-2026', Time: '12:00', Purpose: 'Check in 1', SlotID: '27-01-2026_12:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '27-Jan-2026', Time: '12:30', Purpose: 'Check in 1', SlotID: '27-01-2026_12:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '27-Jan-2026', Time: '17:00', Purpose: 'Check in 1', SlotID: '27-01-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '27-Jan-2026', Time: '17:30', Purpose: 'Check in 1', SlotID: '27-01-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '28-Jan-2026', Time: '17:00', Purpose: 'Check in 1', SlotID: '28-01-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '28-Jan-2026', Time: '17:30', Purpose: 'Check in 1', SlotID: '28-01-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '29-Jan-2026', Time: '17:00', Purpose: 'Check in 1', SlotID: '29-01-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '29-Jan-2026', Time: '17:30', Purpose: 'Check in 1', SlotID: '29-01-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
                 
                 // Check-in 2: Week 5 (Feb 9-12)
-                { date: '2026-02-09', time: '17:00:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-09', time: '17:30:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-10', time: '12:00:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-10', time: '12:30:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-10', time: '14:30:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-10', time: '15:00:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-12', time: '16:00:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-12', time: '16:30:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-12', time: '17:00:00', purpose: 'Check in 2', booked: false, groupName: null },
-                { date: '2026-02-12', time: '17:30:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { Date: '09-Feb-2026', Time: '17:00', Purpose: 'Check in 2', SlotID: '09-02-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '09-Feb-2026', Time: '17:30', Purpose: 'Check in 2', SlotID: '09-02-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '10-Feb-2026', Time: '12:00', Purpose: 'Check in 2', SlotID: '10-02-2026_12:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '10-Feb-2026', Time: '12:30', Purpose: 'Check in 2', SlotID: '10-02-2026_12:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '10-Feb-2026', Time: '14:30', Purpose: 'Check in 2', SlotID: '10-02-2026_14:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '10-Feb-2026', Time: '15:00', Purpose: 'Check in 2', SlotID: '10-02-2026_15:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '12-Feb-2026', Time: '16:00', Purpose: 'Check in 2', SlotID: '12-02-2026_16:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '12-Feb-2026', Time: '16:30', Purpose: 'Check in 2', SlotID: '12-02-2026_16:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '12-Feb-2026', Time: '17:00', Purpose: 'Check in 2', SlotID: '12-02-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '12-Feb-2026', Time: '17:30', Purpose: 'Check in 2', SlotID: '12-02-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
                 
                 // Check-in 3: Week 9 (Mar 23-25)
-                { date: '2026-03-23', time: '12:00:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-23', time: '12:30:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-23', time: '17:00:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-23', time: '17:30:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-24', time: '12:00:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-24', time: '12:30:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-24', time: '17:00:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-24', time: '17:30:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-25', time: '17:00:00', purpose: 'Check in 3', booked: false, groupName: null },
-                { date: '2026-03-25', time: '17:30:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { Date: '23-Mar-2026', Time: '12:00', Purpose: 'Check in 3', SlotID: '23-03-2026_12:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '23-Mar-2026', Time: '12:30', Purpose: 'Check in 3', SlotID: '23-03-2026_12:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '23-Mar-2026', Time: '17:00', Purpose: 'Check in 3', SlotID: '23-03-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '23-Mar-2026', Time: '17:30', Purpose: 'Check in 3', SlotID: '23-03-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '24-Mar-2026', Time: '12:00', Purpose: 'Check in 3', SlotID: '24-03-2026_12:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '24-Mar-2026', Time: '12:30', Purpose: 'Check in 3', SlotID: '24-03-2026_12:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '24-Mar-2026', Time: '17:00', Purpose: 'Check in 3', SlotID: '24-03-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '24-Mar-2026', Time: '17:30', Purpose: 'Check in 3', SlotID: '24-03-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '25-Mar-2026', Time: '17:00', Purpose: 'Check in 3', SlotID: '25-03-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '25-Mar-2026', Time: '17:30', Purpose: 'Check in 3', SlotID: '25-03-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
                 
                 // Check-in 4: Week 12 (Apr 6-9)
-                { date: '2026-04-06', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-06', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-07', time: '12:00:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-07', time: '12:30:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-07', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-07', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-08', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-08', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-09', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
-                { date: '2026-04-09', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null }
+                { Date: '06-Apr-2026', Time: '17:00', Purpose: 'Check in 4', SlotID: '06-04-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '06-Apr-2026', Time: '17:30', Purpose: 'Check in 4', SlotID: '06-04-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '07-Apr-2026', Time: '12:00', Purpose: 'Check in 4', SlotID: '07-04-2026_12:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '07-Apr-2026', Time: '12:30', Purpose: 'Check in 4', SlotID: '07-04-2026_12:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '07-Apr-2026', Time: '17:00', Purpose: 'Check in 4', SlotID: '07-04-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '07-Apr-2026', Time: '17:30', Purpose: 'Check in 4', SlotID: '07-04-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '08-Apr-2026', Time: '17:00', Purpose: 'Check in 4', SlotID: '08-04-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '08-Apr-2026', Time: '17:30', Purpose: 'Check in 4', SlotID: '08-04-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '09-Apr-2026', Time: '17:00', Purpose: 'Check in 4', SlotID: '09-04-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' },
+                { Date: '09-Apr-2026', Time: '17:30', Purpose: 'Check in 4', SlotID: '09-04-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '', Timestamp: '' }
             ];
         }
 
@@ -842,18 +861,16 @@
         // =============================================================================
         
         async function fetchScheduleFromExcel() {
-            // If using fallback or webhook not configured
-            if (CONFIG.USE_FALLBACK_DATA || CONFIG.READ_WEBHOOK_URL === 'YOUR_READ_WEBHOOK_URL_HERE') {
+            if (CONFIG.USE_FALLBACK_DATA || CONFIG.READ_WEBHOOK_URL === 'YOUR_READ_FLOW_URL_HERE') {
                 console.log('Using fallback schedule data');
                 return getFallbackScheduleData();
             }
 
             try {
                 const response = await fetch(CONFIG.READ_WEBHOOK_URL, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'read' })
                 });
 
                 if (!response.ok) {
@@ -861,18 +878,8 @@
                 }
 
                 const data = await response.json();
-                
-                // Transform Excel data to expected format
-                // Adjust this based on your Excel column structure
-                return data.map(row => ({
-                    date: row.Date,           // Excel column: Date (YYYY-MM-DD format)
-                    time: row.Time,           // Excel column: Time (HH:MM:SS format)
-                    purpose: row.Purpose,     // Excel column: Purpose (e.g., "Check in 1")
-                    booked: row.Booked === 'Yes' || row.Booked === true,
-                    groupName: row.GroupName || null,
-                    repName: row.RepName || null,
-                    repEmail: row.RepEmail || null
-                }));
+                console.log('Loaded schedule from Excel:', data);
+                return Array.isArray(data) ? data : data.value || [];
             } catch (error) {
                 console.error('Error fetching schedule:', error);
                 throw error;
@@ -883,13 +890,10 @@
             try {
                 const response = await fetch(CONFIG.WRITE_WEBHOOK_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(bookingData)
                 });
 
-                // Power Automate may return different response types
                 const contentType = response.headers.get('content-type');
                 let result;
                 
@@ -935,12 +939,21 @@
             
             let html = '';
             
-            sortedDates.forEach(date => {
-                const dayOfWeek = getDayOfWeek(date);
-                const formattedDate = formatDate(date);
-                const slots = grouped[date];
-                const purpose = slots[0].purpose;
+            sortedDates.forEach(sortKey => {
+                const slots = grouped[sortKey];
+                const firstSlot = slots[0];
+                const dateObj = parseExcelDate(firstSlot.Date);
+                const dayOfWeek = getDayOfWeek(dateObj);
+                const formattedDate = formatDateDisplay(dateObj);
+                const purpose = firstSlot.Purpose;
                 const colors = getCheckInColors(purpose);
+                
+                // Sort slots by time
+                slots.sort((a, b) => {
+                    const timeA = a.Time.replace(':', '');
+                    const timeB = b.Time.replace(':', '');
+                    return parseInt(timeA) - parseInt(timeB);
+                });
                 
                 html += `
                     <div class="schedule-section">
@@ -954,21 +967,21 @@
                         <div class="time-slots">
                 `;
                 
-                slots.forEach((slot, index) => {
-                    const isBooked = slot.booked;
+                slots.forEach(slot => {
+                    const isBooked = slot.Booked !== 'Available';
                     const bookedClass = isBooked ? 'booked' : '';
-                    const slotId = `slot-${date}-${slot.time.replace(/:/g, '')}`;
+                    const slotId = slot.SlotID;
                     
                     html += `
                         <button 
                             class="time-slot ${bookedClass}" 
-                            id="${slotId}"
-                            ${isBooked ? 'disabled' : `onclick="selectSlot('${date}', '${slot.time}', '${slot.purpose}')"`}
-                            ${isBooked ? `title="Booked by ${slot.groupName || 'a group'}"` : 'title="Click to book"'}
+                            id="slot-${slotId}"
+                            ${isBooked ? 'disabled' : `onclick="selectSlot('${slotId}')"`}
+                            ${isBooked ? `title="Booked by ${slot.GroupName || 'a group'}"` : 'title="Click to book"'}
                         >
-                            <span class="slot-time">${formatTime(slot.time)}</span>
+                            <span class="slot-time">${formatTime(slot.Time)}</span>
                             <span class="slot-status ${isBooked ? 'booked' : 'available'}">
-                                ${isBooked ? `Booked${slot.groupName ? ': ' + slot.groupName : ''}` : 'Available'}
+                                ${isBooked ? `Booked${slot.GroupName ? ': ' + slot.GroupName : ''}` : 'Available'}
                             </span>
                         </button>
                     `;
@@ -987,13 +1000,17 @@
         // BOOKING FUNCTIONS
         // =============================================================================
         
-        function selectSlot(date, time, purpose) {
-            selectedSlot = { date, time, purpose };
+        function selectSlot(slotId) {
+            const slot = scheduleData.find(s => s.SlotID === slotId);
+            if (!slot) return;
             
-            const dayOfWeek = getDayOfWeek(date);
-            const formattedDate = formatDate(date);
-            const formattedTime = formatTime(time);
-            const colors = getCheckInColors(purpose);
+            selectedSlot = slot;
+            
+            const dateObj = parseExcelDate(slot.Date);
+            const dayOfWeek = getDayOfWeek(dateObj);
+            const formattedDate = formatDateDisplay(dateObj);
+            const formattedTime = formatTime(slot.Time);
+            const colors = getCheckInColors(slot.Purpose);
             
             document.getElementById('selectedTimeText').textContent = 
                 `${dayOfWeek}, ${formattedDate} at ${formattedTime}`;
@@ -1004,7 +1021,6 @@
             document.getElementById('bookingForm').classList.add('active');
             document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
             
-            // Clear form
             document.getElementById('groupName').value = '';
             document.getElementById('repName').value = '';
             document.getElementById('repEmail').value = '';
@@ -1017,18 +1033,16 @@
         }
 
         function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
         async function confirmBooking() {
-            if (isSubmitting) return;
+            if (isSubmitting || !selectedSlot) return;
             
             const groupName = document.getElementById('groupName').value.trim();
             const repName = document.getElementById('repName').value.trim();
             const repEmail = document.getElementById('repEmail').value.trim();
             
-            // Validation
             if (!groupName || !repName || !repEmail) {
                 alert('Please fill in all required fields');
                 return;
@@ -1039,58 +1053,51 @@
                 return;
             }
             
-            // Disable button during submission
             isSubmitting = true;
             const confirmBtn = document.getElementById('confirmBtn');
             confirmBtn.disabled = true;
             confirmBtn.textContent = 'Submitting...';
             
-            // Create booking data
+            const dateObj = parseExcelDate(selectedSlot.Date);
+            
+            // Booking data matching your Excel columns
             const bookingData = {
-                date: selectedSlot.date,
-                time: selectedSlot.time,
-                purpose: selectedSlot.purpose,
-                groupName,
-                repName,
-                repEmail,
-                timestamp: new Date().toISOString(),
-                formattedDate: formatDate(selectedSlot.date),
-                formattedTime: formatTime(selectedSlot.time),
-                dayOfWeek: getDayOfWeek(selectedSlot.date)
+                SlotID: selectedSlot.SlotID,
+                Date: selectedSlot.Date,
+                Time: selectedSlot.Time,
+                Purpose: selectedSlot.Purpose,
+                Booked: 'Booked',
+                GroupName: groupName,
+                RepName: repName,
+                RepEmail: repEmail,
+                Timestamp: new Date().toISOString(),
+                // Display fields for confirmation
+                formattedDate: formatDateDisplay(dateObj),
+                formattedTime: formatTime(selectedSlot.Time),
+                dayOfWeek: getDayOfWeek(dateObj)
             };
             
-            // Submit to Power Automate
             const result = await submitBookingToExcel(bookingData);
             
             if (result.success) {
                 // Update local state
-                const slotIndex = scheduleData.findIndex(
-                    slot => slot.date === selectedSlot.date && slot.time === selectedSlot.time
-                );
-                
+                const slotIndex = scheduleData.findIndex(s => s.SlotID === selectedSlot.SlotID);
                 if (slotIndex !== -1) {
-                    scheduleData[slotIndex].booked = true;
-                    scheduleData[slotIndex].groupName = groupName;
-                    scheduleData[slotIndex].repName = repName;
-                    scheduleData[slotIndex].repEmail = repEmail;
+                    scheduleData[slotIndex].Booked = 'Booked';
+                    scheduleData[slotIndex].GroupName = groupName;
+                    scheduleData[slotIndex].RepName = repName;
+                    scheduleData[slotIndex].RepEmail = repEmail;
                 }
                 
-                // Re-render schedule
                 renderSchedule();
-                
-                // Show success modal
                 showSuccessModal(bookingData);
-                
-                // Hide booking form
                 document.getElementById('bookingForm').classList.remove('active');
             } else {
-                // Show error modal
                 document.getElementById('errorModalMessage').textContent = 
                     'There was an error processing your booking. Please try again or contact Dr. Chee directly.';
                 document.getElementById('errorModal').classList.add('active');
             }
             
-            // Re-enable button
             isSubmitting = false;
             confirmBtn.disabled = false;
             confirmBtn.textContent = 'Confirm Booking';
@@ -1099,10 +1106,10 @@
         function showSuccessModal(data) {
             document.getElementById('bookedDateTime').textContent = 
                 `${data.dayOfWeek}, ${data.formattedDate} at ${data.formattedTime}`;
-            document.getElementById('bookedPurpose').textContent = data.purpose;
-            document.getElementById('bookedGroup').textContent = data.groupName;
-            document.getElementById('bookedRep').textContent = data.repName;
-            document.getElementById('confirmedEmail').textContent = data.repEmail;
+            document.getElementById('bookedPurpose').textContent = data.Purpose;
+            document.getElementById('bookedGroup').textContent = data.GroupName;
+            document.getElementById('bookedRep').textContent = data.RepName;
+            document.getElementById('confirmedEmail').textContent = data.RepEmail;
             
             document.getElementById('successModal').classList.add('active');
         }
@@ -1133,7 +1140,6 @@
             }
         }
 
-        // Initialize on page load
         document.addEventListener('DOMContentLoaded', loadSchedule);
     </script>
 </body>
