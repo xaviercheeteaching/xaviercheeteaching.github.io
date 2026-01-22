@@ -51,11 +51,11 @@
         /* ============================================= */
         
         .countdown-banner {
-            background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #A78BFA 100%);
+            background: linear-gradient(135deg, #DC2626 0%, #EF4444 50%, #F87171 100%);
             border-radius: 12px;
             padding: 30px 35px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.3);
+            box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -92,17 +92,6 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 20px;
-        }
-        
-        .countdown-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
         }
         
         .countdown-title {
@@ -162,10 +151,6 @@
             gap: 12px;
         }
         
-        .countdown-message-icon {
-            font-size: 1.3rem;
-        }
-        
         .countdown-message-text {
             color: rgba(255, 255, 255, 0.95);
             font-size: 0.95rem;
@@ -221,17 +206,13 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(124, 58, 237, 0.1);
-            color: #7C3AED;
+            background: rgba(220, 38, 38, 0.1);
+            color: #DC2626;
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
             margin-left: 10px;
-        }
-        
-        .locked-badge-icon {
-            font-size: 0.9rem;
         }
 
         /* ============================================= */
@@ -589,7 +570,7 @@
         }
         
         .slot-status.locked {
-            color: #7C3AED;
+            color: #DC2626;
         }
         
         .modal {
@@ -764,7 +745,6 @@
         <div class="countdown-banner" id="countdownBanner">
             <div class="countdown-content">
                 <div class="countdown-header">
-                    <div class="countdown-icon" id="countdownIcon">🔒</div>
                     <div>
                         <div class="countdown-title" id="countdownTitle">Booking Opens In</div>
                         <div class="countdown-subtitle" id="countdownSubtitle">Preview mode — slots shown but booking disabled</div>
@@ -791,7 +771,6 @@
                 </div>
                 
                 <div class="countdown-message">
-                    <span class="countdown-message-icon" id="messageIcon">ℹ️</span>
                     <span class="countdown-message-text" id="countdownMessage">
                         You can view available time slots below. Booking will be enabled when the countdown reaches zero.
                     </span>
@@ -934,7 +913,7 @@
             MONTH: 1,             // Month (1-12, where 1 = January)
             DAY: 22,              // Day of month (1-31)
             HOUR: 22,             // Hour in 24-hour format (0-23)
-            MINUTE: 0,            // Minutes (0-59)
+            MINUTE: 10,            // Minutes (0-59)
             SECOND: 0,            // Seconds (0-59)
             
             // ═══════════════════════════════════════════════════════════════════════
@@ -1040,7 +1019,6 @@
             banner.classList.add('booking-open');
             
             // Update content
-            document.getElementById('countdownIcon').textContent = '🎉';
             document.getElementById('countdownTitle').textContent = 'Booking is Now Open!';
             document.getElementById('countdownSubtitle').textContent = 'Select a time slot below to book your check-in';
             
@@ -1051,7 +1029,6 @@
             document.getElementById('countdownSeconds').textContent = '00';
             
             // Update message
-            document.getElementById('messageIcon').textContent = '✅';
             document.getElementById('countdownMessage').textContent = 
                 'Booking is now available! Click on any available time slot to schedule your group check-in.';
             
@@ -1329,7 +1306,7 @@
                     <div class="schedule-section">
                         <div class="schedule-header">
                             <div class="schedule-date">
-                                <h2>${dayOfWeek}${!isBookingOpen ? '<span class="locked-badge"><span class="locked-badge-icon">🔒</span>Preview</span>' : ''}</h2>
+                                <h2>${dayOfWeek}${!isBookingOpen ? '<span class="locked-badge">Preview</span>' : ''}</h2>
                                 <p>${formattedDate}</p>
                             </div>
                             <div class="schedule-badge" style="background: ${colors.gradient};">${purpose}</div>
