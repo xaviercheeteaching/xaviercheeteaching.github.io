@@ -47,6 +47,70 @@
             margin: 0;
         }
         
+        /* Loading State */
+        .loading-container {
+            text-align: center;
+            padding: 60px 20px;
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #E8F4F8;
+            border-top: 4px solid #0A4D8F;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: #4A5568;
+            font-size: 1.1rem;
+        }
+        
+        /* Error State */
+        .error-container {
+            text-align: center;
+            padding: 40px 20px;
+            background: #FEF2F2;
+            border-left: 4px solid #DC2626;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .error-container h3 {
+            color: #DC2626;
+            margin-bottom: 10px;
+        }
+        
+        .error-container p {
+            color: #7F1D1D;
+        }
+        
+        .btn-retry {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #DC2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .btn-retry:hover {
+            background: #B91C1C;
+        }
+        
         /* Instructions Box */
         .instructions {
             background: #E8F4F8;
@@ -72,6 +136,52 @@
         
         .instructions strong {
             color: #0A4D8F;
+        }
+        
+        /* Legend */
+        .legend {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .legend h3 {
+            color: #1A1A2E;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .legend-item {
+            flex: 1 1 220px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        
+        .legend-item span:first-of-type {
+            color: #1A1A2E;
+            font-weight: 600;
+        }
+        
+        .legend-item span:last-of-type {
+            color: #4A5568;
+            font-size: 0.9rem;
         }
         
         /* Booking Form */
@@ -147,9 +257,9 @@
             border-color: #3498DB;
         }
         
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
+        .form-group input:disabled {
+            background: #F3F4F6;
+            cursor: not-allowed;
         }
         
         .form-actions {
@@ -170,13 +280,18 @@
             font-family: Arial, sans-serif;
         }
         
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
         .btn-primary {
             background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
             color: #FFFFFF;
             box-shadow: 0 4px 12px rgba(10, 77, 143, 0.3);
         }
         
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(10, 77, 143, 0.4);
         }
@@ -187,7 +302,7 @@
             border: 2px solid #E8F4F8;
         }
         
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background: #F8F9FA;
             border-color: #D1D5DB;
         }
@@ -223,7 +338,6 @@
         }
         
         .schedule-badge {
-            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
             color: #FFFFFF;
             padding: 10px 20px;
             border-radius: 8px;
@@ -253,31 +367,42 @@
             box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
         }
         
-        .time-slot:hover {
+        .time-slot:hover:not(.booked) {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
             background: linear-gradient(135deg, #E8F4F8 0%, #FFFFFF 100%);
         }
         
         .time-slot.booked {
-            background: #E8F4F8;
+            background: #F3F4F6;
             color: #9CA3AF;
             border-color: #D1D5DB;
             cursor: not-allowed;
-            opacity: 0.6;
+            opacity: 0.7;
             box-shadow: none;
         }
         
         .time-slot.booked:hover {
             transform: none;
-            background: #E8F4F8;
+            background: #F3F4F6;
         }
         
-        .time-slot.booked::after {
-            content: " (Booked)";
-            font-size: 0.85rem;
+        .slot-time {
             display: block;
-            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        
+        .slot-status {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .slot-status.available {
+            color: #16A34A;
+        }
+        
+        .slot-status.booked {
+            color: #9CA3AF;
         }
         
         /* Modal */
@@ -313,7 +438,6 @@
         .modal-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
             border-radius: 50%;
             margin: 0 auto 25px;
             display: flex;
@@ -321,6 +445,14 @@
             justify-content: center;
             font-size: 3rem;
             color: #FFFFFF;
+        }
+        
+        .modal-icon.success {
+            background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%);
+        }
+        
+        .modal-icon.error {
+            background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
         }
         
         .modal-content h2 {
@@ -355,28 +487,24 @@
         }
         
         .preparation-checklist {
-            background: #FFF3CD;
-            border-left: 4px solid #FFC107;
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
             border-radius: 8px;
             padding: 20px 24px;
             margin-bottom: 25px;
         }
         
         .preparation-checklist h3 {
-            color: #856404;
+            color: #92400E;
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 12px;
         }
         
         .preparation-checklist ul {
-            color: #856404;
+            color: #92400E;
             padding-left: 20px;
             line-height: 1.8;
-        }
-        
-        .preparation-checklist strong {
-            font-weight: 700;
         }
         
         .modal-footer {
@@ -437,7 +565,7 @@
         <div class="instructions">
             <h3>Instructions for Group Representatives</h3>
             <ul>
-                <li><strong>One booking per group</strong> - Group representative should schedule on behalf of the entire group</li>
+                <li><strong>One booking per group</strong> — Group representative should schedule on behalf of the entire group</li>
                 <li>Each check-in session is <strong>30 minutes</strong></li>
                 <li>Select an available time slot below</li>
                 <li>Fill in your group details in the booking form</li>
@@ -446,29 +574,29 @@
             </ul>
         </div>
 
-        <!-- Check-in Color Legend -->
-        <div style="background: #FFFFFF; border-radius: 12px; padding: 25px 30px; margin-bottom: 35px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);">
-            <h3 style="color: #1A1A2E; font-size: 1.2rem; font-weight: 600; margin-bottom: 15px;">Check-in Schedule Legend</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
-                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%); flex-shrink: 0;"></div>
-                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 1</span>
-                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 3: Jan 26-29)</span>
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Check-in Schedule Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);"></div>
+                    <span>Check-in 1</span>
+                    <span>(Week 3: Jan 26-29)</span>
                 </div>
-                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%); flex-shrink: 0;"></div>
-                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 2</span>
-                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 5: Feb 9-12)</span>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%);"></div>
+                    <span>Check-in 2</span>
+                    <span>(Week 5: Feb 9-12)</span>
                 </div>
-                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #EA580C 0%, #F97316 100%); flex-shrink: 0;"></div>
-                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 3</span>
-                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 9: Mar 23-25)</span>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);"></div>
+                    <span>Check-in 3</span>
+                    <span>(Week 9: Mar 23-25)</span>
                 </div>
-                <div style="flex: 1 1 220px; display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%); flex-shrink: 0;"></div>
-                    <span style="color: #1A1A2E; font-weight: 600;">Check-in 4</span>
-                    <span style="color: #4A5568; font-size: 0.9rem;">(Week 12: Apr 6-9)</span>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);"></div>
+                    <span>Check-in 4</span>
+                    <span>(Week 12: Apr 6-9)</span>
                 </div>
             </div>
         </div>
@@ -498,9 +626,22 @@
             </div>
             
             <div class="form-actions">
-                <button class="btn btn-primary" onclick="confirmBooking()">Confirm Booking</button>
+                <button class="btn btn-primary" id="confirmBtn" onclick="confirmBooking()">Confirm Booking</button>
                 <button class="btn btn-secondary" onclick="cancelBooking()">Cancel</button>
             </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-container" id="loadingState">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading available time slots...</p>
+        </div>
+
+        <!-- Error State (Hidden Initially) -->
+        <div class="error-container" id="errorState" style="display: none;">
+            <h3>Unable to Load Schedule</h3>
+            <p id="errorMessage">Please check your connection and try again.</p>
+            <button class="btn-retry" onclick="loadSchedule()">Retry</button>
         </div>
 
         <!-- Schedule Container -->
@@ -510,11 +651,11 @@
     <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
-            <div class="modal-icon">✓</div>
+            <div class="modal-icon success">✓</div>
             <h2>Booking Confirmed!</h2>
             
             <div class="booking-details" id="bookingDetails">
-                <p><strong>Date & Time:</strong> <span id="bookedDateTime"></span></p>
+                <p><strong>Date &amp; Time:</strong> <span id="bookedDateTime"></span></p>
                 <p><strong>Purpose:</strong> <span id="bookedPurpose"></span></p>
                 <p><strong>Group:</strong> <span id="bookedGroup"></span></p>
                 <p><strong>Representative:</strong> <span id="bookedRep"></span></p>
@@ -531,105 +672,96 @@
                 </ul>
             </div>
             
-            <p class="modal-footer">A confirmation email has been sent to <span id="confirmedEmail"></span></p>
+            <p class="modal-footer">A confirmation email will be sent to <span id="confirmedEmail"></span></p>
             
             <button class="btn-close" onclick="closeModal()">Close</button>
         </div>
     </div>
 
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-icon error">✕</div>
+            <h2>Booking Failed</h2>
+            <p id="errorModalMessage" style="text-align: center; color: #4A5568; margin: 20px 0;">
+                There was an error processing your booking. Please try again.
+            </p>
+            <button class="btn-close" onclick="closeErrorModal()">Close</button>
+        </div>
+    </div>
+
     <script>
-        // Schedule data from Excel
-        const scheduleData = [
-            { date: '2026-01-26', time: '17:00:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-26', time: '17:30:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-27', time: '12:00:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-27', time: '12:30:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-27', time: '17:00:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-27', time: '17:30:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-28', time: '17:00:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-28', time: '17:30:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-29', time: '17:00:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-01-29', time: '17:30:00', purpose: 'Check in 1', booked: false },
-            { date: '2026-02-09', time: '17:00:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-09', time: '17:30:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-10', time: '12:00:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-10', time: '12:30:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-10', time: '14:30:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-10', time: '15:00:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-12', time: '16:00:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-12', time: '16:30:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-12', time: '17:00:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-02-12', time: '17:30:00', purpose: 'Check in 2', booked: false },
-            { date: '2026-03-23', time: '12:00:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-23', time: '12:30:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-23', time: '17:00:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-23', time: '17:30:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-24', time: '12:00:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-24', time: '12:30:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-24', time: '17:00:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-24', time: '17:30:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-25', time: '17:00:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-03-25', time: '17:30:00', purpose: 'Check in 3', booked: false },
-            { date: '2026-04-06', time: '17:00:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-06', time: '17:30:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-07', time: '12:00:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-07', time: '12:30:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-07', time: '17:00:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-07', time: '17:30:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-08', time: '17:00:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-08', time: '17:30:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-09', time: '17:00:00', purpose: 'Check in 4', booked: false },
-            { date: '2026-04-09', time: '17:30:00', purpose: 'Check in 4', booked: false }
-        ];
+        // =============================================================================
+        // CONFIGURATION
+        // =============================================================================
+        
+        const CONFIG = {
+            // Power Automate webhook URL for READING schedule from Excel
+            // This flow should: Read Excel → Return JSON array of slots
+            READ_WEBHOOK_URL: 'YOUR_READ_WEBHOOK_URL_HERE',
+            
+            // Power Automate webhook URL for WRITING bookings to Excel
+            // This flow should: Receive booking data → Write to Excel → Return success/error
+            WRITE_WEBHOOK_URL: 'https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/79c738df2baa4ec4a22e8fecaae3b7cc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KwDQUdQMooEbUMW6d2Y5RvfRPP5ZpYB8W-O71k2pC4w',
+            
+            // Set to true to use fallback data when READ webhook is not configured
+            USE_FALLBACK_DATA: true
+        };
 
+        // =============================================================================
+        // STATE MANAGEMENT
+        // =============================================================================
+        
+        let scheduleData = [];
         let selectedSlot = null;
+        let isSubmitting = false;
 
-        // Color coding for different check-ins
+        // =============================================================================
+        // COLOR SCHEME FOR CHECK-INS
+        // =============================================================================
+        
+        const CHECK_IN_COLORS = {
+            'Check in 1': {
+                gradient: 'linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%)',
+                border: '#0A4D8F'
+            },
+            'Check in 2': {
+                gradient: 'linear-gradient(135deg, #16A34A 0%, #22C55E 100%)',
+                border: '#16A34A'
+            },
+            'Check in 3': {
+                gradient: 'linear-gradient(135deg, #EA580C 0%, #F97316 100%)',
+                border: '#EA580C'
+            },
+            'Check in 4': {
+                gradient: 'linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%)',
+                border: '#7C3AED'
+            }
+        };
+
         function getCheckInColors(purpose) {
-            const colors = {
-                'Check in 1': {
-                    primary: '#0A4D8F',
-                    secondary: '#1B74BD',
-                    light: '#E8F4F8',
-                    gradient: 'linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%)'
-                },
-                'Check in 2': {
-                    primary: '#16A34A',
-                    secondary: '#22C55E',
-                    light: '#DCFCE7',
-                    gradient: 'linear-gradient(135deg, #16A34A 0%, #22C55E 100%)'
-                },
-                'Check in 3': {
-                    primary: '#EA580C',
-                    secondary: '#F97316',
-                    light: '#FFEDD5',
-                    gradient: 'linear-gradient(135deg, #EA580C 0%, #F97316 100%)'
-                },
-                'Check in 4': {
-                    primary: '#7C3AED',
-                    secondary: '#8B5CF6',
-                    light: '#EDE9FE',
-                    gradient: 'linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%)'
-                }
-            };
-            return colors[purpose] || colors['Check in 1'];
+            return CHECK_IN_COLORS[purpose] || CHECK_IN_COLORS['Check in 1'];
         }
 
-        // Helper: Get day of week
+        // =============================================================================
+        // UTILITY FUNCTIONS
+        // =============================================================================
+        
         function getDayOfWeek(dateString) {
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             const date = new Date(dateString + 'T00:00:00');
             return days[date.getDay()];
         }
 
-        // Helper: Format date
         function formatDate(dateString) {
             const date = new Date(dateString + 'T00:00:00');
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
         }
 
-        // Helper: Format time
         function formatTime(timeString) {
             const [hours, minutes] = timeString.split(':');
             const hour = parseInt(hours);
@@ -638,7 +770,6 @@
             return `${displayHour}:${minutes} ${ampm}`;
         }
 
-        // Group schedule by date
         function groupByDate(data) {
             const grouped = {};
             data.forEach(slot => {
@@ -650,32 +781,153 @@
             return grouped;
         }
 
-        // Load booked slots from localStorage
-        function loadBookedSlots() {
-            const booked = localStorage.getItem('phm5013_bookings');
-            if (booked) {
-                const bookedSlots = JSON.parse(booked);
-                bookedSlots.forEach(bookedSlot => {
-                    const slot = scheduleData.find(s => 
-                        s.date === bookedSlot.date && s.time === bookedSlot.time
-                    );
-                    if (slot) {
-                        slot.booked = true;
-                        slot.bookingInfo = bookedSlot;
+        // =============================================================================
+        // FALLBACK DATA (used when Power Automate READ is not configured)
+        // =============================================================================
+        
+        function getFallbackScheduleData() {
+            return [
+                // Check-in 1: Week 3 (Jan 26-29)
+                { date: '2026-01-26', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-26', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-27', time: '12:00:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-27', time: '12:30:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-27', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-27', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-28', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-28', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-29', time: '17:00:00', purpose: 'Check in 1', booked: false, groupName: null },
+                { date: '2026-01-29', time: '17:30:00', purpose: 'Check in 1', booked: false, groupName: null },
+                
+                // Check-in 2: Week 5 (Feb 9-12)
+                { date: '2026-02-09', time: '17:00:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-09', time: '17:30:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-10', time: '12:00:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-10', time: '12:30:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-10', time: '14:30:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-10', time: '15:00:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-12', time: '16:00:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-12', time: '16:30:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-12', time: '17:00:00', purpose: 'Check in 2', booked: false, groupName: null },
+                { date: '2026-02-12', time: '17:30:00', purpose: 'Check in 2', booked: false, groupName: null },
+                
+                // Check-in 3: Week 9 (Mar 23-25)
+                { date: '2026-03-23', time: '12:00:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-23', time: '12:30:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-23', time: '17:00:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-23', time: '17:30:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-24', time: '12:00:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-24', time: '12:30:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-24', time: '17:00:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-24', time: '17:30:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-25', time: '17:00:00', purpose: 'Check in 3', booked: false, groupName: null },
+                { date: '2026-03-25', time: '17:30:00', purpose: 'Check in 3', booked: false, groupName: null },
+                
+                // Check-in 4: Week 12 (Apr 6-9)
+                { date: '2026-04-06', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-06', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-07', time: '12:00:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-07', time: '12:30:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-07', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-07', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-08', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-08', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-09', time: '17:00:00', purpose: 'Check in 4', booked: false, groupName: null },
+                { date: '2026-04-09', time: '17:30:00', purpose: 'Check in 4', booked: false, groupName: null }
+            ];
+        }
+
+        // =============================================================================
+        // API FUNCTIONS
+        // =============================================================================
+        
+        async function fetchScheduleFromExcel() {
+            // If using fallback or webhook not configured
+            if (CONFIG.USE_FALLBACK_DATA || CONFIG.READ_WEBHOOK_URL === 'YOUR_READ_WEBHOOK_URL_HERE') {
+                console.log('Using fallback schedule data');
+                return getFallbackScheduleData();
+            }
+
+            try {
+                const response = await fetch(CONFIG.READ_WEBHOOK_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
                 });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // Transform Excel data to expected format
+                // Adjust this based on your Excel column structure
+                return data.map(row => ({
+                    date: row.Date,           // Excel column: Date (YYYY-MM-DD format)
+                    time: row.Time,           // Excel column: Time (HH:MM:SS format)
+                    purpose: row.Purpose,     // Excel column: Purpose (e.g., "Check in 1")
+                    booked: row.Booked === 'Yes' || row.Booked === true,
+                    groupName: row.GroupName || null,
+                    repName: row.RepName || null,
+                    repEmail: row.RepEmail || null
+                }));
+            } catch (error) {
+                console.error('Error fetching schedule:', error);
+                throw error;
             }
         }
 
-        // Save booked slot to localStorage
-        function saveBookedSlot(bookingData) {
-            const booked = localStorage.getItem('phm5013_bookings');
-            const bookings = booked ? JSON.parse(booked) : [];
-            bookings.push(bookingData);
-            localStorage.setItem('phm5013_bookings', JSON.stringify(bookings));
+        async function submitBookingToExcel(bookingData) {
+            try {
+                const response = await fetch(CONFIG.WRITE_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                // Power Automate may return different response types
+                const contentType = response.headers.get('content-type');
+                let result;
+                
+                if (contentType && contentType.includes('application/json')) {
+                    result = await response.json();
+                } else {
+                    result = await response.text();
+                }
+
+                console.log('Booking submission result:', result);
+                return { success: true, result };
+            } catch (error) {
+                console.error('Error submitting booking:', error);
+                return { success: false, error: error.message };
+            }
         }
 
-        // Render schedule
+        // =============================================================================
+        // UI FUNCTIONS
+        // =============================================================================
+        
+        function showLoading() {
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('errorState').style.display = 'none';
+            document.getElementById('scheduleContainer').innerHTML = '';
+        }
+
+        function showError(message) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        function hideLoadingAndError() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'none';
+        }
+
         function renderSchedule() {
             const container = document.getElementById('scheduleContainer');
             const grouped = groupByDate(scheduleData);
@@ -702,14 +954,22 @@
                         <div class="time-slots">
                 `;
                 
-                slots.forEach(slot => {
+                slots.forEach((slot, index) => {
                     const isBooked = slot.booked;
                     const bookedClass = isBooked ? 'booked' : '';
-                    const onclick = isBooked ? '' : `onclick="selectSlot('${date}', '${slot.time}', '${slot.purpose}')"`;
+                    const slotId = `slot-${date}-${slot.time.replace(/:/g, '')}`;
                     
                     html += `
-                        <button class="time-slot ${bookedClass}" ${onclick}>
-                            ${formatTime(slot.time)}
+                        <button 
+                            class="time-slot ${bookedClass}" 
+                            id="${slotId}"
+                            ${isBooked ? 'disabled' : `onclick="selectSlot('${date}', '${slot.time}', '${slot.purpose}')"`}
+                            ${isBooked ? `title="Booked by ${slot.groupName || 'a group'}"` : 'title="Click to book"'}
+                        >
+                            <span class="slot-time">${formatTime(slot.time)}</span>
+                            <span class="slot-status ${isBooked ? 'booked' : 'available'}">
+                                ${isBooked ? `Booked${slot.groupName ? ': ' + slot.groupName : ''}` : 'Available'}
+                            </span>
                         </button>
                     `;
                 });
@@ -723,7 +983,10 @@
             container.innerHTML = html;
         }
 
-        // Select time slot
+        // =============================================================================
+        // BOOKING FUNCTIONS
+        // =============================================================================
+        
         function selectSlot(date, time, purpose) {
             selectedSlot = { date, time, purpose };
             
@@ -735,7 +998,6 @@
             document.getElementById('selectedTimeText').textContent = 
                 `${dayOfWeek}, ${formattedDate} at ${formattedTime}`;
             
-            // Update selected time display color
             const selectedTimeDisplay = document.getElementById('selectedTimeDisplay');
             selectedTimeDisplay.style.background = colors.gradient;
             
@@ -748,21 +1010,20 @@
             document.getElementById('repEmail').value = '';
         }
 
-        // Cancel booking
         function cancelBooking() {
             selectedSlot = null;
             document.getElementById('bookingForm').classList.remove('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Validate email
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
 
-        // Confirm booking
-        function confirmBooking() {
+        async function confirmBooking() {
+            if (isSubmitting) return;
+            
             const groupName = document.getElementById('groupName').value.trim();
             const repName = document.getElementById('repName').value.trim();
             const repEmail = document.getElementById('repEmail').value.trim();
@@ -778,6 +1039,12 @@
                 return;
             }
             
+            // Disable button during submission
+            isSubmitting = true;
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = 'Submitting...';
+            
             // Create booking data
             const bookingData = {
                 date: selectedSlot.date,
@@ -786,41 +1053,52 @@
                 groupName,
                 repName,
                 repEmail,
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                formattedDate: formatDate(selectedSlot.date),
+                formattedTime: formatTime(selectedSlot.time),
+                dayOfWeek: getDayOfWeek(selectedSlot.date)
             };
             
-            // Mark slot as booked
-            const slotIndex = scheduleData.findIndex(
-                slot => slot.date === selectedSlot.date && slot.time === selectedSlot.time
-            );
+            // Submit to Power Automate
+            const result = await submitBookingToExcel(bookingData);
             
-            if (slotIndex !== -1) {
-                scheduleData[slotIndex].booked = true;
-                scheduleData[slotIndex].bookingInfo = bookingData;
-                saveBookedSlot(bookingData);
+            if (result.success) {
+                // Update local state
+                const slotIndex = scheduleData.findIndex(
+                    slot => slot.date === selectedSlot.date && slot.time === selectedSlot.time
+                );
+                
+                if (slotIndex !== -1) {
+                    scheduleData[slotIndex].booked = true;
+                    scheduleData[slotIndex].groupName = groupName;
+                    scheduleData[slotIndex].repName = repName;
+                    scheduleData[slotIndex].repEmail = repEmail;
+                }
+                
+                // Re-render schedule
+                renderSchedule();
+                
+                // Show success modal
+                showSuccessModal(bookingData);
+                
+                // Hide booking form
+                document.getElementById('bookingForm').classList.remove('active');
+            } else {
+                // Show error modal
+                document.getElementById('errorModalMessage').textContent = 
+                    'There was an error processing your booking. Please try again or contact Dr. Chee directly.';
+                document.getElementById('errorModal').classList.add('active');
             }
             
-            // Send to Power Automate
-            sendToPowerAutomate(bookingData);
-            
-            // Show success modal
-            showSuccessModal(bookingData);
-            
-            // Re-render schedule
-            renderSchedule();
-            
-            // Hide booking form
-            document.getElementById('bookingForm').classList.remove('active');
+            // Re-enable button
+            isSubmitting = false;
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = 'Confirm Booking';
         }
 
-        // Show success modal
         function showSuccessModal(data) {
-            const dayOfWeek = getDayOfWeek(data.date);
-            const formattedDate = formatDate(data.date);
-            const formattedTime = formatTime(data.time);
-            
             document.getElementById('bookedDateTime').textContent = 
-                `${dayOfWeek}, ${formattedDate} at ${formattedTime}`;
+                `${data.dayOfWeek}, ${data.formattedDate} at ${data.formattedTime}`;
             document.getElementById('bookedPurpose').textContent = data.purpose;
             document.getElementById('bookedGroup').textContent = data.groupName;
             document.getElementById('bookedRep').textContent = data.repName;
@@ -829,43 +1107,34 @@
             document.getElementById('successModal').classList.add('active');
         }
 
-        // Close modal
         function closeModal() {
             document.getElementById('successModal').classList.remove('active');
             selectedSlot = null;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Send to Power Automate
-        function sendToPowerAutomate(data) {
-            // Replace with your Power Automate webhook URL
-            const webhookUrl = 'https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/79c738df2baa4ec4a22e8fecaae3b7cc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KwDQUdQMooEbUMW6d2Y5RvfRPP5ZpYB8W-O71k2pC4w';
+        function closeErrorModal() {
+            document.getElementById('errorModal').classList.remove('active');
+        }
+
+        // =============================================================================
+        // INITIALIZATION
+        // =============================================================================
+        
+        async function loadSchedule() {
+            showLoading();
             
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log('Success:', result);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error submitting your booking. Please contact Dr. Chee directly.');
-            });
-            
-            // For testing:
-            console.log('Booking data to be sent to Power Automate:', data);
+            try {
+                scheduleData = await fetchScheduleFromExcel();
+                hideLoadingAndError();
+                renderSchedule();
+            } catch (error) {
+                showError('Unable to load schedule. Please check your connection and try again.');
+            }
         }
 
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadBookedSlots();
-            renderSchedule();
-        });
+        document.addEventListener('DOMContentLoaded', loadSchedule);
     </script>
 </body>
 </html>
