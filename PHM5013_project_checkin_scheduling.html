@@ -913,7 +913,7 @@
             MONTH: 1,             // Month (1-12, where 1 = January)
             DAY: 23,              // Day of month (1-31)
             HOUR: 13,             // Hour in 24-hour format (0-23)
-            MINUTE: 00,            // Minutes (0-59)
+            MINUTE: 00,           // Minutes (0-59)
             SECOND: 0,            // Seconds (0-59)
             
             // ═══════════════════════════════════════════════════════════════════════
@@ -929,6 +929,13 @@
             //   YEAR: 2026, MONTH: 3, DAY: 15, HOUR: 18, MINUTE: 30
             // ═══════════════════════════════════════════════════════════════════════
         };
+
+        // =============================================================================
+        // TIMEZONE CONFIGURATION - Singapore Time (UTC+8)
+        // =============================================================================
+        
+        const SGT_OFFSET_HOURS = 8;  // Singapore is UTC+8
+        const SGT_OFFSET_MS = SGT_OFFSET_HOURS * 60 * 60 * 1000;
 
         // =============================================================================
         // CONFIGURATION
@@ -951,18 +958,63 @@
         let countdownInterval = null;
 
         // =============================================================================
+        // SINGAPORE TIMEZONE UTILITY FUNCTIONS
+        // =============================================================================
+        
+        /**
+         * Get current time in Singapore timezone
+         * @returns {Date} Current time adjusted to represent SGT
+         */
+        function getNowInSGT() {
+            const now = new Date();
+            // Get UTC time, then add SGT offset
+            const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+            return new Date(utcTime + SGT_OFFSET_MS);
+        }
+        
+        /**
+         * Create a Date object for a specific SGT time
+         * This returns a Date that, when displayed, shows the correct SGT time
+         * @param {number} year 
+         * @param {number} month (1-12)
+         * @param {number} day 
+         * @param {number} hour (0-23)
+         * @param {number} minute 
+         * @param {number} second 
+         * @returns {Date}
+         */
+        function createSGTDate(year, month, day, hour = 0, minute = 0, second = 0) {
+            // Create the date as UTC, then subtract SGT offset to get the correct UTC instant
+            const utcTime = Date.UTC(year, month - 1, day, hour, minute, second) - SGT_OFFSET_MS;
+            return new Date(utcTime);
+        }
+        
+        /**
+         * Extract SGT date components from a Date object
+         * @param {Date} date 
+         * @returns {{year: number, month: number, day: number, hour: number, minute: number, second: number, dayOfWeek: number}}
+         */
+        function getSGTComponents(date) {
+            // Convert to SGT by adding offset to UTC
+            const sgtTime = new Date(date.getTime() + SGT_OFFSET_MS);
+            return {
+                year: sgtTime.getUTCFullYear(),
+                month: sgtTime.getUTCMonth() + 1,  // 1-12
+                day: sgtTime.getUTCDate(),
+                hour: sgtTime.getUTCHours(),
+                minute: sgtTime.getUTCMinutes(),
+                second: sgtTime.getUTCSeconds(),
+                dayOfWeek: sgtTime.getUTCDay()  // 0 = Sunday
+            };
+        }
+
+        // =============================================================================
         // COUNTDOWN TIMER FUNCTIONS
         // =============================================================================
         
         function getBookingOpenTime() {
-            // Create date in SGT (UTC+8)
-            // We construct the date as if it's UTC, then subtract 8 hours to get the correct UTC time
             const { YEAR, MONTH, DAY, HOUR, MINUTE, SECOND } = BOOKING_CONFIG;
-            
-            // Create the date in SGT by constructing it as UTC and adjusting
-            const sgtDate = new Date(Date.UTC(YEAR, MONTH - 1, DAY, HOUR - 8, MINUTE, SECOND));
-            
-            return sgtDate;
+            return createSGTDate(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND);
         }
         
         function formatOpeningTime() {
@@ -1079,26 +1131,56 @@
         }
 
         // =============================================================================
-        // EXCEL DATA CONVERSION UTILITIES
+        // EXCEL DATA CONVERSION UTILITIES (FIXED FOR SINGAPORE TIME)
         // =============================================================================
         
+        /**
+         * Convert Excel serial date to a Date object in Singapore Time
+         * Excel dates are stored as days since Dec 30, 1899
+         * This function ensures consistent date interpretation regardless of user's timezone
+         * @param {number|string|Date} serial - Excel serial number or date string
+         * @returns {Date|null}
+         */
         function excelSerialToDate(serial) {
             if (!serial) return null;
             if (serial instanceof Date) return serial;
             if (typeof serial === 'string' && isNaN(parseFloat(serial))) {
                 return parseTextDate(serial);
             }
-            const excelEpoch = new Date(1899, 11, 30);
+            
+            // Excel epoch: December 30, 1899 (in SGT context)
+            // We use UTC to avoid any local timezone interference
+            const EXCEL_EPOCH_UTC = Date.UTC(1899, 11, 30);  // Dec 30, 1899 00:00:00 UTC
+            const MS_PER_DAY = 24 * 60 * 60 * 1000;
+            
             const days = parseFloat(serial);
-            const date = new Date(excelEpoch.getTime() + days * 24 * 60 * 60 * 1000);
-            return date;
+            
+            // Calculate the UTC timestamp for this Excel date
+            // We treat the Excel date as if it represents midnight SGT
+            const utcTimestamp = EXCEL_EPOCH_UTC + (days * MS_PER_DAY);
+            
+            // Create a Date object and extract the UTC components
+            // These represent the SGT date (year, month, day)
+            const tempDate = new Date(utcTimestamp);
+            const year = tempDate.getUTCFullYear();
+            const month = tempDate.getUTCMonth();  // 0-indexed
+            const day = tempDate.getUTCDate();
+            
+            // Return a Date that represents this SGT date
+            // We store it as midnight SGT (which is 16:00 UTC previous day)
+            return createSGTDate(year, month + 1, day, 0, 0, 0);
         }
         
+        /**
+         * Parse text date string (e.g., "26-Jan-2026") to Date in SGT
+         * @param {string} dateStr 
+         * @returns {Date|null}
+         */
         function parseTextDate(dateStr) {
             if (!dateStr) return null;
             const months = {
-                'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
-                'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+                'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+                'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
             };
             const parts = dateStr.split('-');
             if (parts.length === 3) {
@@ -1106,12 +1188,23 @@
                 const month = months[parts[1]];
                 const year = parseInt(parts[2]);
                 if (!isNaN(day) && month !== undefined && !isNaN(year)) {
-                    return new Date(year, month, day);
+                    return createSGTDate(year, month, day, 0, 0, 0);
                 }
             }
-            return new Date(dateStr);
+            // Fallback: try to parse as ISO string and treat as SGT
+            const parsed = new Date(dateStr);
+            if (!isNaN(parsed.getTime())) {
+                const sgt = getSGTComponents(parsed);
+                return createSGTDate(sgt.year, sgt.month, sgt.day, 0, 0, 0);
+            }
+            return null;
         }
         
+        /**
+         * Convert Excel decimal time to HH:MM string
+         * @param {number|string} decimal 
+         * @returns {string}
+         */
         function excelDecimalToTime(decimal) {
             if (!decimal && decimal !== 0) return '';
             if (typeof decimal === 'string' && decimal.includes(':')) {
@@ -1123,6 +1216,11 @@
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         }
         
+        /**
+         * Format time string for display (e.g., "17:00" -> "5:00 PM")
+         * @param {string} timeStr 
+         * @returns {string}
+         */
         function formatTimeDisplay(timeStr) {
             if (!timeStr) return '';
             const parts = timeStr.toString().split(':');
@@ -1133,25 +1231,41 @@
             return `${displayHour}:${minutes} ${ampm}`;
         }
 
+        /**
+         * Create a sort key from a Date (YYYY-MM-DD format in SGT)
+         * @param {Date} date 
+         * @returns {string}
+         */
         function dateToSortKey(date) {
-            if (!date || !(date instanceof Date) || isNaN(date)) return '';
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
+            if (!date || !(date instanceof Date) || isNaN(date.getTime())) return '';
+            const sgt = getSGTComponents(date);
+            const year = sgt.year;
+            const month = String(sgt.month).padStart(2, '0');
+            const day = String(sgt.day).padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
 
+        /**
+         * Get day of week name from Date (in SGT)
+         * @param {Date} date 
+         * @returns {string}
+         */
         function getDayOfWeek(date) {
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            return days[date.getDay()];
+            const sgt = getSGTComponents(date);
+            return days[sgt.dayOfWeek];
         }
 
+        /**
+         * Format date for display (e.g., "January 26, 2026") in SGT
+         * @param {Date} date 
+         * @returns {string}
+         */
         function formatDateDisplay(date) {
-            return date.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+            const sgt = getSGTComponents(date);
+            return `${months[sgt.month - 1]} ${sgt.day}, ${sgt.year}`;
         }
 
         // =============================================================================
@@ -1500,18 +1614,18 @@
         }
 
         // =============================================================================
-        // FALLBACK DATA
+        // FALLBACK DATA (Using SGT dates)
         // =============================================================================
         
         function getFallbackScheduleData() {
             return [
-                { Date: new Date(2026, 0, 26), Time: '17:00', Purpose: 'Check in 1', SlotID: '26-01-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
-                { Date: new Date(2026, 0, 26), Time: '17:30', Purpose: 'Check in 1', SlotID: '26-01-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
-                { Date: new Date(2026, 0, 27), Time: '10:00', Purpose: 'Check in 1', SlotID: '27-01-2026_10:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
-                { Date: new Date(2026, 0, 27), Time: '10:30', Purpose: 'Check in 1', SlotID: '27-01-2026_10:30:00', Booked: 'Booked', GroupName: 'Group 1', RepName: 'John Doe', RepEmail: 'john@nus.edu' },
-                { Date: new Date(2026, 0, 27), Time: '11:00', Purpose: 'Check in 1', SlotID: '27-01-2026_11:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
-                { Date: new Date(2026, 1, 9), Time: '14:00', Purpose: 'Check in 2', SlotID: '09-02-2026_14:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
-                { Date: new Date(2026, 1, 9), Time: '14:30', Purpose: 'Check in 2', SlotID: '09-02-2026_14:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' }
+                { Date: createSGTDate(2026, 1, 26), Time: '17:00', Purpose: 'Check in 1', SlotID: '26-01-2026_17:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
+                { Date: createSGTDate(2026, 1, 26), Time: '17:30', Purpose: 'Check in 1', SlotID: '26-01-2026_17:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
+                { Date: createSGTDate(2026, 1, 27), Time: '10:00', Purpose: 'Check in 1', SlotID: '27-01-2026_10:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
+                { Date: createSGTDate(2026, 1, 27), Time: '10:30', Purpose: 'Check in 1', SlotID: '27-01-2026_10:30:00', Booked: 'Booked', GroupName: 'Group 1', RepName: 'John Doe', RepEmail: 'john@nus.edu' },
+                { Date: createSGTDate(2026, 1, 27), Time: '11:00', Purpose: 'Check in 1', SlotID: '27-01-2026_11:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
+                { Date: createSGTDate(2026, 2, 9), Time: '14:00', Purpose: 'Check in 2', SlotID: '09-02-2026_14:00:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' },
+                { Date: createSGTDate(2026, 2, 9), Time: '14:30', Purpose: 'Check in 2', SlotID: '09-02-2026_14:30:00', Booked: 'Available', GroupName: '', RepName: '', RepEmail: '' }
             ];
         }
 
