@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Precision Health &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.10_command_line_arguments_with_sys.argv';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Health Data" href="1.11_reading_and_writing_files.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Precision Health" href="1.9_functions_and_parameters.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.12_string_methods.html">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/1.10_command_line_arguments_with_sys.argv.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/1.10_command_line_arguments_with_sys.argv.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.10_command_line_arguments_with_sys.argv.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medical-example-dosage-calculator">3.1 Medical Example: Dosage Calculator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-simple-argument-echo-basic">Exercise 1: Simple Argument Echo Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-bmi-calculator-intermediate">Exercise 2: BMI Calculator Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-lab-file-validator-advanced">Exercise 3: Lab File Validator Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-precision-health">
+<h1>Chapter 1: Python Fundamentals for Precision Health<a class="headerlink" href="#chapter-1-python-fundamentals-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to a pivotal skill for creating flexible and automated clinical tools. So far, our scripts have been self-contained. To change an input, like a patient’s weight for a critical dose calculation or a data file’s name, you had to edit the code itself. This is inefficient and prone to error. This section introduces a more powerful approach: passing data to a script directly from the command line.</p>
+<p>The learning journey here is to master <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code>, a fundamental feature of Python’s <code class="docutils literal notranslate"><span class="pre">sys</span></code> module. You will learn how to build scripts that can be run with different inputs without ever touching the source code. This is an essential skill for automating tasks in a precision health environment, such as running a calculation for different patients or processing a batch of lab result files. By the end, you’ll be able to create more dynamic and reusable programs.</p>
+<div style="background-color: #fff5f5; border-left: 6px solid #c53030; padding: 16px 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-family: sans-serif;">
+  <div style="display: flex; align-items: center; margin-bottom: 8px;">
+    <span style="font-size: 20px; margin-right: 10px;">⚠️</span>
+    <strong style="color: #c53030; font-size: 1.1em; letter-spacing: 0.5px;">WARNING</strong>
+  </div>
+  <div style="color: #2d3748; font-size: 0.95em; line-height: 1.6;">
+    This section requires you to use your OS Terminal. You should not be running the code in Jupyter book.
+  </div>
+</div></section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>To effectively use command-line arguments, it’s important to understand the following core terms. They are presented in order from the most general concept to the specific components you will use in your code.</p>
+<ul class="simple">
+<li><p><strong>Command-Line Argument</strong>: Data (like a filename, a number, or a patient ID) passed to a script when it is launched from the command line. This allows you to control a script’s behavior externally.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sys</span></code> module</strong>: A built-in Python module that provides access to system-specific parameters and functions. It acts as the bridge between your Python script and the operating system environment, allowing your code to interact with the system it’s running on.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sys.argv</span></code></strong>: A list in Python’s <code class="docutils literal notranslate"><span class="pre">sys</span></code> module that holds all command-line arguments. <code class="docutils literal notranslate"><span class="pre">sys.argv[0]</span></code> is always the script’s name, and subsequent elements (<code class="docutils literal notranslate"><span class="pre">sys.argv[1]</span></code>, <code class="docutils literal notranslate"><span class="pre">sys.argv[2]</span></code>, etc.) are the arguments that follow.</p></li>
+<li><p><strong>String Conversion (Type Casting)</strong>: The process of converting a value from one data type to another, such as from a string to a float using <code class="docutils literal notranslate"><span class="pre">float()</span></code>. Since <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> stores all arguments as strings, they must be explicitly converted to numeric types before they can be used in medical calculations.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code></strong>: The “standard error” stream. It is the conventional place to send error messages, separating them from the normal program output that goes to “standard output” (<code class="docutils literal notranslate"><span class="pre">stdout</span></code>). This is critical for logging issues in automated clinical workflows.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>The primary mechanism for handling command-line arguments in Python is the <code class="docutils literal notranslate"><span class="pre">argv</span></code> list found in the built-in <code class="docutils literal notranslate"><span class="pre">sys</span></code> module. A professional-grade command-line tool does not just process inputs; it validates them first.</p>
+<section id="medical-example-dosage-calculator">
+<h3>3.1 Medical Example: Dosage Calculator<a class="headerlink" href="#medical-example-dosage-calculator" title="Link to this heading">#</a></h3>
+<p>This script calculates a medication dose based on patient weight. It demonstrates a robust, function-based pattern that you should adopt in your own scripts. It checks the number of arguments, handles conversion errors, and validates the clinical appropriateness of the data. Note that this is a simplified model; real-world clinical dosage calculations involve many more factors and are subject to stringent verification.</p>
+<p>To run this dosage calculation script, you need to execute it outside of a notebook environment using your computer’s system terminal.</p>
+<p><strong>Step 1: Save the Script</strong></p>
+<ul class="simple">
+<li><p>Copy the code provided below</p></li>
+<li><p>Open your text editor (VS Code, Notepad++, Sublime Text, or similar).</p></li>
+<li><p>Paste the code into a new file.</p></li>
+<li><p>Save the file as calculate_dose.py in a known folder (e.g., Desktop).</p></li>
+</ul>
+<p><strong>Step 2: Open Your Terminal</strong></p>
+<ul>
+<li><p>You need to open the command line interface for your operating system.</p>
+<p>(a) Windows: Press Win + R, type cmd, and press Enter.
+(b) Mac: Press Cmd + Space, type Terminal, and press Enter.
+(b) Linux: Press Ctrl + Alt + T (usually).</p>
+</li>
+</ul>
+<p><strong>Step 3: Navigate to the File Location</strong></p>
+<ul class="simple">
+<li><p>Use the cd (change directory) command to move to the folder where you saved your script.</p></li>
+<li><p>Verify you are in the right place:
+(a) Windows: Type dir and hit Enter. You should see calculate_dose.py in the list.
+(b) Mac/Linux: Type ls and hit Enter. You should see calculate_dose.py.</p></li>
+</ul>
+<p><strong>Step 4: Run the Script</strong>
+The script requires two arguments: Weight (kg) and Dose (mg/kg).</p>
+<p>Run the following command in your terminal:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">calculate_dose.py</span> <span class="pre">75</span> <span class="pre">10.5</span></code></p>
+<ul class="simple">
+<li><p>python: Tells the computer to use the Python interpreter.</p></li>
+<li><p>calculate_dose.py: The name of your script.</p></li>
+<li><p>75: The first argument (Weight).</p></li>
+<li><p>10.5: The second argument (Dose Rate).</p></li>
+</ul>
+<p>The expected output would be as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="n">Patient</span> <span class="n">Weight</span><span class="p">:</span> <span class="mf">70.0</span> <span class="n">kg</span>
+<span class="n">Required</span> <span class="n">Dose</span><span class="p">:</span> <span class="mf">105.00</span> <span class="n">mg</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#file: calculate_dose.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_and_display_dose</span><span class="p">(</span><span class="n">weight_kg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dose_mg_per_kg</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates and prints the total medication dose after validating inputs.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">weight_kg</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">dose_mg_per_kg</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Weight and dose must be positive numbers.&quot;</span><span class="p">)</span>
+    
+    <span class="n">total_dose_mg</span> <span class="o">=</span> <span class="n">weight_kg</span> <span class="o">*</span> <span class="n">dose_mg_per_kg</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient Weight: </span><span class="si">{</span><span class="n">weight_kg</span><span class="si">}</span><span class="s2"> kg&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required Dose: </span><span class="si">{</span><span class="n">total_dose_mg</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> mg&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main function to parse command-line arguments and run the dosage calculation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Usage: python </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> &lt;weight_kg&gt; &lt;dose_mg_per_kg&gt;&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">dose_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">calculate_and_display_dose</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">dose_rate</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Invalid input. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This script follows a robust pattern. It validates the number of arguments, then uses a <code class="docutils literal notranslate"><span class="pre">try-except</span></code> block to safely convert inputs to numbers and check for clinical validity. Errors are printed to <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code> and the script exits with a non-zero code to signal failure.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Using <code class="docutils literal notranslate"><span class="pre">sys.exit(1)</span></code> to terminate the script after an error is a standard convention. A non-zero exit code signals to the operating system or other scripts that something went wrong. An exit code of <code class="docutils literal notranslate"><span class="pre">0</span></code> (the default) signifies success.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Important:</strong> The input validation in this script (<code class="docutils literal notranslate"><span class="pre">weight_kg</span> <span class="pre">&lt;=</span> <span class="pre">0</span></code>) is a critical safety feature. In real clinical software, validation is far more extensive, often checking for sensible ranges (e.g., an adult weight cannot be 5000 kg) to prevent catastrophic errors. Always treat external input as untrusted until validated.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Debug Note:</strong> If you provide fewer arguments than the script expects, you’ll get an <code class="docutils literal notranslate"><span class="pre">IndexError:</span> <span class="pre">list</span> <span class="pre">index</span> <span class="pre">out</span> <span class="pre">of</span> <span class="pre">range</span></code>. If an argument cannot be converted to a number (e.g., <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">calculate_dose.py</span> <span class="pre">70</span> <span class="pre">1.5mg</span></code>), the <code class="docutils literal notranslate"><span class="pre">float()</span></code> conversion will raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>. The <code class="docutils literal notranslate"><span class="pre">try-except</span></code> block is your primary tool for handling these predictable errors gracefully.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-simple-argument-echo-basic">
+<h3>Exercise 1: Simple Argument Echo Basic<a class="headerlink" href="#exercise-1-simple-argument-echo-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Understand the structure of <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> by printing its contents.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> This is a foundational step for building any tool that needs to log its own name and inputs, which is crucial for auditing and reproducibility in clinical data processing.</p>
+<p>Write a script named <code class="docutils literal notranslate"><span class="pre">echo_args.py</span></code> that prints the name of the script, the number of arguments provided, and then each argument on a new line. For example: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">echo_args.py</span> <span class="pre">patient_A</span> <span class="pre">150.5</span> <span class="pre">active</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># file: echo_args.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script Name: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of Arguments: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This script accesses <code class="docutils literal notranslate"><span class="pre">sys.argv[0]</span></code> for the script’s name and uses a slice <code class="docutils literal notranslate"><span class="pre">sys.argv[1:]</span></code> to get a list of only the user-provided arguments. It then iterates through this list to print each one.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> is a list where the first element is the script name and the rest are the arguments. Slicing is an effective way to separate them.</p>
+</div>
+</details></section>
+<section id="exercise-2-bmi-calculator-intermediate">
+<h3>Exercise 2: BMI Calculator Intermediate<a class="headerlink" href="#exercise-2-bmi-calculator-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice argument validation, type conversion, and error handling for a common medical calculation.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Body Mass Index (BMI) is a common, though simplified, health metric used for initial patient screening. This exercise simulates handling real patient measurements.</p>
+<p>Now, apply this pattern to another common clinical metric. Write a script named <code class="docutils literal notranslate"><span class="pre">calculate_bmi.py</span></code> that accepts a patient’s weight in kilograms and height in meters from the command line.</p>
+<ul class="simple">
+<li><p><strong>Formula:</strong> [BMI = \frac{weight (kg)}{height (m)^2}] (Source: CDC). Note: While this formula is standard, clinical assessments of body composition are more comprehensive and may include factors like age, sex, and waist circumference.</p></li>
+<li><p><strong>Requirements:</strong></p>
+<ul>
+<li><p>Validate that exactly two arguments are provided. Print a usage message to <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code> and exit on error.</p></li>
+<li><p>Use a <code class="docutils literal notranslate"><span class="pre">try-except</span></code> block to handle <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> for non-numeric inputs. Also handle cases where height is less than or equal to 0, which would cause a <code class="docutils literal notranslate"><span class="pre">ZeroDivisionError</span></code> or is clinically invalid.</p></li>
+<li><p>Calculate the Body Mass Index (BMI) and print the result rounded to two decimal places, like: <code class="docutils literal notranslate"><span class="pre">Calculated</span> <span class="pre">BMI:</span> <span class="pre">22.49</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># file: calculate_bmi.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Usage: python </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> &lt;weight_kg&gt; &lt;height_m&gt;&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">weight_kg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">height_m</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">weight_kg</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">height_m</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Weight and height must be positive values.&quot;</span><span class="p">)</span>
+    
+    <span class="n">bmi</span> <span class="o">=</span> <span class="n">weight_kg</span> <span class="o">/</span> <span class="p">(</span><span class="n">height_m</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calculated BMI: </span><span class="si">{</span><span class="n">bmi</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Invalid input. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Height cannot be zero.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The script validates the argument count, then uses a <code class="docutils literal notranslate"><span class="pre">try-except</span></code> block to convert inputs and perform the calculation. It specifically checks for positive inputs, a crucial data validation step. It handles both <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> (for bad conversions or negative numbers) and <code class="docutils literal notranslate"><span class="pre">ZeroDivisionError</span></code> separately.
+<strong>Key Learning:</strong> Combining argument count checks with comprehensive <code class="docutils literal notranslate"><span class="pre">try-except</span></code> blocks creates robust and user-friendly command-line tools.</p>
+</div>
+</details></section>
+<section id="exercise-3-lab-file-validator-advanced">
+<h3>Exercise 3: Lab File Validator Advanced<a class="headerlink" href="#exercise-3-lab-file-validator-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a command-line argument to specify a file path and validate its existence before processing.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> In bioinformatics and clinical informatics, scripts are constantly run on different data files (e.g., daily lab results, genomic sequences). Passing a file path as an argument is a core part of this workflow.</p>
+<p>Write a script <code class="docutils literal notranslate"><span class="pre">validate_file.py</span></code> that takes a single file path as a command-line argument.</p>
+<ul class="simple">
+<li><p><strong>Requirements:</strong></p>
+<ul>
+<li><p>The script must use the <code class="docutils literal notranslate"><span class="pre">os</span></code> module. You’ll need to <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">os</span></code>.</p></li>
+<li><p>Validate that exactly one argument (the file path) is provided.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">os.path.exists()</span></code> to check if the file or directory at the given path exists.</p></li>
+<li><p>If it exists, print: <code class="docutils literal notranslate"><span class="pre">SUCCESS:</span> <span class="pre">Path</span> <span class="pre">'[path]'</span> <span class="pre">found.</span></code></p></li>
+<li><p>If it does not exist, print an error message to <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code>: <code class="docutils literal notranslate"><span class="pre">ERROR:</span> <span class="pre">Path</span> <span class="pre">'[path]'</span> <span class="pre">not</span> <span class="pre">found.</span></code> and exit with a status of 1.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># file: validate_file.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Usage: python </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> &lt;file_path&gt;&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">file_path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SUCCESS: Path &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&#39; found.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR: Path &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This script combines <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> with the <code class="docutils literal notranslate"><span class="pre">os</span></code> module, a common pairing for file-processing tasks. This pre-flight check is vital for preventing scripts from crashing when an input file is missing.
+<strong>Key Learning:</strong> Command-line arguments are frequently used to provide file paths, enabling scripts to operate on different data sources without code modification.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p>Command-line tools are workhorses in bioinformatics and health informatics. They are often used in automated pipelines to process thousands of data files without manual intervention.</p>
+<ul class="simple">
+<li><p><strong>Batch Processing of Patient Records:</strong> A Python script can be written to take a directory path as a command-line argument. It can then iterate through all patient data files (e.g., <code class="docutils literal notranslate"><span class="pre">.csv</span></code> or <code class="docutils literal notranslate"><span class="pre">.hl7</span></code>) within that directory to perform a uniform analysis, such as calculating the average glucose level for a cohort or flagging records with missing data.</p></li>
+<li><p><strong>Running Bioinformatics Pipelines:</strong> In genomics, complex tools are often controlled via the command line. A Python script can serve as a “master controller,” taking arguments like a gene ID, a reference genome file path, and analysis thresholds. It then uses these arguments to execute a multi-step bioinformatics pipeline, automating a process that would be tedious to run manually.</p></li>
+<li><p><strong>Dynamic Configuration of Medical Simulations:</strong> When modeling drug pharmacokinetics, a script can accept initial parameters like patient age, liver function percentage, and drug half-life from the command line. This allows researchers to programmatically run hundreds of simulation variants to assess a drug’s behavior under different physiological conditions.</p></li>
+<li><p><strong>Automated Clinical Report Generation:</strong> A script could be designed to take a <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> and a <code class="docutils literal notranslate"><span class="pre">date_range</span></code> as arguments. It would use this information to query a hospital’s electronic health record (EHR) system, pull the relevant lab results, and automatically generate a formatted PDF report, saving clinicians significant time.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to make Python scripts interactive and flexible using command-line arguments. By leveraging the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module, you can build powerful tools that accept external data, making them reusable and suitable for automation in a precision health setting.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> is a list available in the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module that contains the script name at index <code class="docutils literal notranslate"><span class="pre">[0]</span></code> and any subsequent command-line arguments.</p></li>
+<li><p>All arguments captured by <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> are initially strings and must be explicitly converted (type-casted) to <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code> for numerical operations.</p></li>
+<li><p>Robust scripts must always validate the number of arguments received and use <code class="docutils literal notranslate"><span class="pre">try-except</span></code> blocks to gracefully handle errors during type conversion or from invalid data values.</p></li>
+<li><p>Directing error messages to <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code> and exiting with a non-zero status code (<code class="docutils literal notranslate"><span class="pre">sys.exit(1)</span></code>) are standard conventions for signaling failure in command-line applications.</p></li>
+</ul>
+<p>With this skill, you can now create powerful, reusable tools. In the next section, we will build on this by learning how to read from and write to the files whose paths you can now pass as arguments.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong>
+Beyond dosage and BMI, what are two other calculations in your clinical or research environment that could be automated with a command-line script? What specific input validation would be critical for each to ensure patient safety or data integrity?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.9_functions_and_parameters.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.11_reading_and_writing_files.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Health Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medical-example-dosage-calculator">3.1 Medical Example: Dosage Calculator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-simple-argument-echo-basic">Exercise 1: Simple Argument Echo Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-bmi-calculator-intermediate">Exercise 2: BMI Calculator Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-lab-file-validator-advanced">Exercise 3: Lab File Validator Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

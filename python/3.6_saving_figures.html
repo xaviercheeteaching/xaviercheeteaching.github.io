@@ -1,0 +1,974 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 3: Visualizing Clinical Data with Matplotlib &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3.6_saving_figures';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Chapter 3: Advanced Data Visualization" href="3.5_subplots_and_multiple_figures.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.12_string_methods.html">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3.6 - Saving Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/3.6_saving_figures.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/3.6_saving_figures.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/3.6_saving_figures.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 3: Visualizing Clinical Data with Matplotlib</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-output-quality-and-format">3.1 Controlling Output Quality and Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-with-a-transparent-background">3.2 Saving with a Transparent Background</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-correct-save-order-and-memory-management">3.3 The Correct Save Order and Memory Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-multiple-plots-in-a-loop">3.4 Saving Multiple Plots in a Loop</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-figure-saving">Exercise 1: Basic Figure Saving</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-high-quality-report-figure">Exercise 2: High-Quality Report Figure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-batch-processing-for-presentations">Exercise 3: Batch Processing for Presentations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-3-visualizing-clinical-data-with-matplotlib">
+<h1>Chapter 3: Visualizing Clinical Data with Matplotlib<a class="headerlink" href="#chapter-3-visualizing-clinical-data-with-matplotlib" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>This section covers the critical final step in data visualization: exporting your plots into professional, high-quality image files. In a clinical or research setting, a plot’s value is realized when it can be shared, archived, or published. This lesson establishes the learning journey from creating an on-screen plot to saving it in various formats suitable for patient reports, research papers, and clinical presentations. You will learn to control resolution, cropping, and backgrounds to ensure your data is presented with maximum clarity and impact.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> The White Blood Cell (WBC) count is a crucial indicator of the body’s immune response. After treatments like an antibiotic course for an infection, monitoring the WBC count is essential to track patient recovery. A downward trend, as shown in our examples, typically indicates the treatment is effective. Visualizing this trend helps clinicians make quick, informed decisions.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code></strong>: The primary Matplotlib function used to export the active figure to a file. Its medical context is fundamental; this is the command that turns a temporary, on-screen analysis of a patient’s lab results into a permanent PDF for their medical record or a PNG for a case study presentation.</p></li>
+<li><p><strong>DPI (Dots Per Inch)</strong>: A measure of image resolution, indicating the number of individual dots that can be placed in a line within a one-inch span. In a medical context, a high DPI (e.g., 300) is the standard for print publication in journals, ensuring that fine details in a chart, like the error bars on a clinical trial result, are sharp and legible.</p></li>
+<li><p><strong>Vector Graphics (<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">.svg</span></code>)</strong>: Image formats that use mathematical equations to represent shapes and lines, allowing for infinite scalability without loss of quality. A medical analogy is a prescription formula; the formula itself is precise regardless of whether you use it to make a small or large batch. These formats are ideal for complex diagrams or plots intended for high-resolution printing.</p></li>
+<li><p><strong>Raster Graphics (<code class="docutils literal notranslate"><span class="pre">.png</span></code>, <code class="docutils literal notranslate"><span class="pre">.jpg</span></code>)</strong>: Image formats that use a grid of pixels to represent an image, making them resolution-dependent. A medical analogy is a microscope slide viewed at a fixed magnification; zooming in further digitally won’t reveal more biological detail. These are best for web use and presentations where the display size is known.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">bbox_inches='tight'</span></code></strong>: An argument for <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> that automatically crops the saved figure to remove surrounding whitespace. In a medical context, this ensures that when a chart of a patient’s blood pressure trend is embedded in a report, it is clean, compact, and focuses the clinician’s attention solely on the data.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>The following examples use a plot of a patient’s White Blood Cell (WBC) count to demonstrate how to save figures effectively. We will use constants for clinical thresholds to make the code more readable and maintainable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Constants for Clinical Data ---</span>
+<span class="n">WBC_UPPER_LIMIT</span> <span class="o">=</span> <span class="mf">11.0</span>  <span class="c1"># K/uL</span>
+<span class="n">WBC_LOWER_LIMIT</span> <span class="o">=</span> <span class="mf">4.5</span>   <span class="c1"># K/uL</span>
+
+<span class="c1"># Data: Patient WBC count over 4 days</span>
+<span class="n">days</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Day 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 3&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 4&#39;</span><span class="p">]</span>
+<span class="n">wbc_count_k_ul</span> <span class="o">=</span> <span class="p">[</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">]</span>
+
+<span class="c1"># Create the plot object</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">wbc_count_k_ul</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Patient WBC Count After Antibiotic Course&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;WBC (K/uL)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Use constants for reference lines with updated labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">WBC_UPPER_LIMIT</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Upper Limit of Normal (</span><span class="si">{</span><span class="n">WBC_UPPER_LIMIT</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">WBC_LOWER_LIMIT</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Lower Limit of Normal (</span><span class="si">{</span><span class="n">WBC_LOWER_LIMIT</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Note: The plot creation code is not repeated in the snippets below.</span>
+</pre></div>
+</div>
+<section id="controlling-output-quality-and-format">
+<h3>3.1 Controlling Output Quality and Format<a class="headerlink" href="#controlling-output-quality-and-format" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> function is your primary tool for exporting plots. The file format is inferred from the extension.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Choose your file format based on the destination. Use vector formats like <strong>PDF</strong> or <strong>SVG</strong> for print publications and reports, as they can be scaled to any size without losing quality. Use raster formats like <strong>PNG</strong> for web pages and screen presentations where a fixed pixel size is acceptable.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save a high-resolution, tightly-cropped PDF for a formal report</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+    <span class="s1">&#39;patient_wbc_report.pdf&#39;</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span>
+    <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="saving-with-a-transparent-background">
+<h3>3.2 Saving with a Transparent Background<a class="headerlink" href="#saving-with-a-transparent-background" title="Link to this heading">#</a></h3>
+<p>For presentations, use <code class="docutils literal notranslate"><span class="pre">transparent=True</span></code> to save a figure with a transparent background. This allows the plot to blend seamlessly with your slide’s design.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save a version with a transparent background for a presentation slide</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;patient_wbc_presentation.png&#39;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-correct-save-order-and-memory-management">
+<h3>3.3 The Correct Save Order and Memory Management<a class="headerlink" href="#the-correct-save-order-and-memory-management" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Important:</strong> Always call <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> <em>before</em> <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code>. The <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> command displays the plot and then clears it from memory. If you call <code class="docutils literal notranslate"><span class="pre">savefig()</span></code> after <code class="docutils literal notranslate"><span class="pre">show()</span></code>, you will save a blank image because the plot no longer exists.</p>
+</div></blockquote>
+<p>The correct, memory-safe workflow is to create, save, show, and then close the figure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correct order: Save the figure first</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;patient_wbc_final.png&#39;</span><span class="p">)</span>
+
+<span class="c1"># Then, display it</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Finally, close the plot object to free up system memory</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="saving-multiple-plots-in-a-loop">
+<h3>3.4 Saving Multiple Plots in a Loop<a class="headerlink" href="#saving-multiple-plots-in-a-loop" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>In Practice:</strong> Automating plot generation is a massive time-saver in clinical settings. Imagine needing to generate end-of-day summary charts for every patient in a 30-bed ward. A loop like this can produce all 30 customized reports in seconds, ensuring consistency and freeing up healthcare professionals for patient care tasks.</p>
+</div></blockquote>
+<p>When generating many plots, create a dedicated directory and use <code class="docutils literal notranslate"><span class="pre">plt.close()</span></code> inside the loop to free memory and prevent crashes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span> <span class="c1"># Add os import for directory management</span>
+
+<span class="c1"># Data for multiple patients using standardized IDs</span>
+<span class="n">patient_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;PT000101&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">],</span>
+    <span class="s1">&#39;PT000102&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">12.1</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">days</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Day 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 3&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 4&#39;</span><span class="p">]</span>
+<span class="n">output_dir</span> <span class="o">=</span> <span class="s1">&#39;patient_wbc_charts&#39;</span> <span class="c1"># Define an output directory</span>
+
+<span class="c1"># Create the directory if it doesn&#39;t exist to prevent errors</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">patient_id</span><span class="p">,</span> <span class="n">wbc_count_k_ul</span> <span class="ow">in</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># 1. Create a new, independent figure</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">wbc_count_k_ul</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;WBC Count for </span><span class="si">{</span><span class="n">patient_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;WBC (K/uL)&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 2. Save the current figure to its own file inside the new directory</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">patient_id</span><span class="si">}</span><span class="s1">_wbc_chart.png&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+
+    <span class="c1"># 3. Close the figure to free memory</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Charts saved to &#39;</span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">&#39; directory.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Consider the different people who might view these charts: a fellow clinician, a research journal reviewer, or even the patient. How might you change the saving parameters (file type, DPI, annotations, background) to best suit the needs of each audience?</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-basic-figure-saving">
+<h3>Exercise 1: Basic Figure Saving<a class="headerlink" href="#exercise-1-basic-figure-saving" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Save a plot to a standard raster file format for quick sharing.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> A resident asks you to quickly email them a chart of a patient’s temperature trend over the last 24 hours. A PNG file is perfect for this purpose.</p>
+<p>Basic Figure Saving</p>
+<p><strong>Objective:</strong> Save a plot to a standard raster file format for quick sharing.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> A resident asks you to quickly email them a chart of a patient’s temperature trend over the last 24 hours. A PNG file is perfect for this purpose.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Data: Patient temperature</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;0h&#39;</span><span class="p">,</span> <span class="s1">&#39;6h&#39;</span><span class="p">,</span> <span class="s1">&#39;12h&#39;</span><span class="p">,</span> <span class="s1">&#39;18h&#39;</span><span class="p">,</span> <span class="s1">&#39;24h&#39;</span><span class="p">]</span>
+<span class="n">temp_c</span> <span class="o">=</span> <span class="p">[</span><span class="mf">37.5</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">,</span> <span class="mf">38.8</span><span class="p">,</span> <span class="mf">38.1</span><span class="p">,</span> <span class="mf">37.6</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">temp_c</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Patient Temperature Trend&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (°C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time Post-Admission&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">37.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Normal (37.0°C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Add your code here to save the plot:</span>
+
+
+<span class="c1"># Clean up</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the plot as a PNG file</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;patient_temp_chart.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> Calling <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> with just a filename is the simplest way to save a figure. The <code class="docutils literal notranslate"><span class="pre">.png</span></code> extension tells Matplotlib to create a Portable Network Graphics file, a common raster format.
+<strong>Key Learning:</strong> The file format is determined by the extension in the filename.</p>
+</div>
+</details></section>
+<section id="exercise-2-high-quality-report-figure">
+<h3>Exercise 2: High-Quality Report Figure<a class="headerlink" href="#exercise-2-high-quality-report-figure" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Save a plot as a high-quality, print-ready PDF file.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> A colleague needs the WBC chart for a formal clinical report that will be printed and added to a patient’s physical file.</p>
+<p>Save the provided plot as <code class="docutils literal notranslate"><span class="pre">wbc_final_report.pdf</span></code>. The file must be a PDF, have 300 DPI, and have no excess whitespace.</p>
+<p>High-Quality Report Figure</p>
+<p><strong>Objective:</strong> Save a plot as a high-quality, print-ready PDF file.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> A colleague needs the WBC chart for a formal clinical report that will be printed and added to a patient’s physical file.</p>
+<p>Save the provided plot as <code class="docutils literal notranslate"><span class="pre">wbc_final_report.pdf</span></code>. The file must be a PDF, have 300 DPI, and have no excess whitespace.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Constants for Clinical Data ---</span>
+<span class="n">WBC_UPPER_LIMIT</span> <span class="o">=</span> <span class="mf">11.0</span>
+<span class="n">WBC_LOWER_LIMIT</span> <span class="o">=</span> <span class="mf">4.5</span>
+
+<span class="c1"># Data and plot creation (provided)</span>
+<span class="n">days</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Day 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 3&#39;</span><span class="p">,</span> <span class="s1">&#39;Day 4&#39;</span><span class="p">]</span>
+<span class="n">wbc_count_k_ul</span> <span class="o">=</span> <span class="p">[</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">wbc_count_k_ul</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Patient WBC Count After Antibiotic Course&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;WBC (K/uL)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">WBC_UPPER_LIMIT</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Upper Limit of Normal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">WBC_LOWER_LIMIT</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Lower Limit of Normal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Add your code here to save the plot:</span>
+
+
+<span class="c1"># Close the plot to free memory</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save as a high-resolution PDF with no extra whitespace.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;wbc_final_report.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">'wbc_final_report.pdf'</span></code></strong>: Sets the filename and the <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> extension, which is a vector format ideal for high-quality reports.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">dpi=300</span></code></strong>: Fulfills the requirement for 300 DPI, ensuring the image is sharp enough for professional printing.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">bbox_inches='tight'</span></code></strong>: Meets the “no excess whitespace” criterion by automatically cropping the figure.
+<strong>Key Learning:</strong> Combining <code class="docutils literal notranslate"><span class="pre">dpi</span></code> and <code class="docutils literal notranslate"><span class="pre">bbox_inches</span></code> gives you fine-grained control over the quality and layout of figures for professional documents.</p></li>
+</ul>
+</div>
+</details></section>
+<section id="exercise-3-batch-processing-for-presentations">
+<h3>Exercise 3: Batch Processing for Presentations<a class="headerlink" href="#exercise-3-batch-processing-for-presentations" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Loop through a dataset, generate a plot for each entry, and save it with a transparent background into a dedicated folder.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You are preparing a presentation on drug trial outcomes and need a response chart for three patient cohorts. The charts will be placed on a dark-themed slide.</p>
+<p>Loop through <code class="docutils literal notranslate"><span class="pre">cohort_data</span></code>, create a bar chart for each, and save it as a PNG file with a unique name (e.g., <code class="docutils literal notranslate"><span class="pre">cohort_a_response.png</span></code>) inside a directory named <code class="docutils literal notranslate"><span class="pre">cohort_charts</span></code>. The image must have a transparent background.</p>
+<p>Batch Processing for Presentations</p>
+<p><strong>Objective:</strong> Loop through a dataset, generate a plot for each entry, and save it with a transparent background into a dedicated folder.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You are preparing a presentation on drug trial outcomes and need a response chart for three patient cohorts. The charts will be placed on a dark-themed slide.</p>
+<p>Loop through <code class="docutils literal notranslate"><span class="pre">cohort_data</span></code>, create a bar chart for each, and save it as a PNG file with a unique name (e.g., <code class="docutils literal notranslate"><span class="pre">cohort_a_response.png</span></code>) inside a directory named <code class="docutils literal notranslate"><span class="pre">cohort_charts</span></code>. The image must have a transparent background.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">cohort_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Cohort A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">55</span><span class="p">],</span> <span class="c1"># [Responders, Non-Responders]</span>
+    <span class="s1">&#39;Cohort B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">62</span><span class="p">,</span> <span class="mi">38</span><span class="p">],</span>
+    <span class="s1">&#39;Cohort C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="mi">69</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Responders&#39;</span><span class="p">,</span> <span class="s1">&#39;Non-Responders&#39;</span><span class="p">]</span>
+
+<span class="c1"># Your loop starts here:</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">output_dir</span> <span class="o">=</span> <span class="s1">&#39;cohort_charts&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">cohort_name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">cohort_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># Create a new figure for this cohort</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#4CAF50&#39;</span><span class="p">,</span> <span class="s1">&#39;#F44336&#39;</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Treatment Response in </span><span class="si">{</span><span class="n">cohort_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Patients&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Generate a clean filename and full path</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cohort_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">_response.png&quot;</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    
+    <span class="c1"># Save with transparency</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Close the figure to free memory</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cohort charts saved to &#39;</span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">&#39; directory.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code first creates a directory. The loop then iterates through the dictionary, creates a plot, generates a unique filename, and joins it with the directory path. It saves the figure using <code class="docutils literal notranslate"><span class="pre">transparent=True</span></code>. Critically, <code class="docutils literal notranslate"><span class="pre">plt.close()</span></code> is called to manage memory.
+<strong>Key Learning:</strong> Combining loops, directory management, f-strings for dynamic filenames, and <code class="docutils literal notranslate"><span class="pre">plt.close()</span></code> is a powerful and memory-efficient pattern for batch-processing visualizations.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Automated Patient Reporting:</strong> In hospital information systems, a Python script can query a database for a patient’s HbA1c levels, generate a trend plot, and use <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> to save it as a PDF named with the patient’s Medical Record Number (e.g., <code class="docutils literal notranslate"><span class="pre">PT001234_hba1c_trend.pdf</span></code>). This programming technique automates the creation of visual records, which are then attached to the patient’s electronic health record (EHR) for their next clinical review, improving efficiency and data accessibility.</p></li>
+<li><p><strong>Figures for Research Publication:</strong> A bioinformatician analyzing RNA-sequencing data generates a volcano plot. To meet journal submission guidelines, they use the programming technique <code class="docutils literal notranslate"><span class="pre">plt.savefig('volcano_plot_final.svg',</span> <span class="pre">dpi=300)</span></code>. The real-world impact is that this vector format allows the journal’s production team to make stylistic adjustments without compromising image quality, facilitating the dissemination of research findings.</p></li>
+<li><p><strong>Real-time Clinical Dashboards:</strong> A web dashboard monitoring a clinical trial uses Matplotlib in its backend. When an investigator clicks “Download Chart,” a function calls <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> to save the current data view as a time-stamped PNG. The real-world impact of this technique is the creation of an auditable visual record of critical events (e.g., a spike in adverse reactions) for later analysis and regulatory review.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential skill of saving Matplotlib visualizations as high-quality image files. We moved beyond displaying plots on-screen to producing permanent, shareable assets suitable for clinical reports, research papers, and presentations.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> function is the primary tool for exporting figures, with the file format determined by the filename extension.</p></li>
+<li><p>For print-quality outputs, use vector formats (<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">.svg</span></code>) and a high resolution (<code class="docutils literal notranslate"><span class="pre">dpi=300</span></code>). For web and presentations, raster formats (<code class="docutils literal notranslate"><span class="pre">.png</span></code>) are often suitable.</p></li>
+<li><p>Key arguments like <code class="docutils literal notranslate"><span class="pre">bbox_inches='tight'</span></code> and <code class="docutils literal notranslate"><span class="pre">transparent=True</span></code> give you control over the final appearance, allowing for clean cropping and seamless integration into other documents.</p></li>
+<li><p>Proper workflow is critical: always save the figure <em>before</em> showing it (<code class="docutils literal notranslate"><span class="pre">plt.savefig()</span></code> before <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code>) and use <code class="docutils literal notranslate"><span class="pre">plt.close()</span></code> to manage memory, especially when generating plots in a loop.</p></li>
+</ul>
+<p>Now that you can create, customize, and save individual plots, we will move on to arranging multiple plots within a single figure using subplots, a technique for creating more complex and comparative data dashboards.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3.5_subplots_and_multiple_figures.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 3: Advanced Data Visualization</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-output-quality-and-format">3.1 Controlling Output Quality and Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-with-a-transparent-background">3.2 Saving with a Transparent Background</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-correct-save-order-and-memory-management">3.3 The Correct Save Order and Memory Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-multiple-plots-in-a-loop">3.4 Saving Multiple Plots in a Loop</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-figure-saving">Exercise 1: Basic Figure Saving</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-high-quality-report-figure">Exercise 2: High-Quality Report Figure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-batch-processing-for-presentations">Exercise 3: Batch Processing for Presentations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

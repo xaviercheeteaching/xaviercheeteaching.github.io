@@ -1,0 +1,911 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 2: Data Ingestion and Preparation &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2.4_reading_csv_and_excel_files_with_pandas';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 2: Data Manipulation with Pandas" href="2.5_data_selection_and_filtering.html" />
+    <link rel="prev" title="Chapter 2: Working with Tabular Data" href="2.3_introduction_to_pandas_dataframes.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.12_string_methods.html">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/2.4_reading_csv_and_excel_files_with_pandas.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/2.4_reading_csv_and_excel_files_with_pandas.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2.4_reading_csv_and_excel_files_with_pandas.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 2: Data Ingestion and Preparation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-standard-csv-file">3.1 Reading a Standard CSV File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-csv-files">3.2 Editing CSV files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deleting-rows-in-csv-files">3.3 Deleting Rows in CSV files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-csv-import">Exercise 1: Basic CSV Import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-reading-a-specific-excel-sheet">Exercise 2: Reading a Specific Excel Sheet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-data-ingestion-and-preparation">
+<h1>Chapter 2: Data Ingestion and Preparation<a class="headerlink" href="#chapter-2-data-ingestion-and-preparation" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the cornerstone of any data analysis workflow: getting data into your environment. In precision health, critical information—from patient vitals and lab results to medication logs—is often stored in simple, universal file formats like CSV and Excel. This section establishes the foundational skill of loading this data into Pandas DataFrames. We will begin by reading standard, clean files and progressively build up to handling the complex, messy data structures commonly encountered in real-world clinical and research settings, ensuring your data is accurate and ready for analysis from the very first step.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>DataFrame</strong>: The primary data structure in Pandas, analogous to a digital spreadsheet or a patient’s medical chart. Each row represents an observation (e.g., a single clinic visit), and each column represents a variable (e.g., heart rate, temperature).</p></li>
+<li><p><strong>CSV (Comma-Separated Values)</strong>: A plain text file format used to store tabular data. Each line is a data record, and each record consists of one or more fields, separated by commas. In a medical context, a daily export of patient vitals from a monitoring device is often in CSV format.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="reading-a-standard-csv-file">
+<h3>3.1 Reading a Standard CSV File<a class="headerlink" href="#reading-a-standard-csv-file" title="Link to this heading">#</a></h3>
+<p>The most common data import task is loading a clean, comma-separated file. We use the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> function. This is the first step in analyzing data like daily patient vitals exported from an electronic health record (EHR) system.</p>
+<p>First, lets generate a csv file called vitals_data.csv in the current directory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># Define the CSV content</span>
+<span class="n">csv_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;patient_id,age,heart_rate_bpm,temperature_celsius</span>
+<span class="s2">PT000001,68,72,37.1</span>
+<span class="s2">PT000002,54,81,38.2</span>
+<span class="s2">PT000003,76,68,36.8</span>
+<span class="s2">PT000004,34,88,37.5</span>
+<span class="s2">PT000005,81,70,36.9</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Write the content to a file on the filesystem</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;vitals_data.csv&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">csv_content</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, let’s check that vitals_data.csv is indeed created.</p>
+<p>To view the file in /home/jovyan, try the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># Check your current location</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Current directory:&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+
+<span class="c1"># List all files in this directory</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Files in /home/jovyan:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/home/jovyan&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s read the csv file from <code class="docutils literal notranslate"><span class="pre">/home/jovyan</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Read the CSV file directly from the filesystem</span>
+<span class="n">vitals_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;vitals_data.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Display the data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vitals_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>: This is the primary function for loading data from a CSV file into a Pandas DataFrame.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.head()</span></code>: A quick and essential method to display the first five rows, allowing you to visually inspect the DataFrame and confirm the import was successful.</p></li>
+</ul>
+<p>While CSVs are common, much of the administrative and financial data in healthcare is stored in Excel files. Let’s see how to access a specific worksheet within an Excel workbook.</p>
+</section>
+<section id="editing-csv-files">
+<h3>3.2 Editing CSV files<a class="headerlink" href="#editing-csv-files" title="Link to this heading">#</a></h3>
+<p>Now that we know how to read data, let’s look at how to add new rows to existing csv file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="c1"># The file we want to edit</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;vitals_data.csv&#39;</span>
+
+<span class="c1"># The new row we want to add (ensure the order matches the columns!)</span>
+<span class="n">new_row</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PT000008&#39;</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mf">37.2</span><span class="p">]</span>
+
+<span class="c1"># Open the file in append mode (&#39;a&#39;)</span>
+<span class="c1"># newline=&#39;&#39; is required to prevent blank lines between rows on some systems</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">new_row</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Added new patient to </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Verify the result by reading it back</span>
+<span class="n">updated_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">updated_df</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span> <span class="c1"># .tail() shows the last few rows</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="deleting-rows-in-csv-files">
+<h3>3.3 Deleting Rows in CSV files<a class="headerlink" href="#deleting-rows-in-csv-files" title="Link to this heading">#</a></h3>
+<p>To delete a row, you typically load the data, remove the specific row(s), and then save the file again. We rarely delete rows directly from the raw file on the disk because it is error-prone.</p>
+<p>Here are the two most common ways to do this using pandas.</p>
+<p><strong>Method 1: Drop by Index (Row Number)</strong>
+This is useful if you know the exact position of the row you want to delete (e.g., “delete the 3rd row”).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1. Load the original file</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;vitals_data.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Delete the row with index 2 (which is the 3rd row, PT000003)</span>
+<span class="c1"># Note: simple drop() returns a NEW dataframe, it doesn&#39;t change the original one unless you say so</span>
+<span class="n">df_cleaned</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 3. Save the result back to CSV</span>
+<span class="c1"># We overwrite the original file, or you could save to a new name</span>
+<span class="n">df_cleaned</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;vitals_data_v2.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">updated_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;vitals_data_v2.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">updated_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Method 2: Drop by Condition (Filtering)</strong></p>
+<p>This is the more robust “data science” way. You keep only the rows that match a specific rule. For example, “keep all patients where Age is not 54”.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1. Load the file</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;vitals_data.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Filter: Keep rows where &#39;patient_id&#39; is NOT &#39;PT000002&#39;</span>
+<span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;patient_id&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;PT000002&#39;</span><span class="p">]</span>
+
+<span class="c1"># 3. Save the result</span>
+<span class="n">df_filtered</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;vitals_data_3.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">updated_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;vitals_data_3.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">updated_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<div style="background-color: #fff5f5; border-left: 6px solid #c53030; padding: 16px 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-family: sans-serif;">
+  <div style="display: flex; align-items: center; margin-bottom: 8px;">
+    <span style="font-size: 20px; margin-right: 10px;">⚠️</span>
+    <strong style="color: #c53030; font-size: 1.1em; letter-spacing: 0.5px;">WARNING</strong>
+  </div>
+  <div style="color: #2d3748; font-size: 0.95em; line-height: 1.6;">
+    Run the code below first to generate the CSV file required for Exercise 1 and Exercise 2
+  </div>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Simulating the data from Exercise 1</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PT-101&#39;</span><span class="p">,</span> <span class="s1">&#39;PT-102&#39;</span><span class="p">,</span> <span class="s1">&#39;PT-103&#39;</span><span class="p">,</span> <span class="s1">&#39;PT-104&#39;</span><span class="p">,</span> <span class="s1">&#39;TEST-999&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;2023-10-25 08:30:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-10-25 08:45:00&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;2023-10-25 09:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-10-25 09:15:00&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;2023-10-25 09:30:00&#39;</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;temperature_celsius&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">36.6</span><span class="p">,</span> <span class="mf">37.2</span><span class="p">,</span> <span class="mf">36.8</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="s1">&#39;bp_systolic&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">122</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s1">&#39;bp_diastolic&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;daily_vitals.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Setup Complete: &#39;daily_vitals.csv&#39; has been created.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="exercise-1-basic-csv-import">
+<h3>Exercise 1: Basic CSV Import<a class="headerlink" href="#exercise-1-basic-csv-import" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Perform a standard import of a CSV file with clinically realistic columns.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> As part of a daily quality check at City Medical Center, you need to perform a quick inspection of the latest patient vitals.</p>
+<p>Load the file <code class="docutils literal notranslate"><span class="pre">daily_vitals.csv</span></code>. The columns are <code class="docutils literal notranslate"><span class="pre">patient_id</span></code>, <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> (in ‘YYYY-MM-DD HH:MM:SS’ format), <code class="docutils literal notranslate"><span class="pre">temperature_celsius</span></code>, <code class="docutils literal notranslate"><span class="pre">bp_systolic</span></code>, and <code class="docutils literal notranslate"><span class="pre">bp_diastolic</span></code>. Name the DataFrame <code class="docutils literal notranslate"><span class="pre">vitals_df</span></code> and display the first five rows.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># This solution assumes a file &#39;daily_vitals.csv&#39; exists.</span>
+<span class="c1"># Example content:</span>
+<span class="c1"># patient_id,timestamp,temperature_celsius,bp_systolic,bp_diastolic</span>
+<span class="c1"># PT000201,2025-11-13 08:00:00,36.8,120,80</span>
+
+<span class="c1"># Load the CSV file into a DataFrame</span>
+<span class="n">vitals_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;daily_vitals.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Display the first five rows to verify</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vitals_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This uses <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> with just the file path, as the file is a standard, well-formatted CSV with a header row.
+<strong>Key Learning:</strong> Basic file loading with <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> is simple and effective for clean, structured clinical data.</p>
+</div>
+</details></section>
+<section id="exercise-2-reading-a-specific-excel-sheet">
+<h3>Exercise 2: Reading a Specific Excel Sheet<a class="headerlink" href="#exercise-2-reading-a-specific-excel-sheet" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Append new data, correct data entry errors, and remove invalid rows. Time: 5 minutes
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> The head nurse reviews the daily_vitals.csv file and notices three issues: a new patient (PT-105) has just finished triage and needs to be added; the systolic blood pressure for PT-104 was entered incorrectly as 190 (it should be 125); and there is a “dummy” record (TEST-999) left over from a system calibration that must be deleted.</p>
+<p><strong>Instructions</strong>:</p>
+<ol class="arabic simple">
+<li><p>Load: Read daily_vitals.csv into a DataFrame named vitals_df.</p></li>
+<li><p>Append: Create a dictionary for patient PT-105 (Time: ‘09:45:00’, Temp: 36.5, BP: 115/75) and add it to the DataFrame.</p></li>
+<li><p>Edit: Locate PT-104 and correct their bp_systolic from 190 to 125.</p></li>
+<li><p>Delete: Remove the row where patient_id is ‘TEST-999’.</p></li>
+<li><p>Verify: Display the final DataFrame.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1. Load the file</span>
+<span class="n">vitals_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;daily_vitals.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Append new patient</span>
+<span class="c1"># Creating the new row as a DataFrame</span>
+<span class="n">new_patient</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span>
+    <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="s1">&#39;PT-105&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-10-25 09:45:00&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;temperature_celsius&#39;</span><span class="p">:</span> <span class="mf">36.5</span><span class="p">,</span>
+    <span class="s1">&#39;bp_systolic&#39;</span><span class="p">:</span> <span class="mi">115</span><span class="p">,</span>
+    <span class="s1">&#39;bp_diastolic&#39;</span><span class="p">:</span> <span class="mi">75</span>
+<span class="p">}])</span>
+<span class="c1"># Concatenating the new row to the existing dataframe</span>
+<span class="n">vitals_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">vitals_df</span><span class="p">,</span> <span class="n">new_patient</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 3. Edit PT-104 (Correcting the typo)</span>
+<span class="c1"># We use .loc to find the row where patient_id is PT-104 and update the specific column</span>
+<span class="n">vitals_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">vitals_df</span><span class="p">[</span><span class="s1">&#39;patient_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;PT-104&#39;</span><span class="p">,</span> <span class="s1">&#39;bp_systolic&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">125</span>
+
+<span class="c1"># 4. Delete TEST-999 (Removing the dummy row)</span>
+<span class="c1"># We keep only rows where patient_id is NOT equal to TEST-999</span>
+<span class="n">vitals_df</span> <span class="o">=</span> <span class="n">vitals_df</span><span class="p">[</span><span class="n">vitals_df</span><span class="p">[</span><span class="s1">&#39;patient_id&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;TEST-999&#39;</span><span class="p">]</span>
+
+<span class="c1"># 5. Verify</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vitals_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Aggregating Clinical Trial Data:</strong> Researchers often receive patient data from multiple trial sites as separate CSV files. Using a loop and <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>, they can ingest all files into a single master DataFrame, standardizing column names with the <code class="docutils literal notranslate"><span class="pre">names</span></code> parameter to ensure consistency for a meta-analysis.</p></li>
+<li><p><strong>Processing Genomic Sequencer Output:</strong> Genomic data files are often massive, tab-delimited, and prefixed with many lines of metadata. A bioinformatician would use <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> with <code class="docutils literal notranslate"><span class="pre">sep='\t'</span></code>, <code class="docutils literal notranslate"><span class="pre">skiprows</span></code>, and <code class="docutils literal notranslate"><span class="pre">usecols</span></code> to efficiently parse these files, ignoring the metadata and loading only the essential gene and expression columns to conserve memory.</p></li>
+<li><p><strong>Integrating EHR Data Exports:</strong> When a hospital exports a large dataset from its Electronic Health Record (EHR) system, patient IDs (e.g., ‘00123’) might be incorrectly converted to numbers (123). Using <code class="docutils literal notranslate"><span class="pre">dtype={'patient_id':</span> <span class="pre">str}</span></code> during import prevents this data corruption and ensures patient records can be accurately joined later.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential functions for loading data from the most common file formats in healthcare analytics. We learned how to move beyond simple file reads to skillfully handle the complexities of real-world data, ensuring a solid foundation for any analysis.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2.3_introduction_to_pandas_dataframes.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 2: Working with Tabular Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2.5_data_selection_and_filtering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 2: Data Manipulation with Pandas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-a-standard-csv-file">3.1 Reading a Standard CSV File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-csv-files">3.2 Editing CSV files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deleting-rows-in-csv-files">3.3 Deleting Rows in CSV files</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-csv-import">Exercise 1: Basic CSV Import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-reading-a-specific-excel-sheet">Exercise 2: Reading a Specific Excel Sheet</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

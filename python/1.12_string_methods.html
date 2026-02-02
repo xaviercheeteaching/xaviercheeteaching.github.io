@@ -1,0 +1,984 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Python Fundamentals for Health Data &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.12_string_methods';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 2: Foundations of Data Manipulation" href="2.1_introduction_to_numpy_arrays.html" />
+    <link rel="prev" title="Chapter 1: Python Fundamentals for Health Data" href="1.11_reading_and_writing_files.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/1.12_string_methods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/1.12_string_methods.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.12_string_methods.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Python Fundamentals for Health Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-split-method">3.1 The <code class="docutils literal notranslate"><span class="pre">split()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strip-method">3.2 The <code class="docutils literal notranslate"><span class="pre">strip()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-startswith-method">3.3 The <code class="docutils literal notranslate"><span class="pre">startswith()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-endswith-method">3.4 The <code class="docutils literal notranslate"><span class="pre">endswith()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-replace-method">3.5 The <code class="docutils literal notranslate"><span class="pre">replace()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chaining-methods-for-efficiency">3.6 Chaining Methods for Efficiency</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-clean-patient-names-basic">Exercise 1: Clean Patient Names (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-parse-vital-signs-data-intermediate">Exercise 2: Parse Vital Signs Data (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-standardize-and-validate-a-prescription-advanced">Exercise 3: Standardize and Validate a Prescription (Advanced)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-python-fundamentals-for-health-data">
+<h1>Chapter 1: Python Fundamentals for Health Data<a class="headerlink" href="#chapter-1-python-fundamentals-for-health-data" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In precision health, data rarely arrives in a perfect, ready-to-use format. Electronic Health Records (EHRs), lab results, and clinical notes are filled with unstructured or semi-structured text that must be cleaned and parsed before it can be analyzed. This section introduces fundamental Python string methods, which are the primary tools for this critical task. By mastering these methods, you can transform messy text into clean, structured, and reliable data suitable for clinical analysis and machine learning. By the end of this section, you will be able to use string methods to parse, clean, and validate text data effectively.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>String Parsing</strong>: The process of analyzing a string to extract meaningful components based on a set of rules or delimiters. In a medical context, this is essential for breaking down complex data strings, like a lab result (<code class="docutils literal notranslate"><span class="pre">&quot;Hemoglobin:14.5:g/dL&quot;</span></code>), into structured information (test, value, unit).</p></li>
+<li><p><strong>Data Cleaning</strong>: The process of identifying and correcting or removing errors, inconsistencies, and inaccuracies from a dataset. For patient data, this often involves using <code class="docutils literal notranslate"><span class="pre">strip()</span></code> to remove unwanted whitespace from identifiers to ensure they can be matched accurately across systems.</p></li>
+<li><p><strong>Delimiter</strong>: A character or sequence of characters that marks the boundary between separate regions of data. Common delimiters in health data include colons (<code class="docutils literal notranslate"><span class="pre">:</span></code>), commas (<code class="docutils literal notranslate"><span class="pre">,</span></code>), and pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>), which are used to separate fields in a single string.</p></li>
+<li><p><strong>Prefix/Suffix</strong>: A sequence of characters found at the beginning (prefix) or end (suffix) of a string. Prefixes are useful for categorizing data, like identifying all ICD-10 cancer codes that start with <code class="docutils literal notranslate"><span class="pre">&quot;C&quot;</span></code>. Suffixes are often used to validate file formats, such as ensuring a medical image file ends with <code class="docutils literal notranslate"><span class="pre">.dcm</span></code>.</p></li>
+<li><p><strong>Method Chaining</strong>: The practice of calling multiple methods sequentially in a single statement. Each method operates on the result of the one before it, creating a concise and readable workflow for multi-step data transformations, such as cleaning and extracting a value in one line of code.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="the-split-method">
+<h3>3.1 The <code class="docutils literal notranslate"><span class="pre">split()</span></code> Method<a class="headerlink" href="#the-split-method" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">split()</span></code> method divides a string into a list of substrings based on a specified delimiter. This is ideal for parsing structured text, such as a lab result where components are separated by colons. The delimiter itself is removed from the output.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lab_data</span> <span class="o">=</span> <span class="s2">&quot;Hemoglobin:14.5:g/dL&quot;</span>
+<span class="n">parsed_data</span> <span class="o">=</span> <span class="n">lab_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsed data: </span><span class="si">{</span><span class="n">parsed_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Parsed data: [&#39;Hemoglobin&#39;, &#39;14.5&#39;, &#39;g/dL&#39;]</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>In Practice:</strong> The <code class="docutils literal notranslate"><span class="pre">.split()</span></code> method is a workhorse for parsing data from simpler structured formats. You will frequently use it to process data from CSV (Comma-Separated Values) files, where each line is a string of values separated by commas, or from device outputs that use a consistent delimiter like a colon or pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>).</p>
+</div></blockquote>
+</section>
+<section id="the-strip-method">
+<h3>3.2 The <code class="docutils literal notranslate"><span class="pre">strip()</span></code> Method<a class="headerlink" href="#the-strip-method" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">strip()</span></code> method removes all leading and trailing whitespace (spaces, tabs <code class="docutils literal notranslate"><span class="pre">\t</span></code>, newlines <code class="docutils literal notranslate"><span class="pre">\n</span></code>) from a string. This is a critical first step in data cleaning, especially for user-entered data or identifiers that may contain extraneous characters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">patient_id</span> <span class="o">=</span> <span class="s2">&quot;  PT789012  </span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">clean_id</span> <span class="o">=</span> <span class="n">patient_id</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaned ID: &#39;</span><span class="si">{</span><span class="n">clean_id</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Cleaned ID: &#39;PT789012&#39;</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note:</strong> Data that looks identical can fail equality checks (e.g., <code class="docutils literal notranslate"><span class="pre">'PT789012'</span> <span class="pre">==</span> <span class="pre">'</span> <span class="pre">PT789012</span> <span class="pre">'</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>). If your data lookups or comparisons are failing unexpectedly, the first step is often to use <code class="docutils literal notranslate"><span class="pre">.strip()</span></code> on your strings. Invisible characters like spaces or newlines are a frequent cause of such issues.</p>
+</div></blockquote>
+</section>
+<section id="the-startswith-method">
+<h3>3.3 The <code class="docutils literal notranslate"><span class="pre">startswith()</span></code> Method<a class="headerlink" href="#the-startswith-method" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">startswith()</span></code> method checks if a string begins with a specific prefix and returns a boolean value (<code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>). It is highly efficient for categorizing data without complex parsing. To check for multiple possible prefixes, pass them as a tuple.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">diagnosis_code</span> <span class="o">=</span> <span class="s2">&quot;C50.9-Malignant neoplasm of breast&quot;</span>
+<span class="c1"># Check if the code represents a cancer (&#39;C&#39; codes) or in situ neoplasm (&#39;D0&#39; codes)</span>
+<span class="n">is_cancer_code</span> <span class="o">=</span> <span class="n">diagnosis_code</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D0&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is cancer code: </span><span class="si">{</span><span class="n">is_cancer_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Is cancer code: True</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Medical Background:</strong> The International Classification of Diseases (ICD) is a global standard for diagnostic health information. Codes starting with ‘C’ and some ‘D’ codes relate to neoplasms (tumors). Using <code class="docutils literal notranslate"><span class="pre">startswith()</span></code> allows for rapid programmatic sorting of patient records for oncology research, billing, or specialized clinical workflows.</p>
+</div></blockquote>
+</section>
+<section id="the-endswith-method">
+<h3>3.4 The <code class="docutils literal notranslate"><span class="pre">endswith()</span></code> Method<a class="headerlink" href="#the-endswith-method" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">endswith()</span></code> method checks if a string ends with a specific suffix, returning <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. This is commonly used to validate data formats, such as ensuring a file is a medical imaging DICOM file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report_file</span> <span class="o">=</span> <span class="s2">&quot;radiology_report_chest_xray.dcm&quot;</span>
+<span class="n">is_dicom_file</span> <span class="o">=</span> <span class="n">report_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.dcm&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is DICOM file: </span><span class="si">{</span><span class="n">is_dicom_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Is DICOM file: True</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-replace-method">
+<h3>3.5 The <code class="docutils literal notranslate"><span class="pre">replace()</span></code> Method<a class="headerlink" href="#the-replace-method" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">replace()</span></code> method returns a new string where all occurrences of a specified substring are replaced with another. This is invaluable for standardizing terminology or correcting unsafe medical abbreviations to improve patient safety.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standardize_rx_terms</span><span class="p">(</span><span class="n">prescription</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Replaces unsafe abbreviations in a prescription string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        prescription: The raw prescription text.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The prescription with standardized terms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Standardize &quot;qd&quot; to meet Joint Commission safety standards</span>
+    <span class="k">return</span> <span class="n">prescription</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;qd&quot;</span><span class="p">,</span> <span class="s2">&quot;once daily&quot;</span><span class="p">)</span>
+
+<span class="c1"># Example usage</span>
+<span class="n">original_prescription</span> <span class="o">=</span> <span class="s2">&quot;Take 1 tablet po qd&quot;</span>
+<span class="n">standardized_prescription</span> <span class="o">=</span> <span class="n">standardize_rx_terms</span><span class="p">(</span><span class="n">original_prescription</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Standardized Rx: </span><span class="si">{</span><span class="n">standardized_prescription</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Standardized Rx: Take 1 tablet po once daily</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> Using <code class="docutils literal notranslate"><span class="pre">replace()</span></code> to standardize abbreviations is a key patient safety practice. The Joint Commission has an official “Do Not Use” list of abbreviations (like “qd” for “daily” or “U” for “unit”) because they are prone to misinterpretation and can lead to medication errors. Automating this standardization helps enforce safer communication in clinical notes and prescriptions.</p>
+</div></blockquote>
+</section>
+<section id="chaining-methods-for-efficiency">
+<h3>3.6 Chaining Methods for Efficiency<a class="headerlink" href="#chaining-methods-for-efficiency" title="Link to this heading">#</a></h3>
+<p>String methods can be chained together to perform a sequence of operations in a single, readable line. This technique is powerful for executing a cleaning and extraction workflow concisely. The example below includes error handling to make it robust against malformed data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raw_data</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  TEMP: 37.0 C  &quot;</span>
+<span class="n">temperature_value</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Default value</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Chain methods to clean, split, and extract the value</span>
+    <span class="n">cleaned_data</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s1">&#39;TEMP: &#39;</span> <span class="ow">in</span> <span class="n">cleaned_data</span><span class="p">:</span>
+        <span class="n">temperature_value</span> <span class="o">=</span> <span class="n">cleaned_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;TEMP: &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; C&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+    <span class="c1"># This handles cases where the split might fail unexpectedly</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Could not parse temperature data.&quot;</span><span class="p">)</span>
+    <span class="n">temperature_value</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Isolated Value: &#39;</span><span class="si">{</span><span class="n">temperature_value</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Isolated Value: &#39;37.0&#39;</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Method chaining is efficient and elegant. However, if you get an error, it can be difficult to pinpoint which method failed. For complex chains, consider breaking the operations into separate lines and printing the intermediate results to make debugging easier.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-clean-patient-names-basic">
+<h3>Exercise 1: Clean Patient Names (Basic)<a class="headerlink" href="#exercise-1-clean-patient-names-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use the <code class="docutils literal notranslate"><span class="pre">strip()</span></code> method to clean a list of patient names with inconsistent whitespace.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Patient data imported from different systems often has formatting issues. Ensuring names are clean is the first step to deduplicating patient records.</p>
+<p>You are given a list of patient names with extra spaces and newline characters. Write a loop that iterates through the list, cleans each name, and appends the cleaned name to a new list called <code class="docutils literal notranslate"><span class="pre">cleaned_names</span></code>.</p>
+<p>Clean Patient Names (Basic)</p>
+<p><strong>Objective:</strong> Use the <code class="docutils literal notranslate"><span class="pre">strip()</span></code> method to clean a list of patient names with inconsistent whitespace.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Patient data imported from different systems often has formatting issues. Ensuring names are clean is the first step to deduplicating patient records.</p>
+<p>You are given a list of patient names with extra spaces and newline characters. Write a loop that iterates through the list, cleans each name, and appends the cleaned name to a new list called <code class="docutils literal notranslate"><span class="pre">cleaned_names</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;  Doe, John &quot;</span><span class="p">,</span> <span class="s2">&quot;Smith, Jane</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;  </span><span class="se">\t</span><span class="s2">Peter Jones &quot;</span><span class="p">]</span>
+<span class="n">cleaned_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Your code here</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cleaned_names</span><span class="p">)</span>
+<span class="c1"># Expected Output: [&#39;Doe, John&#39;, &#39;Smith, Jane&#39;, &#39;Peter Jones&#39;]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raw_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;  Doe, John &quot;</span><span class="p">,</span> <span class="s2">&quot;Smith, Jane</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;  </span><span class="se">\t</span><span class="s2">Peter Jones &quot;</span><span class="p">]</span>
+<span class="n">cleaned_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">raw_names</span><span class="p">:</span>
+    <span class="n">cleaned_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cleaned_names</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code iterates through each <code class="docutils literal notranslate"><span class="pre">name</span></code> in the <code class="docutils literal notranslate"><span class="pre">raw_names</span></code> list. The <code class="docutils literal notranslate"><span class="pre">name.strip()</span></code> method is called on each string to remove all leading and trailing whitespace. The resulting clean string is then appended to the <code class="docutils literal notranslate"><span class="pre">cleaned_names</span></code> list.</p>
+<p><strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">strip()</span></code> method is fundamental for normalizing text data before any further processing or database storage.</p>
+</div>
+</details></section>
+<section id="exercise-2-parse-vital-signs-data-intermediate">
+<h3>Exercise 2: Parse Vital Signs Data (Intermediate)<a class="headerlink" href="#exercise-2-parse-vital-signs-data-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Write a function named <code class="docutils literal notranslate"><span class="pre">parse_vitals</span></code> that accepts a raw data string and returns a cleaned patient ID and temperature value as a tuple.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Vital signs are often transmitted as concatenated strings from monitoring devices. This function simulates parsing such a string to extract clinically relevant information.</p>
+<p>Your function must handle raw strings formatted like <code class="docutils literal notranslate"><span class="pre">&quot;</span>&#160; <span class="pre">REC:PT123456,</span> <span class="pre">TEMP:</span> <span class="pre">38.4</span> <span class="pre">C</span>&#160; <span class="pre">&quot;</span></code>.</p>
+<ul class="simple">
+<li><p>Remove all leading/trailing whitespace.</p></li>
+<li><p>Return <code class="docutils literal notranslate"><span class="pre">None</span></code> if the cleaned string does not start with <code class="docutils literal notranslate"><span class="pre">&quot;REC:&quot;</span></code>.</p></li>
+<li><p>If the string is malformed in other ways (e.g., missing a comma or the <code class="docutils literal notranslate"><span class="pre">TEMP:</span></code> label), the function should also return <code class="docutils literal notranslate"><span class="pre">None</span></code> to indicate a parsing failure.</p></li>
+<li><p>Split the string to isolate the patient ID and temperature parts.</p></li>
+<li><p>Extract the ID (e.g., <code class="docutils literal notranslate"><span class="pre">'PT123456'</span></code>) and the temperature value (e.g., <code class="docutils literal notranslate"><span class="pre">'38.4'</span></code>).</p></li>
+<li><p>Return the cleaned ID and temperature value as a tuple: <code class="docutils literal notranslate"><span class="pre">('PT123456',</span> <span class="pre">'38.4')</span></code>.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> The practice task involves parsing a specific format. What other kinds of semi-structured text data do you encounter in a clinical setting? Think about nursing notes, lab reports, or device readouts. How could you use the methods from this lesson to extract valuable information from them?</p>
+</div></blockquote>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">parse_vitals</span><span class="p">(</span><span class="n">raw_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parses a raw vital sign string into a (patient_id, temperature) tuple.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># 1. Clean the input string</span>
+        <span class="n">cleaned_string</span> <span class="o">=</span> <span class="n">raw_string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># 2. Validate the record format</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cleaned_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;REC:&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># 3. Split into main parts (record and temperature)</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">cleaned_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span> <span class="c1"># Ensure there are two parts</span>
+
+        <span class="c1"># 4. Extract Patient ID</span>
+        <span class="n">patient_id_part</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># &#39;REC:PT123456&#39;</span>
+        <span class="n">patient_id</span> <span class="o">=</span> <span class="n">patient_id_part</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># 5. Extract Temperature</span>
+        <span class="n">temp_part</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># &#39; TEMP: 38.4 C&#39;</span>
+        <span class="c1"># Chain methods to clean and isolate the value</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="n">temp_part</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">patient_id</span><span class="p">,</span> <span class="n">temperature</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="c1"># Catch errors from malformed strings (e.g., missing colons/spaces)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Example usage:</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;  REC:PT123456, TEMP: 38.4 C  &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parse_vitals</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="c1"># Expected Output: (&#39;PT123456&#39;, &#39;38.4&#39;)</span>
+
+<span class="n">bad_data</span> <span class="o">=</span> <span class="s2">&quot;  REC:PT999999 TEMP: 37.0 C&quot;</span> <span class="c1"># Missing comma</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parse_vitals</span><span class="p">(</span><span class="n">bad_data</span><span class="p">))</span>
+<span class="c1"># Expected Output: None</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function is wrapped in a <code class="docutils literal notranslate"><span class="pre">try...except</span></code> block to handle potential <code class="docutils literal notranslate"><span class="pre">IndexError</span></code> or <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if the splits fail on a malformed string. It first cleans and validates the string. It then splits the string by the comma to separate the record from the temperature. It uses <code class="docutils literal notranslate"><span class="pre">split(':')</span></code> on the first part to get the ID and a chain of <code class="docutils literal notranslate"><span class="pre">strip()</span></code> and <code class="docutils literal notranslate"><span class="pre">split('</span> <span class="pre">')</span></code> on the second part to isolate the numeric temperature value.</p>
+<p><strong>Key Learning:</strong> Robust parsing functions should include validation and error handling to gracefully manage unexpected or malformed input data.</p>
+</div>
+</details></section>
+<section id="exercise-3-standardize-and-validate-a-prescription-advanced">
+<h3>Exercise 3: Standardize and Validate a Prescription (Advanced)<a class="headerlink" href="#exercise-3-standardize-and-validate-a-prescription-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Process a raw prescription string to standardize units and validate the medication type.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Medication errors are a significant patient safety risk. Automating the standardization and validation of prescriptions can help prevent such errors. This exercise focuses on correcting a dangerous abbreviation and checking if the drug is a controlled substance.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">process_rx</span></code> that takes a prescription string (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Oxycodone</span> <span class="pre">10mg</span> <span class="pre">PO</span> <span class="pre">QID&quot;</span></code>).</p>
+<ol class="arabic simple">
+<li><p>Replace the dangerous abbreviation <code class="docutils literal notranslate"><span class="pre">&quot;QID&quot;</span></code> (four times a day) with the safer <code class="docutils literal notranslate"><span class="pre">&quot;four</span> <span class="pre">times</span> <span class="pre">daily&quot;</span></code>.</p></li>
+<li><p>Check if the standardized prescription starts with any known controlled substances from the provided list: <code class="docutils literal notranslate"><span class="pre">(&quot;Oxycodone&quot;,</span> <span class="pre">&quot;Hydrocodone&quot;,</span> <span class="pre">&quot;Fentanyl&quot;)</span></code>.</p></li>
+<li><p>The function should return a tuple containing the standardized prescription string and a boolean indicating if it is a controlled substance.</p></li>
+</ol>
+<p>Standardize and Validate a Prescription (Advanced)</p>
+<p><strong>Objective:</strong> Process a raw prescription string to standardize units and validate the medication type.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Medication errors are a significant patient safety risk. Automating the standardization and validation of prescriptions can help prevent such errors. This exercise focuses on correcting a dangerous abbreviation and checking if the drug is a controlled substance.</p>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">process_rx</span></code> that takes a prescription string (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Oxycodone</span> <span class="pre">10mg</span> <span class="pre">PO</span> <span class="pre">QID&quot;</span></code>).</p>
+<ol class="arabic simple">
+<li><p>Replace the dangerous abbreviation <code class="docutils literal notranslate"><span class="pre">&quot;QID&quot;</span></code> (four times a day) with the safer <code class="docutils literal notranslate"><span class="pre">&quot;four</span> <span class="pre">times</span> <span class="pre">daily&quot;</span></code>.</p></li>
+<li><p>Check if the standardized prescription starts with any known controlled substances from the provided list: <code class="docutils literal notranslate"><span class="pre">(&quot;Oxycodone&quot;,</span> <span class="pre">&quot;Hydrocodone&quot;,</span> <span class="pre">&quot;Fentanyl&quot;)</span></code>.</p></li>
+<li><p>The function should return a tuple containing the standardized prescription string and a boolean indicating if it is a controlled substance.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected output for &quot;Oxycodone 10mg PO QID&quot;</span>
+<span class="c1"># is (&#39;Oxycodone 10mg PO four times daily&#39;, True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_rx</span><span class="p">(</span><span class="n">prescription_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Standardizes and validates a prescription string.&quot;&quot;&quot;</span>
+    <span class="n">controlled_substances</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Oxycodone&quot;</span><span class="p">,</span> <span class="s2">&quot;Hydrocodone&quot;</span><span class="p">,</span> <span class="s2">&quot;Fentanyl&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># 1. Standardize the abbreviation</span>
+    <span class="n">standardized_rx</span> <span class="o">=</span> <span class="n">prescription_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;QID&quot;</span><span class="p">,</span> <span class="s2">&quot;four times daily&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># 2. Validate if it&#39;s a controlled substance</span>
+    <span class="n">is_controlled</span> <span class="o">=</span> <span class="n">standardized_rx</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">controlled_substances</span><span class="p">)</span>
+    
+    <span class="c1"># 3. Return the results</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">standardized_rx</span><span class="p">,</span> <span class="n">is_controlled</span><span class="p">)</span>
+
+<span class="c1"># Example usage:</span>
+<span class="n">rx1</span> <span class="o">=</span> <span class="s2">&quot;Oxycodone 10mg PO QID&quot;</span>
+<span class="n">rx2</span> <span class="o">=</span> <span class="s2">&quot;Lisinopril 20mg PO QID&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing &#39;</span><span class="si">{</span><span class="n">rx1</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">process_rx</span><span class="p">(</span><span class="n">rx1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing &#39;</span><span class="si">{</span><span class="n">rx2</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">process_rx</span><span class="p">(</span><span class="n">rx2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The function first defines a tuple of controlled substance prefixes. It uses <code class="docutils literal notranslate"><span class="pre">.replace()</span></code> to standardize the frequency term. Then, it uses <code class="docutils literal notranslate"><span class="pre">.startswith()</span></code> with the tuple to check if the medication is on the list. Finally, it returns both the new string and the boolean result.</p>
+<p><strong>Key Learning:</strong> String methods can be combined to perform complex validation and standardization rules that are critical for clinical decision support systems.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Normalizing Lab Data Feeds:</strong> In hospital information systems, lab results from different analyzers arrive as delimited text streams (e.g., HL7 messages). Developers use <code class="docutils literal notranslate"><span class="pre">split()</span></code> to parse these streams into components like test name, value, and units. <code class="docutils literal notranslate"><span class="pre">strip()</span></code> is then used on each component to remove hidden whitespace before the data is stored in the patient’s EHR, ensuring data integrity.</p></li>
+<li><p><strong>Validating and Categorizing Diagnosis Codes:</strong> Public health analysts often work with large datasets of ICD-10 diagnosis codes. Using <code class="docutils literal notranslate"><span class="pre">startswith()</span></code> allows them to rapidly filter millions of records to identify specific disease categories (e.g., codes starting with ‘C’ for neoplasms or ‘J’ for respiratory diseases) for epidemiological studies, without needing a complex database query.</p></li>
+<li><p><strong>Standardizing Clinical Notes for NLP:</strong> Natural Language Processing (NLP) models are used to extract insights from doctors’ free-text notes. Before analysis, these notes are pre-processed using <code class="docutils literal notranslate"><span class="pre">replace()</span></code> to standardize terminology, such as converting “L) leg” to “left leg” or expanding unsafe abbreviations like “qd” to “once daily”. This improves the accuracy of the NLP model and supports patient safety.</p></li>
+<li><p><strong>Automated Quality Checks on Medical Imaging Files:</strong> A Picture Archiving and Communication System (PACS) must ensure it only ingests valid medical images. A script can use <code class="docutils literal notranslate"><span class="pre">endswith(('.dcm',</span> <span class="pre">'.nii.gz'))</span></code> to automatically verify that files being uploaded have a valid DICOM or NIfTI extension, preventing corruption of the imaging archive and ensuring images are viewable by radiologists.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential string methods for transforming raw text into clean, usable data. We learned how to deconstruct, clean, validate, and modify strings—skills that are fundamental to nearly every data processing task in healthcare.</p>
+<ul class="simple">
+<li><p><strong>Key Methods Covered</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">split()</span></code>: To break strings into a list based on a delimiter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">strip()</span></code>: To remove leading/trailing whitespace for clean data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">startswith()</span></code> / <code class="docutils literal notranslate"><span class="pre">endswith()</span></code>: To validate or categorize data based on its prefix or suffix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace()</span></code>: To standardize terms and correct data.</p></li>
+<li><p><strong>Method Chaining</strong>: To perform multiple operations in one elegant line of code.</p></li>
+</ul>
+</li>
+</ul>
+<p>With these tools, you are now equipped to handle common data cleaning challenges. This foundation is crucial as we move to the next topic, Regular Expressions, where we will tackle even more complex patterns in clinical text.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.11_reading_and_writing_files.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Health Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2.1_introduction_to_numpy_arrays.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 2: Foundations of Data Manipulation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-split-method">3.1 The <code class="docutils literal notranslate"><span class="pre">split()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-strip-method">3.2 The <code class="docutils literal notranslate"><span class="pre">strip()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-startswith-method">3.3 The <code class="docutils literal notranslate"><span class="pre">startswith()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-endswith-method">3.4 The <code class="docutils literal notranslate"><span class="pre">endswith()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-replace-method">3.5 The <code class="docutils literal notranslate"><span class="pre">replace()</span></code> Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chaining-methods-for-efficiency">3.6 Chaining Methods for Efficiency</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-clean-patient-names-basic">Exercise 1: Clean Patient Names (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-parse-vital-signs-data-intermediate">Exercise 2: Parse Vital Signs Data (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-standardize-and-validate-a-prescription-advanced">Exercise 3: Standardize and Validate a Prescription (Advanced)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

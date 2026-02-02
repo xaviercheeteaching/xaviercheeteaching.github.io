@@ -1,0 +1,965 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Operators and Expressions &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.3_basic_operators_and_expressions';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Common Python Errors and Exceptions" href="1.4_common_python_errors_and_exceptions.html" />
+    <link rel="prev" title="Chapter 1: Data Types in Python" href="1.2_variables_and_data_types.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.6_dictionaries_and_sets.html">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.12_string_methods.html">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/1.3_basic_operators_and_expressions.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/1.3_basic_operators_and_expressions.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.3_basic_operators_and_expressions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Operators and Expressions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-operators-arithmetic-string">3.1 Common Operators (Arithmetic &amp; String)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-precedence">3.2 Operator Precedence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-operators">3.3 Comparison Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-operators">3.4 Logical Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-operators">3.5 Assignment Operators</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-daily-pill-calculation">Exercise 1: Daily Pill Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-heart-rate-range-check">Exercise 2: Heart Rate Range Check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-patient-report-header">Exercise 3: Patient Report Header</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-complex-eligibility-screening">Exercise 4: Complex Eligibility Screening</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-operators-and-expressions">
+<h1>Chapter 1: Operators and Expressions<a class="headerlink" href="#chapter-1-operators-and-expressions" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the core of computation in Python: operators. Operators are the special symbols that allow us to perform calculations, compare values, and make logical decisions—actions that are fundamental to analyzing health data. In this section, you will learn how to use operators for calculations like drug dosage, for comparing patient data against clinical benchmarks, and for constructing logical expressions to automate screening protocols. This foundational skill is the first step toward writing programs that can interpret data and support clinical decision-making.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Operator</strong>: A symbol (like <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, or <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>) that performs a specific operation on one or more values (operands). In a clinical setting, operators are the tools we use to translate medical logic and calculations into code.</p></li>
+<li><p><strong>Expression</strong>: A combination of values, variables, and operators that Python evaluates to produce a new value. For example, <code class="docutils literal notranslate"><span class="pre">weight_kg</span> <span class="pre">/</span> <span class="pre">(height_m</span> <span class="pre">**</span> <span class="pre">2)</span></code> is an expression that calculates a patient’s BMI.</p></li>
+<li><p><strong>Arithmetic Operators</strong>: Operators (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">//</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code>, <code class="docutils literal notranslate"><span class="pre">**</span></code>) used for mathematical calculations. They are essential for tasks like calculating medication dosages, determining infusion rates, or analyzing changes in lab values over time.</p></li>
+<li><p><strong>Comparison Operators</strong>: Operators (<code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>) that compare two values and evaluate to a boolean (<code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>). Their primary use in healthcare is to check if a biometric reading (like blood pressure or WBC count) falls within, above, or below a normal range.</p></li>
+<li><p><strong>Logical Operators</strong>: Operators (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>) that combine or invert boolean values. They are critical for building complex decision-making logic, such as implementing multi-factor patient screening criteria or checking for drug contraindications.</p></li>
+<li><p><strong>Assignment Operators</strong>: Operators (<code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>) used to assign a value to a variable or update its current value. They are commonly used to track cumulative data, such as the total medication administered to a patient over several days.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="common-operators-arithmetic-string">
+<h3>3.1 Common Operators (Arithmetic &amp; String)<a class="headerlink" href="#common-operators-arithmetic-string" title="Link to this heading">#</a></h3>
+<p>Operators like <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">*</span></code> can perform mathematical operations on numbers or, in a different context, manipulate strings. This dual functionality is useful for everything from calculating a medication dosage to programmatically creating unique patient identifiers.</p>
+<p><strong>When + is used in arthmetic</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">total_liquid_med_ml</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">dose_ml</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">precise_doses</span> <span class="o">=</span> <span class="n">total_liquid_med_ml</span> <span class="o">/</span> <span class="n">dose_ml</span>
+<span class="n">full_doses</span> <span class="o">=</span> <span class="n">total_liquid_med_ml</span> <span class="o">//</span> <span class="n">dose_ml</span>
+<span class="n">remaining_ml</span> <span class="o">=</span> <span class="n">total_liquid_med_ml</span> <span class="o">%</span> <span class="n">dose_ml</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full Doses Possible: </span><span class="si">{</span><span class="n">full_doses</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Remaining Liquid: </span><span class="si">{</span><span class="n">remaining_ml</span><span class="si">}</span><span class="s2"> ml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>When + is used in strings</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">separator</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span> <span class="o">*</span> <span class="mi">20</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+
+<span class="n">patient_id_prefix</span> <span class="o">=</span> <span class="s2">&quot;PT&quot;</span>
+<span class="n">patient_id_num</span> <span class="o">=</span> <span class="s2">&quot;0045987&quot;</span>
+
+<span class="n">full_patient_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">patient_id_prefix</span><span class="si">}</span><span class="s2">+</span><span class="si">{</span><span class="n">patient_id_num</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">full_patient_id</span><span class="p">)</span>
+
+<span class="n">separator</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span> <span class="o">*</span> <span class="mi">20</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># ####################</span>
+<span class="c1"># PT+0045987</span>
+<span class="c1"># ####################</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are other kinds of expressions that can be used</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">**</span></code>: Exponentiation (<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">3</span></code> is <code class="docutils literal notranslate"><span class="pre">8</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/</span></code> (Division): Returns a float (<code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">/</span> <span class="pre">5</span></code> is <code class="docutils literal notranslate"><span class="pre">25.6</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">//</span></code> (Floor Division): Returns an integer, rounding down (<code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">//</span> <span class="pre">5</span></code> is <code class="docutils literal notranslate"><span class="pre">25</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code> (Modulo): Returns the remainder (<code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">%</span> <span class="pre">5</span></code> is <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p></li>
+<li><p>With strings, <code class="docutils literal notranslate"><span class="pre">+</span></code> concatenates (joins) them and <code class="docutils literal notranslate"><span class="pre">*</span></code> repeats them.</p></li>
+</ul>
+</section>
+<section id="operator-precedence">
+<h3>3.2 Operator Precedence<a class="headerlink" href="#operator-precedence" title="Link to this heading">#</a></h3>
+<p>Operator precedence determines the order of operations in complex formulas. To avoid ambiguity and ensure calculations are computed correctly, it is best practice to use parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> to explicitly group operations.</p>
+<blockquote>
+<div><p><strong>Medical Background</strong>: The Body Mass Index (BMI) is a standard screening tool for weight categories. The formula, as defined by the CDC, is weight (kg) / [height (m)]². The parentheses in our code are crucial for matching this medical formula.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># BMI = weight (kg) / height (m)^2 (CDC 2024)</span>
+<span class="n">weight_kg</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">height_m</span> <span class="o">=</span> <span class="mf">1.75</span>
+
+<span class="c1"># Parentheses ensure height_m is squared before the division occurs.</span>
+<span class="n">bmi</span> <span class="o">=</span> <span class="n">weight_kg</span> <span class="o">/</span> <span class="p">(</span><span class="n">height_m</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient BMI: </span><span class="si">{</span><span class="n">bmi</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Patient BMI: 22.86</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Python’s order of operations is: Parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code>, then Exponents <code class="docutils literal notranslate"><span class="pre">**</span></code>, then Multiplication/Division (<code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">//</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code>), and finally Addition/Subtraction (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>).</p></li>
+<li><p>Comparison and logical operators are evaluated after all mathematical operations are complete.</p></li>
+</ul>
+<p>Now that we understand how Python calculates complex formulas using operator precedence, let’s see how we can compare the results of those calculations to make decisions.</p>
+</section>
+<section id="comparison-operators">
+<h3>3.3 Comparison Operators<a class="headerlink" href="#comparison-operators" title="Link to this heading">#</a></h3>
+<p>Comparison operators (<code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>) compare two values and return a boolean (<code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>). They are fundamental for writing logic that checks if a lab value falls within its expected normal range.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define clinical thresholds as constants for clarity and maintainability.</span>
+<span class="n">WBC_NORMAL_MIN_K_UL</span> <span class="o">=</span> <span class="mf">3.4</span>
+<span class="n">WBC_NORMAL_MAX_K_UL</span> <span class="o">=</span> <span class="mf">10.8</span>
+<span class="n">wbc_count_k_ul</span> <span class="o">=</span> <span class="mf">7.5</span>
+
+<span class="c1"># Chained comparison checks if a value is within a range.</span>
+<span class="n">is_normal_wbc</span> <span class="o">=</span> <span class="n">WBC_NORMAL_MIN_K_UL</span> <span class="o">&lt;=</span> <span class="n">wbc_count_k_ul</span> <span class="o">&lt;=</span> <span class="n">WBC_NORMAL_MAX_K_UL</span>       <span class="c1">#Note the comparison operators</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WBC count is normal: </span><span class="si">{</span><span class="n">is_normal_wbc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: WBC count is normal: True</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip</strong>: Chaining comparisons (e.g., <code class="docutils literal notranslate"><span class="pre">3.4</span> <span class="pre">&lt;=</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">10.8</span></code>) is a clean, readable, and Pythonic way to check if a value falls within a range. It’s more concise than writing <code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">&gt;=</span> <span class="pre">3.4</span> <span class="pre">and</span> <span class="pre">value</span> <span class="pre">&lt;=</span> <span class="pre">10.8</span></code>.</p>
+</div></blockquote>
+<p>Comparing single values is useful, but clinical decisions often depend on multiple factors. Logical operators allow us to combine these comparisons into a single, powerful expression.</p>
+</section>
+<section id="logical-operators">
+<h3>3.4 Logical Operators<a class="headerlink" href="#logical-operators" title="Link to this heading">#</a></h3>
+<p>Logical operators (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>) combine multiple boolean expressions. This is essential for implementing complex patient screening protocols that depend on several factors.</p>
+<blockquote>
+<div><p><strong>Medical Background</strong>: The 2017 ACC/AHA guideline defines Stage 2 Hypertension as a systolic blood pressure (SBP) ≥140 mmHg or a diastolic blood pressure (DBP) ≥90 mmHg. Our example simplifies this to demonstrate the <code class="docutils literal notranslate"><span class="pre">or</span></code> operator, a key component in building logic for clinical decision support systems.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define clinical thresholds as constants.</span>
+<span class="n">HYPERTENSION_SBP_THRESHOLD</span> <span class="o">=</span> <span class="mi">140</span>
+<span class="n">SCREENING_AGE_THRESHOLD</span> <span class="o">=</span> <span class="mi">65</span>
+
+<span class="n">systolic_bp_mmhg</span> <span class="o">=</span> <span class="mi">145</span>
+<span class="n">has_diabetes</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">patient_age_years</span> <span class="o">=</span> <span class="mi">68</span>
+
+<span class="n">is_high_risk</span> <span class="o">=</span> <span class="n">systolic_bp_mmhg</span> <span class="o">&gt;=</span> <span class="n">HYPERTENSION_SBP_THRESHOLD</span> <span class="ow">or</span> <span class="n">has_diabetes</span>
+<span class="n">needs_screening</span> <span class="o">=</span> <span class="n">is_high_risk</span> <span class="ow">and</span> <span class="n">patient_age_years</span> <span class="o">&gt;</span> <span class="n">SCREENING_AGE_THRESHOLD</span>
+
+<span class="n">is_on_contraindicated_med</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">can_prescribe_new_drug</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">is_on_contraindicated_med</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient needs screening: </span><span class="si">{</span><span class="n">needs_screening</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Patient needs screening: True</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can prescribe new drug: </span><span class="si">{</span><span class="n">can_prescribe_new_drug</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Can prescribe new drug: True</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>In Practice</strong>: Logical operators are the engine behind clinical alerts. A system might use logic like <code class="docutils literal notranslate"><span class="pre">(is_high_risk</span> <span class="pre">AND</span> <span class="pre">has_allergy</span> <span class="pre">AND</span> <span class="pre">NOT</span> <span class="pre">is_on_anticoagulant)</span></code> to determine if a patient is a candidate for a specific treatment, automating complex rule-based decisions.</p>
+</div></blockquote>
+</section>
+<section id="assignment-operators">
+<h3>3.5 Assignment Operators<a class="headerlink" href="#assignment-operators" title="Link to this heading">#</a></h3>
+<p>Assignment operators (<code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>) assign or update a variable’s value. They are useful for tracking cumulative totals, such as medication administered over time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cumulative_dose_mg</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">next_dose_mg</span> <span class="o">=</span> <span class="mi">250</span>
+
+<span class="c1"># Add the next dose to the cumulative total.</span>
+<span class="n">cumulative_dose_mg</span> <span class="o">+=</span> <span class="n">next_dose_mg</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New Cumulative Dose: </span><span class="si">{</span><span class="n">cumulative_dose_mg</span><span class="si">}</span><span class="s2"> mg&quot;</span><span class="p">)</span>
+<span class="c1"># Output: New Cumulative Dose: 750 mg</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">+=</span></code> is a concise way to write <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>. This pattern also applies to other arithmetic operators (<code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, <code class="docutils literal notranslate"><span class="pre">/=</span></code>).</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-daily-pill-calculation">
+<h3>Exercise 1: Daily Pill Calculation<a class="headerlink" href="#exercise-1-daily-pill-calculation" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use an arithmetic operator to solve a simple dosage problem.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> A patient needs 1500mg of a drug per day. The available pills are 250mg each. Calculate how many pills are needed daily.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the given values</span>
+<span class="n">total_daily_mg</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="n">pill_strength_mg</span> <span class="o">=</span> <span class="mi">250</span>
+
+<span class="c1"># Calculate the number of pills</span>
+<span class="n">pills_per_day</span> <span class="o">=</span> <span class="n">total_daily_mg</span> <span class="o">//</span> <span class="n">pill_strength_mg</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pills needed per day: </span><span class="si">{</span><span class="n">pills_per_day</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Pills needed per day: 6</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We use floor division <code class="docutils literal notranslate"><span class="pre">//</span></code> because the result must be a whole number of pills.
+<strong>Key Learning:</strong> Choosing the correct arithmetic operator (<code class="docutils literal notranslate"><span class="pre">/</span></code> vs. <code class="docutils literal notranslate"><span class="pre">//</span></code>) is critical for getting a medically relevant result.</p>
+</div>
+</details></section>
+<section id="exercise-2-heart-rate-range-check">
+<h3>Exercise 2: Heart Rate Range Check<a class="headerlink" href="#exercise-2-heart-rate-range-check" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use comparison and logical operators to check if a value is outside a given range.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> A patient’s heart rate is considered bradycardic if it’s below 60 bpm or tachycardic if it’s above 100 bpm. Given <code class="docutils literal notranslate"><span class="pre">heart_rate_bpm</span> <span class="pre">=</span> <span class="pre">55</span></code>, write a single boolean expression that is <code class="docutils literal notranslate"><span class="pre">True</span></code> if the heart rate is outside the healthy range (60-100 inclusive).</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the patient&#39;s heart rate and the healthy range constants</span>
+<span class="n">heart_rate_bpm</span> <span class="o">=</span> <span class="mi">55</span>
+<span class="n">HEALTHY_HR_MIN</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">HEALTHY_HR_MAX</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Check if the heart rate is outside the healthy range</span>
+<span class="n">is_outside_range</span> <span class="o">=</span> <span class="n">heart_rate_bpm</span> <span class="o">&lt;</span> <span class="n">HEALTHY_HR_MIN</span> <span class="ow">or</span> <span class="n">heart_rate_bpm</span> <span class="o">&gt;</span> <span class="n">HEALTHY_HR_MAX</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Heart rate is outside healthy range: </span><span class="si">{</span><span class="n">is_outside_range</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Heart rate is outside healthy range: True</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">or</span></code> operator correctly identifies if the heart rate is either below the minimum or above the maximum of the healthy range.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">or</span></code> operator is ideal for checking if a value falls outside a specified range.</p>
+</div>
+</details></section>
+<section id="exercise-3-patient-report-header">
+<h3>Exercise 3: Patient Report Header<a class="headerlink" href="#exercise-3-patient-report-header" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a string operator to concatenate text for a report.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> Programs often need to generate formatted text for reports, labels, or patient records. Create a patient report header by concatenating <code class="docutils literal notranslate"><span class="pre">'Patient</span> <span class="pre">Report</span> <span class="pre">for:</span> <span class="pre">'</span></code> with a variable <code class="docutils literal notranslate"><span class="pre">patient_name</span> <span class="pre">=</span> <span class="pre">'John</span> <span class="pre">Doe'</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the patient&#39;s name</span>
+<span class="n">patient_name</span> <span class="o">=</span> <span class="s1">&#39;John Doe&#39;</span>
+
+<span class="c1"># Create the header using an f-string (preferred method)</span>
+<span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Patient Report for: </span><span class="si">{</span><span class="n">patient_name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+<span class="c1"># Output: Patient Report for: John Doe</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> An f-string provides a clean and readable way to embed variables directly into a string. The older method using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator (<code class="docutils literal notranslate"><span class="pre">'Patient</span> <span class="pre">Report</span> <span class="pre">for:</span> <span class="pre">'</span> <span class="pre">+</span> <span class="pre">patient_name</span></code>) also works.
+<strong>Key Learning:</strong> F-strings are the modern standard for creating formatted strings in Python.</p>
+</div>
+</details></section>
+<section id="exercise-4-complex-eligibility-screening">
+<h3>Exercise 4: Complex Eligibility Screening<a class="headerlink" href="#exercise-4-complex-eligibility-screening" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine multiple conditions using logical operators to determine eligibility.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Clinical trial eligibility often involves multiple criteria. A patient is eligible for a new treatment if their age is over 50, their systolic BP is between 130 and 150 (inclusive), and they are not a current smoker. Given <code class="docutils literal notranslate"><span class="pre">age</span> <span class="pre">=</span> <span class="pre">55</span></code>, <code class="docutils literal notranslate"><span class="pre">systolic_bp</span> <span class="pre">=</span> <span class="pre">142</span></code>, and <code class="docutils literal notranslate"><span class="pre">is_smoker</span> <span class="pre">=</span> <span class="pre">False</span></code>, write a single boolean expression that evaluates to <code class="docutils literal notranslate"><span class="pre">True</span></code> if they are eligible.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the patient&#39;s data</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">55</span>
+<span class="n">systolic_bp</span> <span class="o">=</span> <span class="mi">142</span>
+<span class="n">is_smoker</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># Combine all criteria into a single expression</span>
+<span class="n">is_eligible</span> <span class="o">=</span> <span class="p">(</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">130</span> <span class="o">&lt;=</span> <span class="n">systolic_bp</span> <span class="o">&lt;=</span> <span class="mi">150</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">is_smoker</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Patient is eligible for trial: </span><span class="si">{</span><span class="n">is_eligible</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Output: Patient is eligible for trial: True</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This expression combines three conditions with <code class="docutils literal notranslate"><span class="pre">and</span></code>. The first checks age, the second uses a chained comparison for the BP range, and the third uses <code class="docutils literal notranslate"><span class="pre">not</span></code> to invert the boolean <code class="docutils literal notranslate"><span class="pre">is_smoker</span></code>. All three must be true for the patient to be eligible.
+<strong>Key Learning:</strong> Complex clinical rules can be directly translated into code using a combination of comparison and logical operators.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Automated Clinical Guideline Checks:</strong> In electronic health record (EHR) systems, operators are used to automatically check patient data against established clinical guidelines. For example, a script can use comparison (<code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>) and logical (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>) operators to flag a patient with <code class="docutils literal notranslate"><span class="pre">systolic_bp</span> <span class="pre">&gt;=</span> <span class="pre">140</span></code> and <code class="docutils literal notranslate"><span class="pre">has_diabetes</span></code> for a hypertension review, directly impacting patient care by ensuring adherence to protocols.</p></li>
+<li><p><strong>Calculating Pharmacokinetic Parameters:</strong> Pharmacists and researchers use arithmetic operators to model how a drug is absorbed, distributed, metabolized, and excreted. Expressions involving division and exponentiation are used to calculate parameters like drug half-life or volume of distribution, which are critical for designing safe and effective dosing regimens.</p></li>
+<li><p><strong>Risk Stratification Scores:</strong> Many clinical risk scores (e.g., CHADS₂-VASc for stroke risk) are calculated by summing points based on patient attributes. A program can use comparison operators to check for conditions (e.g., <code class="docutils literal notranslate"><span class="pre">age</span> <span class="pre">&gt;</span> <span class="pre">75</span></code>, <code class="docutils literal notranslate"><span class="pre">has_hypertension</span></code>) and assignment operators (<code class="docutils literal notranslate"><span class="pre">+=</span></code>) to build the final risk score, helping clinicians stratify patients and tailor preventive care.</p></li>
+<li><p><strong>Generating and Parsing Lab Identifiers:</strong> Clinical labs process thousands of samples daily. String operators and f-strings are used to generate unique sample IDs (e.g., <code class="docutils literal notranslate"><span class="pre">f&quot;SAMPLE-{date}-{sample_num}&quot;</span></code>) and to parse information from existing IDs. This ensures accurate sample tracking from collection to result reporting.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the fundamental role of operators in Python. We have seen how these symbols are not just for math, but are essential tools for embedding complex medical logic and calculations into our programs.</p>
+<ul class="simple">
+<li><p><strong>Arithmetic operators</strong> (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">//</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code>) are the foundation for all numerical calculations, from dosage to BMI.</p></li>
+<li><p><strong>Comparison operators</strong> (<code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>) allow programs to make decisions by comparing data points, such as checking if a lab value is within a normal range.</p></li>
+<li><p><strong>Logical operators</strong> (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>) enable the creation of sophisticated rules by combining multiple conditions, mirroring the complex decision-making found in clinical practice.</p></li>
+<li><p><strong>Operator precedence</strong> and the use of parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> are crucial for ensuring that complex expressions are evaluated correctly and reliably.</p></li>
+</ul>
+<p>With a solid grasp of operators, you can now write expressions that answer meaningful questions about health data. In the next section, we will use these expressions to build programs that can change their behavior based on data, using control flow statements.</p>
+<blockquote>
+<div><p><strong>Reflection Moment</strong>: Think about a multi-step decision you make regularly in your clinical practice. How could you represent the logic of that decision using comparison and logical operators? What variables would you need?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.2_variables_and_data_types.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Data Types in Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.4_common_python_errors_and_exceptions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Common Python Errors and Exceptions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-operators-arithmetic-string">3.1 Common Operators (Arithmetic &amp; String)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-precedence">3.2 Operator Precedence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-operators">3.3 Comparison Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-operators">3.4 Logical Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-operators">3.5 Assignment Operators</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-daily-pill-calculation">Exercise 1: Daily Pill Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-heart-rate-range-check">Exercise 2: Heart Rate Range Check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-patient-report-header">Exercise 3: Patient Report Header</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-complex-eligibility-screening">Exercise 4: Complex Eligibility Screening</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

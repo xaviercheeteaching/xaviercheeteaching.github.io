@@ -1,0 +1,963 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 1: Dictionaries and Sets &#8212; Introduction to Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1.6_dictionaries_and_sets';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 1: Python Fundamentals for Precision Health" href="1.7_control_flow_if_elif_else_statements.html" />
+    <link rel="prev" title="Chapter 1: Lists and Tuples" href="1.5_lists_and_tuples.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction to Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.1_python_installation_and_environment_setup.html">1.1 - Python Installation and Environment Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.2_variables_and_data_types.html">1.2 - Variables and Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.3_basic_operators_and_expressions.html">1.3 - Basic Operators and Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.4_common_python_errors_and_exceptions.html">1.4 - Common Python Errors and Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.5_lists_and_tuples.html">1.5 - Lists and Tuples</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1.6 - Dictionaries and Sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.7_control_flow_if_elif_else_statements.html">1.7 - Control Flow If Elif Else Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.8_loops_for_and_while.html">1.8 - Loops for and While</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastery_exercise_1.html">Mastery Exercise 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.9_functions_and_parameters.html">1.9 - Functions and Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.10_command_line_arguments_with_sys.argv.html">1.10 - Command Line Arguments with sys.argv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.11_reading_and_writing_files.html">1.11 - Reading and Writing Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.12_string_methods.html">1.12 - String Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.1_introduction_to_numpy_arrays.html">2.1 - Introduction to Numpy Arrays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.2_array_operations_and_indexing.html">2.2 - Array Operations and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.3_introduction_to_pandas_dataframes.html">2.3 - Introduction to Pandas Dataframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.4_reading_csv_and_excel_files_with_pandas.html">2.4 - Reading Csv and Excel Files with Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.5_data_selection_and_filtering.html">2.5 - Data Selection and Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.6_basic_data_manipulation.html">2.6 - Basic Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.1_introduction_to_matplotlib.html">3.1 - Introduction to Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.2_line_plots_and_scatter_plots.html">3.2 - Line Plots and Scatter Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.3_bar_plots_and_histograms.html">3.3 - Bar Plots and Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.4_customizing_plots.html">3.4 - Customizing Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.5_subplots_and_multiple_figures.html">3.5 - Subplots and Multiple Figures</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/binder-examples/conda/main?urlpath=tree/1.6_dictionaries_and_sets.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/binder-examples/conda/blob/main/1.6_dictionaries_and_sets.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1.6_dictionaries_and_sets.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 1: Dictionaries and Sets</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries-the-digital-patient-record">3.1 Dictionaries: The Digital Patient Record</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sets-managing-unique-data-collections">3.2 Sets: Managing Unique Data Collections</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-creating-and-updating-a-medication-record">Exercise 1: Creating and Updating a Medication Record</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-finding-common-patients-between-groups">Exercise 2: Finding Common Patients Between Groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-analyzing-patient-symptom-overlap">Exercise 3: Analyzing Patient Symptom Overlap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-dictionaries-and-sets">
+<h1>Chapter 1: Dictionaries and Sets<a class="headerlink" href="#chapter-1-dictionaries-and-sets" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In precision health, data is rarely a simple, ordered sequence. It’s often complex, labeled, and interconnected. While lists are excellent for ordered data, we need more powerful tools to model real-world entities like patient records or unique sets of genetic markers. This section introduces two of Python’s most versatile data structures: dictionaries and sets.</p>
+<p>The learning journey will begin with dictionaries, which act as digital filing cabinets, storing information in <code class="docutils literal notranslate"><span class="pre">key-value</span></code> pairs that mirror a patient’s chart. We will then explore sets, which are optimized for storing unique elements and performing powerful comparisons, essential for tasks like analyzing symptom overlap between patient cohorts. By the end, you will be able to use these structures to organize and analyze complex health data effectively.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Dictionary</strong>: A mutable, unordered collection that stores data in <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs. In a medical context, it’s the perfect model for a patient’s file, where the ‘key’ is a data label (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;patient_id&quot;</span></code>) and the ‘value’ is the data itself (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;PT123456&quot;</span></code>). This allows for fast, descriptive data lookups instead of relying on numerical indices.</p></li>
+<li><p><strong>Key-Value Pair</strong>: The fundamental building block of a dictionary. It links a unique, immutable identifier (the key) to its associated data (the value). For instance, in a patient record, <code class="docutils literal notranslate"><span class="pre">&quot;hba1c&quot;:</span> <span class="pre">{&quot;value&quot;:</span> <span class="pre">7.2,</span> <span class="pre">&quot;unit&quot;:</span> <span class="pre">&quot;%&quot;}</span></code> is a key-value pair that clearly labels a specific lab result and its unit.</p></li>
+<li><p><strong>Set</strong>: An unordered collection of unique, immutable elements. Sets are highly optimized for checking if an item is present and for removing duplicate entries. In genomics, a set could represent the unique genetic variants found in a patient’s DNA sample, automatically discarding any duplicates from the sequencing data.</p></li>
+<li><p><strong>Immutability (for Keys/Elements)</strong>: A critical rule stating that dictionary keys and set elements cannot be of a mutable type (like a list). This ensures that the identifier for a piece of data remains constant and reliable. This is why a patient’s ID (a string) can be a key, but a list of their changing symptoms cannot.</p></li>
+<li><p><strong>Set Operations</strong>: Mathematical actions that compare and combine sets. The main operations are:</p>
+<ul>
+<li><p><strong>Union (<code class="docutils literal notranslate"><span class="pre">|</span></code>)</strong>: Merges two sets to create a new set containing all unique elements from both. This is useful for compiling a master list of all medications prescribed across two different hospital wards.</p></li>
+<li><p><strong>Intersection (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>)</strong>: Creates a new set containing only the elements that are common to both sets. This can identify patients who are present in both a “diabetic” cohort and a “hypertensive” cohort.</p></li>
+<li><p><strong>Difference (<code class="docutils literal notranslate"><span class="pre">-</span></code>)</strong>: Creates a new set with elements from the first set that are not in the second set. This can isolate patients in a clinical trial’s treatment group who are not in the placebo group.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="dictionaries-the-digital-patient-record">
+<h3>3.1 Dictionaries: The Digital Patient Record<a class="headerlink" href="#dictionaries-the-digital-patient-record" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Think of a Python dictionary as a digital patient chart. Each piece of information, like “Patient ID” or “Blood Type,” is a unique <code class="docutils literal notranslate"><span class="pre">key</span></code> that points to a specific <code class="docutils literal notranslate"><span class="pre">value</span></code> (e.g., “PT123456” or “O+”). This structure is ideal for organizing and accessing related data points for a single entity.</p>
+</div></blockquote>
+<p><strong>Creating, Accessing, and Modifying</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A patient record using a dictionary</span>
+<span class="n">patient_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;patient_id&quot;</span><span class="p">:</span> <span class="s2">&quot;PT123456&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">45</span>
+<span class="p">}</span>
+
+<span class="c1"># Update a value using its key</span>
+<span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">46</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span>
+
+<span class="c1"># Add a structured lab result</span>
+<span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;hba1c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">7.2</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span>
+
+<span class="c1"># Safely access a key that might not exist</span>
+<span class="n">allergies</span> <span class="o">=</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;allergies&quot;</span><span class="p">,</span> <span class="s2">&quot;None Recorded&quot;</span><span class="p">)</span> <span class="c1"># Gets the &quot;allergies&quot; value; returns &quot;None Recorded&quot; if the key is missing.</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Allergies: </span><span class="si">{</span><span class="n">allergies</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># The &#39;in&#39; keyword provides a fast check for a key&#39;s existence</span>
+<span class="n">has_age</span> <span class="o">=</span> <span class="s2">&quot;age&quot;</span> <span class="ow">in</span> <span class="n">patient_data</span> <span class="c1"># Returns True</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># {&#39;patient_id&#39;: &#39;PT123456&#39;, &#39;age&#39;: 46}</span>
+<span class="c1"># {&#39;patient_id&#39;: &#39;PT123456&#39;, &#39;age&#39;: 46, &#39;hba1c&#39;: {&#39;value&#39;: 7.2, &#39;unit&#39;: &#39;%&#39;}}</span>
+<span class="c1"># Allergies: None Recorded</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Note:</strong> Why Use .get() Instead of Square Brackets []?</p>
+<p>You can equally write the code like this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">allergies</span> <span class="o">=</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;allergies&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Have a think. What happens when you do this? Why would this method be more risky?</p>
+</div></blockquote>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Always prefer using the <code class="docutils literal notranslate"><span class="pre">.get()</span></code> method to access dictionary keys that might be optional, like “allergies” or “secondary_diagnosis”. It prevents your program from crashing with a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> and allows you to provide a safe, meaningful default value.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Important:</strong> Dictionary keys must be immutable. This means you can use strings, numbers, or tuples as keys, but you cannot use mutable types like lists or other dictionaries. This rule ensures that a key’s value remains constant and reliable for data retrieval.</p>
+</div></blockquote>
+<p><strong>Iterating Over Dictionaries</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through key-value pairs using .items()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Patient Details:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Patient Details:</span>
+<span class="c1"># - patient_id: PT123456</span>
+<span class="c1"># - age: 46</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Removing Entries</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># .pop() removes a key and returns its value</span>
+<span class="n">hba1c_result</span> <span class="o">=</span> <span class="n">patient_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;hba1c&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Value returned by pop: </span><span class="si">{</span><span class="n">hba1c_result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dictionary after pop: </span><span class="si">{</span><span class="n">patient_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># del removes a key-value pair without returning anything</span>
+<span class="k">del</span> <span class="n">patient_data</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final dictionary after del: </span><span class="si">{</span><span class="n">patient_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Value returned by pop: {&#39;value&#39;: 7.2, &#39;unit&#39;: &#39;%&#39;}</span>
+<span class="c1"># Dictionary after pop: {&#39;patient_id&#39;: &#39;PT123456&#39;, &#39;age&#39;: 46}</span>
+<span class="c1"># Final dictionary after del: {&#39;patient_id&#39;: &#39;PT123456&#39;}</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> How could you use a dictionary to structure the data from a patient’s vital signs monitor over a 24-hour period? What would be the keys, and what kind of data structures might you use for the values?</p>
+</div></blockquote>
+<p>While dictionaries are excellent for storing structured records with key-value pairs, clinical data analysis often requires us to work with unique collections of items, such as patient IDs in a trial or distinct symptoms in a cohort. For these tasks, Python provides another powerful and efficient data structure: the set.</p>
+</section>
+<section id="sets-managing-unique-data-collections">
+<h3>3.2 Sets: Managing Unique Data Collections<a class="headerlink" href="#sets-managing-unique-data-collections" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>In Practice:</strong> Epidemiologists use set operations constantly to analyze patient cohorts. For example, finding the intersection of patients with ‘symptom A’ and patients exposed to ‘factor B’ can help identify correlations. The union of all reported symptoms in an outbreak can quickly provide a complete picture for public health alerts.</p>
+</div></blockquote>
+<p><strong>Creating, Adding, and Removing</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a set from a list to instantly remove duplicates</span>
+<span class="n">symptoms_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;headache&quot;</span><span class="p">]</span>
+<span class="n">unique_symptoms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">symptoms_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unique Symptoms: </span><span class="si">{</span><span class="n">unique_symptoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add and remove elements</span>
+<span class="n">unique_symptoms</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;fatigue&quot;</span><span class="p">)</span>
+<span class="n">unique_symptoms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;headache&quot;</span><span class="p">)</span>  <span class="c1"># Raises KeyError if not found</span>
+<span class="n">unique_symptoms</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s2">&quot;rash&quot;</span><span class="p">)</span>     <span class="c1"># Safely does nothing if not found</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final Symptoms: </span><span class="si">{</span><span class="n">unique_symptoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Unique Symptoms: {&#39;cough&#39;, &#39;fever&#39;, &#39;headache&#39;}</span>
+<span class="c1"># Final Symptoms: {&#39;cough&#39;, &#39;fever&#39;, &#39;fatigue&#39;}</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> Like dictionary keys, set elements must be immutable. Trying to add a list or dictionary to a set will result in a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common error is using <code class="docutils literal notranslate"><span class="pre">.remove()</span></code> for an element that might not be in the set, which causes a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> and crashes the program. Use <code class="docutils literal notranslate"><span class="pre">.discard()</span></code> when you need to safely remove an element without knowing for sure if it exists.</p>
+</div></blockquote>
+<p><strong>Set Operations</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cohort_a_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;sore throat&quot;</span><span class="p">}</span>
+<span class="n">cohort_b_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;headache&quot;</span><span class="p">,</span> <span class="s2">&quot;fatigue&quot;</span><span class="p">}</span>
+
+<span class="c1"># Union (|): All unique symptoms from both cohorts</span>
+<span class="n">all_symptoms</span> <span class="o">=</span> <span class="n">cohort_a_symptoms</span> <span class="o">|</span> <span class="n">cohort_b_symptoms</span>
+
+<span class="c1"># Intersection (&amp;): Symptoms common to both cohorts</span>
+<span class="n">common_symptoms</span> <span class="o">=</span> <span class="n">cohort_a_symptoms</span> <span class="o">&amp;</span> <span class="n">cohort_b_symptoms</span>
+
+<span class="c1"># Difference (-): Symptoms in cohort A but not in B</span>
+<span class="n">unique_to_a</span> <span class="o">=</span> <span class="n">cohort_a_symptoms</span> <span class="o">-</span> <span class="n">cohort_b_symptoms</span>
+
+<span class="c1"># Symmetric Difference (^): Symptoms in A or B, but not both</span>
+<span class="n">non_overlapping</span> <span class="o">=</span> <span class="n">cohort_a_symptoms</span> <span class="o">^</span> <span class="n">cohort_b_symptoms</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Union: </span><span class="si">{</span><span class="n">all_symptoms</span><span class="si">}</span><span class="se">\n</span><span class="s2">Intersection: </span><span class="si">{</span><span class="n">common_symptoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Difference (A-B): </span><span class="si">{</span><span class="n">unique_to_a</span><span class="si">}</span><span class="se">\n</span><span class="s2">Symmetric Difference: </span><span class="si">{</span><span class="n">non_overlapping</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Union: {&#39;headache&#39;, &#39;sore throat&#39;, &#39;fatigue&#39;, &#39;fever&#39;, &#39;cough&#39;}</span>
+<span class="c1"># Intersection: {&#39;fever&#39;}</span>
+<span class="c1"># Difference (A-B): {&#39;sore throat&#39;, &#39;cough&#39;}</span>
+<span class="c1"># Symmetric Difference: {&#39;headache&#39;, &#39;sore throat&#39;, &#39;fatigue&#39;, &#39;cough&#39;}</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Checking for an element’s existence (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;fever&quot;</span> <span class="pre">in</span> <span class="pre">cohort_a_symptoms</span></code>) is significantly faster with a set than with a list, especially for large datasets. If you need to perform many membership checks, converting a list to a set first can dramatically improve your code’s performance.</p>
+</div></blockquote>
+<p><img alt="Set operations" src="_images/set_operations.png" /></p>
+<p><strong>Set Comparisons</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">required_symptoms</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">}</span>
+<span class="n">is_subset</span> <span class="o">=</span> <span class="n">required_symptoms</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">cohort_a_symptoms</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required symptoms are a subset of Cohort A: </span><span class="si">{</span><span class="n">is_subset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Required symptoms are a subset of Cohort A: True</span>
+</pre></div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your code here</span>
+<span class="c1"># Hint: Try modifying the example above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Imagine you are consolidating medication lists from three different hospital departments for a single patient. How could you use sets to quickly generate a final, de-duplicated list of all medications the patient is prescribed?</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-creating-and-updating-a-medication-record">
+<h3>Exercise 1: Creating and Updating a Medication Record<a class="headerlink" href="#exercise-1-creating-and-updating-a-medication-record" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice creating a dictionary, updating a value, and accessing a value with a default.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> At City Medical Center, Dr. Chen needs to create a digital record for a new prescription. Medication records are frequently stored as dictionaries, where properties are key-value pairs.</p>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">medication</span></code> dictionary for ‘Paracetamol’ (a generic drug name) with an initial <code class="docutils literal notranslate"><span class="pre">'dosage_mg'</span></code> of <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, update the <code class="docutils literal notranslate"><span class="pre">dosage_mg</span></code> to the correct value of <code class="docutils literal notranslate"><span class="pre">500</span></code>. Finally, since the brand isn’t always specified, print the value for the key <code class="docutils literal notranslate"><span class="pre">&quot;brand_name&quot;</span></code>, ensuring your code defaults to <code class="docutils literal notranslate"><span class="pre">&quot;Generic&quot;</span></code> if it’s missing.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">medication</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Paracetamol&#39;</span><span class="p">,</span> <span class="s1">&#39;dosage_mg&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">medication</span><span class="p">[</span><span class="s1">&#39;dosage_mg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">brand_name</span> <span class="o">=</span> <span class="n">medication</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;brand_name&quot;</span><span class="p">,</span> <span class="s2">&quot;Generic&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">brand_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># Generic</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We initialize the dictionary, then use key-based assignment to update the dosage. The <code class="docutils literal notranslate"><span class="pre">.get()</span></code> method is used for safe access, returning the default value <code class="docutils literal notranslate"><span class="pre">&quot;Generic&quot;</span></code> because the key <code class="docutils literal notranslate"><span class="pre">&quot;brand_name&quot;</span></code> does not exist.
+<strong>Key Learning:</strong> Using <code class="docutils literal notranslate"><span class="pre">.get()</span></code> with a default value is a robust way to prevent <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> exceptions when a key might be absent.</p>
+</div>
+</details></section>
+<section id="exercise-2-finding-common-patients-between-groups">
+<h3>Exercise 2: Finding Common Patients Between Groups<a class="headerlink" href="#exercise-2-finding-common-patients-between-groups" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a set operation to find the intersection of two sets.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> Two research teams at City Medical Center have submitted lists of patient IDs for a new clinical study. To ensure there are no duplicate enrollments, you need to identify any patient ID that appears in both groups.</p>
+<p>Given <code class="docutils literal notranslate"><span class="pre">group_1</span> <span class="pre">=</span> <span class="pre">{&quot;PT000001&quot;,</span> <span class="pre">&quot;PT000002&quot;,</span> <span class="pre">&quot;PT000003&quot;}</span></code> and <code class="docutils literal notranslate"><span class="pre">group_2</span> <span class="pre">=</span> <span class="pre">{&quot;PT000003&quot;,</span> <span class="pre">&quot;PT000004&quot;,</span> <span class="pre">&quot;PT000005&quot;}</span></code>, write one line of code to find the common patient ID(s) and print the result.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">group_1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;PT000001&quot;</span><span class="p">,</span> <span class="s2">&quot;PT000002&quot;</span><span class="p">,</span> <span class="s2">&quot;PT000003&quot;</span><span class="p">}</span>
+<span class="n">group_2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;PT000003&quot;</span><span class="p">,</span> <span class="s2">&quot;PT000004&quot;</span><span class="p">,</span> <span class="s2">&quot;PT000005&quot;</span><span class="p">}</span>
+<span class="n">common_patients</span> <span class="o">=</span> <span class="n">group_1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">group_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">common_patients</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># {&#39;PT000003&#39;}</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">.intersection()</span></code> method (or the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator) performs a set intersection, which evaluates to a new set containing only the elements that exist in both <code class="docutils literal notranslate"><span class="pre">group_1</span></code> and <code class="docutils literal notranslate"><span class="pre">group_2</span></code>.
+<strong>Key Learning:</strong> The intersection operation is a concise and efficient tool for finding common elements between any two sets.</p>
+</div>
+</details></section>
+<section id="exercise-3-analyzing-patient-symptom-overlap">
+<h3>Exercise 3: Analyzing Patient Symptom Overlap<a class="headerlink" href="#exercise-3-analyzing-patient-symptom-overlap" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use multiple set operations to analyze and compare data.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> During a disease outbreak, epidemiologists compare symptoms between patients to identify patterns. Understanding which symptoms are shared and which are unique is crucial for diagnosis and tracking.</p>
+<p>A patient, <code class="docutils literal notranslate"><span class="pre">patient_A</span></code>, reports the following symptoms: <code class="docutils literal notranslate"><span class="pre">[&quot;fever&quot;,</span> <span class="pre">&quot;cough&quot;,</span> <span class="pre">&quot;headache&quot;,</span> <span class="pre">&quot;fatigue&quot;]</span></code>. Another patient, <code class="docutils literal notranslate"><span class="pre">patient_B</span></code>, reports: <code class="docutils literal notranslate"><span class="pre">[&quot;cough&quot;,</span> <span class="pre">&quot;sore</span> <span class="pre">throat&quot;,</span> <span class="pre">&quot;runny</span> <span class="pre">nose&quot;]</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Create a unique set of symptoms for each patient.</p></li>
+<li><p>Find the symptoms that both patients share.</p></li>
+<li><p>Find the symptoms that are unique to <code class="docutils literal notranslate"><span class="pre">patient_A</span></code>.</p></li>
+<li><p>Print the results with descriptive labels.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">symptoms_A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fever&quot;</span><span class="p">,</span> <span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;headache&quot;</span><span class="p">,</span> <span class="s2">&quot;fatigue&quot;</span><span class="p">]</span>
+<span class="n">symptoms_B_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cough&quot;</span><span class="p">,</span> <span class="s2">&quot;sore throat&quot;</span><span class="p">,</span> <span class="s2">&quot;runny nose&quot;</span><span class="p">]</span>
+
+<span class="c1"># 1. Create unique sets of symptoms</span>
+<span class="n">symptoms_A</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">symptoms_A_list</span><span class="p">)</span>
+<span class="n">symptoms_B</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">symptoms_B_list</span><span class="p">)</span>
+
+<span class="c1"># 2. Find shared symptoms (intersection)</span>
+<span class="n">shared_symptoms</span> <span class="o">=</span> <span class="n">symptoms_A</span> <span class="o">&amp;</span> <span class="n">symptoms_B</span>
+
+<span class="c1"># 3. Find symptoms unique to patient A (difference)</span>
+<span class="n">unique_to_A</span> <span class="o">=</span> <span class="n">symptoms_A</span> <span class="o">-</span> <span class="n">symptoms_B</span>
+
+<span class="c1"># 4. Print the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shared Symptoms: </span><span class="si">{</span><span class="n">shared_symptoms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Symptoms Unique to Patient A: </span><span class="si">{</span><span class="n">unique_to_A</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># Shared Symptoms: {&#39;cough&#39;}</span>
+<span class="c1"># Symptoms Unique to Patient A: {&#39;headache&#39;, &#39;fever&#39;, &#39;fatigue&#39;}</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> First, we convert the lists to sets to automatically handle any duplicate entries. Then, we use the intersection operator (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>) to find common elements and the difference operator (<code class="docutils literal notranslate"><span class="pre">-</span></code>) to find elements present in <code class="docutils literal notranslate"><span class="pre">symptoms_A</span></code> but not in <code class="docutils literal notranslate"><span class="pre">symptoms_B</span></code>.
+<strong>Key Learning:</strong> Combining set creation with set operations provides a powerful workflow for cleaning and comparing data collections.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Patient Record Management</strong>: Dictionaries are the standard for modeling electronic health records (EHRs). A single dictionary can represent a patient, with keys like <code class="docutils literal notranslate"><span class="pre">&quot;patient_id&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;dob&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;blood_type&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;medications&quot;</span></code>. The programming technique involves using nested dictionaries, where the value for <code class="docutils literal notranslate"><span class="pre">&quot;medications&quot;</span></code> could be a list of other dictionaries. This has a real-world impact by allowing clinicians to retrieve specific information instantly, such as <code class="docutils literal notranslate"><span class="pre">patient_record.get(&quot;blood_type&quot;)</span></code>.</p></li>
+<li><p><strong>Clinical Trial Cohort Analysis</strong>: Sets are invaluable for managing and comparing groups of patients in a clinical trial. A researcher can define <code class="docutils literal notranslate"><span class="pre">cohort_A</span></code> and <code class="docutils literal notranslate"><span class="pre">cohort_B</span></code> as sets of patient IDs. The programming technique of using <code class="docutils literal notranslate"><span class="pre">cohort_A.intersection(cohort_B)</span></code> has the real-world impact of immediately highlighting data integrity errors, such as a patient being incorrectly assigned to both the treatment and placebo groups.</p></li>
+<li><p><strong>Genomic Variant Analysis</strong>: In the medical context of genomics, a patient may have thousands of genetic variants. The programming technique of storing these variants in a set ensures the list is de-duplicated and allows for rapid checks. The real-world impact is that a program can quickly determine if a patient has a specific risk-associated variant with an <code class="docutils literal notranslate"><span class="pre">in</span></code> check (e.g., <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">&quot;rs12345&quot;</span> <span class="pre">in</span> <span class="pre">patient_variants:</span></code>), which is critical for risk assessment.</p></li>
+<li><p><strong>Pharmacogenomics Database</strong>: A dictionary can be used to map specific genetic markers (keys) to drug efficacy or recommended dosages (values). This programming technique enables personalized medicine. The real-world impact is that a clinical decision support system can query this dictionary with a patient’s genotype (e.g., <code class="docutils literal notranslate"><span class="pre">drug_response_db['CYP2D6*4']</span></code>) to help a doctor determine the most effective and safe medication plan.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p><img alt="Differences in Dictionaries and Sets" src="_images/difference_sets_dictionaries.png" /></p>
+<p>In this section, we’ve explored how dictionaries and sets provide sophisticated ways to structure complex health data, moving beyond the simple sequences of lists and tuples.</p>
+<ul class="simple">
+<li><p>Dictionaries store data as <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs, making them ideal for structured, labeled information like patient records or configuration settings.</p></li>
+<li><p>You can access, modify, and add to dictionaries using keys, and iterate over them using methods like <code class="docutils literal notranslate"><span class="pre">.items()</span></code>.</p></li>
+<li><p>Sets store unique, unordered elements and are highly efficient for membership testing (<code class="docutils literal notranslate"><span class="pre">in</span></code>) and removing duplicates from a collection.</p></li>
+<li><p>Powerful set operations like union (<code class="docutils literal notranslate"><span class="pre">|</span></code>), intersection (<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>), and difference (<code class="docutils literal notranslate"><span class="pre">-</span></code>) provide a concise syntax for comparing data collections, a common task in cohort analysis.</p></li>
+<li><p>A critical rule for both structures is that dictionary keys and set elements must be of an immutable type (e.g., strings, numbers, or tuples).</p></li>
+</ul>
+<p>With a solid grasp of how to organize data using Python’s primary data structures, we are now ready to learn how to control the flow of our programs and make decisions based on this data.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/conda",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.5_lists_and_tuples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 1: Lists and Tuples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.7_control_flow_if_elif_else_statements.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 1: Python Fundamentals for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries-the-digital-patient-record">3.1 Dictionaries: The Digital Patient Record</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sets-managing-unique-data-collections">3.2 Sets: Managing Unique Data Collections</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-creating-and-updating-a-medication-record">Exercise 1: Creating and Updating a Medication Record</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-finding-common-patients-between-groups">Exercise 2: Finding Common Patients Between Groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-analyzing-patient-symptom-overlap">Exercise 3: Analyzing Patient Symptom Overlap</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
