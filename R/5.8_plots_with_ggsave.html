@@ -1,0 +1,794 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 5: Saving Visualizations &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.8_plots_with_ggsave';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Chapter 5: Automating Data Analysis" href="5.7_line_arguments_in_r_scripts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_rstudio_installation.html">
+                    4.1 R Studio Installation
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Data Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 Foundational Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_import_and_cleaning.html">4.5 Data Import and Cleaning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Data Visualization with ggplot2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 Visualizing Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 Analyzing DEGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Advanced Visualization for Genomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 Advanced Visualization for Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Other Visualization Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Automating Data Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5.8 Saving Visualizations</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/xaviercheeteaching.github.io/main?urlpath=tree/R/5.8_plots_with_ggsave.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.8_plots_with_ggsave.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 5: Saving Visualizations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-save-and-dimension-control">3.1 Basic Save and Dimension Control</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-publication-quality-plots">3.2 Creating Publication-Quality Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-file-format">3.3 Choosing a File Format</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-save-for-a-clinical-dashboard-basic">Exercise 1: Save for a Clinical Dashboard Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-save-for-a-presentation-slide-intermediate">Exercise 2: Save for a Presentation Slide Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-save-for-a-journal-submission-advanced">Exercise 3: Save for a Journal Submission Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-saving-visualizations">
+<h1>Chapter 5: Saving Visualizations<a class="headerlink" href="#chapter-5-saving-visualizations" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>This section focuses on the final, critical step in the data visualization workflow: saving your plots. You will learn how to use the <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code> function to export <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> visualizations into high-quality, shareable image files. Mastering this skill is essential for moving your data insights from your R environment into professional documents. This prepares figures for a variety of critical applications, including embedding in clinical reports, submitting to research publications, or integrating into Electronic Health Record (EHR) systems, ensuring your data stories are communicated clearly and effectively.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ggsave()</span></code></strong>: The primary <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> function for saving a plot to an external file. It automatically determines the file type from the extension (e.g., <code class="docutils literal notranslate"><span class="pre">.png</span></code>, <code class="docutils literal notranslate"><span class="pre">.pdf</span></code>) and provides extensive control over output dimensions, resolution, and background. In a medical context, this function is the bridge between analysis in R and formal reporting.</p></li>
+<li><p><strong>Vector Graphics (e.g., PDF, SVG)</strong>: An image format that uses mathematical equations to draw shapes. This allows the image to be scaled to any size without losing quality. This format is the gold standard for academic publications, as journals require figures that remain crisp at any magnification.</p></li>
+<li><p><strong>Raster Graphics (e.g., PNG, TIFF)</strong>: An image format that uses a fixed grid of pixels. While they cannot be scaled up without losing quality, they are ideal for web use and presentations where file size and fixed dimensions are important. A PNG is perfect for a patient’s glucose trend chart on a hospital dashboard.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">dpi</span></code> (Dots Per Inch)</strong>: A measure of print or screen resolution that sets the density of pixels in the saved image. A higher DPI results in a clearer, more detailed image. A value of <code class="docutils literal notranslate"><span class="pre">300</span></code> is the standard for high-quality print publications.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">bg</span></code> (background)</strong>: An argument to set a background color for the saved file. Using <code class="docutils literal notranslate"><span class="pre">&quot;white&quot;</span></code> is often necessary to meet journal requirements that prohibit transparent backgrounds.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">device</span></code></strong>: Specifies the graphics device for rendering the file. Using <code class="docutils literal notranslate"><span class="pre">&quot;cairo_pdf&quot;</span></code> creates a high-quality PDF that properly embeds fonts, preventing text rendering issues on other systems—a common requirement for journal submissions.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>The core of saving plots in <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> revolves around the <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code> function. First, we must create a plot object to work with. This example simulates daily glucose monitoring for a patient, a common task in managing diabetes.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># SETUP: Create a sample glucose plot for saving</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+
+<span class="n">patient_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span>
+<span class="w">  </span><span class="n">glucose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">140</span><span class="p">,</span><span class="w"> </span><span class="m">135</span><span class="p">,</span><span class="w"> </span><span class="m">155</span><span class="p">,</span><span class="w"> </span><span class="m">160</span><span class="p">,</span><span class="w"> </span><span class="m">152</span><span class="p">,</span><span class="w"> </span><span class="m">148</span><span class="p">,</span><span class="w"> </span><span class="m">170</span><span class="p">,</span><span class="w"> </span><span class="m">165</span><span class="p">,</span><span class="w"> </span><span class="m">162</span><span class="p">,</span><span class="w"> </span><span class="m">158</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">glucose_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">day</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glucose</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_line</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Patient Glucose Monitoring&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Day&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Glucose (mg/dL)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Data simulates sustained hyperglycemia (high blood sugar) typical of the diabetic range. Sustained high levels increase the risk of long-term complications. For diagnosis, a fasting glucose ≥126 mg/dL is a key criterion. (Source: American Diabetes Association. Standards of Care in Diabetes—2024.)</p>
+</div></blockquote>
+<section id="basic-save-and-dimension-control">
+<h3>3.1 Basic Save and Dimension Control<a class="headerlink" href="#basic-save-and-dimension-control" title="Link to this heading">#</a></h3>
+<p>Set <code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">height</span></code>, and <code class="docutils literal notranslate"><span class="pre">units</span></code> to meet specific layout requirements, such as fitting a presentation slide.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">ggsave</span><span class="p">(</span>
+<span class="w">  </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;presentation_glucose.png&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1"># Can include a path, e.g., &quot;plots/report.png&quot;</span>
+<span class="w">  </span><span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glucose_plot</span><span class="p">,</span>
+<span class="w">  </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span>
+<span class="w">  </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.5</span><span class="p">,</span>
+<span class="w">  </span><span class="n">units</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;in&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Verify file creation</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;File saved:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">file.exists</span><span class="p">(</span><span class="s">&quot;presentation_glucose.png&quot;</span><span class="p">)))</span>
+<span class="c1"># [1] &quot;File saved: TRUE&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Always specify the <code class="docutils literal notranslate"><span class="pre">plot</span></code> argument explicitly (e.g., <code class="docutils literal notranslate"><span class="pre">plot</span> <span class="pre">=</span> <span class="pre">glucose_plot</span></code>). If you omit it, <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code> defaults to saving the last plot that was displayed, which can lead to saving the wrong figure in a complex script.</p>
+</div></blockquote>
+<p>While a simple PNG is great for presentations, academic journals and formal reports often have stricter requirements for image quality and format.</p>
+</section>
+<section id="creating-publication-quality-plots">
+<h3>3.2 Creating Publication-Quality Plots<a class="headerlink" href="#creating-publication-quality-plots" title="Link to this heading">#</a></h3>
+<p>For research papers, you need high-resolution plots with specific attributes like embedded fonts and a non-transparent background.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># The &#39;cairo_pdf&#39; device requires the Cairo package.</span>
+<span class="c1"># install.packages(&quot;Cairo&quot;)</span>
+<span class="nf">ggsave</span><span class="p">(</span>
+<span class="w">  </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;figure1_glucose.pdf&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">plot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glucose_plot</span><span class="p">,</span>
+<span class="w">  </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">18</span><span class="p">,</span>
+<span class="w">  </span><span class="n">units</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;cm&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">dpi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">,</span>
+<span class="w">  </span><span class="n">bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;cairo_pdf&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Verify file creation</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;File saved:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">file.exists</span><span class="p">(</span><span class="s">&quot;figure1_glucose.pdf&quot;</span><span class="p">)))</span>
+<span class="c1"># [1] &quot;File saved: TRUE&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="choosing-a-file-format">
+<h3>3.3 Choosing a File Format<a class="headerlink" href="#choosing-a-file-format" title="Link to this heading">#</a></h3>
+<p>The right file format depends entirely on the end-use case.</p>
+<ul class="simple">
+<li><p><strong>Vector Formats (<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">.svg</span></code>):</strong> Choose these for any application where scalability is key. They are ideal for journal articles, posters, and any print document where quality must be maintained regardless of size.</p></li>
+<li><p><strong>Raster Formats (<code class="docutils literal notranslate"><span class="pre">.png</span></code>, <code class="docutils literal notranslate"><span class="pre">.tiff</span></code>):</strong> Choose these for digital displays. Use <code class="docutils literal notranslate"><span class="pre">.png</span></code> for web dashboards, presentations, and embedding in emails or Word documents. Use <code class="docutils literal notranslate"><span class="pre">.tiff</span></code> when a publisher specifically requests a high-resolution, uncompressed raster format.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-save-for-a-clinical-dashboard-basic">
+<h3>Exercise 1: Save for a Clinical Dashboard Basic<a class="headerlink" href="#exercise-1-save-for-a-clinical-dashboard-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Save the <code class="docutils literal notranslate"><span class="pre">glucose_plot</span></code> in a format suitable for a web-based internal clinical dashboard.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> Dashboards in hospitals often use scalable vector graphics (SVG) to ensure plots look sharp on various screen sizes, from a doctor’s desktop to a nurse’s tablet.</p>
+<p>Save the <code class="docutils literal notranslate"><span class="pre">glucose_plot</span></code> with the following criteria:</p>
+<ul class="simple">
+<li><p>File name: <code class="docutils literal notranslate"><span class="pre">dashboard_glucose.svg</span></code></p></li>
+<li><p>Path: Save it inside a folder named <code class="docutils literal notranslate"><span class="pre">plots</span></code>.</p></li>
+<li><p>Width: 6 inches</p></li>
+<li><p>Height: 4 inches</p></li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, create the directory if it doesn&#39;t exist to avoid an error.</span>
+<span class="c1"># dir.create(&quot;plots&quot;, showWarnings = FALSE)</span>
+
+<span class="c1"># ggsave(</span>
+<span class="c1">#   filename = &quot;plots/dashboard_glucose.svg&quot;,</span>
+<span class="c1">#   plot = glucose_plot,</span>
+<span class="c1">#   width = 6,</span>
+<span class="c1">#   height = 4,</span>
+<span class="c1">#   units = &quot;in&quot;</span>
+<span class="c1"># )</span>
+
+<span class="c1"># # Verify the file was created inside the &#39;plots&#39; folder</span>
+<span class="c1"># list.files(&quot;plots&quot;)</span>
+<span class="c1"># # Expected Output:</span>
+<span class="c1"># # [1] &quot;dashboard_glucose.svg&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This code uses <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code> to export <code class="docutils literal notranslate"><span class="pre">glucose_plot</span></code> as an SVG file into the <code class="docutils literal notranslate"><span class="pre">plots</span></code> directory. The dimensions are set in inches, a common unit for plot sizing.
+<strong>Key Learning:</strong> Using <code class="docutils literal notranslate"><span class="pre">.svg</span></code> format for web-based applications and specifying output directories.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong> The exercise specified saving the plot as an <code class="docutils literal notranslate"><span class="pre">.svg</span></code> file for a dashboard. Why is a vector format like SVG often a better choice for a web-based dashboard than a raster format like PNG? Consider scalability and clarity on different screen sizes.</p>
+</div></blockquote>
+</section>
+<section id="exercise-2-save-for-a-presentation-slide-intermediate">
+<h3>Exercise 2: Save for a Presentation Slide Intermediate<a class="headerlink" href="#exercise-2-save-for-a-presentation-slide-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Save the <code class="docutils literal notranslate"><span class="pre">glucose_plot</span></code> as a high-resolution image for a PowerPoint presentation.
+<strong>Time:</strong> 4 minutes
+<strong>Medical Context:</strong> When presenting clinical findings to colleagues or at conferences, plots must be clear and legible. A high-resolution PNG ensures the plot does not appear pixelated when projected.</p>
+<p>Save the <code class="docutils literal notranslate"><span class="pre">glucose_plot</span></code> with the following criteria:</p>
+<ul class="simple">
+<li><p>File name: <code class="docutils literal notranslate"><span class="pre">conference_slide_glucose.png</span></code></p></li>
+<li><p>Width: 10 inches</p></li>
+<li><p>Height: 5.625 inches (for a 16:9 aspect ratio)</p></li>
+<li><p>Resolution: 150 DPI</p></li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># ggsave(</span>
+<span class="c1">#   filename = &quot;conference_slide_glucose.png&quot;,</span>
+<span class="c1">#   plot = glucose_plot,</span>
+<span class="c1">#   width = 10,</span>
+<span class="c1">#   height = 5.625,</span>
+<span class="c1">#   units = &quot;in&quot;,</span>
+<span class="c1">#   dpi = 150</span>
+<span class="c1"># )</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This code saves the plot as a PNG file, a raster format perfect for presentations. The dimensions are set to fit a standard 16:9 widescreen slide, and the <code class="docutils literal notranslate"><span class="pre">dpi</span></code> is increased to 150 to ensure better quality than the default.
+<strong>Key Learning:</strong> Adjusting <code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">height</span></code>, and <code class="docutils literal notranslate"><span class="pre">dpi</span></code> to match the requirements of a specific medium like a presentation slide.</p>
+</div>
+</details></section>
+<section id="exercise-3-save-for-a-journal-submission-advanced">
+<h3>Exercise 3: Save for a Journal Submission Advanced<a class="headerlink" href="#exercise-3-save-for-a-journal-submission-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Save the <code class="docutils literal notranslate"><span class="pre">glucose_plot</span></code> to meet the strict requirements of a high-impact medical journal.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Medical journals have precise figure submission guidelines, often requiring high-resolution PDFs with embedded fonts and specific dimensions in centimeters to ensure print quality.</p>
+<p>Save the <code class="docutils literal notranslate"><span class="pre">glucose_plot</span></code> with the following criteria:</p>
+<ul class="simple">
+<li><p>File name: <code class="docutils literal notranslate"><span class="pre">manuscript_figure1.pdf</span></code></p></li>
+<li><p>Width: 15 cm</p></li>
+<li><p>Resolution: 300 DPI</p></li>
+<li><p>Background: Solid white</p></li>
+<li><p>Device: <code class="docutils literal notranslate"><span class="pre">cairo_pdf</span></code></p></li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># You may need to run install.packages(&quot;Cairo&quot;) first.</span>
+<span class="c1"># ggsave(</span>
+<span class="c1">#   filename = &quot;manuscript_figure1.pdf&quot;,</span>
+<span class="c1">#   plot = glucose_plot,</span>
+<span class="c1">#   width = 15,</span>
+<span class="c1">#   units = &quot;cm&quot;,</span>
+<span class="c1">#   dpi = 300,</span>
+<span class="c1">#   bg = &quot;white&quot;,</span>
+<span class="c1">#   device = &quot;cairo_pdf&quot;</span>
+<span class="c1"># )</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This code creates a PDF, the preferred vector format for publications. It sets a <code class="docutils literal notranslate"><span class="pre">width</span></code> in centimeters, a <code class="docutils literal notranslate"><span class="pre">dpi</span></code> of 300 for print quality, a solid <code class="docutils literal notranslate"><span class="pre">white</span></code> background, and uses the <code class="docutils literal notranslate"><span class="pre">cairo_pdf</span></code> device to handle font embedding correctly.
+<strong>Key Learning:</strong> Using advanced <code class="docutils literal notranslate"><span class="pre">ggsave</span></code> options (<code class="docutils literal notranslate"><span class="pre">dpi</span></code>, <code class="docutils literal notranslate"><span class="pre">bg</span></code>, <code class="docutils literal notranslate"><span class="pre">device</span></code>) to meet professional publication standards.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Clinical Trial Reporting:</strong> A data scientist analyzing results from a new diabetes drug trial can use <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code> to batch-export dozens of plots showing treatment vs. placebo outcomes. These plots can be saved as 300 DPI PDFs (<code class="docutils literal notranslate"><span class="pre">device</span> <span class="pre">=</span> <span class="pre">&quot;cairo_pdf&quot;</span></code>) and directly embedded into the final clinical study report for submission to regulatory bodies like the FDA.</p></li>
+<li><p><strong>EHR Integration:</strong> A hospital’s IT department can create a script that automatically generates and saves daily lab trend plots (e.g., kidney function, liver enzymes) for each patient. Using <code class="docutils literal notranslate"><span class="pre">ggsave(filename</span> <span class="pre">=</span> <span class="pre">&quot;ehr_plots/patient_12345.png&quot;,</span> <span class="pre">...)</span></code> allows these plots to be saved as PNGs and displayed directly within the patient’s electronic health record for quick review by physicians.</p></li>
+<li><p><strong>Genomic Research Publication:</strong> A bioinformatician creating a volcano plot to show differential gene expression can save it as an SVG file (<code class="docutils literal notranslate"><span class="pre">ggsave(&quot;volcano.svg&quot;,</span> <span class="pre">...)</span></code>). This allows the plot to be included in a web-based supplementary data portal or scaled up for a large-format research poster without any loss of detail.</p></li>
+<li><p><strong>Patient-Facing Health Summaries:</strong> A health tech company can generate personalized weekly health summaries for its users. A plot showing a user’s physical activity trend can be saved as a simple, web-friendly PNG and embedded in an automated email report, helping patients stay engaged with their health goals.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to finalize and export your visualizations using <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code>. This function is the essential tool for moving your plots from R into the real world, whether for publication, presentation, or integration into clinical systems. By mastering its options, you gain full control over the quality and format of your final figures.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code> function saves a specified <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> object to a file, with the format determined by the filename extension.</p></li>
+<li><p>You must control output dimensions with <code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">height</span></code>, and <code class="docutils literal notranslate"><span class="pre">units</span></code> to fit specific layouts.</p></li>
+<li><p>For professional and print use, set a high resolution using <code class="docutils literal notranslate"><span class="pre">dpi</span> <span class="pre">=</span> <span class="pre">300</span></code> and choose a vector format like PDF or SVG.</p></li>
+<li><p>Advanced options like <code class="docutils literal notranslate"><span class="pre">bg</span> <span class="pre">=</span> <span class="pre">&quot;white&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">device</span> <span class="pre">=</span> <span class="pre">&quot;cairo_pdf&quot;</span></code> are critical for meeting the strict requirements of scientific publications.</p></li>
+</ul>
+<p>With your plots now ready for export, the next step in advanced visualization is to make them interactive, allowing users to explore the data for themselves.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/xaviercheeteaching.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.7_line_arguments_in_r_scripts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 5: Automating Data Analysis</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-save-and-dimension-control">3.1 Basic Save and Dimension Control</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-publication-quality-plots">3.2 Creating Publication-Quality Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-file-format">3.3 Choosing a File Format</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-save-for-a-clinical-dashboard-basic">Exercise 1: Save for a Clinical Dashboard Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-save-for-a-presentation-slide-intermediate">Exercise 2: Save for a Presentation Slide Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-save-for-a-journal-submission-advanced">Exercise 3: Save for a Journal Submission Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

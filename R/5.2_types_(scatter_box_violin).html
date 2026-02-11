@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 5: Visualizing Medical Data with ggplot2 &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.2_types_(scatter_box_violin)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 5: Analyzing Differential Gene Expression" href="5.3_plots_and_volcano_plots_for_deg.html" />
+    <link rel="prev" title="Chapter 5: Data Visualization with ggplot2" href="5.1_to_ggplot2_grammar_of_graphics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_rstudio_installation.html">
+                    4.1 R Studio Installation
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Data Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 Foundational Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_import_and_cleaning.html">4.5 Data Import and Cleaning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Data Visualization with ggplot2</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5.2 Visualizing Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 Analyzing DEGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Advanced Visualization for Genomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 Advanced Visualization for Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Other Visualization Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Automating Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 Saving Visualizations</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/xaviercheeteaching.github.io/main?urlpath=tree/R/5.2_types_(scatter_box_violin).ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.2_types_(scatter_box_violin).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 5: Visualizing Medical Data with ggplot2</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-patient-dataset">3.1 Setup: Patient Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plots">3.2 Scatter Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots">3.3 Box Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#violin-plots">3.4 Violin Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-plots-for-richer-summary">3.5 Combined Plots for Richer Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-raw-data-with-jitter">3.6 Adding Raw Data with Jitter</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scatter-plot-for-inflammation-and-blood-pressure">Exercise 1: Scatter Plot for Inflammation and Blood Pressure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-combined-plot-for-glucose-status">Exercise 2: Combined Plot for Glucose Status</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-evaluating-treatment-effect-on-blood-pressure">Exercise 3: Evaluating Treatment Effect on Blood Pressure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-visualizing-medical-data-with-ggplot2">
+<h1>Chapter 5: Visualizing Medical Data with ggplot2<a class="headerlink" href="#chapter-5-visualizing-medical-data-with-ggplot2" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the next step in your data visualization journey. In the previous section, you learned the basic grammar of <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>. Now, we will apply that knowledge to create three fundamental plot types that are essential for medical data analysis: scatter, box, and violin plots. These visualizations allow us to uncover relationships between variables, compare distributions across patient groups, and gain initial insights from complex datasets. By the end of this section, you will be able to choose the right plot for your question, create it using <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>, and interpret its clinical significance.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Scatter Plot</strong>: A graph that uses Cartesian coordinates to display values for two continuous variables. In medicine, it’s used to visualize the relationship or correlation between two measurements, such as age and blood pressure, to identify trends or associations.</p></li>
+<li><p><strong>Box Plot (or Box-and-Whisker Plot)</strong>: A standardized way of displaying the distribution of data based on a five-number summary (minimum, first quartile (Q1), median, third quartile (Q3), and maximum). It is excellent for comparing the central tendency and spread of a variable across different groups, like comparing the efficacy of a new treatment against a control.</p></li>
+<li><p><strong>Violin Plot</strong>: A method of plotting numeric data that combines a box plot with a kernel density plot. It shows the full probability density of the data, revealing more about the distribution shape (e.g., whether it’s bimodal or skewed) than a simple box plot. This is useful for visualizing distributions of biomarkers, like white blood cell counts, to see where data points are concentrated.</p></li>
+<li><p><strong>Jitter</strong>: The technique of adding a small amount of random noise to the location of data points on a plot. This is used to prevent overplotting when many data points have the same value, making it easier to see the underlying distribution, especially with small sample sizes.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>This section provides the core code and explanations for creating fundamental plot types. We will first set up a sample patient dataset and then walk through each plot.</p>
+<section id="setup-patient-dataset">
+<h3>3.1 Setup: Patient Dataset<a class="headerlink" href="#setup-patient-dataset" title="Link to this heading">#</a></h3>
+<p>First, we load the necessary libraries and create a sample <code class="docutils literal notranslate"><span class="pre">tibble</span></code> containing patient data. This dataset simulates common medical measurements and groupings, incorporating agent feedback for concise variable names and improved clinical realism.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the entire Tidyverse suite for a consistent workflow</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+
+<span class="n">patient_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tibble</span><span class="p">(</span>
+<span class="w">  </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">45</span><span class="p">,</span><span class="w"> </span><span class="m">62</span><span class="p">,</span><span class="w"> </span><span class="m">33</span><span class="p">,</span><span class="w"> </span><span class="m">51</span><span class="p">,</span><span class="w"> </span><span class="m">28</span><span class="p">,</span><span class="w"> </span><span class="m">68</span><span class="p">,</span><span class="w"> </span><span class="m">41</span><span class="p">,</span><span class="w"> </span><span class="m">55</span><span class="p">,</span><span class="w"> </span><span class="m">39</span><span class="p">,</span><span class="w"> </span><span class="m">29</span><span class="p">,</span><span class="w"> </span><span class="m">58</span><span class="p">,</span><span class="w"> </span><span class="m">49</span><span class="p">),</span>
+<span class="w">  </span><span class="n">sbp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">128</span><span class="p">,</span><span class="w"> </span><span class="m">155</span><span class="p">,</span><span class="w"> </span><span class="m">120</span><span class="p">,</span><span class="w"> </span><span class="m">145</span><span class="p">,</span><span class="w"> </span><span class="m">118</span><span class="p">,</span><span class="w"> </span><span class="m">160</span><span class="p">,</span><span class="w"> </span><span class="m">125</span><span class="p">,</span><span class="w"> </span><span class="m">148</span><span class="p">,</span><span class="w"> </span><span class="m">130</span><span class="p">,</span><span class="w"> </span><span class="m">115</span><span class="p">,</span><span class="w"> </span><span class="m">150</span><span class="p">,</span><span class="w"> </span><span class="m">142</span><span class="p">),</span><span class="w"> </span><span class="c1"># Systolic BP (mmHg)</span>
+<span class="w">  </span><span class="n">treatment_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Control&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Treatment&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">glucose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">95</span><span class="p">,</span><span class="w"> </span><span class="m">88</span><span class="p">,</span><span class="w"> </span><span class="m">102</span><span class="p">,</span><span class="w"> </span><span class="m">91</span><span class="p">,</span><span class="w"> </span><span class="m">85</span><span class="p">,</span><span class="w"> </span><span class="m">98</span><span class="p">,</span><span class="w"> </span><span class="m">82</span><span class="p">,</span><span class="w"> </span><span class="m">75</span><span class="p">,</span><span class="w"> </span><span class="m">79</span><span class="p">,</span><span class="w"> </span><span class="m">88</span><span class="p">,</span><span class="w"> </span><span class="m">70</span><span class="p">,</span><span class="w"> </span><span class="m">72</span><span class="p">),</span><span class="w"> </span><span class="c1"># Glucose (mg/dL)</span>
+<span class="w">  </span><span class="n">patient_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Healthy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Infection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Healthy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Infection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Healthy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Infection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Healthy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Infection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Healthy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Infection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Infection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Healthy&quot;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">wbc_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">7.5</span><span class="p">,</span><span class="w"> </span><span class="m">12.1</span><span class="p">,</span><span class="w"> </span><span class="m">6.8</span><span class="p">,</span><span class="w"> </span><span class="m">14.3</span><span class="p">,</span><span class="w"> </span><span class="m">8.0</span><span class="p">,</span><span class="w"> </span><span class="m">15.1</span><span class="p">,</span><span class="w"> </span><span class="m">6.5</span><span class="p">,</span><span class="w"> </span><span class="m">13.5</span><span class="p">,</span><span class="w"> </span><span class="m">7.1</span><span class="p">,</span><span class="w"> </span><span class="m">11.8</span><span class="p">,</span><span class="w"> </span><span class="m">14.8</span><span class="p">,</span><span class="w"> </span><span class="m">8.2</span><span class="p">)</span><span class="w"> </span><span class="c1"># WBC (10^9/L)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="scatter-plots">
+<h3>3.2 Scatter Plots<a class="headerlink" href="#scatter-plots" title="Link to this heading">#</a></h3>
+<p>Use a scatter plot to visualize the relationship between two continuous variables, like patient age and systolic blood pressure.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sbp</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">patient_status</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Patient Age vs. Systolic Blood Pressure&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Age (Years)&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic BP (mmHg)&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Patient Status&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Interpretation:</strong> The plot shows patients with an ‘Infection’ tend to be older with higher <em>systolic</em> blood pressure, suggesting a potential positive correlation.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Hypertension (high blood pressure) is a major risk factor for cardiovascular disease, and its prevalence increases significantly with age. Visualizing this relationship helps clinicians and researchers identify at-risk patient populations and understand disease progression.</p>
+</div></blockquote>
+</section>
+<section id="box-plots">
+<h3>3.3 Box Plots<a class="headerlink" href="#box-plots" title="Link to this heading">#</a></h3>
+<p>While scatter plots are excellent for continuous variables, we need a different tool to compare a continuous measurement across categorical groups. This is where box plots excel. They are used to compare summary statistics (median, quartiles) of a measurement across different groups, such as glucose levels in treatment versus control.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">treatment_group</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glucose</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_boxplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Glucose Levels by Treatment Group&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Treatment Group&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Glucose (mg/dL)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Interpretation:</strong> The plot confirms the median glucose level (the horizontal line inside the box) is visibly lower in the ‘Treatment’ group compared to the ‘Control’ group.</p>
+<blockquote>
+<div><p><strong>Key Terms:</strong> A box plot visualizes the “five-number summary” of a dataset: the minimum, first quartile (25th percentile), median (50th percentile), third quartile (75th percentile), and maximum. The “box” itself represents the interquartile range (IQR), which contains the middle 50% of the data.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>In Practice:</strong> Comparing treatment and control groups is the foundation of clinical trials. Box plots provide a rapid, clear visual summary to assess if a new therapy (like a glucose-lowering drug) is having a measurable effect compared to a placebo or standard care.</p>
+</div></blockquote>
+</section>
+<section id="violin-plots">
+<h3>3.4 Violin Plots<a class="headerlink" href="#violin-plots" title="Link to this heading">#</a></h3>
+<p>A box plot summarizes the data, but what if we want to see the full distribution shape? For that, we turn to the violin plot. It shows the full probability density of data, revealing the distribution shape for groups, like WBC counts in healthy versus infected patients.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">patient_status</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wbc_count</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_violin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;WBC Distribution by Patient Status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Patient Status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;WBC Count (10^9/L)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Interpretation:</strong> The ‘Infection’ group’s violin is wider at higher WBC counts, showing a concentration of patients with elevated levels (leukocytosis).</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Leukocytosis, an elevated white blood cell (WBC) count, is a common indicator of the body’s response to infection, inflammation, or certain diseases like leukemia. A violin plot effectively shows how the distribution of WBCs in the ‘Infection’ group is shifted towards these higher, clinically significant values.</p>
+</div></blockquote>
+</section>
+<section id="combined-plots-for-richer-summary">
+<h3>3.5 Combined Plots for Richer Summary<a class="headerlink" href="#combined-plots-for-richer-summary" title="Link to this heading">#</a></h3>
+<p>Overlay a box plot on a violin plot to combine a statistical summary (median) with the full data distribution (density).</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">patient_status</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wbc_count</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_violin</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="n">outlier.shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># Hides boxplot outliers, as the violin already shows the full data density.</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;WBC Distribution by Patient Status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Patient Status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;WBC Count (10^9/L)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Interpretation:</strong> This combined plot confirms the ‘Infection’ group has both a higher median WBC count (from the box) and a distribution skewed towards higher values (from the violin).</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Layering <code class="docutils literal notranslate"><span class="pre">geoms</span></code> (like <code class="docutils literal notranslate"><span class="pre">geom_violin</span></code> and <code class="docutils literal notranslate"><span class="pre">geom_boxplot</span></code>) is a powerful feature of <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>. It allows you to build complex, information-rich visualizations step-by-step. This combination gives you the best of both worlds: a view of the distribution’s shape and a precise summary of its central tendency.</p>
+</div></blockquote>
+</section>
+<section id="adding-raw-data-with-jitter">
+<h3>3.6 Adding Raw Data with Jitter<a class="headerlink" href="#adding-raw-data-with-jitter" title="Link to this heading">#</a></h3>
+<p>For small datasets, add jittered points over a summary plot to show the raw data, revealing the true sample size and distribution.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span><span class="w"> </span><span class="c1"># Ensures jitter is reproducible for consistent teaching materials</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">treatment_group</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glucose</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_boxplot</span><span class="p">(</span><span class="n">outlier.shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_jitter</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.7</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># Overlays raw data points with slight horizontal noise.</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Glucose Levels by Treatment Group with Raw Data&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Treatment Group&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Glucose (mg/dL)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Interpretation:</strong> <code class="docutils literal notranslate"><span class="pre">geom_jitter()</span></code> reveals all individual data points, confirming the sample size and variability within each group that the boxplot alone summarizes.</p>
+<blockquote>
+<div><p><strong>Important:</strong> With small datasets, summary plots like box plots can be misleading. They might hide the true distribution or small sample size. Adding <code class="docutils literal notranslate"><span class="pre">geom_jitter()</span></code> is crucial as it displays every individual data point, providing a more honest and complete picture of the data.</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-scatter-plot-for-inflammation-and-blood-pressure">
+<h3>Exercise 1: Scatter Plot for Inflammation and Blood Pressure<a class="headerlink" href="#exercise-1-scatter-plot-for-inflammation-and-blood-pressure" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Create and interpret a scatter plot to identify potential correlations between two continuous variables.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Investigating if systemic inflammation (indicated by White Blood Cell count) is associated with hypertension (high systolic blood pressure).</p>
+<p><strong>Task:</strong> Write the code to create a scatter plot of <code class="docutils literal notranslate"><span class="pre">wbc_count</span></code> (x-axis) vs. <code class="docutils literal notranslate"><span class="pre">sbp</span></code> (y-axis). Then, state whether the visual shows a positive, negative, or no clear correlation.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wbc_count</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sbp</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;WBC Count vs. Systolic Blood Pressure&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;WBC Count (10^9/L)&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic BP (mmHg)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The plot shows a clear positive correlation. As the White Blood Cell (WBC) count increases, the systolic blood pressure also tends to increase. This suggests a potential link between inflammation and hypertension in this dataset.
+<strong>Key Learning:</strong> Scatter plots are the primary tool for visualizing the relationship and direction of correlation between two continuous variables.</p>
+</div>
+</details></section>
+<section id="exercise-2-combined-plot-for-glucose-status">
+<h3>Exercise 2: Combined Plot for Glucose Status<a class="headerlink" href="#exercise-2-combined-plot-for-glucose-status" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine plot types to compare both summary statistics and the full distribution shape between groups.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Comparing glucose regulation between healthy and infected patient groups to understand metabolic differences that may be associated with the disease state.</p>
+<p><strong>Task:</strong> Write the code for a combined violin and boxplot to compare <code class="docutils literal notranslate"><span class="pre">glucose</span></code> across <code class="docutils literal notranslate"><span class="pre">patient_status</span></code>. Identify which group has a lower median and which shows a wider data distribution.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">patient_status</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glucose</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_violin</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.6</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">outlier.shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Glucose Distribution by Patient Status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Patient Status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Glucose (mg/dL)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The ‘Infection’ group has a lower median glucose level (the line in the box is lower). However, the ‘Healthy’ group’s violin is wider, indicating a broader range and wider distribution of glucose values in this sample.
+<strong>Key Learning:</strong> Combining plots provides a more nuanced view. While the median might be lower in one group, the other group might have greater variability.</p>
+</div>
+</details></section>
+<section id="exercise-3-evaluating-treatment-effect-on-blood-pressure">
+<h3>Exercise 3: Evaluating Treatment Effect on Blood Pressure<a class="headerlink" href="#exercise-3-evaluating-treatment-effect-on-blood-pressure" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a box plot with raw data points to evaluate the effect of a treatment on a continuous variable.
+<strong>Time:</strong> 8 minutes
+<strong>Medical Context:</strong> Assessing the impact of a new antihypertensive medication by comparing blood pressure readings between the treatment and control groups.</p>
+<p><strong>Task:</strong> Create a box plot showing <code class="docutils literal notranslate"><span class="pre">sbp</span></code> for each <code class="docutils literal notranslate"><span class="pre">treatment_group</span></code>. Overlay jittered points to show the raw data. Interpret the result.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span><span class="w"> </span><span class="c1"># For reproducible jitter</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">treatment_group</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sbp</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_boxplot</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">outlier.shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_jitter</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.7</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">treatment_group</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic BP by Treatment Group&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Treatment Group&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic BP (mmHg)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme</span><span class="p">(</span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1"># Hide legend as colors are redundant</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The box plot for the ‘Treatment’ group is positioned higher than the ‘Control’ group, indicating a higher median systolic blood pressure. This is contrary to what one would expect from an effective antihypertensive treatment, suggesting the “Treatment” in this simulated dataset was not effective for BP.
+<strong>Key Learning:</strong> Box plots with jitter are excellent for comparing groups and simultaneously verifying the underlying data, which is crucial for drawing accurate conclusions in clinical data analysis.</p>
+</div>
+</details><hr class="docutils" />
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Clinical Trial Efficacy Analysis:</strong> Box plots are frequently used to compare a primary endpoint (e.g., tumor size reduction, blood pressure change) between a treatment arm and a placebo arm. The visualization provides an immediate, clear comparison of the median effect and the variability of patient responses, which is critical for interim and final trial reports submitted to regulatory bodies like the FDA.</p></li>
+<li><p><strong>Identifying Patient Subgroups with Genomics Data:</strong> Violin plots are powerful for visualizing gene expression data from RNA-sequencing. For example, a researcher could plot the expression of a cancer-related gene across different tumor subtypes. A bimodal (two-humped) distribution in one violin might reveal two distinct patient subgroups within that subtype, one with high expression and one with low, suggesting different underlying biology that could guide personalized treatment strategies.</p></li>
+<li><p><strong>Public Health and Epidemiology:</strong> Scatter plots are essential for exploring relationships between population-level variables. An epidemiologist might plot vaccination rates against disease incidence for different regions to visually assess the effectiveness of a vaccination campaign. By adding a regression line (<code class="docutils literal notranslate"><span class="pre">geom_smooth(method</span> <span class="pre">=</span> <span class="pre">&quot;lm&quot;)</span></code>), they can quantify this relationship and strengthen public health recommendations.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to create and interpret three fundamental plot types in <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> for medical data analysis. You learned to move beyond basic bar charts to visualize relationships, compare distributions, and add layers of information to your plots.</p>
+<ul class="simple">
+<li><p><strong>Scatter plots</strong> are ideal for visualizing the relationship between two continuous variables, helping to identify potential correlations like age and blood pressure.</p></li>
+<li><p><strong>Box plots</strong> provide a concise summary of a variable’s distribution (median, quartiles, range) and are excellent for comparing these statistics across different groups (e.g., treatment vs. control).</p></li>
+<li><p><strong>Violin plots</strong> show the full probability density of the data, offering a more detailed view of the distribution’s shape than a box plot, which is useful for spotting multi-modal or skewed data patterns.</p></li>
+<li><p>Combining plot types, such as overlaying box plots on violin plots or adding jittered raw data points, creates richer visualizations that convey more information in a single, powerful figure.</p></li>
+</ul>
+<p>With these foundational plotting skills, you are now ready to move on to customizing the aesthetics and annotations of your plots to make them publication-ready.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> You have learned to create three distinct plot types. When would you choose a violin plot over a box plot for a clinical presentation? What are the advantages and disadvantages of showing the raw data with <code class="docutils literal notranslate"><span class="pre">geom_jitter</span></code> to a non-technical audience like a patient?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/xaviercheeteaching.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.1_to_ggplot2_grammar_of_graphics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 5: Data Visualization with ggplot2</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5.3_plots_and_volcano_plots_for_deg.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 5: Analyzing Differential Gene Expression</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-patient-dataset">3.1 Setup: Patient Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plots">3.2 Scatter Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots">3.3 Box Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#violin-plots">3.4 Violin Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-plots-for-richer-summary">3.5 Combined Plots for Richer Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-raw-data-with-jitter">3.6 Adding Raw Data with Jitter</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scatter-plot-for-inflammation-and-blood-pressure">Exercise 1: Scatter Plot for Inflammation and Blood Pressure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-combined-plot-for-glucose-status">Exercise 2: Combined Plot for Glucose Status</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-evaluating-treatment-effect-on-blood-pressure">Exercise 3: Evaluating Treatment Effect on Blood Pressure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

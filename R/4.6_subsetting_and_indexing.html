@@ -1,0 +1,886 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 4: Data Manipulation &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.6_subsetting_and_indexing';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 4: Apply Family" href="4.7_and_apply_family.html" />
+    <link rel="prev" title="Chapter 4: Data Import and Cleaning" href="4.5_data_import_and_cleaning.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_rstudio_installation.html">
+                    4.1 R Studio Installation
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Data Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 Foundational Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_import_and_cleaning.html">4.5 Data Import and Cleaning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4.6 Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Data Visualization with ggplot2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 Visualizing Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 Analyzing DEGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Advanced Visualization for Genomic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 Advanced Visualization for Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Other Visualization Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Automating Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 Saving Visualizations</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/xaviercheeteaching.github.io/main?urlpath=tree/R/4.6_subsetting_and_indexing.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/4.6_subsetting_and_indexing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 4: Data Manipulation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-vectors">3.1 Subsetting Vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-matrices">3.2 Subsetting Matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-data-frames">3.3 Subsetting Data Frames</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-column-and-row-selection">Exercise 1: Basic Column and Row Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-create-a-high-risk-cohort">Exercise 2: Create a High-Risk Cohort</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-advanced-filtering-with-subset">Exercise 3: Advanced Filtering with <code class="docutils literal notranslate"><span class="pre">subset()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-4-data-manipulation">
+<h1>Chapter 4: Data Manipulation<a class="headerlink" href="#chapter-4-data-manipulation" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to data subsetting and indexing, one of the most fundamental and frequently used skills in data analysis. In this section, you will learn how to select, filter, and remove data from R objects by position, name, or logical conditions. This skill is paramount in precision health, where you must navigate vast datasets to find the specific information you need. Our learning journey will begin with simple vectors, progress to two-dimensional matrices, and culminate in the powerful and flexible data frame, preparing you to isolate specific patient cohorts, analyze subgroups, or prepare data for modeling.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Indexing</strong>: The process of accessing data elements within an object using their position or name. In a clinical trial dataset, this could mean retrieving the record for the 5th patient (<code class="docutils literal notranslate"><span class="pre">data[5,</span> <span class="pre">]</span></code>) or accessing the ‘blood_pressure’ column (<code class="docutils literal notranslate"><span class="pre">data$sbp_mmhg</span></code>). R uses 1-based indexing, meaning the first element is at position 1.</p></li>
+<li><p><strong>Subsetting</strong>: The action of creating a smaller dataset from a larger one based on specific criteria. This is the primary tool for cohort selection, such as creating a new data frame containing only patients over the age of 65 with a history of hypertension.</p></li>
+<li><p><strong>Logical Filtering</strong>: A type of subsetting where data is selected if it meets a <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> condition. For example, <code class="docutils literal notranslate"><span class="pre">patients$age</span> <span class="pre">&gt;</span> <span class="pre">50</span></code> creates a logical vector of <code class="docutils literal notranslate"><span class="pre">TRUE</span></code>/<code class="docutils literal notranslate"><span class="pre">FALSE</span></code> values that can be used to filter a <code class="docutils literal notranslate"><span class="pre">patients</span></code> data frame, effectively selecting the cohort of patients older than 50.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">drop</span> <span class="pre">=</span> <span class="pre">FALSE</span></code></strong>: An argument used in matrix and data frame subsetting to prevent R from simplifying the data structure. For instance, when selecting a single column, using <code class="docutils literal notranslate"><span class="pre">drop</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> ensures the output is a one-column data frame, not a vector. This maintains structural consistency, which is critical for preventing errors in automated analysis scripts.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="subsetting-vectors">
+<h3>3.1 Subsetting Vectors<a class="headerlink" href="#subsetting-vectors" title="Link to this heading">#</a></h3>
+<p><strong>By Position</strong></p>
+<p>Select vector elements using their numerical index. Remember, R uses 1-based indexing.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Vector of patient hematocrit levels (%)</span>
+<span class="n">hematocrit_levels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">45</span><span class="p">,</span><span class="w"> </span><span class="m">38</span><span class="p">,</span><span class="w"> </span><span class="m">51</span><span class="p">,</span><span class="w"> </span><span class="m">42</span><span class="p">)</span>
+
+<span class="c1"># Select the third patient&#39;s level</span>
+<span class="n">hematocrit_levels</span><span class="p">[</span><span class="m">3</span><span class="p">]</span>
+<span class="c1"># [1] 51</span>
+</pre></div>
+</div>
+<p><strong>By Logical Condition</strong></p>
+<p>Select elements that meet a specific condition. This is a powerful way to filter data based on clinical thresholds.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Polycythemia is a condition characterized by an abnormally high concentration of red blood cells, leading to elevated hematocrit levels. While diagnostic criteria are complex, a simplified threshold like &gt;50% is often used in initial data screening to flag patients for further review.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select levels indicating potential polycythemia (&gt;50%)</span>
+<span class="n">hematocrit_levels</span><span class="p">[</span><span class="n">hematocrit_levels</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">50</span><span class="p">]</span>
+<span class="c1"># [1] 51</span>
+</pre></div>
+</div>
+</section>
+<section id="subsetting-matrices">
+<h3>3.2 Subsetting Matrices<a class="headerlink" href="#subsetting-matrices" title="Link to this heading">#</a></h3>
+<p>Matrices use <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">column]</span></code> notation. Leaving a dimension blank selects all elements in that dimension.</p>
+<blockquote>
+<div><p><strong>Important:</strong> Use <code class="docutils literal notranslate"><span class="pre">drop</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> to ensure the output of a subset operation remains a matrix or data frame. R’s default behavior of simplifying single-column or single-row selections into a vector can break scripts that expect a two-dimensional structure, leading to unpredictable errors in analysis pipelines.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Matrix of patient vitals (Row 1: Patient A, Row 2: Patient B)</span>
+<span class="n">vitals_matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">45</span><span class="p">,</span><span class="w"> </span><span class="m">140</span><span class="p">,</span><span class="w"> </span><span class="m">72</span><span class="p">,</span><span class="w"> </span><span class="m">62</span><span class="p">,</span><span class="w"> </span><span class="m">165</span><span class="p">,</span><span class="w"> </span><span class="m">85</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">vitals_matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sbp_mmhg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hr_bpm&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get systolic BP, which R simplifies to a vector by default</span>
+<span class="n">bp_vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vitals_matrix</span><span class="p">[,</span><span class="w"> </span><span class="s">&quot;sbp_mmhg&quot;</span><span class="p">]</span><span class="w"> </span>
+<span class="nf">print</span><span class="p">(</span><span class="n">bp_vector</span><span class="p">)</span>
+<span class="c1"># sbp_mmhg sbp_mmhg </span>
+<span class="c1">#      140      165 </span>
+
+<span class="c1"># Get systolic BP as a single-column matrix using drop = FALSE</span>
+<span class="n">bp_matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vitals_matrix</span><span class="p">[,</span><span class="w"> </span><span class="s">&quot;sbp_mmhg&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">drop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">bp_matrix</span><span class="p">)</span>
+<span class="c1">#      sbp_mmhg</span>
+<span class="c1"># [1,]      140</span>
+<span class="c1"># [2,]      165</span>
+</pre></div>
+</div>
+</section>
+<section id="subsetting-data-frames">
+<h3>3.3 Subsetting Data Frames<a class="headerlink" href="#subsetting-data-frames" title="Link to this heading">#</a></h3>
+<p><strong>Create a Sample Data Frame</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">patients</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">patient_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;PT000001&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT000002&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT000003&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT000004&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">45</span><span class="p">,</span><span class="w"> </span><span class="m">62</span><span class="p">,</span><span class="w"> </span><span class="m">38</span><span class="p">,</span><span class="w"> </span><span class="m">55</span><span class="p">),</span>
+<span class="w">  </span><span class="n">sbp_mmhg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">140</span><span class="p">,</span><span class="w"> </span><span class="m">165</span><span class="p">,</span><span class="w"> </span><span class="m">120</span><span class="p">,</span><span class="w"> </span><span class="m">135</span><span class="p">),</span>
+<span class="w">  </span><span class="n">treatment_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;A&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Select by Position</strong></p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">column]</span></code> notation. For example, <code class="docutils literal notranslate"><span class="pre">patients[2,</span> <span class="pre">]</span></code> selects all columns for the second row. To select multiple non-consecutive rows or columns, use <code class="docutils literal notranslate"><span class="pre">c()</span></code>, as in <code class="docutils literal notranslate"><span class="pre">patients[c(1,</span> <span class="pre">3),</span> <span class="pre">c(&quot;age&quot;,</span> <span class="pre">&quot;sbp_mmhg&quot;)]</span></code>, which selects specified columns for rows 1 and 3.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get all data for the second patient</span>
+<span class="n">patients</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="c1">#   patient_id age sbp_mmhg treatment_group</span>
+<span class="c1"># 2   PT000002  62      165               B</span>
+
+<span class="c1"># Get the first and third patients&#39; age and SBP</span>
+<span class="n">patients</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">),</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sbp_mmhg&quot;</span><span class="p">)]</span>
+<span class="c1">#   age sbp_mmhg</span>
+<span class="c1"># 1  45      140</span>
+<span class="c1"># 3  38      120</span>
+</pre></div>
+</div>
+<p><strong>Select Columns by Name</strong></p>
+<blockquote>
+<div><p><strong>Pro Tip: Choosing the Right Column Selector</strong></p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">$</span></code> for quick, interactive analysis where column names are fixed.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">]]</span></code> when the column name is stored in a variable, which is essential for programming and creating reusable functions.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> to select one or more columns while guaranteeing the output is a data frame, which is the safest option for scripting.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get age as a vector for calculation</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">patients</span><span class="o">$</span><span class="n">age</span><span class="p">)</span>
+<span class="c1"># [1] 50</span>
+
+<span class="c1"># Get age as a data frame</span>
+<span class="n">age_df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patients</span><span class="p">[</span><span class="s">&quot;age&quot;</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">age_df</span><span class="p">)</span>
+<span class="c1">#   age</span>
+<span class="c1"># 1  45</span>
+<span class="c1"># 2  62</span>
+<span class="c1"># 3  38</span>
+<span class="c1"># 4  55</span>
+
+<span class="c1"># Use a variable name to select a column (safer in scripts)</span>
+<span class="n">col_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;sbp_mmhg&quot;</span>
+<span class="n">patients</span><span class="p">[[</span><span class="n">col_name</span><span class="p">]]</span>
+<span class="c1"># [1] 140 165 120 135</span>
+</pre></div>
+</div>
+<p><strong>Drop Columns</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Method 1: Modify in-place by assigning NULL</span>
+<span class="n">patients_copy</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patients</span>
+<span class="n">patients_copy</span><span class="o">$</span><span class="n">treatment_group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NULL</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">patients_copy</span><span class="p">)</span>
+<span class="c1">#   patient_id age sbp_mmhg</span>
+<span class="c1"># 1   PT000001  45      140</span>
+<span class="c1"># 2   PT000002  62      165</span>
+<span class="c1"># 3   PT000003  38      120</span>
+<span class="c1"># 4   PT000004  55      135</span>
+
+<span class="c1"># Method 2: Create a new data frame without the column</span>
+<span class="n">patients_simplified</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patients</span><span class="p">[,</span><span class="w"> </span><span class="o">!</span><span class="nf">names</span><span class="p">(</span><span class="n">patients</span><span class="p">)</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;treatment_group&quot;</span><span class="p">)]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">patients_simplified</span><span class="p">)</span>
+<span class="c1">#   patient_id age sbp_mmhg</span>
+<span class="c1"># 1   PT000001  45      140</span>
+<span class="c1"># 2   PT000002  62      165</span>
+<span class="c1"># 3   PT000003  38      120</span>
+<span class="c1"># 4   PT000004  55      135</span>
+</pre></div>
+</div>
+<p><strong>Logical Filtering</strong></p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Use <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> for AND and <code class="docutils literal notranslate"><span class="pre">|</span></code> for OR when combining logical tests. For debugging complex filters, the <code class="docutils literal notranslate"><span class="pre">which()</span></code> function is invaluable. It returns the numerical indices of the rows that meet your condition, allowing you to inspect exactly which data points are being selected.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select all patients older than 60</span>
+<span class="n">patients</span><span class="p">[</span><span class="n">patients</span><span class="o">$</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="c1">#   patient_id age sbp_mmhg treatment_group</span>
+<span class="c1"># 2   PT000002  62      165               B</span>
+
+<span class="c1"># Select patients in group &quot;B&quot; AND with SBP &gt; 150</span>
+<span class="n">patients</span><span class="p">[</span><span class="n">patients</span><span class="o">$</span><span class="n">treatment_group</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">patients</span><span class="o">$</span><span class="n">sbp_mmhg</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">150</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="c1">#   patient_id age sbp_mmhg treatment_group</span>
+<span class="c1"># 2   PT000002  62      165               B</span>
+
+<span class="c1"># Use which() to get row numbers for debugging</span>
+<span class="n">high_risk_indices</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">which</span><span class="p">(</span><span class="n">patients</span><span class="o">$</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">60</span><span class="p">)</span><span class="w"> </span><span class="c1"># Returns 2</span>
+<span class="n">patients</span><span class="p">[</span><span class="n">high_risk_indices</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="c1">#   patient_id age sbp_mmhg treatment_group</span>
+<span class="c1"># 2   PT000002  62      165               B</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>In Practice:</strong> At City Medical Center, clinical researchers constantly filter large electronic health record (EHR) datasets. A query like <code class="docutils literal notranslate"><span class="pre">patients[patients$age</span> <span class="pre">&lt;</span> <span class="pre">40</span> <span class="pre">|</span> <span class="pre">patients$treatment_group</span> <span class="pre">==</span> <span class="pre">&quot;B&quot;,</span> <span class="pre">]</span></code> could be used to identify all participants for a follow-up study that targets either a younger demographic or anyone who received a specific new treatment, regardless of age. This is a fundamental step in clinical data science.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select patients younger than 40 OR in treatment group &quot;B&quot;</span>
+<span class="n">patients</span><span class="p">[</span><span class="n">patients</span><span class="o">$</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">patients</span><span class="o">$</span><span class="n">treatment_group</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="c1">#   patient_id age sbp_mmhg treatment_group</span>
+<span class="c1"># 2   PT000002  62      165               B</span>
+<span class="c1"># 3   PT000003  38      120               A</span>
+<span class="c1"># 4   PT000004  55      135               B</span>
+</pre></div>
+</div>
+<p><strong>Using the <code class="docutils literal notranslate"><span class="pre">subset()</span></code> Function</strong></p>
+<p>As your filtering logic becomes more complex (e.g., involving three or more conditions), the <code class="docutils literal notranslate"><span class="pre">subset()</span></code> function can make your code significantly cleaner and easier for colleagues to understand.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select patients older than 60 using subset()</span>
+<span class="nf">subset</span><span class="p">(</span><span class="n">patients</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">60</span><span class="p">)</span>
+<span class="c1">#   patient_id age sbp_mmhg treatment_group</span>
+<span class="c1"># 2   PT000002  62      165               B</span>
+
+<span class="c1"># Select specific columns for patients in group &quot;B&quot; with SBP &gt; 150</span>
+<span class="nf">subset</span><span class="p">(</span><span class="n">patients</span><span class="p">,</span><span class="w"> </span><span class="n">treatment_group</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">sbp_mmhg</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">150</span><span class="p">,</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">patient_id</span><span class="p">,</span><span class="w"> </span><span class="n">sbp_mmhg</span><span class="p">))</span>
+<span class="c1">#   patient_id sbp_mmhg</span>
+<span class="c1"># 2   PT000002      165</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-basic-column-and-row-selection">
+<h3>Exercise 1: Basic Column and Row Selection<a class="headerlink" href="#exercise-1-basic-column-and-row-selection" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice basic indexing to retrieve specific data points.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> A clinician needs to quickly look up the age of a specific patient and the treatment group for another from a patient roster.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">patients</span></code> data frame, perform the following two tasks:</p>
+<ol class="arabic simple">
+<li><p>Select only the <code class="docutils literal notranslate"><span class="pre">age</span></code> of the third patient (<code class="docutils literal notranslate"><span class="pre">PT000003</span></code>).</p></li>
+<li><p>Select the entire row of data for the fourth patient (<code class="docutils literal notranslate"><span class="pre">PT000004</span></code>).</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Select the age of the third patient</span>
+<span class="n">age_p03</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patients</span><span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;age&quot;</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">age_p03</span><span class="p">)</span>
+<span class="c1"># [1] 38</span>
+
+<span class="c1"># 2. Select the entire row for the fourth patient</span>
+<span class="n">row_p04</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patients</span><span class="p">[</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">row_p04</span><span class="p">)</span>
+<span class="c1">#   patient_id age sbp_mmhg treatment_group</span>
+<span class="c1"># 4   PT000004  55      135               B</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The first task uses <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">column]</span></code> indexing to pinpoint a single value. The second task uses <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">]</span></code> with a blank column argument to select all columns for the specified row.
+<strong>Key Learning:</strong> Basic <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">column]</span></code> indexing is the foundation for all data selection tasks.</p>
+</div>
+</details></section>
+<section id="exercise-2-create-a-high-risk-cohort">
+<h3>Exercise 2: Create a High-Risk Cohort<a class="headerlink" href="#exercise-2-create-a-high-risk-cohort" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use logical filtering with multiple conditions to create a new data frame representing a specific patient cohort.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Dr. Chen is investigating risk factors for hypertensive events and has asked you to isolate a specific patient cohort from the study data.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">patients</span></code> data frame, create a new data frame called <code class="docutils literal notranslate"><span class="pre">high_risk_cohort</span></code>. It should contain only the <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> and <code class="docutils literal notranslate"><span class="pre">sbp_mmhg</span></code> for patients who are older than 50 <strong>and</strong> are in treatment group “B”.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">high_risk_cohort</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patients</span><span class="p">[</span>
+<span class="w">  </span><span class="n">patients</span><span class="o">$</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">patients</span><span class="o">$</span><span class="n">treatment_group</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;patient_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sbp_mmhg&quot;</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Print the result to verify</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">high_risk_cohort</span><span class="p">)</span>
+<span class="c1">#   patient_id sbp_mmhg</span>
+<span class="c1"># 2   PT000002      165</span>
+<span class="c1"># 4   PT000004      135</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The code first creates a logical vector by combining two conditions (<code class="docutils literal notranslate"><span class="pre">age</span> <span class="pre">&gt;</span> <span class="pre">50</span></code> and <code class="docutils literal notranslate"><span class="pre">treatment_group</span> <span class="pre">==</span> <span class="pre">&quot;B&quot;</span></code>) with the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (AND) operator. This logical vector is used to filter the rows. Then, a character vector <code class="docutils literal notranslate"><span class="pre">c(&quot;patient_id&quot;,</span> <span class="pre">&quot;sbp_mmhg&quot;)</span></code> is used to select the desired columns.
+<strong>Key Learning:</strong> Combining logical conditions with <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (AND) or <code class="docutils literal notranslate"><span class="pre">|</span></code> (OR) is essential for defining precise patient cohorts.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> The <code class="docutils literal notranslate"><span class="pre">high_risk_cohort</span></code> data frame now contains a very specific subset of your original data. How might creating such isolated cohorts be useful in a real clinical trial? Consider aspects like targeted statistical analysis, generating reports for specific subgroups, or preparing data for visualization.</p>
+</div></blockquote>
+</div>
+</details></section>
+<section id="exercise-3-advanced-filtering-with-subset">
+<h3>Exercise 3: Advanced Filtering with <code class="docutils literal notranslate"><span class="pre">subset()</span></code><a class="headerlink" href="#exercise-3-advanced-filtering-with-subset" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use the <code class="docutils literal notranslate"><span class="pre">subset()</span></code> function to perform complex filtering and column selection in a single, readable command.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> For a presentation, you need to quickly generate a summary table of patients who are either younger than 40 or have a systolic blood pressure of 140 mmHg or higher. You only need to show their ID and treatment group.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">patients</span></code> data frame, create a new data frame called <code class="docutils literal notranslate"><span class="pre">presentation_data</span></code> that meets these criteria. Use the <code class="docutils literal notranslate"><span class="pre">subset()</span></code> function.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">presentation_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span>
+<span class="w">  </span><span class="n">patients</span><span class="p">,</span>
+<span class="w">  </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sbp_mmhg</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">140</span><span class="p">,</span>
+<span class="w">  </span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">patient_id</span><span class="p">,</span><span class="w"> </span><span class="n">treatment_group</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Print the result to verify</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">presentation_data</span><span class="p">)</span>
+<span class="c1">#   patient_id treatment_group</span>
+<span class="c1"># 1   PT000001               A</span>
+<span class="c1"># 2   PT000002               B</span>
+<span class="c1"># 3   PT000003               A</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">subset()</span></code> function simplifies the syntax. The first argument is the data frame, the second is the logical condition (using <code class="docutils literal notranslate"><span class="pre">|</span></code> for OR), and the <code class="docutils literal notranslate"><span class="pre">select</span></code> argument takes a vector of column names to keep. This is often more readable than standard bracket notation for complex queries.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">subset()</span></code> function is a powerful tool for improving code clarity when filtering and selecting data simultaneously.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Clinical Trial Cohort Selection:</strong> Researchers use logical filtering to screen thousands of electronic health records (EHRs) to find eligible participants. For example, they might subset a dataset for patients aged 50-75, with a specific diagnosis code, and without certain comorbidities (<code class="docutils literal notranslate"><span class="pre">age</span> <span class="pre">&gt;=</span> <span class="pre">50</span> <span class="pre">&amp;</span> <span class="pre">age</span> <span class="pre">&lt;=</span> <span class="pre">75</span> <span class="pre">&amp;</span> <span class="pre">diagnosis</span> <span class="pre">==</span> <span class="pre">&quot;I10&quot;</span></code>). This ensures the study population is well-defined and meets regulatory standards.</p></li>
+<li><p><strong>Pharmacovigilance and Drug Safety:</strong> After a drug is on the market, safety analysts monitor adverse event databases. They use subsetting to isolate all reports for a specific drug (<code class="docutils literal notranslate"><span class="pre">drug_name</span> <span class="pre">==</span> <span class="pre">&quot;DrugX&quot;</span></code>) and a particular side effect (<code class="docutils literal notranslate"><span class="pre">adverse_event</span> <span class="pre">==</span> <span class="pre">&quot;rash&quot;</span></code>). This allows them to calculate reporting rates and detect potential safety signals that warrant further investigation.</p></li>
+<li><p><strong>Genomic Data Analysis:</strong> In precision oncology, analysts work with vast matrices of gene expression data where rows are genes and columns are patient samples. They use indexing to extract data for a specific panel of cancer-related genes (<code class="docutils literal notranslate"><span class="pre">genes_of_interest</span> <span class="pre">&lt;-</span> <span class="pre">c(&quot;BRCA1&quot;,</span> <span class="pre">&quot;TP53&quot;)</span></code>) and subset the columns to compare expression levels between tumor samples and healthy tissue samples (<code class="docutils literal notranslate"><span class="pre">sample_type</span> <span class="pre">==</span> <span class="pre">&quot;Tumor&quot;</span></code>). This is critical for identifying biomarkers and guiding personalized treatment.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential techniques for selecting and filtering data in R, a cornerstone of preparing clinical data for analysis. You learned how to precisely access and manipulate data in vectors, matrices, and data frames to isolate the information that matters most.</p>
+<ul class="simple">
+<li><p><strong>Indexing with <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>:</strong> This is the fundamental operator for subsetting by position, name, or logical vectors.</p></li>
+<li><p><strong>Column Selection Strategy:</strong> Use <code class="docutils literal notranslate"><span class="pre">$</span></code> for interactive work, <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">]]</span></code> for programmatic access with variables, and <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> to guarantee the result is a data frame.</p></li>
+<li><p><strong>Logical Filtering:</strong> Combine conditions with <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (AND) and <code class="docutils literal notranslate"><span class="pre">|</span></code> (OR) to define and extract highly specific patient cohorts from large datasets.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">subset()</span></code> Function:</strong> This is a readable alternative for performing row filtering and column selection in one clean step, improving code maintainability.</p></li>
+<li><p><strong>Data Integrity:</strong> Using <code class="docutils literal notranslate"><span class="pre">drop</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> is a key defensive programming technique to prevent unintended data type conversions and ensure your scripts run reliably.</p></li>
+</ul>
+<p>Mastering these skills allows you to move from raw, complete datasets to the clean, focused subsets needed to answer specific clinical and research questions. In the next section, we will build upon this foundation to learn about data transformation, where we will modify existing variables and create new ones.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/xaviercheeteaching.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4.5_data_import_and_cleaning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 4: Data Import and Cleaning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="4.7_and_apply_family.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 4: Apply Family</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-vectors">3.1 Subsetting Vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-matrices">3.2 Subsetting Matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-data-frames">3.3 Subsetting Data Frames</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-column-and-row-selection">Exercise 1: Basic Column and Row Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-create-a-high-risk-cohort">Exercise 2: Create a High-Risk Cohort</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-advanced-filtering-with-subset">Exercise 3: Advanced Filtering with <code class="docutils literal notranslate"><span class="pre">subset()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

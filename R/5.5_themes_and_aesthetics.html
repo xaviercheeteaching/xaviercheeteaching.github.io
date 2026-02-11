@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 5: Advanced Visualization for Medical Data &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.5_themes_and_aesthetics';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 5: Other Visualization Techniques" href="5.6_and_multi_panel_plots.html" />
+    <link rel="prev" title="Chapter 5: Advanced Visualization for Genomic Data" href="5.4_for_gene_expression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_rstudio_installation.html">
+                    4.1 R Studio Installation
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Data Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 Foundational Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_import_and_cleaning.html">4.5 Data Import and Cleaning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Data Visualization with ggplot2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 Visualizing Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 Analyzing DEGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Advanced Visualization for Genomic Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5.5 Advanced Visualization for Medical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Other Visualization Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Automating Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 Saving Visualizations</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/xaviercheeteaching.github.io/main?urlpath=tree/R/5.5_themes_and_aesthetics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.5_themes_and_aesthetics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 5: Advanced Visualization for Medical Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-creating-a-base-plot-for-customization">3.1 Setup: Creating a Base Plot for Customization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-labels-and-titles">3.2 Customizing Labels and Titles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-and-modifying-themes">3.3 Applying and Modifying Themes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-manual-and-pre-built-colors">3.4 Setting Manual and Pre-Built Colors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-full-publication-polish-intermediate">Exercise 1: Full Publication Polish (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-simple-theme-application-basic">Exercise 2: Simple Theme Application (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-advanced-theme-customization-advanced">Exercise 3: Advanced Theme Customization (Advanced)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-advanced-visualization-for-medical-data">
+<h1>Chapter 5: Advanced Visualization for Medical Data<a class="headerlink" href="#chapter-5-advanced-visualization-for-medical-data" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the final step in creating compelling data visualizations: customization. While <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> provides excellent defaults, preparing a plot for a journal, conference poster, or clinical report requires fine-grained control over its appearance. This process, known as “theming,” is what separates a good plot from a great, publication-ready figure. This section will explore how to move beyond the defaults to precisely control every visual aspect of your plots, from titles and labels to colors and backgrounds. You will learn the essential functions to ensure your figures meet the strict formatting standards required for professional clarity and impact in precision health. The examples will focus on a common clinical scenario: visualizing the relationship between Systolic Blood Pressure (SBP) and Body Mass Index (BMI).</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> Most peer-reviewed journals, like the <em>New England Journal of Medicine</em> or <em>The Lancet</em>, have specific figure guidelines. Mastering <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> customization allows you to format your plots to meet these requirements efficiently, saving you significant time during the manuscript submission process.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Theme</strong>: In <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>, a theme refers to the collection of non-data visual components of a plot. This includes titles, labels, fonts, background colors, gridlines, and legend appearance. Customizing the theme is crucial for aligning a plot with the specific style guide of a medical journal or institution.</p></li>
+<li><p><strong>Aesthetics (aes)</strong>: These are the visual properties of a plot that are mapped to variables in your data. Key aesthetics include <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span></code>, <code class="docutils literal notranslate"><span class="pre">fill</span></code>, <code class="docutils literal notranslate"><span class="pre">shape</span></code>, and <code class="docutils literal notranslate"><span class="pre">size</span></code>. While we set these in the <code class="docutils literal notranslate"><span class="pre">aes()</span></code> function, we use <code class="docutils literal notranslate"><span class="pre">scale</span></code> functions to control <em>how</em> the data values are translated into specific visual outputs (e.g., which colors represent which treatment group).</p></li>
+<li><p><strong>Scale</strong>: A scale controls the mapping from data to aesthetics. For example, a color scale maps data values (like “Placebo” and “Drug_Y”) to specific colors (like “grey” and “red”). Functions like <code class="docutils literal notranslate"><span class="pre">scale_color_manual()</span></code> give you direct control over this mapping, which is vital for maintaining consistency across multiple figures in a clinical study report.</p></li>
+<li><p><strong>Element Functions</strong>: These are helper functions used inside <code class="docutils literal notranslate"><span class="pre">theme()</span></code> to modify the appearance of individual plot components. The most common are <code class="docutils literal notranslate"><span class="pre">element_text()</span></code> for text, <code class="docutils literal notranslate"><span class="pre">element_line()</span></code> for lines, <code class="docutils literal notranslate"><span class="pre">element_rect()</span></code> for rectangular areas (like the plot background), and <code class="docutils literal notranslate"><span class="pre">element_blank()</span></code> to remove an element entirely. For instance, <code class="docutils literal notranslate"><span class="pre">element_text(face</span> <span class="pre">=</span> <span class="pre">&quot;bold&quot;)</span></code> is used to make a title bold, a common requirement for figure captions.</p></li>
+<li><p><strong>Expression</strong>: An R function used to create mathematically formatted text, such as formulas, symbols, or scientific units. In a medical context, <code class="docutils literal notranslate"><span class="pre">expression()</span></code> is essential for correctly formatting units like kg/m² or displaying Greek letters like μ for “micro” in μmol/L, ensuring professional and unambiguous labels.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="setup-creating-a-base-plot-for-customization">
+<h3>3.1 Setup: Creating a Base Plot for Customization<a class="headerlink" href="#setup-creating-a-base-plot-for-customization" title="Link to this heading">#</a></h3>
+<p>To demonstrate customization, we first need a basic plot. The following examples will all start by modifying a base <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> object named <code class="docutils literal notranslate"><span class="pre">p_sbp</span></code>. This object visualizes the relationship between SBP and BMI, colored by treatment group.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load necessary library and create reproducible sample data</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+<span class="n">patient_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">bmi_kg_m2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">),</span><span class="w"> </span><span class="c1"># Body Mass Index in kg/m^2</span>
+<span class="w">  </span><span class="n">sbp_mmhg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">120</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="nf">runif</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">27.5</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">),</span><span class="w"> </span><span class="c1"># Systolic Blood Pressure in mmHg</span>
+<span class="w">  </span><span class="n">treatment_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Placebo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Drug_Y&quot;</span><span class="p">),</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">replace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Create the basic ggplot object to be used in examples</span>
+<span class="n">p_sbp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ggplot</span><span class="p">(</span>
+<span class="w">  </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">patient_data</span><span class="p">,</span>
+<span class="w">  </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bmi_kg_m2</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sbp_mmhg</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">treatment_group</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="customizing-labels-and-titles">
+<h3>3.2 Customizing Labels and Titles<a class="headerlink" href="#customizing-labels-and-titles" title="Link to this heading">#</a></h3>
+<p>Clear and correctly formatted labels are the first requirement for any publication-quality figure. The <code class="docutils literal notranslate"><span class="pre">labs()</span></code> function is the primary tool for modifying the title, subtitle, caption, and axis labels. For scientific units, we use R’s <code class="docutils literal notranslate"><span class="pre">expression()</span></code> function to ensure professional typesetting.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">p_sbp</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic Blood Pressure vs. Body Mass Index&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="s">&quot;BMI&quot;</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">(</span><span class="n">kg</span><span class="o">/</span><span class="n">m</span><span class="o">^</span><span class="m">2</span><span class="p">)),</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SBP (mmHg)&quot;</span>
+<span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>[Image of the resulting plot with updated labels and titles]</em></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">labs()</span></code></strong>: Modifies text elements including <code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code> axis label, and <code class="docutils literal notranslate"><span class="pre">y</span></code> axis label.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">expression()</span></code></strong>: Renders mathematical and scientific text. The <code class="docutils literal notranslate"><span class="pre">~</span></code> adds a space and <code class="docutils literal notranslate"><span class="pre">^</span></code> creates a superscript.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> The <code class="docutils literal notranslate"><span class="pre">expression()</span></code> function is powerful but can be tricky. Use <code class="docutils literal notranslate"><span class="pre">?plotmath</span></code> in the R console to open the documentation and see a full list of available mathematical and scientific formatting options, including subscripts, Greek letters, and other symbols.</p>
+</div></blockquote>
+</section>
+<section id="applying-and-modifying-themes">
+<h3>3.3 Applying and Modifying Themes<a class="headerlink" href="#applying-and-modifying-themes" title="Link to this heading">#</a></h3>
+<p>Apply a clean base with <code class="docutils literal notranslate"><span class="pre">theme_classic()</span></code>, then customize elements like titles or legends using <code class="docutils literal notranslate"><span class="pre">theme()</span></code>.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">p_sbp</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_classic</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bold&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">axis.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span><span class="p">),</span>
+<span class="w">    </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bottom&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">()</span>
+<span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>[Image of the resulting plot with a classic theme and custom modifications]</em></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">theme_classic()</span></code></strong>: Applies a clean theme with axes lines but no background or gridlines.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">plot.title</span> <span class="pre">=</span> <span class="pre">element_text(...)</span></code></strong>: Styles the main title. <code class="docutils literal notranslate"><span class="pre">hjust</span> <span class="pre">=</span> <span class="pre">0.5</span></code> centers the text.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">legend.position</span> <span class="pre">=</span> <span class="pre">&quot;bottom&quot;</span></code></strong>: Moves the legend below the plot. Other options include “top” or “none”.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">legend.title</span> <span class="pre">=</span> <span class="pre">element_blank()</span></code></strong>: Removes an element completely.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common error is not knowing the correct name for a theme element you want to change (e.g., <code class="docutils literal notranslate"><span class="pre">plot.title</span></code>, <code class="docutils literal notranslate"><span class="pre">axis.text.x</span></code>). A great strategy is to start with a pre-built theme like <code class="docutils literal notranslate"><span class="pre">theme_classic()</span></code> and then incrementally modify it. If you’re unsure of an element’s name, a quick web search for “ggplot2 theme element [description]” usually provides the answer.</p>
+</div></blockquote>
+</section>
+<section id="setting-manual-and-pre-built-colors">
+<h3>3.4 Setting Manual and Pre-Built Colors<a class="headerlink" href="#setting-manual-and-pre-built-colors" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">scale_color_manual()</span></code> to assign specific colors for points and lines, ensuring consistency. For accessible, pre-built options, use a <code class="docutils literal notranslate"><span class="pre">viridis</span></code> palette.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">p_sbp</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">scale_color_manual</span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Treatment Group&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Placebo&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey50&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Drug_Y&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;#D55E00&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>[Image of the resulting plot with manually set colors]</em></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">scale_color_manual()</span></code></strong>: Controls colors mapped in <code class="docutils literal notranslate"><span class="pre">aes(color</span> <span class="pre">=</span> <span class="pre">...)</span></code>. Use <code class="docutils literal notranslate"><span class="pre">scale_fill_manual()</span></code> for fills (e.g., boxplots).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">name</span></code></strong>: Sets the title for the legend. While <code class="docutils literal notranslate"><span class="pre">labs(color</span> <span class="pre">=</span> <span class="pre">&quot;...&quot;)</span></code> is the general method, the <code class="docutils literal notranslate"><span class="pre">name</span></code> argument within a scale function is a more direct way to control the title for that specific scale.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">values</span></code></strong>: Assigns specific colors to data values using a named vector.</p></li>
+</ul>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">p_sbp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">scale_color_viridis_d</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Treatment Group&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>[Image of the resulting plot with the viridis color palette]</em></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">scale_color_viridis_d()</span></code></strong>: Applies a colorblind-friendly discrete color palette. Use <code class="docutils literal notranslate"><span class="pre">_c()</span></code> for continuous data.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Important:</strong> Accessibility in data visualization is critical for scientific communication. Approximately 8% of men and 0.5% of women have some form of color vision deficiency. Using palettes like <code class="docutils literal notranslate"><span class="pre">viridis</span></code> ensures your findings are clearly interpretable by the widest possible audience, a practice increasingly encouraged by journals and funding agencies.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-full-publication-polish-intermediate">
+<h3>Exercise 1: Full Publication Polish (Intermediate)<a class="headerlink" href="#exercise-1-full-publication-polish-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine label, theme, and color customizations to prepare the <code class="docutils literal notranslate"><span class="pre">p_sbp</span></code> plot for a mock journal submission.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Dr. Chen is preparing a figure for a presentation at a cardiology conference. She needs a plot that is clean, professional, and easy to read from a distance. Your task is to apply the final customizations to the <code class="docutils literal notranslate"><span class="pre">p_sbp</span></code> plot to meet the conference’s style guide.</p>
+<p><strong>Task:</strong>
+Using the <code class="docutils literal notranslate"><span class="pre">p_sbp</span></code> object created in the setup section, create a final plot that has:</p>
+<ol class="arabic simple">
+<li><p>The title ‘Systolic Blood Pressure vs. Body Mass Index’, the x-axis label ‘BMI (kg/m^2)’, and the y-axis label ‘SBP (mmHg)’. Use <code class="docutils literal notranslate"><span class="pre">expression()</span></code> for the x-axis unit.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">theme_classic()</span></code> style applied.</p></li>
+<li><p>A bold, centered plot title with a font size of 14.</p></li>
+<li><p>Manually set colors so that ‘Placebo’ is ‘grey’ and ‘Drug_Y’ is ‘#D55E00’.</p></li>
+<li><p>The legend moved to the bottom of the plot.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Final polished plot</span>
+<span class="n">p_sbp</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic Blood Pressure vs. Body Mass Index&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="s">&quot;BMI&quot;</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">(</span><span class="n">kg</span><span class="o">/</span><span class="n">m</span><span class="o">^</span><span class="m">2</span><span class="p">)),</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SBP (mmHg)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_classic</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">plot.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">14</span><span class="p">,</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bold&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bottom&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">scale_color_manual</span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Treatment Group&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Placebo&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Drug_Y&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;#D55E00&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>[Image of the final, correctly formatted plot for the exercise]</em></p>
+<p><strong>Solution Explained:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">labs()</span></code> with <code class="docutils literal notranslate"><span class="pre">expression()</span></code> was used to correctly format the titles and the complex x-axis unit as required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">theme_classic()</span></code> provided the clean base, removing the default grey background and gridlines.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">theme()</span></code> was then layered on top to make specific adjustments. <code class="docutils literal notranslate"><span class="pre">plot.title</span></code> was centered using <code class="docutils literal notranslate"><span class="pre">hjust</span> <span class="pre">=</span> <span class="pre">0.5</span></code> and styled, and <code class="docutils literal notranslate"><span class="pre">legend.position</span></code> was set to <code class="docutils literal notranslate"><span class="pre">&quot;bottom&quot;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scale_color_manual()</span></code> precisely assigned the specified colors to each treatment group, ensuring consistency with the presentation’s color scheme.</p></li>
+</ul>
+<p><strong>Key Learning:</strong> Publication-ready plots are built by layering multiple customization functions.</p>
+</div>
+</details></section>
+<section id="exercise-2-simple-theme-application-basic">
+<h3>Exercise 2: Simple Theme Application (Basic)<a class="headerlink" href="#exercise-2-simple-theme-application-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Apply a pre-built theme and adjust axis titles.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Quickly creating a clean plot for an internal team presentation where full publication standards are not yet needed.</p>
+<p><strong>Task:</strong></p>
+<ol class="arabic simple">
+<li><p>Take the base <code class="docutils literal notranslate"><span class="pre">p_sbp</span></code> plot.</p></li>
+<li><p>Apply the <code class="docutils literal notranslate"><span class="pre">theme_bw()</span></code> (black and white) theme.</p></li>
+<li><p>Change the x and y axis titles to be size 10 and italic.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">p_sbp</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_bw</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">axis.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;italic&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>[Image of the plot with the theme_bw() and modified axis titles]</em></p>
+<p><strong>Explanation:</strong> We first apply the overall <code class="docutils literal notranslate"><span class="pre">theme_bw()</span></code>, which creates a white background with a black border and gridlines. Then, we use <code class="docutils literal notranslate"><span class="pre">theme()</span></code> to specifically modify the <code class="docutils literal notranslate"><span class="pre">axis.title</span></code> element, changing its size and font style.
+<strong>Key Learning:</strong> You can easily modify specific parts of a pre-built theme without having to define everything from scratch.</p>
+</div>
+</details></section>
+<section id="exercise-3-advanced-theme-customization-advanced">
+<h3>Exercise 3: Advanced Theme Customization (Advanced)<a class="headerlink" href="#exercise-3-advanced-theme-customization-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Gain granular control over plot elements for a highly specific style guide.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Matching a plot to a pharmaceutical company’s strict corporate branding guidelines for an external report.</p>
+<p><strong>Task:</strong>
+Using the base <code class="docutils literal notranslate"><span class="pre">p_sbp</span></code> plot:</p>
+<ol class="arabic simple">
+<li><p>Start with <code class="docutils literal notranslate"><span class="pre">theme_light()</span></code>.</p></li>
+<li><p>Remove all minor gridlines.</p></li>
+<li><p>Make the major gridlines dashed and light grey (<code class="docutils literal notranslate"><span class="pre">&quot;grey90&quot;</span></code>).</p></li>
+<li><p>Add a solid black border around the plot panel (<code class="docutils literal notranslate"><span class="pre">panel.border</span></code>).</p></li>
+<li><p>Remove the legend title but keep the legend keys.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">p_sbp</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_light</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">panel.grid.minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">panel.grid.major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_line</span><span class="p">(</span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey90&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_rect</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">linewidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">),</span>
+<span class="w">    </span><span class="n">legend.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">()</span>
+<span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>[Image of the plot with advanced theme customizations]</em></p>
+<p><strong>Explanation:</strong> This solution targets very specific theme elements. <code class="docutils literal notranslate"><span class="pre">panel.grid.minor</span></code> and <code class="docutils literal notranslate"><span class="pre">panel.grid.major</span></code> control the gridlines. <code class="docutils literal notranslate"><span class="pre">panel.border</span></code> requires <code class="docutils literal notranslate"><span class="pre">element_rect()</span></code> where we set the border color (<code class="docutils literal notranslate"><span class="pre">color</span></code>) but make the fill transparent (<code class="docutils literal notranslate"><span class="pre">fill</span> <span class="pre">=</span> <span class="pre">NA</span></code>). <code class="docutils literal notranslate"><span class="pre">legend.title</span> <span class="pre">=</span> <span class="pre">element_blank()</span></code> removes the title as requested.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">theme()</span></code> function provides access to dozens of specific plot elements, allowing for complete control over the final appearance.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Journal Publication:</strong> When submitting a manuscript to a high-impact journal like <em>The Lancet</em> or <em>NEJM</em>, figures must adhere to their specific style guides. This involves using <code class="docutils literal notranslate"><span class="pre">theme()</span></code> to set font sizes, <code class="docutils literal notranslate"><span class="pre">labs()</span></code> with <code class="docutils literal notranslate"><span class="pre">expression()</span></code> for correct units, and <code class="docutils literal notranslate"><span class="pre">scale_color_manual()</span></code> to use a color scheme (e.g., grayscale) specified by the journal. The goal is a professional figure that is clear, readable, and meets publication standards.</p></li>
+<li><p><strong>Clinical Trial Reporting to Regulators:</strong> For an FDA submission, all figures across a multi-hundred-page report must be perfectly consistent. A custom <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> theme can be created and applied to every plot (e.g., boxplots of adverse events, Kaplan-Meier survival curves) to ensure uniform titles, axis styles, and company-branded colors. This is achieved by creating a custom theme function that bundles all the <code class="docutils literal notranslate"><span class="pre">theme()</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_*()</span></code> calls.</p></li>
+<li><p><strong>Genomic Data Visualization (Volcano Plots):</strong> In genomics, a volcano plot visualizes differentially expressed genes. Customization is key to making it interpretable. <code class="docutils literal notranslate"><span class="pre">scale_color_manual()</span></code> is used to color points by significance (e.g., non-significant in grey, significant up-regulated in red, significant down-regulated in blue). The <code class="docutils literal notranslate"><span class="pre">ggrepel</span></code> package, which works with <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>, is often used to add non-overlapping labels to the most important genes, a form of aesthetic customization crucial for highlighting key findings.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to transform a default <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> chart into a publication-quality figure. We moved from basic plotting to fine-grained control over every visual element, a critical skill for communicating findings in precision health. By mastering themes and aesthetics, you can ensure your visualizations are not only accurate but also professional, clear, and impactful.</p>
+<ul class="simple">
+<li><p><strong>Control Labels with <code class="docutils literal notranslate"><span class="pre">labs()</span></code>:</strong> Use this function to set titles, subtitles, captions, and axis labels. Employ <code class="docutils literal notranslate"><span class="pre">expression()</span></code> for professional scientific notation.</p></li>
+<li><p><strong>Start with a Base Theme:</strong> Functions like <code class="docutils literal notranslate"><span class="pre">theme_classic()</span></code> or <code class="docutils literal notranslate"><span class="pre">theme_bw()</span></code> provide a clean foundation for customization.</p></li>
+<li><p><strong>Fine-Tune with <code class="docutils literal notranslate"><span class="pre">theme()</span></code>:</strong> This is the master function for controlling non-data elements. You can modify fonts, backgrounds, gridlines, and legend placement using helper functions like <code class="docutils literal notranslate"><span class="pre">element_text()</span></code>.</p></li>
+<li><p><strong>Manage Colors with Scales:</strong> Use <code class="docutils literal notranslate"><span class="pre">scale_color_manual()</span></code> or <code class="docutils literal notranslate"><span class="pre">scale_fill_manual()</span></code> for full control over colors, ensuring consistency and adherence to style guides. For accessibility, use built-in palettes like <code class="docutils literal notranslate"><span class="pre">scale_color_viridis_d()</span></code>.</p></li>
+</ul>
+<p>Now that you can create polished, individual plots, the next section will teach you how to combine multiple plots into a single, cohesive figure using packages like <code class="docutils literal notranslate"><span class="pre">patchwork</span></code>, preparing you to assemble complex results for a comprehensive report or publication.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/xaviercheeteaching.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.4_for_gene_expression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 5: Advanced Visualization for Genomic Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5.6_and_multi_panel_plots.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 5: Other Visualization Techniques</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-creating-a-base-plot-for-customization">3.1 Setup: Creating a Base Plot for Customization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-labels-and-titles">3.2 Customizing Labels and Titles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-and-modifying-themes">3.3 Applying and Modifying Themes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-manual-and-pre-built-colors">3.4 Setting Manual and Pre-Built Colors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-full-publication-polish-intermediate">Exercise 1: Full Publication Polish (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-simple-theme-application-basic">Exercise 2: Simple Theme Application (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-advanced-theme-customization-advanced">Exercise 3: Advanced Theme Customization (Advanced)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
