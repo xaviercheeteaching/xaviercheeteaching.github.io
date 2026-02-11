@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 5: Advanced Visualization for Genomic Data &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.4_for_gene_expression';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 5: Advanced Visualization with ggplot2" href="5.5_themes_and_aesthetics.html" />
+    <link rel="prev" title="Chapter 5: Analyzing Differential Gene Expression" href="5.3_plots_and_volcano_plots_for_deg.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_and_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_and_rstudio_installation.html">
+                    Chapter 4: Getting Started with R for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 and Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_%28csv_txt%29.html">4.5 (csv Txt)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Ggplot2 Grammar Of Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 (scatter Box Violin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 and Volcano Plots For Deg</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5.4 Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 and Aesthetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Multi Panel Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Arguments In R Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 With Ggsave</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/R/main?urlpath=tree/5.4_for_gene_expression.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.4_for_gene_expression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 5: Advanced Visualization for Genomic Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-customize-the-color-palette">Exercise 1: Customize the Color Palette</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-reorder-genes-for-biological-insight">Exercise 2: Reorder Genes for Biological Insight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-add-sample-type-annotation">Exercise 3: Add Sample Type Annotation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-advanced-visualization-for-genomic-data">
+<h1>Chapter 5: Advanced Visualization for Genomic Data<a class="headerlink" href="#chapter-5-advanced-visualization-for-genomic-data" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to one of the most powerful visualization tools in genomics: the heatmap. In its raw form, gene expression data is an overwhelming matrix of numbers. A heatmap transforms this data into an intuitive visual pattern, allowing us to see the forest for the trees. This section will guide you through creating a heatmap using <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>’s <code class="docutils literal notranslate"><span class="pre">geom_tile()</span></code> function. Our learning journey will involve preparing a sample dataset, reshaping it for visualization, and mapping expression values to a color gradient. By the end, you will be able to build a heatmap that clearly visualizes how gene activity differs between tumor and control samples, a fundamental skill for identifying the “gene signatures” that drive precision medicine.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Gene Expression</strong>: The process by which information from a gene is used to create a functional product, like a protein. In a medical context, we measure expression levels to see which genes are “turned on” (up-regulated) or “turned off” (down-regulated) in a disease state compared to a healthy state.</p></li>
+<li><p><strong>Heatmap</strong>: A graphical representation of data where individual values in a matrix are represented as colors. Think of it as a biological “weather map,” where “hot” spots (high expression) and “cold” spots (low expression) for genes across different patient samples make complex patterns instantly visible.</p></li>
+<li><p><strong>Data Scaling (Z-score)</strong>: A crucial standardization technique that converts expression values to a common scale. In a real dataset, some genes are naturally expressed at much higher levels than others. Scaling ensures these “loud” genes don’t dominate the color scale, allowing us to see relative changes across all genes. It’s like adjusting the volume on individual instruments so you can hear the whole orchestra.</p></li>
+<li><p><strong>Hierarchical Clustering</strong>: An algorithm that groups similar items together. In heatmaps, it is used to automatically reorder the rows (genes) and columns (samples) so that those with similar expression patterns are placed next to each other. This automated organization is what reveals hidden structures in the data, such as different tumor subtypes.</p></li>
+<li><p><strong>Long-Format Data</strong>: A “tidy” data structure where each row is a single observation (e.g., one gene in one sample) and columns represent variables (<code class="docutils literal notranslate"><span class="pre">gene</span></code>, <code class="docutils literal notranslate"><span class="pre">sample</span></code>, <code class="docutils literal notranslate"><span class="pre">expression</span></code>). This format is required by <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> to map data to visual properties, contrasting with the “wide” matrix format in which expression data is often stored.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>The primary tool for creating a grid-based heatmap in <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> is <code class="docutils literal notranslate"><span class="pre">geom_tile()</span></code>. Each tile in the grid represents a single data point—in our case, the expression level of one gene in one sample. The tile’s color is mapped to the expression value, allowing us to quickly identify patterns of up- and down-regulation.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong> In this example, we will visualize the expression of two well-known oncogenes (<code class="docutils literal notranslate"><span class="pre">MYC</span></code>, <code class="docutils literal notranslate"><span class="pre">ERBB2</span></code>), which promote cancer and are often up-regulated in tumors, and two tumor suppressor genes (<code class="docutils literal notranslate"><span class="pre">TP53</span></code>, <code class="docutils literal notranslate"><span class="pre">BRCA1</span></code>), which protect against cancer and are often down-regulated or inactivated. This pattern is a classic “gene signature” that a heatmap is designed to reveal.</p>
+</div></blockquote>
+<p>First, we create a sample dataset representing pre-scaled gene expression values. The code then reshapes this data from a wide to a long format and generates the plot.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load required libraries</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tibble</span><span class="p">)</span>
+
+<span class="c1"># Create pre-scaled data using clinically relevant genes</span>
+<span class="nf">tribble</span><span class="p">(</span>
+<span class="w">  </span><span class="o">~</span><span class="n">gene</span><span class="p">,</span><span class="w">    </span><span class="o">~</span><span class="n">tumor_1</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">tumor_2</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">control_1</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">control_2</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;MYC&quot;</span><span class="p">,</span><span class="w">         </span><span class="m">1.8</span><span class="p">,</span><span class="w">      </span><span class="m">1.5</span><span class="p">,</span><span class="w">       </span><span class="m">-0.2</span><span class="p">,</span><span class="w">        </span><span class="m">0.1</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;ERBB2&quot;</span><span class="p">,</span><span class="w">       </span><span class="m">1.6</span><span class="p">,</span><span class="w">      </span><span class="m">1.9</span><span class="p">,</span><span class="w">        </span><span class="m">0.0</span><span class="p">,</span><span class="w">       </span><span class="m">-0.3</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;TP53&quot;</span><span class="p">,</span><span class="w">       </span><span class="m">-1.2</span><span class="p">,</span><span class="w">     </span><span class="m">-1.7</span><span class="p">,</span><span class="w">        </span><span class="m">0.1</span><span class="p">,</span><span class="w">        </span><span class="m">0.4</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;BRCA1&quot;</span><span class="p">,</span><span class="w">      </span><span class="m">-1.5</span><span class="p">,</span><span class="w">     </span><span class="m">-1.4</span><span class="p">,</span><span class="w">       </span><span class="m">-0.2</span><span class="p">,</span><span class="w">        </span><span class="m">0.2</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">  </span><span class="c1"># Reshape data from wide to long format for ggplot2</span>
+<span class="w">  </span><span class="nf">pivot_longer</span><span class="p">(</span><span class="o">-</span><span class="n">gene</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sample&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;expression&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">  </span><span class="c1"># Create the plot</span>
+<span class="w">  </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;control_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;control_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_2&quot;</span><span class="p">)),</span>
+<span class="w">             </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;TP53&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BRCA1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MYC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ERBB2&quot;</span><span class="p">)),</span>
+<span class="w">             </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expression</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_tile</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">scale_fill_gradient2</span><span class="p">(</span>
+<span class="w">    </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">midpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Gene Expression Heatmap&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Oncogenes vs. Tumor Suppressors in Tumor and Control Samples&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sample&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Gene&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Expression\n(Z-Score)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_minimal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">coord_fixed</span><span class="p">()</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> By default, <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> would order the axes alphabetically. Manually setting the <code class="docutils literal notranslate"><span class="pre">factor()</span></code> levels gives you full control over the layout. This is essential for grouping samples logically (e.g., all controls together) and ordering genes to tell a clear story. In more advanced heatmaps, this ordering is determined automatically by hierarchical clustering.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>In Practice:</strong> In a real dataset, some genes (like “housekeeping genes” essential for basic cell function) are expressed at much higher levels than others. Without scaling (e.g., converting to Z-scores), these high-expression genes would dominate the color scale, making it impossible to see subtle but potentially critical expression changes in other genes. Scaling ensures that the color of each tile reflects the gene’s expression <em>relative to its own average</em>, not relative to all other genes, making the heatmap far more insightful.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-customize-the-color-palette">
+<h3>Exercise 1: Customize the Color Palette<a class="headerlink" href="#exercise-1-customize-the-color-palette" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Modify the plot’s color scheme to use a different diverging palette.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Different color palettes can improve accessibility for individuals with color vision deficiency or be chosen to match publication-specific style guides. A common alternative to red/blue is purple/orange.</p>
+<p>Modify the plot’s color scheme. Change the gradient to use <code class="docutils literal notranslate"><span class="pre">purple</span></code> for low expression and <code class="docutils literal notranslate"><span class="pre">orange</span></code> for high expression, keeping <code class="docutils literal notranslate"><span class="pre">white</span></code> as the midpoint.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code> arguments in <code class="docutils literal notranslate"><span class="pre">scale_fill_gradient2()</span></code> directly control the colors at the ends of the diverging scale. By changing these, you can use any of R’s named colors.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load required libraries</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tibble</span><span class="p">)</span>
+
+<span class="c1"># Create and plot data with the new color scheme</span>
+<span class="nf">tribble</span><span class="p">(</span>
+<span class="w">  </span><span class="o">~</span><span class="n">gene</span><span class="p">,</span><span class="w">    </span><span class="o">~</span><span class="n">tumor_1</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">tumor_2</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">control_1</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">control_2</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;MYC&quot;</span><span class="p">,</span><span class="w">         </span><span class="m">1.8</span><span class="p">,</span><span class="w">      </span><span class="m">1.5</span><span class="p">,</span><span class="w">       </span><span class="m">-0.2</span><span class="p">,</span><span class="w">        </span><span class="m">0.1</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;ERBB2&quot;</span><span class="p">,</span><span class="w">       </span><span class="m">1.6</span><span class="p">,</span><span class="w">      </span><span class="m">1.9</span><span class="p">,</span><span class="w">        </span><span class="m">0.0</span><span class="p">,</span><span class="w">       </span><span class="m">-0.3</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;TP53&quot;</span><span class="p">,</span><span class="w">       </span><span class="m">-1.2</span><span class="p">,</span><span class="w">     </span><span class="m">-1.7</span><span class="p">,</span><span class="w">        </span><span class="m">0.1</span><span class="p">,</span><span class="w">        </span><span class="m">0.4</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;BRCA1&quot;</span><span class="p">,</span><span class="w">      </span><span class="m">-1.5</span><span class="p">,</span><span class="w">     </span><span class="m">-1.4</span><span class="p">,</span><span class="w">       </span><span class="m">-0.2</span><span class="p">,</span><span class="w">        </span><span class="m">0.2</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">  </span><span class="nf">pivot_longer</span><span class="p">(</span><span class="o">-</span><span class="n">gene</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sample&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;expression&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">  </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;control_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;control_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_2&quot;</span><span class="p">)),</span>
+<span class="w">             </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;TP53&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BRCA1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MYC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ERBB2&quot;</span><span class="p">)),</span>
+<span class="w">             </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expression</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_tile</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="c1"># Modified line:</span>
+<span class="w">  </span><span class="nf">scale_fill_gradient2</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;purple&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;orange&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">midpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span>
+<span class="w">    </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Gene Expression Heatmap&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sample&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Gene&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Expression\n(Z-Score)&quot;</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_minimal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">coord_fixed</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The only change required is within the <code class="docutils literal notranslate"><span class="pre">scale_fill_gradient2()</span></code> function, where <code class="docutils literal notranslate"><span class="pre">low</span> <span class="pre">=</span> <span class="pre">&quot;blue&quot;</span></code> is changed to <code class="docutils literal notranslate"><span class="pre">low</span> <span class="pre">=</span> <span class="pre">&quot;purple&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span> <span class="pre">=</span> <span class="pre">&quot;red&quot;</span></code> is changed to <code class="docutils literal notranslate"><span class="pre">high</span> <span class="pre">=</span> <span class="pre">&quot;orange&quot;</span></code>.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">scale_fill_*</span></code> family of functions provides powerful and intuitive control over color mappings in <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>.</p>
+</div>
+</details></section>
+<section id="exercise-2-reorder-genes-for-biological-insight">
+<h3>Exercise 2: Reorder Genes for Biological Insight<a class="headerlink" href="#exercise-2-reorder-genes-for-biological-insight" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Manually reorder the genes on the y-axis to group them by biological function.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Grouping co-regulated genes together is the first step in identifying biological pathways that are collectively activated or suppressed in a disease. This makes the visual pattern much stronger.</p>
+<p>The current plot groups oncogenes at the top and tumor suppressors at the bottom. Modify the <code class="docutils literal notranslate"><span class="pre">factor()</span></code> call for the <code class="docutils literal notranslate"><span class="pre">y</span></code> aesthetic to reverse this, placing the oncogenes (<code class="docutils literal notranslate"><span class="pre">MYC</span></code>, <code class="docutils literal notranslate"><span class="pre">ERBB2</span></code>) at the bottom and the tumor suppressors (<code class="docutils literal notranslate"><span class="pre">TP53</span></code>, <code class="docutils literal notranslate"><span class="pre">BRCA1</span></code>) at the top.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">levels</span></code> argument of the <code class="docutils literal notranslate"><span class="pre">factor()</span></code> function dictates the order of items on a categorical axis. <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> plots the first element of the vector at the bottom of the y-axis. To get <code class="docutils literal notranslate"><span class="pre">TP53</span></code> and <code class="docutils literal notranslate"><span class="pre">BRCA1</span></code> at the top, they must appear later in the level definition.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... (data creation code is the same)</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="c1"># Create the plot with modified y-axis factor levels</span>
+<span class="w">  </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;control_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;control_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_2&quot;</span><span class="p">)),</span>
+<span class="w">             </span><span class="c1"># Modified line:</span>
+<span class="w">             </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;MYC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ERBB2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;TP53&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BRCA1&quot;</span><span class="p">)),</span>
+<span class="w">             </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expression</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="c1"># ... (rest of the plot code)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> By changing the order within <code class="docutils literal notranslate"><span class="pre">factor(gene,</span> <span class="pre">c(...))</span></code>, we directly control the plotting order on the y-axis. The new order <code class="docutils literal notranslate"><span class="pre">c(&quot;MYC&quot;,</span> <span class="pre">&quot;ERBB2&quot;,</span> <span class="pre">&quot;TP53&quot;,</span> <span class="pre">&quot;BRCA1&quot;)</span></code> tells <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> to place <code class="docutils literal notranslate"><span class="pre">MYC</span></code> at the bottom, followed by <code class="docutils literal notranslate"><span class="pre">ERBB2</span></code>, <code class="docutils literal notranslate"><span class="pre">TP53</span></code>, and <code class="docutils literal notranslate"><span class="pre">BRCA1</span></code> at the very top.
+<strong>Key Learning:</strong> Explicitly setting factor levels is essential for controlling the layout of categorical axes and is a fundamental technique for creating interpretable scientific plots.</p>
+</div>
+</details></section>
+<section id="exercise-3-add-sample-type-annotation">
+<h3>Exercise 3: Add Sample Type Annotation<a class="headerlink" href="#exercise-3-add-sample-type-annotation" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Add a visual annotation layer to the heatmap to clearly distinguish sample types.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Clinical heatmaps often include multiple annotation tracks for metadata like patient cohort, treatment group, or tumor grade. This allows for visual correlation between molecular data and clinical variables.</p>
+<p>Create a separate annotation bar at the top of the heatmap to label which samples are “Tumor” and which are “Control”. This requires creating a second data frame for the annotation and adding a second <code class="docutils literal notranslate"><span class="pre">geom_tile()</span></code> layer.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p>This advanced task requires creating a separate data frame for the annotation metadata and using the <code class="docutils literal notranslate"><span class="pre">ggnewscale</span></code> package to allow for two different color-fill scales on the same plot.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install if you don&#39;t have it: install.packages(&quot;ggnewscale&quot;)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggnewscale</span><span class="p">)</span>
+
+<span class="c1"># 1. Main data (as before)</span>
+<span class="n">expression_long</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tribble</span><span class="p">(</span>
+<span class="w">  </span><span class="o">~</span><span class="n">gene</span><span class="p">,</span><span class="w">    </span><span class="o">~</span><span class="n">tumor_1</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">tumor_2</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">control_1</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">control_2</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;MYC&quot;</span><span class="p">,</span><span class="w">         </span><span class="m">1.8</span><span class="p">,</span><span class="w">      </span><span class="m">1.5</span><span class="p">,</span><span class="w">       </span><span class="m">-0.2</span><span class="p">,</span><span class="w">        </span><span class="m">0.1</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;ERBB2&quot;</span><span class="p">,</span><span class="w">       </span><span class="m">1.6</span><span class="p">,</span><span class="w">      </span><span class="m">1.9</span><span class="p">,</span><span class="w">        </span><span class="m">0.0</span><span class="p">,</span><span class="w">       </span><span class="m">-0.3</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;TP53&quot;</span><span class="p">,</span><span class="w">       </span><span class="m">-1.2</span><span class="p">,</span><span class="w">     </span><span class="m">-1.7</span><span class="p">,</span><span class="w">        </span><span class="m">0.1</span><span class="p">,</span><span class="w">        </span><span class="m">0.4</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;BRCA1&quot;</span><span class="p">,</span><span class="w">      </span><span class="m">-1.5</span><span class="p">,</span><span class="w">     </span><span class="m">-1.4</span><span class="p">,</span><span class="w">       </span><span class="m">-0.2</span><span class="p">,</span><span class="w">        </span><span class="m">0.2</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">  </span><span class="nf">pivot_longer</span><span class="p">(</span><span class="o">-</span><span class="n">gene</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;sample&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;expression&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Create a separate data frame for sample annotations</span>
+<span class="n">sample_annotation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tribble</span><span class="p">(</span>
+<span class="w">  </span><span class="o">~</span><span class="n">sample</span><span class="p">,</span><span class="w">    </span><span class="o">~</span><span class="n">type</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;tumor_1&quot;</span><span class="p">,</span><span class="w">  </span><span class="s">&quot;Tumor&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;tumor_2&quot;</span><span class="p">,</span><span class="w">  </span><span class="s">&quot;Tumor&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;control_1&quot;</span><span class="p">,</span><span class="s">&quot;Control&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;control_2&quot;</span><span class="p">,</span><span class="s">&quot;Control&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Build the plot with two geom_tile layers</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">expression_long</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;control_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;control_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tumor_2&quot;</span><span class="p">))))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="c1"># Main heatmap layer</span>
+<span class="w">  </span><span class="nf">geom_tile</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gene</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expression</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="c1"># Add the new fill scale for the main heatmap</span>
+<span class="w">  </span><span class="nf">scale_fill_gradient2</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Expression\n(Z-Score)&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="c1"># Introduce a new scale for the annotation layer</span>
+<span class="w">  </span><span class="nf">new_scale_fill</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="c1"># Annotation layer</span>
+<span class="w">  </span><span class="nf">geom_tile</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sample_annotation</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">type</span><span class="p">),</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="c1"># Manually define colors for the annotation</span>
+<span class="w">  </span><span class="nf">scale_fill_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Tumor&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey20&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Control&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey80&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sample Type&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="c1"># Set axis order and labels</span>
+<span class="w">  </span><span class="nf">scale_y_discrete</span><span class="p">(</span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;MYC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ERBB2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;TP53&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BRCA1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Gene Expression with Sample Annotation&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sample&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Gene&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_minimal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">coord_fixed</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We create a second data frame, <code class="docutils literal notranslate"><span class="pre">sample_annotation</span></code>, for the metadata. In the plot, after defining the first <code class="docutils literal notranslate"><span class="pre">geom_tile</span></code> and its <code class="docutils literal notranslate"><span class="pre">scale_fill_gradient2</span></code>, we use <code class="docutils literal notranslate"><span class="pre">new_scale_fill()</span></code> from the <code class="docutils literal notranslate"><span class="pre">ggnewscale</span></code> package. This tells <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> we are starting a new color scale. We then add a second <code class="docutils literal notranslate"><span class="pre">geom_tile()</span></code> layer using the annotation data, mapping <code class="docutils literal notranslate"><span class="pre">fill</span></code> to the <code class="docutils literal notranslate"><span class="pre">type</span></code> column and positioning it at <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">5</span></code>. A <code class="docutils literal notranslate"><span class="pre">scale_fill_manual</span></code> is used to control the colors for this new layer.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>’s layered grammar, combined with extension packages like <code class="docutils literal notranslate"><span class="pre">ggnewscale</span></code>, allows for creating complex, multi-layered visualizations with independent aesthetic mappings.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Cancer Subtype Discovery</strong>: In oncology, researchers use heatmaps to visualize the gene expression profiles of hundreds of patient tumors. Applying hierarchical clustering to this data can reveal distinct molecular subtypes of a cancer (e.g., Luminal A vs. Basal-like breast cancer). This has a direct real-world impact, as these subtypes are associated with different prognoses and responses to therapy, guiding personalized treatment decisions.</p></li>
+<li><p><strong>Identifying Drug Response Signatures</strong>: Pharmaceutical companies test new compounds on cancer cell lines and measure the resulting changes in gene expression. A heatmap can visualize which genes are consistently up- or down-regulated in response to a drug. This “signature” helps researchers understand the drug’s mechanism of action and can be used to develop a companion diagnostic to predict which patients will benefit from the treatment.</p></li>
+<li><p><strong>Biomarker Panels for Early Diagnosis</strong>: By comparing gene expression patterns between healthy individuals and patients in the early stages of a disease like Parkinson’s or Alzheimer’s, scientists can use heatmaps to identify a small set of genes that are consistently dysregulated. These genes can become the basis for a diagnostic biomarker panel, enabling earlier detection and intervention when treatments are most effective.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to translate raw gene expression numbers into an interpretable heatmap using <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>. We learned that proper data preparation, particularly reshaping data into a long format and scaling it appropriately, is a critical first step. We then used <code class="docutils literal notranslate"><span class="pre">geom_tile()</span></code> to construct the heatmap and <code class="docutils literal notranslate"><span class="pre">scale_fill_gradient2()</span></code> to apply a meaningful color scheme that highlights patterns of up- and down-regulation.</p>
+<ul class="simple">
+<li><p>Heatmaps are essential for visualizing matrix-like data, such as gene expression across multiple samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> requires data in a “long” or “tidy” format, which can be achieved using <code class="docutils literal notranslate"><span class="pre">tidyr::pivot_longer()</span></code>.</p></li>
+<li><p>The order of axes is critical for interpretation and can be controlled by converting character vectors to factors with specific level orders.</p></li>
+<li><p>Diverging color palettes, like those from <code class="docutils literal notranslate"><span class="pre">scale_fill_gradient2()</span></code>, are ideal for data centered around zero, such as log-fold changes or Z-scores.</p></li>
+<li><p>In real-world applications, heatmaps are combined with hierarchical clustering to automatically group similar genes and samples, revealing underlying biological patterns.</p></li>
+</ul>
+<p>Now that you can build and customize a foundational heatmap, the next section will delve into advanced customization techniques to create publication-quality figures with complex annotations and layouts.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/R",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.3_plots_and_volcano_plots_for_deg.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 5: Analyzing Differential Gene Expression</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5.5_themes_and_aesthetics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 5: Advanced Visualization with ggplot2</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-customize-the-color-palette">Exercise 1: Customize the Color Palette</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-reorder-genes-for-biological-insight">Exercise 2: Reorder Genes for Biological Insight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-add-sample-type-annotation">Exercise 3: Add Sample Type Annotation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

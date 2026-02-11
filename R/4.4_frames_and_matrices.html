@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 4: Foundational Data Structures in R &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.4_frames_and_matrices';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 4: Data Import and Cleaning" href="4.5_data_%28csv_txt%29.html" />
+    <link rel="prev" title="Chapter 4: Core R Programming for Precision Health" href="4.2_data_types_in_r.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_and_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_and_rstudio_installation.html">
+                    Chapter 4: Getting Started with R for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Types In R</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4.4 and Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_%28csv_txt%29.html">4.5 (csv Txt)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Ggplot2 Grammar Of Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 (scatter Box Violin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 and Volcano Plots For Deg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 and Aesthetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Multi Panel Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Arguments In R Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 With Ggsave</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/R/main?urlpath=tree/4.4_frames_and_matrices.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/4.4_frames_and_matrices.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 4: Foundational Data Structures in R</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-frames-the-home-for-mixed-clinical-data">3.1 Data Frames: The Home for Mixed Clinical Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices-high-performance-grids-for-genomic-data">3.2 Matrices: High-Performance Grids for Genomic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-and-dimensioning-matrices-and-data-frames">3.3 Accessing and Dimensioning Matrices and Data Frames</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-analyze-a-clinical-data-frame">Exercise 1: Create and Analyze a Clinical Data Frame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-subset-a-genomic-matrix">Exercise 2: Subset a Genomic Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-understand-matrix-accessor-limitations">Exercise 3: Understand Matrix Accessor Limitations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-4-foundational-data-structures-in-r">
+<h1>Chapter 4: Foundational Data Structures in R<a class="headerlink" href="#chapter-4-foundational-data-structures-in-r" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the core of data organization in R for precision health. In this section, we will explore two fundamental structures for storing tabular data: data frames and matrices. Understanding the distinction between these two is critical, as they are tailored for different types of biomedical data. Our learning journey will start by seeing how data frames are perfectly suited for managing diverse clinical information, like patient records. We will then shift to matrices, the high-performance workhorses for handling large, uniform datasets like gene expression counts. By the end, you will be able to confidently choose and use the right structure for your analytical tasks.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Tabular Data</strong>: Data organized into a two-dimensional structure of rows and columns, similar to a spreadsheet. In clinical research, rows often represent individual patients or samples, while columns represent different variables or measurements (e.g., age, blood pressure, gene expression level).</p></li>
+<li><p><strong>Data Frame</strong>: A flexible tabular structure in R where each column can contain a different data type (e.g., character, numeric, logical). This makes it ideal for storing heterogeneous data, such as a patient’s electronic health record which combines text (name), numbers (age, lab values), and dates.</p></li>
+<li><p><strong>Matrix</strong>: A rigid, two-dimensional grid where every single element must be of the same data type (e.g., all numeric or all character). This homogeneity allows for highly efficient and fast mathematical operations, making matrices the standard for numerical data in genomics.</p></li>
+<li><p><strong>Homogeneous Data</strong>: A matrix is described as containing <strong>homogeneous</strong> data, meaning all its elements must be of the exact same data type (e.g., all numeric or all character). This rigid structure is what allows for the highly optimized, fast mathematical operations essential for processing large-scale genomic or imaging datasets.</p></li>
+<li><p><strong>Coercion</strong>: The process by which R automatically converts data from one type to another to enforce a rule. In a matrix, if you mix numbers and text, R will coerce all the numbers into text (“characters”) to maintain homogeneity, which can unexpectedly break mathematical calculations.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="data-frames-the-home-for-mixed-clinical-data">
+<h3>3.1 Data Frames: The Home for Mixed Clinical Data<a class="headerlink" href="#data-frames-the-home-for-mixed-clinical-data" title="Link to this heading">#</a></h3>
+<p>A data frame is R’s primary structure for storing tabular data with columns of different types. This flexibility is essential for clinical datasets, which often combine patient identifiers (character), lab values (numeric), dates, and categorical factors.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data frames hold mixed data types</span>
+<span class="n">patient_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">patient_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;PT000101&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT000102&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT000103&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">drug_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;aspirin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ibuprofen&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;paracetamol&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">dose_mg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">81</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">500</span><span class="p">),</span>
+<span class="w">  </span><span class="n">start_date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.Date</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;2023-04-12&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;2023-05-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;2023-05-03&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="w"> </span><span class="c1"># Prevents automatic conversion of text to factors</span>
+<span class="p">)</span>
+
+<span class="c1"># Inspect the structure to see the mixed data types</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&#39;data.frame&#39;:	3 obs. of  4 variables:
+ $ patient_id: chr  &quot;PT000101&quot; &quot;PT000102&quot; &quot;PT000103&quot;
+ $ drug_name : chr  &quot;aspirin&quot; &quot;ibuprofen&quot; &quot;paracetamol&quot;
+ $ dose_mg   : num  81 200 500
+ $ start_date: Date, format: &quot;2023-04-12&quot; &quot;2023-05-01&quot; &quot;2023-05-03&quot;
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note: The <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span></code> Argument</strong>
+In older versions of R, text columns were automatically converted into a special <code class="docutils literal notranslate"><span class="pre">factor</span></code> type. This can cause unexpected behavior in modern data analysis. Setting <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> is a best practice that ensures your text data remains as simple character strings, preventing potential errors down the line.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>In Practice: The Digital Patient File</strong>
+Think of a data frame as a patient’s digital file. Each row is a different visit or observation, and each column is a specific piece of information: patient ID (text), blood glucose (number), date of visit (date), and prescribed medication (text). The ability to hold these mixed data types in one organized table is why data frames are the primary tool for clinical data analysis in R.</p>
+</div></blockquote>
+<p><strong>Accessing Data Frame Elements</strong></p>
+<blockquote>
+<div><p><strong>Pro Tip: Subsetting with the Right Tool</strong>
+Use <code class="docutils literal notranslate"><span class="pre">$</span></code> or <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">]]</span></code> to extract a single column as a vector, which is necessary for applying mathematical functions like <code class="docutils literal notranslate"><span class="pre">mean()</span></code> or <code class="docutils literal notranslate"><span class="pre">sum()</span></code>. Use single brackets <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> when you need to select columns but keep the output as a data frame. This is useful for creating smaller data frames from a larger one.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Accessing data frame elements</span>
+<span class="n">doses_vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patient_data</span><span class="o">$</span><span class="n">dose_mg</span><span class="w">          </span><span class="c1"># Extracts a vector using $</span>
+<span class="n">doses_vector_alt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patient_data</span><span class="p">[[</span><span class="s">&quot;dose_mg&quot;</span><span class="p">]]</span><span class="w"> </span><span class="c1"># Extracts a vector using [[ ]]</span>
+<span class="n">doses_df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patient_data</span><span class="p">[</span><span class="s">&quot;dose_mg&quot;</span><span class="p">]</span><span class="w">           </span><span class="c1"># Extracts a single-column data frame</span>
+<span class="n">patient_one_row</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patient_data</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">            </span><span class="c1"># Extracts the first row</span>
+
+<span class="c1"># Show that $ and [[ ]] produce identical results</span>
+<span class="nf">identical</span><span class="p">(</span><span class="n">doses_vector</span><span class="p">,</span><span class="w"> </span><span class="n">doses_vector_alt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[1] TRUE
+</pre></div>
+</div>
+</section>
+<section id="matrices-high-performance-grids-for-genomic-data">
+<h3>3.2 Matrices: High-Performance Grids for Genomic Data<a class="headerlink" href="#matrices-high-performance-grids-for-genomic-data" title="Link to this heading">#</a></h3>
+<p>While data frames are perfect for mixed clinical data, scientific computing often requires a more rigid and mathematically efficient structure: the matrix. A matrix is a 2D grid where all elements must be of a single data type, making them extremely fast for the numerical computations common in genomics.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gene expression data for 3 genes across 2 samples</span>
+<span class="n">gene_expression</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">matrix</span><span class="p">(</span>
+<span class="w">  </span><span class="nf">c</span><span class="p">(</span><span class="m">1.2</span><span class="p">,</span><span class="w"> </span><span class="m">3.4</span><span class="p">,</span><span class="w"> </span><span class="m">2.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="m">4.5</span><span class="p">,</span><span class="w"> </span><span class="m">1.9</span><span class="p">),</span><span class="w"> </span>
+<span class="w">  </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="w"> </span><span class="c1"># Fills matrix by column (default)</span>
+<span class="p">)</span>
+<span class="nf">rownames</span><span class="p">(</span><span class="n">gene_expression</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;GeneA&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GeneB&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GeneC&quot;</span><span class="p">)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">gene_expression</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Sample1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sample2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print the matrix to see its structure</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">gene_expression</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      Sample1 Sample2
+GeneA     1.2     0.8
+GeneB     3.4     4.5
+GeneC     2.1     1.9
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important: Matrix Coercion Breaks Math</strong>
+Mixing data types in a matrix forces R to “coerce” all elements to the most flexible type present. If you include even one character string, all numbers will be converted to characters, which will cause mathematical operations to fail. Notice in the example below how the numbers become quoted strings.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Coercion from a character string &quot;NA&quot; (note: this is different from R&#39;s special value NA, which is treated as a missing number)</span>
+<span class="n">lab_values</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">120</span><span class="p">,</span><span class="w"> </span><span class="m">80</span><span class="p">,</span><span class="w"> </span><span class="m">140</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;NA&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">95</span><span class="p">,</span><span class="w"> </span><span class="m">75</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">lab_values</span><span class="p">)</span>
+
+<span class="c1"># Attempting math on the character-coerced matrix fails</span>
+<span class="nf">sum</span><span class="p">(</span><span class="n">lab_values</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      [,1]  [,2] 
+[1,] &quot;120&quot; &quot;NA&quot; 
+[2,] &quot;80&quot;  &quot;95&quot; 
+[3,] &quot;140&quot; &quot;75&quot; 
+Error in sum(lab_values[, 1]): invalid &#39;type&#39; (character) of argument
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="accessing-and-dimensioning-matrices-and-data-frames">
+<h3>3.3 Accessing and Dimensioning Matrices and Data Frames<a class="headerlink" href="#accessing-and-dimensioning-matrices-and-data-frames" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Debug Note: Why <code class="docutils literal notranslate"><span class="pre">$</span></code> Fails on Matrices</strong>
+The <code class="docutils literal notranslate"><span class="pre">$</span></code> operator is a shortcut for accessing named columns in list-like objects such as data frames. A matrix is not a list of columns; it is a single, unified vector with dimensional attributes. Therefore, you must use bracket notation <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">column]</span></code> to specify the dimensions you want to access.</p>
+</div></blockquote>
+<p>Accessing matrix elements relies exclusively on bracket notation <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">column]</span></code>.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access by numeric index [row, column]</span>
+<span class="n">geneb_sample2_index</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gene_expression</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span>
+
+<span class="c1"># Access by name [row_name, column_name]</span>
+<span class="n">geneb_sample2_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gene_expression</span><span class="p">[</span><span class="s">&quot;GeneB&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sample2&quot;</span><span class="p">]</span>
+
+<span class="c1"># Access the entire first row (GeneA)</span>
+<span class="n">gene_a_all_samples</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gene_expression</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+
+<span class="c1"># Access the entire second column (Sample2)</span>
+<span class="n">sample2_all_genes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gene_expression</span><span class="p">[,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can check the dimensions of either a data frame or a matrix using the same set of functions.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get dimensions of a data frame or matrix</span>
+<span class="nf">dim</span><span class="p">(</span><span class="n">patient_data</span><span class="p">)</span><span class="w">      </span><span class="c1"># Returns a vector: [rows, columns]</span>
+<span class="nf">nrow</span><span class="p">(</span><span class="n">gene_expression</span><span class="p">)</span><span class="w">  </span><span class="c1"># Returns the number of rows</span>
+<span class="nf">ncol</span><span class="p">(</span><span class="n">gene_expression</span><span class="p">)</span><span class="w">  </span><span class="c1"># Returns the number of columns</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-create-and-analyze-a-clinical-data-frame">
+<h3>Exercise 1: Create and Analyze a Clinical Data Frame<a class="headerlink" href="#exercise-1-create-and-analyze-a-clinical-data-frame" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice creating a data frame with mixed data types and extracting a numeric column for analysis.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Managing basic lab results for diabetic patients, where HbA1c levels are monitored.</p>
+<p>Create a data frame named <code class="docutils literal notranslate"><span class="pre">lab_results</span></code> for two patients. It must include a character vector for <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> (‘PT000001’, ‘PT000002’), a numeric vector for <code class="docutils literal notranslate"><span class="pre">hba1c</span></code> (6.7, 8.9), and a logical vector for <code class="docutils literal notranslate"><span class="pre">fasting_status</span></code> (TRUE, FALSE). Then, extract the <code class="docutils literal notranslate"><span class="pre">hba1c</span></code> column, use <code class="docutils literal notranslate"><span class="pre">class()</span></code> to confirm it is a <code class="docutils literal notranslate"><span class="pre">numeric</span></code> vector, and calculate its <code class="docutils literal notranslate"><span class="pre">mean()</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the data frame</span>
+<span class="n">lab_results</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">patient_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;PT000001&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;PT000002&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">hba1c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">6.7</span><span class="p">,</span><span class="w"> </span><span class="m">8.9</span><span class="p">),</span>
+<span class="w">  </span><span class="n">fasting_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Extract the numeric column as a vector</span>
+<span class="n">hba1c_values</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lab_results</span><span class="o">$</span><span class="n">hba1c</span>
+
+<span class="c1"># Confirm its class</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">hba1c_values</span><span class="p">)</span>
+
+<span class="c1"># Calculate the mean</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">hba1c_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[1] &quot;numeric&quot;
+[1] 7.8
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We created a data frame with three columns of different types. Using the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator, we extracted the <code class="docutils literal notranslate"><span class="pre">hba1c</span></code> column as a numeric vector, which allowed us to successfully apply the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> function.
+<strong>Key Learning:</strong> Data frames are ideal for storing mixed-type clinical data, and the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator is used to extract columns as vectors for calculations.</p>
+</div>
+</details></section>
+<section id="exercise-2-subset-a-genomic-matrix">
+<h3>Exercise 2: Subset a Genomic Matrix<a class="headerlink" href="#exercise-2-subset-a-genomic-matrix" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice subsetting a matrix by name and confirming the data type of the result.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> Isolating the expression data for a specific gene of interest across all available samples in a genomic study.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">gene_expression</span></code> matrix from the lesson, extract the entire row for “GeneC”. Then, use the <code class="docutils literal notranslate"><span class="pre">class()</span></code> function on the resulting object to confirm it is a <code class="docutils literal notranslate"><span class="pre">numeric</span></code> vector.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># The gene_expression matrix from the lesson</span>
+<span class="n">gene_expression</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">matrix</span><span class="p">(</span>
+<span class="w">  </span><span class="nf">c</span><span class="p">(</span><span class="m">1.2</span><span class="p">,</span><span class="w"> </span><span class="m">3.4</span><span class="p">,</span><span class="w"> </span><span class="m">2.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="m">4.5</span><span class="p">,</span><span class="w"> </span><span class="m">1.9</span><span class="p">),</span><span class="w"> </span>
+<span class="w">  </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span>
+<span class="p">)</span>
+<span class="nf">rownames</span><span class="p">(</span><span class="n">gene_expression</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;GeneA&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GeneB&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GeneC&quot;</span><span class="p">)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">gene_expression</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Sample1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sample2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Extract the row for &quot;GeneC&quot;</span>
+<span class="n">gene_c_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gene_expression</span><span class="p">[</span><span class="s">&quot;GeneC&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+
+<span class="c1"># Confirm the class of the resulting object</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">gene_c_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[1] &quot;numeric&quot;
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We used bracket notation with the row name <code class="docutils literal notranslate"><span class="pre">&quot;GeneC&quot;</span></code> and a blank space for the column index to select all columns for that row. R automatically simplifies this single row into a numeric vector.
+<strong>Key Learning:</strong> Matrix subsetting with <code class="docutils literal notranslate"><span class="pre">[row_name,</span> <span class="pre">]</span></code> extracts a complete row and simplifies it to a vector if possible.</p>
+</div>
+</details></section>
+<section id="exercise-3-understand-matrix-accessor-limitations">
+<h3>Exercise 3: Understand Matrix Accessor Limitations<a class="headerlink" href="#exercise-3-understand-matrix-accessor-limitations" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Demonstrate and explain why the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator cannot be used with matrices.
+<strong>Time:</strong> 4 minutes
+<strong>Medical Context:</strong> Understanding programming constraints is crucial to avoid common errors when working with different types of bioinformatics data structures.</p>
+<p>Attempt to access the <code class="docutils literal notranslate"><span class="pre">Sample1</span></code> column from the <code class="docutils literal notranslate"><span class="pre">gene_expression</span></code> matrix using the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator. Explain in one sentence why this fails. Then, write the correct code to extract the <code class="docutils literal notranslate"><span class="pre">Sample1</span></code> column.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># This code will produce an error:</span>
+<span class="c1"># gene_expression$Sample1</span>
+<span class="c1"># Error in gene_expression$Sample1 : $ operator is invalid for atomic vectors</span>
+
+<span class="c1"># Correct code to extract the column</span>
+<span class="n">sample1_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gene_expression</span><span class="p">[,</span><span class="w"> </span><span class="s">&quot;Sample1&quot;</span><span class="p">]</span>
+
+<span class="c1"># Print the result to verify</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">sample1_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GeneA GeneB GeneC 
+  1.2   3.4   2.1 
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">$</span></code> operator fails because it is designed for list-like objects (like data frames) to access named elements, whereas a matrix is an atomic vector with dimensions and lacks this list-like structure.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">$</span></code> operator is a specific tool for data frames and lists; matrices require bracket notation <code class="docutils literal notranslate"><span class="pre">[]</span></code> for subsetting.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Managing Clinical Trial Data</strong>: Data frames are the industry standard for managing clinical trial data. A single data frame can store patient demographics (character, numeric), treatment arms (factor), adverse events (character), and biomarker measurements (numeric), all in one organized table for statistical analysis.</p></li>
+<li><p><strong>Analyzing Gene Expression Microarrays</strong>: A gene expression matrix is a classic use case in genomics. Rows represent thousands of genes, and columns represent different patient samples or experimental conditions. The numeric-only format allows for rapid matrix algebra operations like normalization, clustering, and differential expression analysis to find genes linked to a disease.</p></li>
+<li><p><strong>Storing Electronic Health Records (EHR)</strong>: When data is extracted from an EHR system for a patient cohort, it is naturally heterogeneous. A data frame is used to hold patient IDs, diagnoses (ICD-10 codes), medications, lab results, and dates, providing a comprehensive view for building predictive models or conducting observational studies.</p></li>
+<li><p><strong>High-Throughput Sequencing (HTS) Data</strong>: After initial processing, HTS data (like RNA-Seq) is often summarized into a “counts matrix.” In this matrix, rows are genes and columns are samples, with each cell containing the number of sequencing reads mapped to that gene for that sample. This numeric matrix is the starting point for nearly all downstream transcriptomic analyses.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the two primary structures for holding tabular data in R: data frames and matrices. We learned that the choice between them is dictated by the type of data you are working with. Data frames offer the flexibility to mix data types within columns, making them perfect for complex clinical records, while matrices provide the speed and efficiency needed for large-scale numerical computations on homogeneous data like genomic datasets.</p>
+<ul class="simple">
+<li><p><strong>Data Frames for Heterogeneity</strong>: Use data frames when your columns have different data types (e.g., text, numbers, dates). They are the go-to structure for clinical metadata and patient records.</p></li>
+<li><p><strong>Matrices for Homogeneity and Speed</strong>: Use matrices when all your data is of a single type (usually numeric). They are optimized for mathematical operations and are the standard for gene expression, imaging, and other high-throughput data.</p></li>
+<li><p><strong>Access Methods Differ</strong>: Access data frame columns with <code class="docutils literal notranslate"><span class="pre">$</span></code>, <code class="docutils literal notranslate"><span class="pre">[[</span> <span class="pre">]]</span></code>, or <code class="docutils literal notranslate"><span class="pre">[]</span></code>. For matrices, you must use bracket notation <code class="docutils literal notranslate"><span class="pre">[row,</span> <span class="pre">column]</span></code>.</p></li>
+<li><p><strong>Beware of Coercion</strong>: Mixing data types in a matrix will force all elements to a common type (like character), which can silently break your code.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Reflection Moment</strong>
+Consider a dataset you might work with in a clinical or research setting. Would a data frame or a matrix be more appropriate for storing it? What potential problems might you encounter if you chose the wrong structure?</p>
+</div></blockquote>
+<p>Mastering these two structures is a foundational step. In our next section, we will build upon this knowledge to learn how to manipulate and transform these data tables using the powerful <code class="docutils literal notranslate"><span class="pre">dplyr</span></code> package.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/R",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4.2_data_types_in_r.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 4: Core R Programming for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="4.5_data_%28csv_txt%29.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 4: Data Import and Cleaning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-frames-the-home-for-mixed-clinical-data">3.1 Data Frames: The Home for Mixed Clinical Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices-high-performance-grids-for-genomic-data">3.2 Matrices: High-Performance Grids for Genomic Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-and-dimensioning-matrices-and-data-frames">3.3 Accessing and Dimensioning Matrices and Data Frames</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-analyze-a-clinical-data-frame">Exercise 1: Create and Analyze a Clinical Data Frame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-subset-a-genomic-matrix">Exercise 2: Subset a Genomic Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-understand-matrix-accessor-limitations">Exercise 3: Understand Matrix Accessor Limitations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

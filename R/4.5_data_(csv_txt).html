@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 4: Data Import and Cleaning &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.5_data_(csv_txt)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 4: Data Manipulation in R" href="4.6_subsetting_and_indexing.html" />
+    <link rel="prev" title="Chapter 4: Foundational Data Structures in R" href="4.4_frames_and_matrices.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_and_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_and_rstudio_installation.html">
+                    Chapter 4: Getting Started with R for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 and Matrices</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4.5 (csv Txt)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Ggplot2 Grammar Of Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 (scatter Box Violin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 and Volcano Plots For Deg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 and Aesthetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Multi Panel Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Arguments In R Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 With Ggsave</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/R/main?urlpath=tree/4.5_data_(csv_txt).ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/4.5_data_(csv_txt).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 4: Data Import and Cleaning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modern-workflow-importing-with-readr">3.1 The Modern Workflow: Importing with <code class="docutils literal notranslate"><span class="pre">readr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-legacy-method-importing-with-base-r">3.2 The Legacy Method: Importing with Base R</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-load-cohort-metadata-basic">Exercise 1: Load Cohort Metadata (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-import-vitals-with-correct-data-types-intermediate">Exercise 2: Import Vitals with Correct Data Types (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-load-legacy-lab-data-with-base-r-advanced">Exercise 3: Load Legacy Lab Data with Base R (Advanced)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-4-data-import-and-cleaning">
+<h1>Chapter 4: Data Import and Cleaning<a class="headerlink" href="#chapter-4-data-import-and-cleaning" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the first and most critical step of any data analysis workflow: getting your data into your R environment. In clinical and biomedical research, data often comes from diverse sources like lab instruments, electronic health records (EHRs), or collaborators as simple text files—most commonly CSVs or TXT files. In this section, you will learn the essential skill of loading these clinical and metadata files correctly and reproducibly. We will explore the modern, recommended approach using the <code class="docutils literal notranslate"><span class="pre">readr</span></code> package for a robust workflow and also cover the legacy base R methods you will inevitably encounter in older scripts. Mastering this foundational skill is critical to ensuring data integrity from the very start of your analysis.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>CSV (Comma-Separated Values)</strong>: A plain text file format that uses commas to separate distinct values in a data table. In a clinical setting, a CSV file might contain patient vitals from a monitoring device, with each row representing a time point and each column representing a different vital sign (e.g., heart rate, blood pressure).</p></li>
+<li><p><strong>TSV (Tab-Separated Values)</strong>: Similar to a CSV, but uses a tab character to separate values. This format is very common in bioinformatics for exporting large datasets like gene expression matrices, as it avoids conflicts with data that might contain commas (e.g., text notes).</p></li>
+<li><p><strong>Tibble</strong>: The modern data frame format used by the <code class="docutils literal notranslate"><span class="pre">tidyverse</span></code>, including <code class="docutils literal notranslate"><span class="pre">readr</span></code>. A key medical advantage is that tibbles do not automatically convert character strings (like a patient ID “007-PATIENT”) into statistical factors, preventing a common source of errors.</p></li>
+<li><p><strong>Factor</strong>: An R data type used to store categorical variables (e.g., “Male”/”Female”, “Control”/”Treatment”). In older versions of R, base functions would automatically convert any text column into a factor, which could corrupt data like patient identifiers or free-text notes by treating them as fixed categories.</p></li>
+<li><p><strong>Medical Record Number (MRN)</strong>: A unique identifier assigned to a patient by a healthcare organization. These are often used as patient IDs in datasets and must be handled as text to prevent data corruption (e.g., losing leading zeros).</p></li>
+<li><p><strong>Reproducible Path</strong>: A file path that works regardless of the user or computer running the script. Using a tool like the <code class="docutils literal notranslate"><span class="pre">here</span></code> package to build paths from the R Project’s root directory is crucial for collaborative research, ensuring a script written on your machine runs correctly on a colleague’s machine without modification.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="the-modern-workflow-importing-with-readr">
+<h3>3.1 The Modern Workflow: Importing with <code class="docutils literal notranslate"><span class="pre">readr</span></code><a class="headerlink" href="#the-modern-workflow-importing-with-readr" title="Link to this heading">#</a></h3>
+<p>For a fast, reliable, and reproducible workflow, the standard recommendation is to use the <code class="docutils literal notranslate"><span class="pre">readr</span></code> and <code class="docutils literal notranslate"><span class="pre">here</span></code> packages. <code class="docutils literal notranslate"><span class="pre">readr</span></code> is part of the <code class="docutils literal notranslate"><span class="pre">tidyverse</span></code> and is optimized for performance and predictability.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Important: Run install commands ONLY in the console, not inside a script. This is a one-time setup.</span>
+<span class="c1"># install.packages(c(&quot;readr&quot;, &quot;here&quot;))</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">here</span><span class="p">)</span>
+
+<span class="c1"># Create a reproducible path and import a CSV file containing patient vital signs (e.g., Heart Rate, Blood Pressure)</span>
+<span class="n">patient_vitals</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read_csv</span><span class="p">(</span><span class="nf">here</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;vitals.csv&quot;</span><span class="p">))</span>
+<span class="n">patient_vitals</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># # A tibble: 3 × 4</span>
+<span class="c1">#   patient_id visit_date  heart_rate blood_pressure</span>
+<span class="c1">#   &lt;chr&gt;      &lt;date&gt;           &lt;dbl&gt; &lt;chr&gt;</span>
+<span class="c1"># 1 PT001234   2024-01-15          72 120/80</span>
+<span class="c1"># 2 PT005678   2024-01-16          85 130/85</span>
+<span class="c1"># 3 PT009101   2024-01-17          68 115/75</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">readr::read_csv()</span></code> imports data as a tibble. This is highly beneficial as it prevents text columns, such as patient identifiers (e.g., Medical Record Numbers or MRNs), from being mistakenly converted into statistical factors.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>In Practice:</strong> Patient IDs are the primary key for merging different clinical datasets, such as linking patient vitals to lab results or medication records. If IDs are incorrectly imported as factors or numbers, these critical merge operations can fail or, worse, produce silently incorrect results. Using <code class="docutils literal notranslate"><span class="pre">readr</span></code> to ensure IDs remain as character data is a foundational step for ensuring data integrity in clinical research.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">here::here()</span></code> builds a file path starting from your RStudio Project folder. This simple function is incredibly powerful because it eliminates “No such file or directory” errors that occur when scripts are moved between computers or run by different users.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Debug Note:</strong> The <code class="docutils literal notranslate"><span class="pre">&quot;No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory&quot;</span></code> error is one of the most common frustrations in R. It’s almost always caused by the script not knowing where to look for the file. The <code class="docutils literal notranslate"><span class="pre">here()</span></code> function solves this by creating a reliable path that starts from your R Project’s root folder, making your script portable and your file paths predictable.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Other Delimiters</strong>: Use <code class="docutils literal notranslate"><span class="pre">read_tsv()</span></code> for tab-separated files (common for gene expression data) or <code class="docutils literal notranslate"><span class="pre">read_delim()</span></code> for files with other separators (e.g., semicolons).</p></li>
+<li><p><strong>Data Type Control</strong>: To prevent <code class="docutils literal notranslate"><span class="pre">readr</span></code> from incorrectly guessing data types, use the <code class="docutils literal notranslate"><span class="pre">col_types</span></code> argument. This is critical for ensuring patient IDs with leading zeros (e.g., <code class="docutils literal notranslate"><span class="pre">00123</span></code>) are imported as text and not as numbers.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Before trying to load any file, open it in a plain text editor (like Notepad on Windows or TextEdit on Mac). This allows you to quickly check the separator (is it a comma, tab, or something else?), look for issues like extra commas in notes fields, and verify the column names in the header row. A 10-second check can save you 10 minutes of debugging.</p>
+</div></blockquote>
+<p>Now that you’ve seen the modern, recommended workflow, let’s review the base R functions. You will inevitably encounter these in older scripts or code from collaborators, so understanding them is essential for maintenance and debugging.</p>
+</section>
+<section id="the-legacy-method-importing-with-base-r">
+<h3>3.2 The Legacy Method: Importing with Base R<a class="headerlink" href="#the-legacy-method-importing-with-base-r" title="Link to this heading">#</a></h3>
+<p>You will frequently encounter base R functions in older scripts. While functional, these methods require more careful handling of data types to avoid critical errors.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import a CSV file using base R</span>
+<span class="n">patient_vitals_base</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span>
+<span class="w">  </span><span class="nf">here</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;vitals.csv&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span>
+<span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">patient_vitals_base</span><span class="p">)</span><span class="w"> </span><span class="c1"># Using head() for base R data.frame is common</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1">#   patient_id visit_date heart_rate blood_pressure</span>
+<span class="c1"># 1   PT001234 2024-01-15         72         120/80</span>
+<span class="c1"># 2   PT005678 2024-01-16         85         130/85</span>
+<span class="c1"># 3   PT009101 2024-01-17         68         115/75</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> In R versions before 4.0.0, <code class="docutils literal notranslate"><span class="pre">read.csv()</span></code> and <code class="docutils literal notranslate"><span class="pre">read.delim()</span></code> automatically converted text columns into a statistical data type called a factor. This behavior silently corrupts data like patient identifiers (e.g., MRNs like “007” become “7”) and can cause catastrophic errors in data merging and analysis. Setting <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> is essential to prevent this. While modern R (4.0.0+) no longer does this by default, explicitly including this argument ensures your code is safe and reproducible for all collaborators, regardless of their R version.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>For tab-separated files (<code class="docutils literal notranslate"><span class="pre">.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">.tsv</span></code>), the base R equivalent is <code class="docutils literal notranslate"><span class="pre">read.delim()</span></code>. You must also use the <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> argument with it.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-load-cohort-metadata-basic">
+<h3>Exercise 1: Load Cohort Metadata (Basic)<a class="headerlink" href="#exercise-1-load-cohort-metadata-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Load a tab-separated <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file using the recommended modern workflow.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Dr. Chen has provided you with a file named <code class="docutils literal notranslate"><span class="pre">cohort_metadata.txt</span></code> containing demographic information for the patients in your study. Your task is to load this tab-separated file to ensure the data, especially the patient IDs, is loaded correctly for an upcoming analysis.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution:</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">here</span><span class="p">)</span>
+
+<span class="c1"># read_tsv is the specific function for tab-separated files</span>
+<span class="n">patient_cohort</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read_tsv</span><span class="p">(</span><span class="nf">here</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cohort_metadata.txt&quot;</span><span class="p">))</span>
+
+<span class="c1"># Inspect the first few rows to confirm successful import</span>
+<span class="n">patient_cohort</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># # A tibble: 3 × 3</span>
+<span class="c1">#   patient_id cohort      diagnosis_code</span>
+<span class="c1">#   &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;</span>
+<span class="c1"># 1 PT001234   Treatment A E11.9</span>
+<span class="c1"># 2 PT005678   Control     I10</span>
+<span class="c1"># 3 PT009101   Treatment B C50.9</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">read_tsv()</span></code> function from the <code class="docutils literal notranslate"><span class="pre">readr</span></code> package is specifically designed for tab-delimited files. Combined with <code class="docutils literal notranslate"><span class="pre">here()</span></code>, it provides a robust and reproducible way to load the data.
+<strong>Key Learning:</strong> Use the right <code class="docutils literal notranslate"><span class="pre">readr</span></code> function for your file’s delimiter (<code class="docutils literal notranslate"><span class="pre">read_csv</span></code> for commas, <code class="docutils literal notranslate"><span class="pre">read_tsv</span></code> for tabs).</p>
+</div>
+</details></section>
+<section id="exercise-2-import-vitals-with-correct-data-types-intermediate">
+<h3>Exercise 2: Import Vitals with Correct Data Types (Intermediate)<a class="headerlink" href="#exercise-2-import-vitals-with-correct-data-types-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use the <code class="docutils literal notranslate"><span class="pre">col_types</span></code> argument to prevent data type coercion when importing a CSV file.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Patient identifiers (MRNs) are often numeric but must be treated as text, especially if they contain leading zeros (e.g., <code class="docutils literal notranslate"><span class="pre">00123</span></code>). If R imports this as a number, it becomes <code class="docutils literal notranslate"><span class="pre">123</span></code>, making it impossible to merge with other datasets that use the original ID.</p>
+<p>A file named <code class="docutils literal notranslate"><span class="pre">vitals_with_leading_zeros.csv</span></code> in your <code class="docutils literal notranslate"><span class="pre">data</span></code> folder contains MRNs that must be preserved as text. Import it into a data frame named <code class="docutils literal notranslate"><span class="pre">vitals_corrected</span></code>, ensuring the <code class="docutils literal notranslate"><span class="pre">mrn</span></code> column is read as character data.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution:</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">here</span><span class="p">)</span>
+
+<span class="c1"># Use the col_types argument to specify column types</span>
+<span class="c1"># &#39;c&#39; = character, &#39;d&#39; = double (numeric)</span>
+<span class="n">vitals_corrected</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read_csv</span><span class="p">(</span>
+<span class="w">  </span><span class="nf">here</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;vitals_with_leading_zeros.csv&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">col_types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cols</span><span class="p">(</span>
+<span class="w">    </span><span class="n">mrn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">col_character</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">heart_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">col_double</span><span class="p">()</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">vitals_corrected</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># # A tibble: 2 × 2</span>
+<span class="c1">#   mrn      heart_rate</span>
+<span class="c1">#   &lt;chr&gt;         &lt;dbl&gt;</span>
+<span class="c1"># 1 00123            78</span>
+<span class="c1"># 2 00456            92</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">col_types</span></code> argument gives you explicit control over how each column is interpreted. By setting <code class="docutils literal notranslate"><span class="pre">mrn</span> <span class="pre">=</span> <span class="pre">col_character()</span></code>, we force <code class="docutils literal notranslate"><span class="pre">readr</span></code> to treat it as text, preserving the leading zeros.
+<strong>Key Learning:</strong> Never trust automatic type detection for critical identifiers. Always specify column types with <code class="docutils literal notranslate"><span class="pre">col_types</span></code> for maximum safety and reproducibility.</p>
+</div>
+</details></section>
+<section id="exercise-3-load-legacy-lab-data-with-base-r-advanced">
+<h3>Exercise 3: Load Legacy Lab Data with Base R (Advanced)<a class="headerlink" href="#exercise-3-load-legacy-lab-data-with-base-r-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Correctly import a CSV file using base R, ensuring character data is not converted to factors.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You have inherited an analysis script from a collaborator who retired five years ago and used an old version of R. To reproduce their findings, you must run their code, which uses base R. You need to safely load the data they used without introducing errors.</p>
+<p>A file named <code class="docutils literal notranslate"><span class="pre">legacy_lab_results.csv</span></code> is in your <code class="docutils literal notranslate"><span class="pre">data</span></code> folder. Load it into a data frame named <code class="docutils literal notranslate"><span class="pre">lab_data_base_r</span></code> using <code class="docutils literal notranslate"><span class="pre">read.csv()</span></code>, making sure the <code class="docutils literal notranslate"><span class="pre">sample_id</span></code> column is not converted to a factor.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution:</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">here</span><span class="p">)</span>
+
+<span class="c1"># Use read.csv() with the critical stringsAsFactors argument</span>
+<span class="n">lab_data_base_r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span>
+<span class="w">  </span><span class="nf">here</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;legacy_lab_results.csv&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span>
+<span class="p">)</span>
+
+<span class="c1"># Verify the result: the &#39;sample_id&#39; column should be &#39;character&#39;, not &#39;factor&#39;</span>
+<span class="nf">class</span><span class="p">(</span><span class="n">lab_data_base_r</span><span class="o">$</span><span class="n">sample_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># [1] &quot;character&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> By explicitly setting <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span> <span class="pre">=</span> <span class="pre">FALSE</span></code>, we override the dangerous default behavior of older R versions and prevent the <code class="docutils literal notranslate"><span class="pre">sample_id</span></code> column from being corrupted into a factor.
+<strong>Key Learning:</strong> When working with base R import functions (<code class="docutils literal notranslate"><span class="pre">read.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">read.delim</span></code>), always include <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> to ensure data integrity.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Cohort Assembly for Clinical Trials</strong>: Researchers frequently receive patient eligibility and demographic data in separate CSV and TXT files from different hospital departments. Using <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> and <code class="docutils literal notranslate"><span class="pre">read_tsv()</span></code> with <code class="docutils literal notranslate"><span class="pre">here()</span></code> allows them to build a reproducible script that combines these files to assemble the final study cohort. The real-world impact is accurate patient selection and the prevention of data corruption that could compromise the entire trial.</p></li>
+<li><p><strong>Processing High-Throughput Genomics Data</strong>: In precision oncology, RNA-sequencing produces massive gene expression matrices, which are typically stored as large, tab-separated text files. The <code class="docutils literal notranslate"><span class="pre">readr::read_tsv()</span></code> function is highly optimized to read these multi-gigabyte files quickly and efficiently. This enables the rapid identification of differentially expressed genes between tumor and healthy tissue, guiding personalized treatment strategies.</p></li>
+<li><p><strong>Longitudinal Analysis of Patient Vitals</strong>: Data from Intensive Care Unit (ICU) monitoring equipment is often exported as enormous CSV files containing time-series measurements (heart rate, blood pressure, etc.). Using <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> with specified <code class="docutils literal notranslate"><span class="pre">col_types</span></code> is essential to correctly parse timestamps, patient IDs, and numeric readings. This allows data scientists to build models that track patient health trajectories, predict clinical events like septic shock, and ultimately improve patient outcomes.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to reliably import common flat-file formats like CSV and TXT into R, a fundamental skill for any clinical data analyst. We contrasted the modern, robust <code class="docutils literal notranslate"><span class="pre">readr</span></code> workflow with the legacy base R methods, emphasizing techniques to prevent common data corruption errors.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">readr</span></code> package (<code class="docutils literal notranslate"><span class="pre">read_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">read_tsv</span></code>) is the modern standard, offering speed, consistency, and safer defaults like importing data as tibbles.</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">here::here()</span></code> to build file paths is essential for creating reproducible and portable code that works seamlessly across different machines and collaborators.</p></li>
+<li><p>When encountering base R functions like <code class="docutils literal notranslate"><span class="pre">read.csv()</span></code>, you must always specify <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> to prevent the silent corruption of character data (like patient IDs) into factors.</p></li>
+<li><p>For critical columns, especially identifiers with leading zeros or specific date formats, use the <code class="docutils literal notranslate"><span class="pre">col_types</span></code> argument in <code class="docutils literal notranslate"><span class="pre">readr</span></code> functions to enforce the correct data type on import.</p></li>
+</ul>
+<p>With your data now safely loaded into R, the next step is to assess its quality and prepare it for analysis. We will cover these crucial techniques in the next section on data cleaning.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Think about a dataset you have worked with. What was the file format (CSV, TXT, Excel)? What potential data loading errors, like the <code class="docutils literal notranslate"><span class="pre">stringsAsFactors</span></code> issue, could have impacted the analysis if you weren’t careful?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/R",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4.4_frames_and_matrices.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 4: Foundational Data Structures in R</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="4.6_subsetting_and_indexing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 4: Data Manipulation in R</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modern-workflow-importing-with-readr">3.1 The Modern Workflow: Importing with <code class="docutils literal notranslate"><span class="pre">readr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-legacy-method-importing-with-base-r">3.2 The Legacy Method: Importing with Base R</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-load-cohort-metadata-basic">Exercise 1: Load Cohort Metadata (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-import-vitals-with-correct-data-types-intermediate">Exercise 2: Import Vitals with Correct Data Types (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-load-legacy-lab-data-with-base-r-advanced">Exercise 3: Load Legacy Lab Data with Base R (Advanced)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
