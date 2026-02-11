@@ -1,0 +1,879 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 4: Foundational R for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.7_and_apply_family';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 4: Your R Toolkit" href="4.8_and_loading_packages.html" />
+    <link rel="prev" title="Chapter 4: Data Manipulation in R" href="4.6_subsetting_and_indexing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_and_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_and_rstudio_installation.html">
+                    Chapter 4: Getting Started with R for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 and Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_%28csv_txt%29.html">4.5 (csv Txt)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 and Indexing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Ggplot2 Grammar Of Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 (scatter Box Violin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 and Volcano Plots For Deg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 and Aesthetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Multi Panel Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Arguments In R Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 With Ggsave</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/R/main?urlpath=tree/4.7_and_apply_family.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/4.7_and_apply_family.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 4: Foundational R for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-basic-function">3.1 Creating a Basic Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-apply-function-for-matrices">3.2 The <code class="docutils literal notranslate"><span class="pre">apply()</span></code> Function for Matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lapply-function-for-lists">3.3 The <code class="docutils literal notranslate"><span class="pre">lapply()</span></code> Function for Lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sapply-function-for-simplified-output">3.4 The <code class="docutils literal notranslate"><span class="pre">sapply()</span></code> Function for Simplified Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tapply-function-for-grouped-operations">3.5 The <code class="docutils literal notranslate"><span class="pre">tapply()</span></code> Function for Grouped Operations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-apply-a-bmi-function">Exercise 1: Create and Apply a BMI Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-find-peak-wbc-count-day">Exercise 2: Find Peak WBC Count Day</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-summarize-blood-pressure-by-risk-group">Exercise 3: Summarize Blood Pressure by Risk Group</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-4-foundational-r-for-precision-health">
+<h1>Chapter 4: Foundational R for Precision Health<a class="headerlink" href="#chapter-4-foundational-r-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to a pivotal step in your R programming journey. In previous sections, you learned to manipulate data manually. Now, you will learn to automate those manipulations. This section introduces custom functions and the <code class="docutils literal notranslate"><span class="pre">apply</span></code> family—a powerful set of tools for performing repetitive tasks across your data without writing cumbersome loops. We will start by creating a simple function to calculate drug dosage. Then, we will explore how <code class="docutils literal notranslate"><span class="pre">apply</span></code>, <code class="docutils literal notranslate"><span class="pre">lapply</span></code>, <code class="docutils literal notranslate"><span class="pre">sapply</span></code>, and <code class="docutils literal notranslate"><span class="pre">tapply</span></code> can be used to efficiently summarize entire datasets, such as calculating mean lab values for cohorts of patients or processing lists of clinical measurements. By the end, you will be able to write your own functions and choose the correct <code class="docutils literal notranslate"><span class="pre">apply</span></code> tool to streamline your precision health data analysis workflows.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Function</strong>: A reusable block of code that performs a specific task. In medicine, a function could be designed to calculate a patient’s risk score based on multiple inputs (e.g., age, blood pressure, cholesterol), turning a complex, repetitive calculation into a single, reliable command.</p></li>
+<li><p><strong>Default Parameter</strong>: A value assigned to a function argument in its definition. If the user doesn’t provide a value for that argument when calling the function, R automatically uses the default. This is useful for medical calculations where a standard value (e.g., a standard dose per kg) is common.</p></li>
+<li><p><strong>Anonymous Function</strong>: A function defined on-the-fly without being assigned a name. This is useful for simple, one-time operations, such as quickly converting a list of patient temperatures from Celsius to Fahrenheit directly within an <code class="docutils literal notranslate"><span class="pre">lapply</span></code> call.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">apply()</span></code></strong>: A function used to apply another function to the rows or columns of a matrix. A clinical researcher might use <code class="docutils literal notranslate"><span class="pre">apply()</span></code> on a matrix of gene expression data to calculate the mean expression level for each gene (across patient samples) or for each patient (across all genes).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">lapply()</span></code></strong>: An “list apply” function that applies a function to each element of a list and is guaranteed to return a list. This is ideal for processing nested patient data, where each element of a main list is itself a list containing a patient’s demographics, lab results, and medications. <code class="docutils literal notranslate"><span class="pre">lapply</span></code> ensures the output structure remains a consistent list.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sapply()</span></code></strong>: A “simplifying apply” function that works like <code class="docutils literal notranslate"><span class="pre">lapply</span></code> but attempts to simplify the resulting list into a more user-friendly format, such as a vector or matrix. For example, if you calculate the Body Mass Index (BMI) for a list of patients, <code class="docutils literal notranslate"><span class="pre">sapply</span></code> would return the results as a simple, named vector of BMIs.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tapply()</span></code></strong>: A “tagged apply” function that splits a vector into groups based on a factor and then applies a function to each group. This is the cornerstone of subgroup analysis, such as calculating the mean drug response time (<code class="docutils literal notranslate"><span class="pre">vector</span></code>) for patients in different treatment arms (<code class="docutils literal notranslate"><span class="pre">factor</span></code>) of a clinical trial.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="creating-a-basic-function">
+<h3>3.1 Creating a Basic Function<a class="headerlink" href="#creating-a-basic-function" title="Link to this heading">#</a></h3>
+<p>You can define a custom function using the <code class="docutils literal notranslate"><span class="pre">function()</span></code> constructor to automate any repeated task. This promotes code that is readable, reusable, and less prone to errors. A common use case in a clinical setting is creating a function to calculate drug dosage based on patient weight.</p>
+<blockquote>
+<div><p><strong>Key Terms:</strong> A <strong>default parameter</strong> is a value assigned to a function argument in its definition. If the user doesn’t provide a value for that argument when calling the function, R automatically uses the default.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a function to calculate dosage from weight.</span>
+<span class="n">calculate_dosage</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">weight_kg</span><span class="p">,</span><span class="w"> </span><span class="n">dose_per_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1"># The last expression is automatically returned.</span>
+<span class="w">  </span><span class="n">weight_kg</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dose_per_kg</span>
+<span class="p">}</span>
+
+<span class="c1"># Calculate dosage for a 70kg patient at 10mg/kg.</span>
+<span class="nf">calculate_dosage</span><span class="p">(</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">70</span><span class="p">,</span><span class="w"> </span><span class="n">dose_per_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+<span class="c1"># [1] 700</span>
+
+<span class="c1"># This call uses the default dose of 5mg/kg.</span>
+<span class="nf">calculate_dosage</span><span class="p">(</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">70</span><span class="p">)</span>
+<span class="c1"># [1] 350</span>
+</pre></div>
+</div>
+</section>
+<section id="the-apply-function-for-matrices">
+<h3>3.2 The <code class="docutils literal notranslate"><span class="pre">apply()</span></code> Function for Matrices<a class="headerlink" href="#the-apply-function-for-matrices" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">apply()</span></code> executes a function over the rows (<code class="docutils literal notranslate"><span class="pre">MARGIN=1</span></code>) or columns (<code class="docutils literal notranslate"><span class="pre">MARGIN=2</span></code>) of a matrix. It is ideal for summarizing matrix-like data, such as a table of lab results where rows are patients and columns are time points.</p>
+<blockquote>
+<div><p><strong>Important:</strong> <code class="docutils literal notranslate"><span class="pre">apply()</span></code> converts data frames into matrices before operating. This process, known as type coercion, forces all columns to a single data type (e.g., numeric to character). If your data frame has mixed types, numeric functions like <code class="docutils literal notranslate"><span class="pre">mean()</span></code> will fail. Use <code class="docutils literal notranslate"><span class="pre">apply()</span></code> on matrices or data frames with all-numeric data.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Medical Background:</strong> White Blood Cell (WBC) counts are a fundamental diagnostic tool. Analyzing trends over several days (rows) for a single patient helps monitor infection or treatment response, while analyzing counts across all patients for a single day (columns) could help spot a ward-wide issue or a lab equipment error.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Matrix of WBC counts (x10^9/L). Normal range is approx. 4.5-11.0.</span>
+<span class="n">wbc_counts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">8.1</span><span class="p">,</span><span class="w"> </span><span class="m">7.5</span><span class="p">,</span><span class="w"> </span><span class="m">9.2</span><span class="p">,</span><span class="w"> </span><span class="m">11.0</span><span class="p">,</span>
+<span class="w">                       </span><span class="m">6.5</span><span class="p">,</span><span class="w"> </span><span class="m">6.8</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="m">7.3</span><span class="p">,</span>
+<span class="w">                       </span><span class="m">12.1</span><span class="p">,</span><span class="w"> </span><span class="m">11.5</span><span class="p">,</span><span class="w"> </span><span class="m">11.9</span><span class="p">,</span><span class="w"> </span><span class="m">12.4</span><span class="p">),</span>
+<span class="w">                     </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">dimnames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;PT001&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT002&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT003&quot;</span><span class="p">),</span>
+<span class="w">                                     </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;day_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;day_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;day_3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;day_4&quot;</span><span class="p">)))</span>
+
+<span class="c1"># Calculate the mean WBC count for each patient (by row).</span>
+<span class="n">mean_per_patient</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wbc_counts</span><span class="p">,</span><span class="w"> </span><span class="n">MARGIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">mean_per_patient</span>
+<span class="c1">#    PT001    PT002    PT003 </span>
+<span class="c1"># 8.950000 6.866667 11.975000</span>
+</pre></div>
+</div>
+</section>
+<section id="the-lapply-function-for-lists">
+<h3>3.3 The <code class="docutils literal notranslate"><span class="pre">lapply()</span></code> Function for Lists<a class="headerlink" href="#the-lapply-function-for-lists" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">lapply()</span></code> applies a function to each element of a list or vector and always returns a list. This is the safest and most predictable choice when your input is a list and you want to ensure the output is also a list, preserving the structure.</p>
+<blockquote>
+<div><p><strong>Key Terms:</strong> An <strong>anonymous function</strong> is a function created on-the-fly without being assigned a name. It’s useful for simple, one-time operations within functions like <code class="docutils literal notranslate"><span class="pre">lapply()</span></code> or <code class="docutils literal notranslate"><span class="pre">sapply()</span></code>, avoiding the need to define a separate named function.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of patient body temperatures in Celsius.</span>
+<span class="n">patient_temps_c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">PT004</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">37.5</span><span class="p">,</span><span class="w"> </span><span class="n">PT005</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">38.1</span><span class="p">,</span><span class="w"> </span><span class="n">PT006</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">36.9</span><span class="p">)</span>
+
+<span class="c1"># Convert Celsius to Fahrenheit using an anonymous function.</span>
+<span class="n">temps_f_list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lapply</span><span class="p">(</span><span class="n">patient_temps_c</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">temp_c</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">temp_c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">9</span><span class="o">/</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">32</span><span class="p">)</span>
+<span class="n">temps_f_list</span>
+<span class="c1"># $PT004</span>
+<span class="c1"># [1] 99.5</span>
+<span class="c1"># </span>
+<span class="c1"># $PT005</span>
+<span class="c1"># [1] 100.58</span>
+<span class="c1"># </span>
+<span class="c1"># $PT006</span>
+<span class="c1"># [1] 98.42</span>
+</pre></div>
+</div>
+</section>
+<section id="the-sapply-function-for-simplified-output">
+<h3>3.4 The <code class="docutils literal notranslate"><span class="pre">sapply()</span></code> Function for Simplified Output<a class="headerlink" href="#the-sapply-function-for-simplified-output" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">sapply()</span></code> is a user-friendly version of <code class="docutils literal notranslate"><span class="pre">lapply()</span></code>. It applies a function to each list element but then attempts to simplify the result into a vector or matrix. For example, we can calculate the Body Mass Index (BMI) for a list of patients.</p>
+<blockquote>
+<div><p><strong>Important:</strong> <code class="docutils literal notranslate"><span class="pre">sapply()</span></code> simplifies its output, but the result’s format can be unpredictable (it might return a vector, matrix, or list depending on the input). For stable, predictable code where you always expect a list, it is safer to use <code class="docutils literal notranslate"><span class="pre">lapply()</span></code>.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of patient metrics where each element is a named vector.</span>
+<span class="n">patient_metrics</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span>
+<span class="w">  </span><span class="n">PT101</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">78</span><span class="p">,</span><span class="w"> </span><span class="n">height_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.75</span><span class="p">),</span>
+<span class="w">  </span><span class="n">PT102</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">92</span><span class="p">,</span><span class="w"> </span><span class="n">height_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.80</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Use sapply to calculate BMI for each patient.</span>
+<span class="n">bmi_values</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sapply</span><span class="p">(</span><span class="n">patient_metrics</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">p</span><span class="p">[[</span><span class="s">&quot;weight_kg&quot;</span><span class="p">]]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">[[</span><span class="s">&quot;height_m&quot;</span><span class="p">]]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="n">bmi_values</span>
+<span class="c1">#    PT101    PT102 </span>
+<span class="c1"># 25.46939 28.39506</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> When extracting elements from a list or vector inside a function, using double square brackets <code class="docutils literal notranslate"><span class="pre">[[...]]</span></code> is often safer than a single bracket <code class="docutils literal notranslate"><span class="pre">[...]</span></code>. It ensures you are extracting a single, “un-boxed” element, which prevents unexpected errors in calculations.</p>
+</div></blockquote>
+</section>
+<section id="the-tapply-function-for-grouped-operations">
+<h3>3.5 The <code class="docutils literal notranslate"><span class="pre">tapply()</span></code> Function for Grouped Operations<a class="headerlink" href="#the-tapply-function-for-grouped-operations" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">tapply()</span></code> is designed for “ragged” data, where you want to apply a function to subsets of a vector based on a grouping variable (a factor). This is extremely useful for comparing metrics across different cohorts.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> Group-wise analysis with <code class="docutils literal notranslate"><span class="pre">tapply()</span></code> is a cornerstone of clinical data analysis. It allows you to quickly compare outcomes, vitals, or lab results between different patient groups, such as “treatment” vs. “control,” or, as in this example, “Fever” vs. “Stable.”</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Vector of temperatures and a corresponding factor for patient condition.</span>
+<span class="n">temps</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">37.1</span><span class="p">,</span><span class="w"> </span><span class="m">38.1</span><span class="p">,</span><span class="w"> </span><span class="m">36.9</span><span class="p">,</span><span class="w"> </span><span class="m">39.0</span><span class="p">)</span>
+<span class="n">condition</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Stable&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fever&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Stable&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fever&quot;</span><span class="p">))</span>
+
+<span class="c1"># Calculate mean temperature for each condition.</span>
+<span class="n">mean_temp_by_condition</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temps</span><span class="p">,</span><span class="w"> </span><span class="n">INDEX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">condition</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span>
+<span class="n">mean_temp_by_condition</span>
+<span class="c1">#  Fever Stable </span>
+<span class="c1">#  38.55  37.00</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-create-and-apply-a-bmi-function">
+<h3>Exercise 1: Create and Apply a BMI Function<a class="headerlink" href="#exercise-1-create-and-apply-a-bmi-function" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Write a custom function and apply it to a list of patient data.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Body Mass Index (BMI) is a standard screening metric for weight categories that may lead to health problems. Automating its calculation is a common task.</p>
+<p><strong>Task:</strong></p>
+<ol class="arabic simple">
+<li><p>Write a function named <code class="docutils literal notranslate"><span class="pre">calculate_bmi</span></code> that computes BMI.</p></li>
+<li><p>The function must accept a named vector containing <code class="docutils literal notranslate"><span class="pre">weight_kg</span></code> and <code class="docutils literal notranslate"><span class="pre">height_m</span></code>. The formula is <code class="docutils literal notranslate"><span class="pre">weight_kg</span> <span class="pre">/</span> <span class="pre">height_m^2</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">sapply()</span></code> to apply your function to the <code class="docutils literal notranslate"><span class="pre">patient_metrics</span></code> list below to get a named vector of all patient BMIs.</p></li>
+</ol>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Practice dataset</span>
+<span class="n">patient_metrics</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span>
+<span class="w">  </span><span class="n">PT101</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">78</span><span class="p">,</span><span class="w"> </span><span class="n">height_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.75</span><span class="p">),</span>
+<span class="w">  </span><span class="n">PT102</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">92</span><span class="p">,</span><span class="w"> </span><span class="n">height_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.80</span><span class="p">),</span>
+<span class="w">  </span><span class="n">PT103</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">65</span><span class="p">,</span><span class="w"> </span><span class="n">height_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.65</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Define the function.</span>
+<span class="n">calculate_bmi</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1"># Use [[...]] to safely extract single named elements.</span>
+<span class="w">  </span><span class="n">metrics</span><span class="p">[[</span><span class="s">&quot;weight_kg&quot;</span><span class="p">]]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">metrics</span><span class="p">[[</span><span class="s">&quot;height_m&quot;</span><span class="p">]]</span><span class="o">^</span><span class="m">2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># 2. Apply the function using sapply().</span>
+<span class="c1"># We use sapply() because our function returns a single numeric value for each patient.</span>
+<span class="c1"># This allows sapply() to neatly simplify the output into a named vector, which is easy to read and use.</span>
+<span class="n">bmi_results</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sapply</span><span class="p">(</span><span class="n">patient_metrics</span><span class="p">,</span><span class="w"> </span><span class="n">calculate_bmi</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">bmi_results</span><span class="p">)</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1">#    PT101    PT102    PT103 </span>
+<span class="c1"># 25.46939 28.39506 23.87512</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">calculate_bmi</span></code> function correctly extracts weight and height from the input vector to compute the BMI. <code class="docutils literal notranslate"><span class="pre">sapply</span></code> iterates through each patient in the <code class="docutils literal notranslate"><span class="pre">patient_metrics</span></code> list, applies the function, and simplifies the list of single-number results into a convenient named vector.
+<strong>Key Learning:</strong> Combining custom functions with <code class="docutils literal notranslate"><span class="pre">sapply</span></code> is a powerful pattern for processing structured lists.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> In this exercise, <code class="docutils literal notranslate"><span class="pre">sapply()</span></code> returned a simple vector. What do you think would happen if your <code class="docutils literal notranslate"><span class="pre">calculate_bmi</span></code> function returned two values instead of one (e.g., the BMI and a classification like “Normal”)? Would <code class="docutils literal notranslate"><span class="pre">sapply()</span></code> still be the best choice?</p>
+</div></blockquote>
+</div>
+</details></section>
+<section id="exercise-2-find-peak-wbc-count-day">
+<h3>Exercise 2: Find Peak WBC Count Day<a class="headerlink" href="#exercise-2-find-peak-wbc-count-day" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">apply()</span></code> with a custom function to find the column name (day) corresponding to the maximum value in each row.
+<strong>Time:</strong> 15 minutes
+<strong>Medical Context:</strong> Identifying the specific day a patient’s white blood cell (WBC) count peaked can be crucial for correlating with infection onset or treatment response.</p>
+<p><strong>Task:</strong>
+Using the <code class="docutils literal notranslate"><span class="pre">wbc_counts</span></code> matrix from the lesson, find the day (<code class="docutils literal notranslate"><span class="pre">day_1</span></code>, <code class="docutils literal notranslate"><span class="pre">day_2</span></code>, etc.) on which each patient had their highest WBC count. The <code class="docutils literal notranslate"><span class="pre">which.max()</span></code> function will be helpful, as it returns the <em>index</em> of the maximum value in a vector.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># wbc_counts matrix from the lesson</span>
+<span class="n">wbc_counts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">8.1</span><span class="p">,</span><span class="w"> </span><span class="m">7.5</span><span class="p">,</span><span class="w"> </span><span class="m">9.2</span><span class="p">,</span><span class="w"> </span><span class="m">11.0</span><span class="p">,</span>
+<span class="w">                       </span><span class="m">6.5</span><span class="p">,</span><span class="w"> </span><span class="m">6.8</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="m">7.3</span><span class="p">,</span>
+<span class="w">                       </span><span class="m">12.1</span><span class="p">,</span><span class="w"> </span><span class="m">11.5</span><span class="p">,</span><span class="w"> </span><span class="m">11.9</span><span class="p">,</span><span class="w"> </span><span class="m">12.4</span><span class="p">),</span>
+<span class="w">                     </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">dimnames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;PT001&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT002&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT003&quot;</span><span class="p">),</span>
+<span class="w">                                     </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;day_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;day_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;day_3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;day_4&quot;</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">peak_day</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">wbc_counts</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">patient_row</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1"># Get the column names of the matrix</span>
+<span class="w">  </span><span class="n">days</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">colnames</span><span class="p">(</span><span class="n">wbc_counts</span><span class="p">)</span>
+<span class="w">  </span><span class="c1"># Find the index of the highest WBC count for the row, ignoring NA</span>
+<span class="w">  </span><span class="n">max_index</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">which.max</span><span class="p">(</span><span class="n">patient_row</span><span class="p">)</span>
+<span class="w">  </span><span class="c1"># Return the day name from that index</span>
+<span class="w">  </span><span class="kr">return</span><span class="p">(</span><span class="n">days</span><span class="p">[</span><span class="n">max_index</span><span class="p">])</span>
+<span class="p">})</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">peak_day</span><span class="p">)</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1">#   PT001   PT002   PT003 </span>
+<span class="c1"># &quot;day_4&quot; &quot;day_4&quot; &quot;day_4&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We use <code class="docutils literal notranslate"><span class="pre">apply</span></code> to iterate over each row (<code class="docutils literal notranslate"><span class="pre">MARGIN</span> <span class="pre">=</span> <span class="pre">1</span></code>). For each <code class="docutils literal notranslate"><span class="pre">patient_row</span></code>, our anonymous function finds the index of the maximum value using <code class="docutils literal notranslate"><span class="pre">which.max()</span></code>. It then uses this index to look up the corresponding column name from <code class="docutils literal notranslate"><span class="pre">colnames(wbc_counts)</span></code>.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">apply()</span></code> can be used with custom functions that do more than just summarize, such as finding the position of a key event.</p>
+</div>
+</details></section>
+<section id="exercise-3-summarize-blood-pressure-by-risk-group">
+<h3>Exercise 3: Summarize Blood Pressure by Risk Group<a class="headerlink" href="#exercise-3-summarize-blood-pressure-by-risk-group" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">tapply()</span></code> to calculate multiple summary statistics for different patient groups.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Stratifying patients by risk group (e.g., Low, Medium, High) and analyzing their vitals is fundamental to population health management and identifying trends.</p>
+<p><strong>Task:</strong>
+You are given a vector of systolic blood pressure readings and a corresponding factor indicating the risk group for each patient. Use <code class="docutils literal notranslate"><span class="pre">tapply()</span></code> to calculate the <strong>mean</strong> and <strong>standard deviation</strong> for each risk group.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Practice dataset</span>
+<span class="n">systolic_bp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">120</span><span class="p">,</span><span class="w"> </span><span class="m">135</span><span class="p">,</span><span class="w"> </span><span class="m">122</span><span class="p">,</span><span class="w"> </span><span class="m">145</span><span class="p">,</span><span class="w"> </span><span class="m">155</span><span class="p">,</span><span class="w"> </span><span class="m">138</span><span class="p">,</span><span class="w"> </span><span class="m">118</span><span class="p">,</span><span class="w"> </span><span class="m">160</span><span class="p">)</span>
+<span class="n">risk_group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Low&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Medium&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Low&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;High&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;High&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Medium&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Low&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;High&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate mean blood pressure by risk group</span>
+<span class="n">mean_bp_by_risk</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="n">systolic_bp</span><span class="p">,</span><span class="w"> </span><span class="n">risk_group</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">mean_bp_by_risk</span><span class="p">)</span>
+
+<span class="c1"># Calculate standard deviation of blood pressure by risk group</span>
+<span class="n">sd_bp_by_risk</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="n">systolic_bp</span><span class="p">,</span><span class="w"> </span><span class="n">risk_group</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">sd_bp_by_risk</span><span class="p">)</span>
+
+<span class="c1"># Expected Output:</span>
+<span class="c1">#     High      Low   Medium </span>
+<span class="c1"># 153.3333 120.0000 136.5000 </span>
+
+<span class="c1">#     High      Low   Medium </span>
+<span class="c1"># 7.637626 2.000000 2.121320</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> <code class="docutils literal notranslate"><span class="pre">tapply</span></code> first groups the <code class="docutils literal notranslate"><span class="pre">systolic_bp</span></code> values according to the <code class="docutils literal notranslate"><span class="pre">risk_group</span></code> factor. The first call then computes the <code class="docutils literal notranslate"><span class="pre">mean()</span></code> for each of these groups (High, Low, Medium). The second call similarly computes the standard deviation (<code class="docutils literal notranslate"><span class="pre">sd()</span></code>) for the same groups.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">tapply</span></code> is the ideal tool for performing summary calculations on different subsets of your data, forming the basis of stratified analysis.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>High-Throughput Genomic Data Analysis</strong>: In genomics, researchers often work with large matrices where rows represent genes and columns represent patient samples. Using <code class="docutils literal notranslate"><span class="pre">apply(gene_expression_matrix,</span> <span class="pre">1,</span> <span class="pre">mean)</span></code> allows for the rapid calculation of the average expression for every single gene across all patients, helping to identify which genes are most or least active in a cohort. This avoids slow and error-prone <code class="docutils literal notranslate"><span class="pre">for</span></code> loops.</p></li>
+<li><p><strong>Processing Electronic Health Records (EHRs)</strong>: EHR data for a patient cohort is often delivered as a list of lists, where each top-level element represents a patient and contains nested lists or vectors for demographics, lab results, and prescriptions. <code class="docutils literal notranslate"><span class="pre">lapply()</span></code> is perfect for this structure. A researcher could use <code class="docutils literal notranslate"><span class="pre">lapply(patient_list,</span> <span class="pre">extract_medications)</span></code> to run a custom function that pulls the medication history for every patient, returning a clean list of medication lists for further analysis.</p></li>
+<li><p><strong>Clinical Trial Subgroup Analysis</strong>: <code class="docutils literal notranslate"><span class="pre">tapply()</span></code> is the workhorse for analyzing clinical trial outcomes. Given a vector of patient outcomes (e.g., change in tumor size) and a factor indicating the treatment arm (e.g., “Placebo”, “Drug A”, “Drug B”), a biostatistician can use <code class="docutils literal notranslate"><span class="pre">tapply(outcome_vector,</span> <span class="pre">treatment_arm,</span> <span class="pre">mean)</span></code> to instantly get the average outcome for each group. This is a fundamental step in determining if a new therapy is effective.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to make your R code more powerful and efficient by writing custom functions and using the <code class="docutils literal notranslate"><span class="pre">apply</span></code> family to automate repetitive analyses. We moved from manual calculations to scalable operations, a critical skill for handling the large and complex datasets found in precision health.</p>
+<p>Key takeaways from this section include:</p>
+<ul class="simple">
+<li><p><strong>Write Functions for Reusability</strong>: Encapsulate any repeated logic into a custom function to make your code cleaner, easier to debug, and more reliable.</p></li>
+<li><p><strong>Choose the Right <code class="docutils literal notranslate"><span class="pre">apply</span></code> Tool for the Job</strong>:</p>
+<ul>
+<li><p>To operate on <strong>rows/columns of a matrix</strong>: Use <code class="docutils literal notranslate"><span class="pre">apply()</span></code>.</p></li>
+<li><p>To operate on <strong>elements of a list</strong> and get a <strong>list back</strong>: Use <code class="docutils literal notranslate"><span class="pre">lapply()</span></code>.</p></li>
+<li><p>To operate on <strong>elements of a list</strong> and get a <strong>simplified vector/matrix</strong>: Use <code class="docutils literal notranslate"><span class="pre">sapply()</span></code>.</p></li>
+<li><p>To operate on a <strong>vector grouped by a factor</strong>: Use <code class="docutils literal notranslate"><span class="pre">tapply()</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Vectorization over Loops</strong>: The <code class="docutils literal notranslate"><span class="pre">apply</span></code> family provides a “vectorized” approach that is more idiomatic and computationally faster in R than writing your own <code class="docutils literal notranslate"><span class="pre">for</span></code> loops for most data summary tasks.</p></li>
+</ul>
+<p>Mastering these functions will significantly accelerate your ability to explore and summarize clinical and biological data. In the next section, we will learn how to visualize these summaries effectively using <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/R",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4.6_subsetting_and_indexing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 4: Data Manipulation in R</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="4.8_and_loading_packages.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 4: Your R Toolkit</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-basic-function">3.1 Creating a Basic Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-apply-function-for-matrices">3.2 The <code class="docutils literal notranslate"><span class="pre">apply()</span></code> Function for Matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lapply-function-for-lists">3.3 The <code class="docutils literal notranslate"><span class="pre">lapply()</span></code> Function for Lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sapply-function-for-simplified-output">3.4 The <code class="docutils literal notranslate"><span class="pre">sapply()</span></code> Function for Simplified Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tapply-function-for-grouped-operations">3.5 The <code class="docutils literal notranslate"><span class="pre">tapply()</span></code> Function for Grouped Operations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-apply-a-bmi-function">Exercise 1: Create and Apply a BMI Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-find-peak-wbc-count-day">Exercise 2: Find Peak WBC Count Day</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-summarize-blood-pressure-by-risk-group">Exercise 3: Summarize Blood Pressure by Risk Group</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 5: Automating Data Analysis with R Scripts &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.7_line_arguments_in_r_scripts';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 5: Data Visualization for Precision Health" href="5.8_plots_with_ggsave.html" />
+    <link rel="prev" title="Chapter 5: Advanced Data Visualization Techniques" href="5.6_and_multi_panel_plots.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_and_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_and_rstudio_installation.html">
+                    Chapter 4: Getting Started with R for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 and Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_%28csv_txt%29.html">4.5 (csv Txt)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Ggplot2 Grammar Of Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 (scatter Box Violin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.3_plots_and_volcano_plots_for_deg.html">5.3 and Volcano Plots For Deg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 and Aesthetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Multi Panel Plots</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5.7 Arguments In R Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 With Ggsave</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/R/main?urlpath=tree/5.7_line_arguments_in_r_scripts.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.7_line_arguments_in_r_scripts.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 5: Automating Data Analysis with R Scripts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-method-capturing-arguments-with-base-r">3.1. The Basic Method: Capturing Arguments with Base R</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-advanced-method-the-argparse-package">3.2. The Advanced Method: The <code class="docutils literal notranslate"><span class="pre">argparse</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-positional-arguments-basic">Exercise 1: Basic Positional Arguments Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-using-named-arguments-with-argparse-intermediate">Exercise 2: Using Named Arguments with <code class="docutils literal notranslate"><span class="pre">argparse</span></code> Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-understanding-a-script-with-help-intermediate">Exercise 3: Understanding a Script with <code class="docutils literal notranslate"><span class="pre">--help</span></code> Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-automating-data-analysis-with-r-scripts">
+<h1>Chapter 5: Automating Data Analysis with R Scripts<a class="headerlink" href="#chapter-5-automating-data-analysis-with-r-scripts" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to automating your R scripts. In this section, you will learn how to pass arguments to an R script directly from the command line, transforming your static code into a flexible and powerful tool. This skill is fundamental for scaling your analyses. Imagine Dr. Chen at City Medical Center needs to generate updated vital signs plots for hundreds of patient data files; instead of manually editing her script for each one, she can write a simple loop in her terminal to run the same script with different patient data files as inputs. This lesson will guide you from basic positional arguments to more robust, named arguments, preparing you for large-scale, automated data processing pipelines in a clinical or research setting.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Command-Line Argument</strong>: An input value provided to a script when it is executed from a command line or terminal. In a medical context, this could be a patient ID, a file path to a specific MRI scan, or a threshold value for a biomarker analysis, allowing the same script to be reused for different subjects or conditions.</p></li>
+<li><p><strong>Positional Argument</strong>: An argument that is identified by its order in the command line. For example, if a script expects <code class="docutils literal notranslate"><span class="pre">Rscript</span> <span class="pre">analyze.R</span> <span class="pre">&lt;patient_file&gt;</span> <span class="pre">&lt;date&gt;</span></code>, the first value after the script name is always interpreted as the patient file and the second as the date. This method is simple but rigid, much like filling out a paper form where each box has a fixed meaning.</p></li>
+<li><p><strong>Flag (or Named Argument)</strong>: An argument preceded by a label, such as <code class="docutils literal notranslate"><span class="pre">--input</span></code> or <code class="docutils literal notranslate"><span class="pre">-i</span></code>. This makes the order of arguments irrelevant and the script’s usage clearer. For instance, <code class="docutils literal notranslate"><span class="pre">Rscript</span> <span class="pre">analyze.R</span> <span class="pre">--date</span> <span class="pre">&quot;2024-10-28&quot;</span> <span class="pre">--patient_file</span> <span class="pre">&quot;p123.csv&quot;</span></code> is more readable and less error-prone than relying on position, similar to how a patient’s chart has clearly labeled fields like “Patient ID” and “Date of Birth.”</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">commandArgs(trailingOnly</span> <span class="pre">=</span> <span class="pre">TRUE)</span></code></strong>: A base R function that captures all command-line arguments that come <em>after</em> the script name itself. It returns them as a character vector, which is the simplest way to access inputs without external packages.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">argparse</span></code></strong>: A powerful R package that provides a structured way to define, parse, and validate command-line arguments. It allows for creating required arguments, optional flags, default values, and automatic help messages, making scripts more robust and user-friendly.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="the-basic-method-capturing-arguments-with-base-r">
+<h3>3.1. The Basic Method: Capturing Arguments with Base R<a class="headerlink" href="#the-basic-method-capturing-arguments-with-base-r" title="Link to this heading">#</a></h3>
+<p>The most direct way to handle command-line inputs in R is with <code class="docutils literal notranslate"><span class="pre">commandArgs(trailingOnly</span> <span class="pre">=</span> <span class="pre">TRUE)</span></code>. This function captures all inputs provided after the script name and stores them as a character vector. This approach is best for simple scripts with a small number of inputs where the order is fixed.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate_plot.R</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+
+<span class="n">args</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">commandArgs</span><span class="p">(</span><span class="n">trailingOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nf">stop</span><span class="p">(</span><span class="s">&quot;Usage: Rscript generate_plot.R &lt;path/to/data.csv&gt; &lt;&#39;Plot Title&#39;&gt; &lt;line_width&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">call.</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">input_file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+<span class="n">plot_title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="m">2</span><span class="p">]</span>
+<span class="n">line_width</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="m">3</span><span class="p">])</span>
+
+<span class="n">patient_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+<span class="n">vitals_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Day</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">systolic_bp</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_line</span><span class="p">(</span><span class="n">linewidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line_width</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plot_title</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic BP (mmHg)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note:</strong> A common error is forgetting to convert character arguments to the correct data type. If you pass <code class="docutils literal notranslate"><span class="pre">1.2</span></code> for <code class="docutils literal notranslate"><span class="pre">line_width</span></code> but forget <code class="docutils literal notranslate"><span class="pre">as.numeric()</span></code>, <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> will throw an error because <code class="docutils literal notranslate"><span class="pre">linewidth</span></code> expects a numeric value, not the character string <code class="docutils literal notranslate"><span class="pre">&quot;1.2&quot;</span></code>. Always validate and convert inputs early in your script.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Using <code class="docutils literal notranslate"><span class="pre">call.</span> <span class="pre">=</span> <span class="pre">FALSE</span></code> within the <code class="docutils literal notranslate"><span class="pre">stop()</span></code> function is a best practice for user-facing scripts. It prevents R from printing a complex call stack, providing the user with a clean, direct error message that is easier to understand.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Important:</strong> When running an R script from the command line, a <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> object must be explicitly wrapped in <code class="docutils literal notranslate"><span class="pre">print()</span></code> to be rendered. Unlike an interactive R session, the script will not automatically display the last created object. Without <code class="docutils literal notranslate"><span class="pre">print(vitals_plot)</span></code>, your script will run without errors but produce no output.</p>
+</div></blockquote>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="n">vitals_plot</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To run this script from your terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Rscript<span class="w"> </span>generate_plot.R<span class="w"> </span><span class="s2">&quot;data/PT000123.csv&quot;</span><span class="w"> </span><span class="s2">&quot;Vitals for Patient 123&quot;</span><span class="w"> </span><span class="m">1</span>.2
+</pre></div>
+</div>
+</section>
+<section id="the-advanced-method-the-argparse-package">
+<h3>3.2. The Advanced Method: The <code class="docutils literal notranslate"><span class="pre">argparse</span></code> Package<a class="headerlink" href="#the-advanced-method-the-argparse-package" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Medical Background:</strong> Think of the <code class="docutils literal notranslate"><span class="pre">argparse</span></code> package as creating a standardized intake form for your R script. Instead of relying on the order of inputs (like the base R method), you create clearly labeled fields like <code class="docutils literal notranslate"><span class="pre">--input</span></code> or <code class="docutils literal notranslate"><span class="pre">--bp-threshold</span></code>. This is like a patient’s chart, where “Patient ID” and “Blood Pressure” are distinct fields, reducing ambiguity and making the script easier and safer for others to use.</p>
+</div></blockquote>
+<p>For more complex scripts, the <code class="docutils literal notranslate"><span class="pre">argparse</span></code> package is the industry standard. It allows you to create labeled, self-documenting arguments (flags) like <code class="docutils literal notranslate"><span class="pre">--input</span></code> or <code class="docutils literal notranslate"><span class="pre">--bp-threshold</span></code>.</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># parser_example.R</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">argparse</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+
+<span class="n">parser</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&#39;Process patient data and plot vitals.&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">$</span><span class="nf">add_argument</span><span class="p">(</span><span class="s">&quot;--input&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">required</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">help</span><span class="o">=</span><span class="s">&quot;Path to input CSV file&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">$</span><span class="nf">add_argument</span><span class="p">(</span><span class="s">&quot;--bp-threshold&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;double&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">default</span><span class="o">=</span><span class="m">140.0</span><span class="p">,</span><span class="w"> </span><span class="n">help</span><span class="o">=</span><span class="s">&quot;Systolic BP threshold (mmHg)&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">$</span><span class="nf">add_argument</span><span class="p">(</span><span class="s">&quot;--line_width&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;double&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">default</span><span class="o">=</span><span class="m">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">help</span><span class="o">=</span><span class="s">&quot;Width for the plot line.&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">$</span><span class="nf">add_argument</span><span class="p">(</span><span class="s">&quot;--title&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">default</span><span class="o">=</span><span class="s">&quot;Patient Vitals&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">help</span><span class="o">=</span><span class="s">&quot;Optional plot title&quot;</span><span class="p">)</span>
+<span class="n">args</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">parser</span><span class="o">$</span><span class="nf">parse_args</span><span class="p">()</span>
+
+<span class="n">patient_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="n">args</span><span class="o">$</span><span class="n">input</span><span class="p">)</span>
+
+<span class="n">vitals_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Day</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">systolic_bp</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_line</span><span class="p">(</span><span class="n">linewidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">$</span><span class="n">line_width</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">$</span><span class="n">bp_threshold</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="o">$</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic BP (mmHg)&quot;</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">vitals_plot</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To see the auto-generated help message, run this in your terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Rscript<span class="w"> </span>parser_example.R<span class="w"> </span>--help
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Expected Output
+usage: parser_example.R [-h] --input INPUT [--bp-threshold BP_THRESHOLD]
+                        [--line_width LINE_WIDTH] [--title TITLE]
+
+Process patient data and plot vitals.
+
+options:
+  -h, --help            show this help message and exit
+  --input INPUT         Path to input CSV file
+  --bp-threshold BP_THRESHOLD
+                        Systolic BP threshold (mmHg)
+  --line_width LINE_WIDTH
+                        Width for the plot line.
+  --title TITLE         Optional plot title
+</pre></div>
+</div>
+<p>To run the script with required and optional arguments:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Rscript<span class="w"> </span>parser_example.R<span class="w"> </span>--input<span class="w"> </span><span class="s2">&quot;data/PT000123.csv&quot;</span><span class="w"> </span>--bp-threshold<span class="w"> </span><span class="m">150</span><span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;BP for Patient 123&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-basic-positional-arguments-basic">
+<h3>Exercise 1: Basic Positional Arguments Basic<a class="headerlink" href="#exercise-1-basic-positional-arguments-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Modify a script to accept positional arguments for the input file and plot color.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Dr. Chen wants to enhance the plotting script. She needs the ability to quickly change the line color to highlight specific patient charts during presentations.</p>
+<p>Modify the base R <code class="docutils literal notranslate"><span class="pre">generate_plot.R</span></code> script logic and save it as <code class="docutils literal notranslate"><span class="pre">plot_vitals.R</span></code>.</p>
+<ol class="arabic simple">
+<li><p>The script must accept exactly two command-line arguments: the path to a patient’s CSV data file and a color for the plot’s line graph (e.g., “blue”, “red”).</p></li>
+<li><p>If the number of arguments is not two, stop the script with the message: <code class="docutils literal notranslate"><span class="pre">Usage:</span> <span class="pre">Rscript</span> <span class="pre">plot_vitals.R</span> <span class="pre">&lt;path/to/data.csv&gt;</span> <span class="pre">&lt;color&gt;</span></code>.</p></li>
+<li><p>Use the first argument to read the data and the second to set the color of the <code class="docutils literal notranslate"><span class="pre">geom_line()</span></code>.</p></li>
+<li><p>Generate and print the plot.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot_vitals.R</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+
+<span class="n">args</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">commandArgs</span><span class="p">(</span><span class="n">trailingOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nf">stop</span><span class="p">(</span><span class="s">&quot;Usage: Rscript plot_vitals.R &lt;path/to/data.csv&gt; &lt;color&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">call.</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">input_file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+<span class="n">line_color</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="m">2</span><span class="p">]</span>
+
+<span class="n">patient_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+<span class="n">vitals_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ggplot</span><span class="p">(</span><span class="n">patient_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Day</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">systolic_bp</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_line</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line_color</span><span class="p">,</span><span class="w"> </span><span class="n">linewidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;Vitals for&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">input_file</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Systolic BP (mmHg)&quot;</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">vitals_plot</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The script captures arguments and checks if there are exactly two. It then assigns the first argument to <code class="docutils literal notranslate"><span class="pre">input_file</span></code> and the second to <code class="docutils literal notranslate"><span class="pre">line_color</span></code>. The <code class="docutils literal notranslate"><span class="pre">line_color</span></code> variable is passed directly to the <code class="docutils literal notranslate"><span class="pre">color</span></code> aesthetic in <code class="docutils literal notranslate"><span class="pre">geom_line()</span></code>.
+<strong>Key Learning:</strong> Positional arguments are accessed sequentially from the <code class="docutils literal notranslate"><span class="pre">args</span></code> vector. Simple validation using <code class="docutils literal notranslate"><span class="pre">length(args)</span></code> is crucial for ensuring the script receives the correct inputs.</p>
+</div>
+</details></section>
+<section id="exercise-2-using-named-arguments-with-argparse-intermediate">
+<h3>Exercise 2: Using Named Arguments with <code class="docutils literal notranslate"><span class="pre">argparse</span></code> Intermediate<a class="headerlink" href="#exercise-2-using-named-arguments-with-argparse-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice running a script that uses named arguments and overriding a default value.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A clinician needs to generate a plot for a patient with severe hypertension and wants to set a custom alert threshold on the graph, different from the standard 140 mmHg.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">parser_example.R</span></code> script from the lesson, write the full terminal command to run the script for the file <code class="docutils literal notranslate"><span class="pre">data/PT000456.csv</span></code> and set the blood pressure threshold to <code class="docutils literal notranslate"><span class="pre">160.0</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Rscript<span class="w"> </span>parser_example.R<span class="w"> </span>--input<span class="w"> </span><span class="s2">&quot;data/PT000456.csv&quot;</span><span class="w"> </span>--bp-threshold<span class="w"> </span><span class="m">160</span>.0
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> We provide the required <code class="docutils literal notranslate"><span class="pre">--input</span></code> argument with the path to the patient’s data file. We then use the optional <code class="docutils literal notranslate"><span class="pre">--bp-threshold</span></code> flag to override the default value of 140.0 with our custom value of 160.0. Since flags are named, the order does not matter.
+<strong>Key Learning:</strong> Named arguments make scripts more readable and flexible, allowing users to override default parameters easily.</p>
+</div>
+</details></section>
+<section id="exercise-3-understanding-a-script-with-help-intermediate">
+<h3>Exercise 3: Understanding a Script with <code class="docutils literal notranslate"><span class="pre">--help</span></code> Intermediate<a class="headerlink" href="#exercise-3-understanding-a-script-with-help-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use the auto-generated help message from an <code class="docutils literal notranslate"><span class="pre">argparse</span></code> script to understand its functionality.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A new researcher joins Dr. Chen’s team and is given an R script named <code class="docutils literal notranslate"><span class="pre">analyze_cohort.R</span></code>. Before running it, they need to understand what inputs it requires and what options are available, without reading the source code.</p>
+<p>Assume <code class="docutils literal notranslate"><span class="pre">parser_example.R</span></code> is the <code class="docutils literal notranslate"><span class="pre">analyze_cohort.R</span></code> script. Write the command to display its help message and answer the following questions based on the output:</p>
+<ol class="arabic simple">
+<li><p>Which argument is mandatory?</p></li>
+<li><p>What is the default value for the <code class="docutils literal notranslate"><span class="pre">--title</span></code> argument?</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p><strong>Command:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Rscript<span class="w"> </span>parser_example.R<span class="w"> </span>--help
+</pre></div>
+</div>
+<p><strong>Answers:</strong></p>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--input</span></code> argument is mandatory. In the help text, arguments that are not enclosed in square brackets <code class="docutils literal notranslate"><span class="pre">[]</span></code> in the usage line are required.</p></li>
+<li><p>The default value for the <code class="docutils literal notranslate"><span class="pre">--title</span></code> argument is <code class="docutils literal notranslate"><span class="pre">&quot;Patient</span> <span class="pre">Vitals&quot;</span></code>. This is explicitly stated in the help text for that option.</p></li>
+</ol>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">--help</span></code> flag is automatically created by <code class="docutils literal notranslate"><span class="pre">argparse</span></code> and provides a user-friendly summary of all defined arguments, their purpose (from the <code class="docutils literal notranslate"><span class="pre">help</span></code> text), their types, and their default values.
+<strong>Key Learning:</strong> Well-documented scripts using <code class="docutils literal notranslate"><span class="pre">argparse</span></code> are self-explanatory, which is crucial for collaboration and for building maintainable analysis pipelines.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Batch Processing of Clinical Trial Data</strong>: In a multi-site clinical trial, data for thousands of patients arrives in separate CSV files. A single R script can be written to perform a standardized analysis (e.g., calculate response to treatment). Using a command-line argument for the input file path (<code class="docutils literal notranslate"><span class="pre">--input</span></code>), a simple shell script can loop through all files, execute the R script for each one, and save the results, ensuring consistency and saving hundreds of hours of manual work.</p></li>
+<li><p><strong>Automated Quality Control (QC) Reporting</strong>: When analyzing high-throughput sequencing data (e.g., from a genomics core), it’s critical to run QC checks. An R script using <code class="docutils literal notranslate"><span class="pre">argparse</span></code> can be designed to take a data file path, a set of QC thresholds (<code class="docutils literal notranslate"><span class="pre">--min_reads</span></code>, <code class="docutils literal notranslate"><span class="pre">--max_error</span></code>), and an output directory (<code class="docutils literal notranslate"><span class="pre">--outdir</span></code>). This script can be integrated into an automated pipeline that runs immediately after the sequencing instrument finishes, generating a PDF report with plots and tables that flag any low-quality samples for review.</p></li>
+<li><p><strong>Dynamic Epidemiological Modeling</strong>: Researchers modeling the spread of a disease can use command-line arguments to tune model parameters without editing code. Arguments like <code class="docutils literal notranslate"><span class="pre">--infection_rate</span> <span class="pre">0.8</span></code> or <code class="docutils literal notranslate"><span class="pre">--vaccine_efficacy</span> <span class="pre">0.92</span></code> can be passed to an R script that runs a simulation. This allows for rapid “what-if” scenario testing, where hundreds of parameter combinations can be explored systematically on a high-performance computing cluster to find the most likely outcomes.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to make R scripts dynamic and reusable by accepting command-line arguments. We covered the straightforward base R method using <code class="docutils literal notranslate"><span class="pre">commandArgs()</span></code> for simple cases and the more powerful, flexible <code class="docutils literal notranslate"><span class="pre">argparse</span></code> package for building complex, user-friendly command-line tools. Mastering this skill is a critical step toward automating repetitive analyses and building scalable data processing pipelines.</p>
+<ul class="simple">
+<li><p><strong>Base R is for Simplicity</strong>: <code class="docutils literal notranslate"><span class="pre">commandArgs(trailingOnly</span> <span class="pre">=</span> <span class="pre">TRUE)</span></code> is effective for scripts with a few, fixed-order inputs. Remember to validate the number of arguments and convert data types manually.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">argparse</span></code> is for Robustness</strong>: For scripts with multiple, optional, or named inputs, <code class="docutils literal notranslate"><span class="pre">argparse</span></code> provides validation, default values, type conversion, and automatic help messages, making your tools easier for you and others to use.</p></li>
+<li><p><strong>Automation is the Goal</strong>: The primary purpose of using command-line arguments is to enable automation. Your script becomes a building block that can be called repeatedly by other programs to process large volumes of data without human intervention.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">print()</span></code> is Essential</strong>: When running a script from the command line, <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> objects must be explicitly passed to <code class="docutils literal notranslate"><span class="pre">print()</span></code> or a save function like <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code> to be rendered.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> You’ve now seen two ways to pass arguments to a script. The base R method is quick for simple, personal scripts. The <code class="docutils literal notranslate"><span class="pre">argparse</span></code> method is more robust and user-friendly. When might the extra setup time for <code class="docutils literal notranslate"><span class="pre">argparse</span></code> be justified in a clinical research or operational setting? Consider factors like script complexity, number of users, and the potential impact of input errors.</p>
+</div></blockquote>
+<p>Next, we will focus on programmatically saving your outputs, such as plots and data tables, to files, completing the workflow for a fully automated analysis pipeline.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/R",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.6_and_multi_panel_plots.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 5: Advanced Data Visualization Techniques</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5.8_plots_with_ggsave.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 5: Data Visualization for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basic-method-capturing-arguments-with-base-r">3.1. The Basic Method: Capturing Arguments with Base R</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-advanced-method-the-argparse-package">3.2. The Advanced Method: The <code class="docutils literal notranslate"><span class="pre">argparse</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-basic-positional-arguments-basic">Exercise 1: Basic Positional Arguments Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-using-named-arguments-with-argparse-intermediate">Exercise 2: Using Named Arguments with <code class="docutils literal notranslate"><span class="pre">argparse</span></code> Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-understanding-a-script-with-help-intermediate">Exercise 3: Understanding a Script with <code class="docutils literal notranslate"><span class="pre">--help</span></code> Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

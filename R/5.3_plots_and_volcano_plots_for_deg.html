@@ -1,0 +1,875 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 5: Analyzing Differential Gene Expression &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.3_plots_and_volcano_plots_for_deg';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 5: Advanced Visualization for Genomic Data" href="5.4_for_gene_expression.html" />
+    <link rel="prev" title="Chapter 5: Visualizing Medical Data with ggplot2" href="5.2_types_%28scatter_box_violin%29.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="4.1_and_rstudio_installation.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="4.1_and_rstudio_installation.html">
+                    Chapter 4: Getting Started with R for Precision Health
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="4.2_data_types_in_r.html">4.2 Types In R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.4_frames_and_matrices.html">4.4 and Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.5_data_%28csv_txt%29.html">4.5 (csv Txt)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.6_subsetting_and_indexing.html">4.6 and Indexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.7_and_apply_family.html">4.7 Apply Family</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.8_and_loading_packages.html">4.8 Loading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.1_to_ggplot2_grammar_of_graphics.html">5.1 Ggplot2 Grammar Of Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.2_types_%28scatter_box_violin%29.html">5.2 (scatter Box Violin)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5.3 and Volcano Plots For Deg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.4_for_gene_expression.html">5.4 Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.5_themes_and_aesthetics.html">5.5 and Aesthetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.6_and_multi_panel_plots.html">5.6 Multi Panel Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.7_line_arguments_in_r_scripts.html">5.7 Arguments In R Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.8_plots_with_ggsave.html">5.8 With Ggsave</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/xaviercheeteaching/R/main?urlpath=tree/5.3_plots_and_volcano_plots_for_deg.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/5.3_plots_and_volcano_plots_for_deg.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 5: Analyzing Differential Gene Expression</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-load-libraries-and-create-sample-data">3.1 Setup: Load Libraries and Create Sample Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ma-plots-to-assess-data-normalization">3.2 MA Plots to Assess Data Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#volcano-plots-to-identify-significant-genes">3.3 Volcano Plots to Identify Significant Genes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-isolate-top-candidates-with-stricter-thresholds-intermediate">Exercise 1: Isolate Top Candidates with Stricter Thresholds Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-interpret-the-volcano-plot-basic">Exercise 2: Interpret the Volcano Plot Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-customize-an-ma-plot-intermediate">Exercise 3: Customize an MA Plot Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-analyzing-differential-gene-expression">
+<h1>Chapter 5: Analyzing Differential Gene Expression<a class="headerlink" href="#chapter-5-analyzing-differential-gene-expression" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>After performing a statistical analysis to find differentially expressed genes, the next critical step is visualization. Raw data tables containing thousands of genes are difficult to interpret, but graphical representations like MA and volcano plots transform this data into actionable insights. These plots help us assess the quality of our analysis and quickly identify the most biologically significant genes that warrant further investigation.</p>
+<p>In this section, you will learn how to create and interpret these two essential visualizations. We will begin by defining the core concepts behind each plot. Then, you will learn how to generate them using the <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> package in R. Finally, you will apply these skills in hands-on exercises and discover their practical applications in real-world precision health scenarios, such as identifying potential cancer drug targets.</p>
+<blockquote>
+<div><p><strong>Medical Background:</strong>
+In oncology, <strong>Differential Gene Expression (DEG)</strong> analysis is fundamental. By comparing gene expression in a tumor to that of healthy tissue, researchers can identify genes that are “upregulated” (overly active) or “downregulated” (suppressed). These genes can become targets for new cancer drugs or serve as “biomarkers” for early diagnosis and prognosis. These plots are the primary tools for visualizing those discoveries.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these core terms is essential for interpreting DEG visualizations correctly.</p>
+<ul class="simple">
+<li><p><strong>Differential Gene Expression (DEG)</strong>: The analytical process used to identify genes that show statistically significant differences in their expression levels between two or more conditions, such as tumor versus healthy tissue. It forms the foundation for discovering genes involved in disease.</p></li>
+<li><p><strong>MA Plot</strong>: A scatter plot that visualizes the results of a DEG analysis by plotting the log-fold change (<strong>M</strong>) on the y-axis against the average expression level (<strong>A</strong>) on the x-axis. Its primary use is for quality control. <strong>Medical Analogy:</strong> Think of an MA plot as calibrating a sensitive lab instrument. A symmetrical plot centered around M=0 confirms that the measurements (fold changes) are not skewed by the signal intensity (gene expression level), ensuring the data is well-normalized and reliable.</p></li>
+<li><p><strong>Volcano Plot</strong>: A scatter plot that visualizes effect size against statistical significance by plotting the log2 fold change on the x-axis versus the -log10 adjusted p-value on the y-axis. It is used to identify the most impactful genes. <strong>Medical Analogy:</strong> A volcano plot acts like a clinical triage system. It allows researchers to quickly spot the most “critical” cases—genes with both large-magnitude changes and high statistical confidence—which are prioritized for follow-up studies.</p></li>
+<li><p><strong>Log2 Fold Change (LFC or M)</strong>: The base-2 logarithm of the ratio of a gene’s expression in one condition compared to another. An LFC of 2 represents a four-fold increase (2^2), while an LFC of -1 represents a two-fold decrease (2^-1). It measures the magnitude of change.</p></li>
+<li><p><strong>Mean Expression (A)</strong>: The average expression level of a gene across all samples. It is plotted on the x-axis of an MA plot to check for intensity-based bias.</p></li>
+<li><p><strong>Adjusted P-value</strong>: A statistical measure of significance that has been corrected for multiple testing (e.g., testing thousands of genes at once). A low value (e.g., &lt; 0.05) suggests the observed change in gene expression is unlikely to be due to random chance.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>Here, we will walk through the R code needed to generate MA and volcano plots. First, we’ll create a reproducible dataset so you can run all the examples yourself.</p>
+<section id="setup-load-libraries-and-create-sample-data">
+<h3>3.1 Setup: Load Libraries and Create Sample Data<a class="headerlink" href="#setup-load-libraries-and-create-sample-data" title="Link to this heading">#</a></h3>
+<p>This block loads all necessary packages and creates a synthetic <code class="docutils literal notranslate"><span class="pre">deg_data</span></code> data frame that mimics real DEG results.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Load all required packages for this section ---</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggrepel</span><span class="p">)</span>
+
+<span class="c1"># --- Create a reproducible, synthetic dataset mimicking DEG results ---</span>
+<span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span><span class="w"> </span><span class="c1"># for reproducibility</span>
+<span class="n">num_genes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">5000</span>
+<span class="n">deg_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="c1"># gene: Gene identifier</span>
+<span class="w">  </span><span class="n">gene</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;GENE&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">num_genes</span><span class="p">),</span>
+<span class="w">  </span><span class="c1"># base_mean: Average normalized expression level across all samples</span>
+<span class="w">  </span><span class="n">base_mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgamma</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000</span><span class="p">),</span>
+<span class="w">  </span><span class="c1"># log2_fc: Log2 fold change between conditions</span>
+<span class="w">  </span><span class="n">log2_fc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">),</span>
+<span class="w">  </span><span class="c1"># p_val: Raw p-value from statistical test</span>
+<span class="w">  </span><span class="n">p_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rbeta</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="c1"># Simulate some strongly differentially expressed genes</span>
+<span class="n">strong_up</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">num_genes</span><span class="p">,</span><span class="w"> </span><span class="m">50</span><span class="p">)</span>
+<span class="n">strong_down</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">num_genes</span><span class="p">,</span><span class="w"> </span><span class="m">50</span><span class="p">)</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">log2_fc</span><span class="p">[</span><span class="n">strong_up</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">p_val</span><span class="p">[</span><span class="n">strong_up</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbeta</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">50</span><span class="p">)</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">log2_fc</span><span class="p">[</span><span class="n">strong_down</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-3</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">p_val</span><span class="p">[</span><span class="n">strong_down</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbeta</span><span class="p">(</span><span class="m">50</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">50</span><span class="p">)</span>
+
+<span class="c1"># adj_p_val: Adjusted p-value for statistical significance (corrected for multiple testing)</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">adj_p_val</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">p.adjust</span><span class="p">(</span><span class="n">deg_data</span><span class="o">$</span><span class="n">p_val</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;BH&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Display the structure of the data ---</span>
+<span class="c1"># head(deg_data)</span>
+<span class="c1"># Output:</span>
+<span class="c1">#     gene  base_mean    log2_fc        p_val     adj_p_val</span>
+<span class="c1"># 1  GENE1 1389.73939  2.0553932 0.0006929811  0.0076227925</span>
+<span class="c1"># 2  GENE2  889.52541 -0.8753109 0.0009268393  0.0092683932</span>
+<span class="c1"># 3  GENE3 3888.86422  3.3981802 0.0001099138  0.0021982760</span>
+<span class="c1"># 4  GENE4 2187.33314  0.2435179 0.0988888423  0.1412697747</span>
+<span class="c1"># 5  GENE5 1782.18512  0.9438393 0.0016489493  0.0143386895</span>
+<span class="c1"># 6  GENE6  552.33342 -2.4347723 0.0002627993  0.0043799884</span>
+</pre></div>
+</div>
+</section>
+<section id="ma-plots-to-assess-data-normalization">
+<h3>3.2 MA Plots to Assess Data Normalization<a class="headerlink" href="#ma-plots-to-assess-data-normalization" title="Link to this heading">#</a></h3>
+<p>An MA plot is a powerful tool for diagnosing technical biases. In a well-normalized dataset, the log-fold change should be independent of the average gene expression, appearing as a symmetrical cloud of points centered on the M=0 line.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong>
+Think of an MA plot as a quality control step, much like calibrating a sensitive lab instrument before running an experiment. A symmetrical plot centered at M=0 confirms that the measured expression changes are real and not an artifact of signal intensity. A skewed plot is a red flag that may require re-running the data normalization process to avoid drawing false conclusions.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Debug Note:</strong>
+The code below filters for <code class="docutils literal notranslate"><span class="pre">base_mean</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> before plotting. This is because genes with zero expression were not detected in the experiment. Taking the logarithm of zero (<code class="docutils literal notranslate"><span class="pre">log2(0)</span></code>) is mathematically undefined and would cause an error. Removing these genes is a standard step for creating an MA plot.</p>
+</div></blockquote>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Define thresholds and classify genes for visualization ---</span>
+<span class="n">log2fc_thresh</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1.0</span>
+<span class="n">p_thresh</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.05</span>
+
+<span class="c1"># Create a &#39;status&#39; column to classify genes</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">status</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span>
+<span class="n">up_idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">log2_fc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">log2fc_thresh</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">adj_p_val</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">p_thresh</span>
+<span class="n">down_idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">log2_fc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="n">log2fc_thresh</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">adj_p_val</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">p_thresh</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">status</span><span class="p">[</span><span class="n">up_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Upregulated&quot;</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">status</span><span class="p">[</span><span class="n">down_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Downregulated&quot;</span>
+
+<span class="c1"># Filter out genes with zero expression for the log-transform</span>
+<span class="n">deg_data_filtered</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deg_data</span><span class="p">[</span><span class="n">deg_data</span><span class="o">$</span><span class="n">base_mean</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+
+<span class="c1"># --- Create the MA Plot ---</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">deg_data_filtered</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log2</span><span class="p">(</span><span class="n">base_mean</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log2_fc</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">status</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">scale_color_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Downregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Upregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MA Plot for Quality Control&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Log2 Mean Expression (A)&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Log2 Fold Change (M)&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_minimal</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>[Image of the generated MA plot would be displayed here.]</p>
+<p>Now that we’ve used the MA plot to confirm our data is well-normalized, we can confidently proceed to the volcano plot to identify the most biologically significant genes.</p>
+</section>
+<section id="volcano-plots-to-identify-significant-genes">
+<h3>3.3 Volcano Plots to Identify Significant Genes<a class="headerlink" href="#volcano-plots-to-identify-significant-genes" title="Link to this heading">#</a></h3>
+<p>While the MA plot is for quality control, the volcano plot is for discovery. It helps you simultaneously visualize the statistical significance (p-value) and biological magnitude (fold change) of every gene.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># We use the original &#39;deg_data&#39; as this plot does not require log-transforming the base mean.</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">deg_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log2_fc</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="nf">log10</span><span class="p">(</span><span class="n">adj_p_val</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">status</span><span class="p">),</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="o">-</span><span class="n">log2fc_thresh</span><span class="p">,</span><span class="w"> </span><span class="n">log2fc_thresh</span><span class="p">),</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="nf">log10</span><span class="p">(</span><span class="n">p_thresh</span><span class="p">),</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_text_repel</span><span class="p">(</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="n">deg_data</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gene</span><span class="p">),</span>
+<span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">max.overlaps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="c1"># Helps manage label overlap</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">scale_color_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Downregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Upregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Volcano Plot of Differential Gene Expression&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Log2 Fold Change&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;-log10(Adjusted P-value)&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_minimal</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>[Image of the generated volcano plot would be displayed here.]</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong>
+Notice the use of <code class="docutils literal notranslate"><span class="pre">geom_text_repel</span></code>. In plots with many data points, gene labels can overlap and become unreadable. This function intelligently positions labels to prevent them from colliding, which is essential for creating clear, publication-quality figures.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>Apply your knowledge with these hands-on exercises.</p>
+<section id="exercise-1-isolate-top-candidates-with-stricter-thresholds-intermediate">
+<h3>Exercise 1: Isolate Top Candidates with Stricter Thresholds Intermediate<a class="headerlink" href="#exercise-1-isolate-top-candidates-with-stricter-thresholds-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Generate a volcano plot to identify the strongest gene candidates for a collaborator using stricter significance criteria.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Your collaborator in the oncology department is overwhelmed by the initial list of significant genes. To help them focus on the most promising candidates for follow-up experiments, your task is to generate a new volcano plot using stricter thresholds.</p>
+<p>Your final plot must meet these criteria:</p>
+<ul class="simple">
+<li><p>Define stricter thresholds: <code class="docutils literal notranslate"><span class="pre">stricter_log2fc</span> <span class="pre">&lt;-</span> <span class="pre">2.0</span></code> and <code class="docutils literal notranslate"><span class="pre">stricter_pval</span> <span class="pre">&lt;-</span> <span class="pre">0.01</span></code>.</p></li>
+<li><p>Create a new column <code class="docutils literal notranslate"><span class="pre">strict_status</span></code> based on these new thresholds.</p></li>
+<li><p>Color upregulated genes “orange” and downregulated genes “purple”.</p></li>
+<li><p>Ensure dashed lines on the plot mark the new, stricter thresholds.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">geom_text_repel</span></code> to label only the genes that meet the new criteria.</p></li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Define stricter thresholds ---</span>
+<span class="n">stricter_log2fc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2.0</span>
+<span class="n">stricter_pval</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.01</span>
+
+<span class="c1"># --- Create a new status column based on stricter criteria ---</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">strict_status</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span>
+<span class="n">strict_up_idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">log2_fc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">stricter_log2fc</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">adj_p_val</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">stricter_pval</span>
+<span class="n">strict_down_idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">log2_fc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="n">stricter_log2fc</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">deg_data</span><span class="o">$</span><span class="n">adj_p_val</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">stricter_pval</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">strict_status</span><span class="p">[</span><span class="n">strict_up_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Upregulated&quot;</span>
+<span class="n">deg_data</span><span class="o">$</span><span class="n">strict_status</span><span class="p">[</span><span class="n">strict_down_idx</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Downregulated&quot;</span>
+
+<span class="c1"># --- Generate the volcano plot with new criteria ---</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">deg_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log2_fc</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="nf">log10</span><span class="p">(</span><span class="n">adj_p_val</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strict_status</span><span class="p">),</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="o">-</span><span class="n">stricter_log2fc</span><span class="p">,</span><span class="w"> </span><span class="n">stricter_log2fc</span><span class="p">),</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="nf">log10</span><span class="p">(</span><span class="n">stricter_pval</span><span class="p">),</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_text_repel</span><span class="p">(</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="n">deg_data</span><span class="p">,</span><span class="w"> </span><span class="n">strict_status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gene</span><span class="p">),</span>
+<span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">max.overlaps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">scale_color_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Downregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;purple&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Upregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;orange&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Volcano Plot with Stricter Thresholds&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Log2 Fold Change&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;-log10(Adjusted P-value)&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Strict Status&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_minimal</span><span class="p">()</span>
+
+<span class="c1"># [Image of the resulting volcano plot should be displayed here]</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This code first defines the stricter thresholds. It then creates a new <code class="docutils literal notranslate"><span class="pre">strict_status</span></code> column in the <code class="docutils literal notranslate"><span class="pre">deg_data</span></code> data frame to classify genes based on these new rules. The <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> call is similar to the one in the main content but uses the <code class="docutils literal notranslate"><span class="pre">strict_status</span></code> column for coloring, updated threshold lines, and a new color palette.</p>
+<p><strong>Key Learning:</strong> Adjusting thresholds is a common and critical step in DEG analysis to control the number of candidate genes for follow-up experiments, balancing discovery against the cost of validation.</p>
+</div>
+</details></section>
+<section id="exercise-2-interpret-the-volcano-plot-basic">
+<h3>Exercise 2: Interpret the Volcano Plot Basic<a class="headerlink" href="#exercise-2-interpret-the-volcano-plot-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice interpreting the output of a volcano plot to draw biological conclusions.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A key skill for a bioinformatician is not just to create plots, but to communicate their meaning to clinicians or lab scientists who may not be experts in data analysis.</p>
+<p>Using the volcano plot generated in <strong>Section 3.3</strong>, answer the following questions:</p>
+<ol class="arabic simple">
+<li><p>Which axis represents the magnitude of the gene expression change?</p></li>
+<li><p>Which axis represents the statistical confidence in that change?</p></li>
+<li><p>Identify one of the most significantly upregulated genes and explain why it stands out on the plot.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p><strong>Explanation:</strong></p>
+<ol class="arabic simple">
+<li><p>The <strong>x-axis (Log2 Fold Change)</strong> represents the magnitude of change. Large positive values mean strong upregulation, while large negative values mean strong downregulation.</p></li>
+<li><p>The <strong>y-axis (-log10 Adjusted P-value)</strong> represents statistical confidence. A higher value on this axis means a smaller p-value (e.g., a y-value of 2 corresponds to p=0.01; a y-value of 3 corresponds to p=0.001), indicating greater confidence that the observed change is not due to random chance.</p></li>
+<li><p>Based on the plot, a gene like <strong>GENE3</strong> is one of the most significantly upregulated. It stands out because it is located in the top-right quadrant, indicating it has both a large positive log2 fold change (high magnitude) and a very high -log10 adjusted p-value (high statistical significance).</p></li>
+</ol>
+<p><strong>Key Learning:</strong> The most compelling candidate genes are those that excel on both axes of the volcano plot, representing changes that are both biologically large and statistically robust.</p>
+</div>
+</details></section>
+<section id="exercise-3-customize-an-ma-plot-intermediate">
+<h3>Exercise 3: Customize an MA Plot Intermediate<a class="headerlink" href="#exercise-3-customize-an-ma-plot-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Modify an MA plot to highlight significant genes, combining quality control with discovery.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> While MA plots are for QC, overlaying significance information can help quickly confirm that the most differentially expressed genes are not clustered at very low or very high expression levels, which could indicate bias.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">deg_data_filtered</span></code> data frame and the original <code class="docutils literal notranslate"><span class="pre">status</span></code> column from Section 3.2, create an MA plot where you label only the top 10 most significantly upregulated and top 10 most significantly downregulated genes.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Identify the top 10 up and down regulated genes ---</span>
+<span class="c1"># First, filter for significant genes</span>
+<span class="n">significant_genes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="n">deg_data_filtered</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span><span class="p">)</span>
+
+<span class="c1"># Order by fold change to find top up- and down-regulated genes</span>
+<span class="n">significant_genes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">significant_genes</span><span class="p">[</span><span class="nf">order</span><span class="p">(</span><span class="n">significant_genes</span><span class="o">$</span><span class="n">log2_fc</span><span class="p">),</span><span class="w"> </span><span class="p">]</span>
+<span class="n">top_down_genes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">head</span><span class="p">(</span><span class="n">significant_genes</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+<span class="n">top_up_genes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tail</span><span class="p">(</span><span class="n">significant_genes</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+<span class="n">genes_to_label</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbind</span><span class="p">(</span><span class="n">top_down_genes</span><span class="p">,</span><span class="w"> </span><span class="n">top_up_genes</span><span class="p">)</span>
+
+<span class="c1"># --- Create the customized MA Plot ---</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">deg_data_filtered</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log2</span><span class="p">(</span><span class="n">base_mean</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log2_fc</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">status</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_hline</span><span class="p">(</span><span class="n">yintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">linetype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dashed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">scale_color_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Downregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Not Significant&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;grey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Upregulated&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="c1"># Add labels for only the top genes</span>
+<span class="w">  </span><span class="nf">geom_text_repel</span><span class="p">(</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">genes_to_label</span><span class="p">,</span>
+<span class="w">    </span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gene</span><span class="p">),</span>
+<span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">max.overlaps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">labs</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MA Plot with Top Significant Genes Labeled&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Log2 Mean Expression (A)&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Log2 Fold Change (M)&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">theme_minimal</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This solution first creates a subset of significant genes. It then orders them by <code class="docutils literal notranslate"><span class="pre">log2_fc</span></code> to easily identify the 10 with the lowest values (most downregulated) and the 10 with the highest values (most upregulated). These two subsets are combined into a new data frame, <code class="docutils literal notranslate"><span class="pre">genes_to_label</span></code>, which is then passed to the <code class="docutils literal notranslate"><span class="pre">data</span></code> argument of <code class="docutils literal notranslate"><span class="pre">geom_text_repel</span></code> to ensure only these specific genes are labeled on the plot.</p>
+<p><strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> framework allows for layering data, enabling you to create highly customized plots that show both global trends (all points) and specific details (labeled points) in a single visualization.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong>
+What are the trade-offs of using stricter thresholds, as you did in the first exercise? Consider the balance between reducing false positives (genes that appear significant by chance) and potentially missing true positives (biologically relevant genes with more subtle changes).</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p>MA and volcano plots are not just academic exercises; they are workhorses in modern biomedical research and clinical practice.</p>
+<ul class="simple">
+<li><p><strong>Oncology and Cancer Genomics</strong>: Researchers frequently compare gene expression in tumor samples versus adjacent normal tissue. A volcano plot can immediately highlight strongly upregulated genes (potential oncogenes driving cancer growth) and strongly downregulated genes (potential tumor suppressors that have been silenced). These candidates, like <em>EGFR</em> or <em>TP53</em>, become prime targets for drug development or diagnostic biomarkers.</p></li>
+<li><p><strong>Pharmacogenomics and Personalized Medicine</strong>: When testing a new drug, scientists can compare gene expression in patients who respond well to the treatment versus those who do not. A volcano plot can identify genes whose expression predicts drug efficacy. This knowledge can be used to develop a companion diagnostic test to select patients most likely to benefit from the therapy, a cornerstone of precision medicine.</p></li>
+<li><p><strong>Immunology and Infectious Disease</strong>: To understand how the body fights a virus, researchers can analyze gene expression in immune cells before and after infection. MA plots ensure the data is reliable, while volcano plots reveal which immune-related genes (like interferons and cytokines) are activated. This can inform the development of vaccines and antiviral treatments by pinpointing key pathways in the host response.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to translate complex tables of differential gene expression data into clear, interpretable visualizations. We learned that MA plots are essential for quality control, while volcano plots are powerful tools for discovering biologically significant genes.</p>
+<p>Key takeaways from this section include:</p>
+<ul class="simple">
+<li><p>MA plots visualize log-fold change versus average expression and are used to assess data normalization and bias. A symmetrical plot centered at zero is the ideal outcome.</p></li>
+<li><p>Volcano plots visualize log-fold change versus statistical significance and are used to identify the most promising gene candidates for further study.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> package in R provides a flexible and powerful framework for creating publication-quality MA and volcano plots, allowing for customization of thresholds, colors, and labels.</p></li>
+<li><p>These visualizations are fundamental in many areas of precision health, from identifying cancer drivers to discovering biomarkers for drug response.</p></li>
+</ul>
+<p>With these visualization skills, you are now equipped to not only perform a DEG analysis but also to critically evaluate its results and identify the most compelling findings. You are now ready to move on to the next step: interpreting the biological meaning of these gene lists through pathway analysis.</p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "xaviercheeteaching/R",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5.2_types_%28scatter_box_violin%29.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 5: Visualizing Medical Data with ggplot2</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="5.4_for_gene_expression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 5: Advanced Visualization for Genomic Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-load-libraries-and-create-sample-data">3.1 Setup: Load Libraries and Create Sample Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ma-plots-to-assess-data-normalization">3.2 MA Plots to Assess Data Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#volcano-plots-to-identify-significant-genes">3.3 Volcano Plots to Identify Significant Genes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-isolate-top-candidates-with-stricter-thresholds-intermediate">Exercise 1: Isolate Top Candidates with Stricter Thresholds Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-interpret-the-volcano-plot-basic">Exercise 2: Interpret the Volcano Plot Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-customize-an-ma-plot-intermediate">Exercise 3: Customize an MA Plot Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
