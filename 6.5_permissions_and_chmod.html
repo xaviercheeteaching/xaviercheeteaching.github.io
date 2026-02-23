@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 6: The Command Line Interface (CLI) for Precision Health &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6.5_permissions_and_chmod';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 6: Essential File and Directory Operations" href="6.6_files_%28grep_find%29.html" />
+    <link rel="prev" title="Chapter 6: Working with Files and Data" href="6.4_files_%28cat_less_head_tail%29.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.4_files_%28cat_less_head_tail%29.html">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6.5 and Chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/6.5_permissions_and_chmod.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/6.5_permissions_and_chmod.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 6: The Command Line Interface (CLI) for Precision Health</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-file-permissions-with-ls-l">3.1 Viewing File Permissions with <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-permissions-with-chmod">3.2 Modifying Permissions with <code class="docutils literal notranslate"><span class="pre">chmod</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-special-note-on-directory-permissions">3.3 A Special Note on Directory Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-securing-a-clinical-script">Exercise 1: Securing a Clinical Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-protecting-patient-data">Exercise 2: Protecting Patient Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-managing-a-shared-research-folder">Exercise 3: Managing a Shared Research Folder</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ical-skill-for-complying-with-data-privacy-regulations-like-the-health-insurance-portability-and-accountability-act-hipaa-to-view-the-permissions-for-a-file-or-directory-use-the-ls-l-command">ical skill for complying with data privacy regulations like the Health Insurance Portability and Accountability Act (HIPAA). To view the permissions for a file or directory, use the <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> command.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-method-is-intuitive-and-uses-characters-u-g-o-a-operators-and-permissions-r-w-x">This method is intuitive and uses characters (<code class="docutils literal notranslate"><span class="pre">u,g,o,a</span></code>), operators (<code class="docutils literal notranslate"><span class="pre">+,-,=</span></code>), and permissions (<code class="docutils literal notranslate"><span class="pre">r,w,x</span></code>).</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s-to-existing-permissions-without-affecting-others-use-the-octal-method-750-when-you-want-to-set-the-entire-permission-state-absolutely-ensuring-there-are-no-unintended-legacy-permissions">s to existing permissions without affecting others. Use the <strong>octal method</strong> (<code class="docutils literal notranslate"><span class="pre">750</span></code>) when you want to set the entire permission state absolutely, ensuring there are no unintended legacy permissions.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#files-w-but-you-don-t-want-anyone-from-other-departments-others-to-access-it-setting-permissions-to-770-ensures-your-team-has-full-access-while-completely-restricting-access-for-others">files (<code class="docutils literal notranslate"><span class="pre">w</span></code>), but you don’t want anyone from other departments (<code class="docutils literal notranslate"><span class="pre">others</span></code>) to access it. Setting permissions to <code class="docutils literal notranslate"><span class="pre">770</span></code> ensures your team has full access while completely restricting access for others.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-6-the-command-line-interface-cli-for-precision-health">
+<h1>Chapter 6: The Command Line Interface (CLI) for Precision Health<a class="headerlink" href="#chapter-6-the-command-line-interface-cli-for-precision-health" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In precision health, data is the most valuable asset, and its security is paramount. Every file, from patient records to genomic sequences and analysis scripts, must be protected from unauthorized access and accidental modification. This section introduces file permissions, the foundational layer of security on Unix-like systems that act as digital gatekeepers controlling who can view, change, or run your files. You will learn how to view and modify file permissions using <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> and <code class="docutils literal notranslate"><span class="pre">chmod</span></code>, an essential skill for safeguarding sensitive data, ensuring the integrity of your research, and complying with data privacy regulations.</p>
+<blockquote>
+<div><p><strong>Important:</strong> Correct file permissions are not just a technical detail—they are a critical component of patient data security and regulatory compliance (e.g., HIPAA in the United States). Improper permissions can lead to unauthorized data access, accidental modification of critical scripts, and severe breaches of patient confidentiality.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>File Permissions</strong>: The set of rules that determine who can read, write, or execute a file or directory. In a medical context, this is the first line of defense in digital patient confidentiality, akin to controlling who has the key to a patient’s file cabinet.</p></li>
+<li><p><strong>Permission String</strong>: A 10-character code (e.g., <code class="docutils literal notranslate"><span class="pre">-rwxr-xr--</span></code>) displayed by <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> that defines the file type and access rights for the owner, group, and all other users. Interpreting this string is like reading a security badge to see who is authorized to enter a restricted lab area and what they are allowed to do inside.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode)</strong>: The command-line utility used to change a file’s or directory’s permissions. This is the digital equivalent of a security administrator changing the locks or access codes for a sensitive data repository or a laboratory wing.</p></li>
+<li><p><strong>Symbolic Notation</strong>: A method for modifying permissions using letters to represent users (<code class="docutils literal notranslate"><span class="pre">u</span></code> for user/owner, <code class="docutils literal notranslate"><span class="pre">g</span></code> for group, <code class="docutils literal notranslate"><span class="pre">o</span></code> for others, <code class="docutils literal notranslate"><span class="pre">a</span></code> for all), operators to denote action (<code class="docutils literal notranslate"><span class="pre">+</span></code> to add, <code class="docutils literal notranslate"><span class="pre">-</span></code> to remove, <code class="docutils literal notranslate"><span class="pre">=</span></code> to set), and letters for permissions (<code class="docutils literal notranslate"><span class="pre">r</span></code> for read, <code class="docutils literal notranslate"><span class="pre">w</span></code> for write, <code class="docutils literal notranslate"><span class="pre">x</span></code> for execute). It’s an intuitive way to make specific changes, like granting a colleague (<code class="docutils literal notranslate"><span class="pre">g</span></code>) read access (<code class="docutils literal notranslate"><span class="pre">+r</span></code>) to a research paper draft.</p></li>
+<li><p><strong>Octal (Numeric) Notation</strong>: A method for setting all permissions at once using a three-digit number (e.g., <code class="docutils literal notranslate"><span class="pre">750</span></code>). Each digit represents the sum of values for read (4), write (2), and execute (1) for the owner, group, and others, respectively. This is a fast, efficient way to enforce a standard security policy, like setting all new patient data files to <code class="docutils literal notranslate"><span class="pre">640</span></code> (owner can read/write, group can read, others have no access).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="viewing-file-permissions-with-ls-l">
+<h3>3.1 Viewing File Permissions with <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code><a class="headerlink" href="#viewing-file-permissions-with-ls-l" title="Link to this heading">#</a></h3>
+<p>File permissions control who can read, write, or execute files, which is critical for protecting sensitive patient data. This is a core technical skill for complying with data privacy regulations like the Health Insurance Portability and Accountability Act (HIPAA). To view the permissions for a file or directory, use the <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> command.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create new csv file
+echo -e "PatientID,Name,DOB,Diagnosis,AdmitDate,DischargeDate,Physician\nPT001234,John Doe,1985-03-15,Hypertension,2024-11-01,2024-11-05,Dr. Smith\nPT005678,Jane Roe,1990-07-22,Type 2 Diabetes,2024-11-03,2024-11-08,Dr. Patel\nPT009012,Alex Kim,1978-12-01,MASLD,2024-11-05,,Dr. Lee\nPT003456,Maria Garcia,1965-09-10,Hyperlipidemia,2024-11-07,2024-11-09,Dr. Chen\nPT007890,Wei Zhang,1992-04-18,Obesity,2024-11-09,,Dr. Nguyen" | head -c 1024 | tee patient_records.csv > /dev/null
+ls -l patient_records.csv
+# Output: -rw-r--r-- 1 jsmith research 1024 Nov 11 09:30 patient_records.csv
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>The permission string <code class="docutils literal notranslate"><span class="pre">-rw-r--r--</span></code> is the most important part for security. It breaks down as follows:</p>
+<ul class="simple">
+<li><p><strong>First character (<code class="docutils literal notranslate"><span class="pre">-</span></code>):</strong> This indicates the file type. A <code class="docutils literal notranslate"><span class="pre">-</span></code> means it is a regular file, while a <code class="docutils literal notranslate"><span class="pre">d</span></code> would indicate a directory.</p></li>
+<li><p><strong>Next three characters (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>):</strong> These are the permissions for the file’s <strong>owner</strong> (in this case, <code class="docutils literal notranslate"><span class="pre">jsmith</span></code>). The owner has read (<code class="docutils literal notranslate"><span class="pre">r</span></code>) and write (<code class="docutils literal notranslate"><span class="pre">w</span></code>) permissions.</p></li>
+<li><p><strong>Middle three characters (<code class="docutils literal notranslate"><span class="pre">r--</span></code>):</strong> These are the permissions for the <strong>group</strong> (here, <code class="docutils literal notranslate"><span class="pre">research</span></code>). Group members have read-only (<code class="docutils literal notranslate"><span class="pre">r</span></code>) permission.</p></li>
+<li><p><strong>Last three characters (<code class="docutils literal notranslate"><span class="pre">r--</span></code>):</strong> These are the permissions for <strong>others</strong> (any user who is not the owner and not in the group). Others also have read-only (<code class="docutils literal notranslate"><span class="pre">r</span></code>) permission.</p></li>
+</ul>
+</section>
+<section id="modifying-permissions-with-chmod">
+<h3>3.2 Modifying Permissions with <code class="docutils literal notranslate"><span class="pre">chmod</span></code><a class="headerlink" href="#modifying-permissions-with-chmod" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode) command is used to modify these permissions. You can use two different methods: the symbolic method for targeted changes or the octal method for setting all permissions at once.</p>
+<p><strong>Symbolic Method</strong></p>
+<p>This method is intuitive and uses characters (<code class="docutils literal notranslate"><span class="pre">u,g,o,a</span></code>), operators (<code class="docutils literal notranslate"><span class="pre">+,-,=</span></code>), and permissions (<code class="docutils literal notranslate"><span class="pre">r,w,x</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create sh file
+echo -e '#!/bin/bash\n\n# Dosage Calculator Script\n# Calculates medication dosage based on patient weight and prescribed dose per kg\n\nread -p "Enter patient ID: " patient_id\nread -p "Enter patient weight (kg): " weight\nread -p "Enter medication name: " med_name\nread -p "Enter dose per kg (mg/kg): " dose_per_kg\n\ntotal_dose=$(echo "$weight * $dose_per_kg" | bc)\n\necho ""\necho "===== Dosage Report ====="\necho "Patient ID:  $patient_id"\necho "Medication:  $med_name"\necho "Weight:      $weight kg"\necho "Dose rate:   $dose_per_kg mg/kg"\necho "Total dose:  $total_dose mg"\necho "========================="' | tee dosage_calculator.sh
+# Give the owner execute permission, and remove write permission from the group and others.
+chmod u+x,go-w dosage_calculator.sh
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">u+x</span></code> adds (<code class="docutils literal notranslate"><span class="pre">+</span></code>) execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>) permission for the user/owner (<code class="docutils literal notranslate"><span class="pre">u</span></code>). The comma allows for a second, independent rule: <code class="docutils literal notranslate"><span class="pre">go-w</span></code> removes (<code class="docutils literal notranslate"><span class="pre">-</span></code>) write (<code class="docutils literal notranslate"><span class="pre">w</span></code>) permission from the group (<code class="docutils literal notranslate"><span class="pre">g</span></code>) and others (<code class="docutils literal notranslate"><span class="pre">o</span></code>). The character <code class="docutils literal notranslate"><span class="pre">a</span></code> can be used to apply a rule to all (user, group, and others).</p>
+<p><strong>Octal (Numeric) Method</strong></p>
+<p>This method is faster for setting a complete permission profile. It uses a three-digit number where each digit corresponds to the owner, group, and others. The value of each digit is the sum of the desired permissions: read (4), write (2), and execute (1).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Number</p></th>
+<th class="head text-left"><p>Permission</p></th>
+<th class="head text-left"><p>Symbol</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>7</p></td>
+<td class="text-left"><p>read, write, execute</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rwx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>6</p></td>
+<td class="text-left"><p>read, write</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rw-</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>5</p></td>
+<td class="text-left"><p>read, execute</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">r-x</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>4</p></td>
+<td class="text-left"><p>read</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">r--</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>3</p></td>
+<td class="text-left"><p>write, execute</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-wx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>2</p></td>
+<td class="text-left"><p>write</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-w-</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>1</p></td>
+<td class="text-left"><p>execute</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">--x</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>0</p></td>
+<td class="text-left"><p>no permission</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">---</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Use the <strong>symbolic method</strong> (<code class="docutils literal notranslate"><span class="pre">u+x,</span> <span class="pre">go-w</span></code>) when you need to make small, specific changes to existing permissions without affecting others. Use the <strong>octal method</strong> (<code class="docutils literal notranslate"><span class="pre">750</span></code>) when you want to set the entire permission state absolutely, ensuring there are no unintended legacy permissions.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e '#!/bin/bash\n\n# process_intake.sh — Reads patient lab CSVs and flags out-of-range results\n\nif [ $# -eq 0 ]; then\n  echo "Usage: ./process_intake.sh <patient_lab_file.csv>"\n  exit 1\nfi\n\nINPUT="$1"\n\nif [ ! -f "$INPUT" ]; then\n  echo "Error: File '\''$INPUT'\'' not found."\n  exit 1\nfi\n\necho "==================================="\necho " Patient Lab Report"\necho "==================================="\necho "File: $INPUT"\necho "Processed: $(date)"\necho "-----------------------------------"\n\n# Skip header, process each row\ntail -n +2 "$INPUT" | while IFS=, read -r pid test val unit ref ts; do\n  FLAG=""\n  # Handle ranges like 70-100\n  if echo "$ref" | grep -qE "^[0-9.]+-[0-9.]+$"; then\n    LOW=$(echo "$ref" | cut -d- -f1)\n    HIGH=$(echo "$ref" | cut -d- -f2)\n    if (( $(echo "$val < $LOW" | bc -l) )); then\n      FLAG="⬇ LOW"\n    elif (( $(echo "$val > $HIGH" | bc -l) )); then\n      FLAG="⬆ HIGH"\n    else\n      FLAG="✔ Normal"\n    fi\n  # Handle ranges like <200\n  elif echo "$ref" | grep -qE "^<[0-9.]+$"; then\n    LIMIT=$(echo "$ref" | tr -d "<")\n    if (( $(echo "$val >= $LIMIT" | bc -l) )); then\n      FLAG="⬆ HIGH"\n    else\n      FLAG="✔ Normal"\n    fi\n  else\n    FLAG="? Review"\n  fi\n  printf "%-15s %-10s %-8s %-12s %s\\n" "$test" "$val $unit" "Ref:$ref" "[$FLAG]" "$ts"\ndone\n\necho "==================================="\necho "End of Report"\necho "===================================="' | tee process_intake.sh
+# Give the owner full access (7), the group read/execute access (5), and others no access (0).
+# Symbolic equivalent: chmod u=rwx,g=rx,o= process_intake.sh
+chmod 750 process_intake.sh
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>This command secures the script so that only the owner can edit it, but team members in the same group can run it.</p>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-securing-a-clinical-script">
+<h3>Exercise 1: Securing a Clinical Script<a class="headerlink" href="#exercise-1-securing-a-clinical-script" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Secure a script so only you (the owner) can edit and run it, while your research group can only run it.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You have developed a new script, <code class="docutils literal notranslate"><span class="pre">dosage_calculator.sh</span></code>, that calculates medication dosages. It must be protected from accidental modification by junior researchers, but they need to be able to run it for their work.</p>
+<p>Use octal notation to set permissions that grant read, write, and execute to the owner, but only read and execute to the group. Others should have no permissions.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an empty file for the exercise</span>
+touch<span class="w"> </span>dosage_calculator.sh
+
+<span class="c1"># The required permissions are rwx for owner (4+2+1=7), r-x for group (4+1=5), and --- for others (0).</span>
+<span class="c1"># Symbolic equivalent: chmod u=rwx,g=rx,o= dosage_calculator.sh</span>
+chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>dosage_calculator.sh
+
+<span class="c1"># Verify the change</span>
+ls<span class="w"> </span>-l<span class="w"> </span>dosage_calculator.sh
+<span class="c1"># Expected output: -rwxr-x--- 1 jsmith research ... dosage_calculator.sh</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The command <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">750</span></code> applies the numeric permissions <code class="docutils literal notranslate"><span class="pre">7</span></code> (owner), <code class="docutils literal notranslate"><span class="pre">5</span></code> (group), and <code class="docutils literal notranslate"><span class="pre">0</span></code> (others) to the script.
+<strong>Key Learning:</strong> Octal notation is a fast and effective way to apply a standard security policy to a file.</p>
+</div>
+</details></section>
+<section id="exercise-2-protecting-patient-data">
+<h3>Exercise 2: Protecting Patient Data<a class="headerlink" href="#exercise-2-protecting-patient-data" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Make a sensitive data file read-only for everyone to prevent accidental changes.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A file named <code class="docutils literal notranslate"><span class="pre">cohort_data.csv</span></code> contains anonymized but critical data for an ongoing clinical trial. To ensure absolute data integrity during the analysis phase, you must lock it down so that no one, including yourself, can accidentally edit it.</p>
+<p>Use octal notation to set permissions that grant only read access to the owner, group, and others.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an empty file for the exercise</span>
+touch<span class="w"> </span>cohort_data.csv
+
+<span class="c1"># The required permissions are r-- for owner (4), r-- for group (4), and r-- for others (4).</span>
+<span class="c1"># Symbolic equivalent: chmod a=r cohort_data.csv</span>
+chmod<span class="w"> </span><span class="m">444</span><span class="w"> </span>cohort_data.csv
+
+<span class="c1"># Verify the change</span>
+ls<span class="w"> </span>-l<span class="w"> </span>cohort_data.csv
+<span class="c1"># Expected output: -r--r--r-- 1 jsmith research ... cohort_data.csv</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The command <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">444</span></code> makes the file read-only for everyone. This is a powerful way to protect a file from accidental edits by any user, including the owner. To edit it again, the owner would first need to run <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+w</span> <span class="pre">cohort_data.csv</span></code>.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> While <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">444</span> <span class="pre">cohort_data.csv</span></code> makes the file read-only for everyone (including you), a more common practice is <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">644</span> <span class="pre">cohort_data.csv</span></code>. This allows the owner (<code class="docutils literal notranslate"><span class="pre">you</span></code>) to still write to the file while protecting it from being changed by the group or others. Use <code class="docutils literal notranslate"><span class="pre">444</span></code> for archival data that should never be altered.</p>
+</div></blockquote>
+<p><strong>Key Learning:</strong> Permissions can be used to protect files from accidental changes, not just malicious ones.</p>
+</div>
+</details></section>
+<section id="exercise-3-managing-a-shared-research-folder">
+<h3>Exercise 3: Managing a Shared Research Folder<a class="headerlink" href="#exercise-3-managing-a-shared-research-folder" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Configure permissions for a shared project directory to allow collaboration within a team while restricting outside access.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You are leading a new project, <code class="docutils literal notranslate"><span class="pre">cardio_genomics_project</span></code>. You need to set up the main directory so that you and your group members can create, edit, and delete files within it, but collaborators from other departments (<code class="docutils literal notranslate"><span class="pre">others</span></code>) can only enter the directory and view its contents, not modify anything.</p>
+<p>Use octal notation to give the owner and group <code class="docutils literal notranslate"><span class="pre">rwx</span></code> permissions, and others <code class="docutils literal notranslate"><span class="pre">r-x</span></code> permissions.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a directory for the exercise</span>
+mkdir<span class="w"> </span>cardio_genomics_project
+
+<span class="c1"># Using octal notation is most efficient here.</span>
+<span class="c1"># rwx for owner (7), rwx for group (7), and r-x for others (5).</span>
+<span class="c1"># Symbolic equivalent: chmod ug=rwx,o=rx cardio_genomics_project/</span>
+chmod<span class="w"> </span><span class="m">775</span><span class="w"> </span>cardio_genomics_project/
+
+<span class="c1"># Verify the change</span>
+ls<span class="w"> </span>-ld<span class="w"> </span>cardio_genomics_project/
+<span class="c1"># Expected output: drwxrwxr-x 1 jsmith research ... cardio_genomics_project/</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">775</span></code> permission set is ideal for collaborative directories. It gives the team (<code class="docutils literal notranslate"><span class="pre">owner</span></code> and <code class="docutils literal notranslate"><span class="pre">group</span></code>) full control, while allowing others to navigate into the directory and read files without being able to add, delete, or change anything. The <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag in <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-ld</span></code> shows the directory’s permissions, not its contents.
+<strong>Key Learning:</strong> The execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>) permission is critical for directories, as it governs the ability to access their contents.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Protecting Patient Health Information (PHI):</strong> In hospital systems and research databases, files containing PHI are strictly controlled. File permissions are set so that only authorized medical staff (the ‘group’) can read the files (<code class="docutils literal notranslate"><span class="pre">r--</span></code>), while only specific system administrators or the primary data custodian (the ‘owner’) can modify them (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>). This is often enforced with a <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">640</span></code> policy on patient record files, ensuring HIPAA compliance.</p></li>
+<li><p><strong>Ensuring Reproducible Research:</strong> When a bioinformatics pipeline is finalized, the analysis scripts (<code class="docutils literal notranslate"><span class="pre">.sh</span></code>, <code class="docutils literal notranslate"><span class="pre">.py</span></code>) are often made read-only and executable-only for the research group (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">550</span></code> or <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">750</span></code>). This prevents accidental modifications that could alter results, ensuring that every analysis runs exactly the same way, which is a cornerstone of validating and publishing scientific findings.</p></li>
+<li><p><strong>Managing Access to Genomic Databases:</strong> Large-scale genomic databases, like those at a national research institute, use file permissions to manage tiered access. A top-level directory might be set to <code class="docutils literal notranslate"><span class="pre">750</span></code>, allowing the data curation team (<code class="docutils literal notranslate"><span class="pre">owner</span></code>/<code class="docutils literal notranslate"><span class="pre">group</span></code>) full access, while preventing all other users (<code class="docutils literal notranslate"><span class="pre">others</span></code>) from even listing its contents. This protects highly sensitive genetic information while allowing authorized personnel to manage the data effectively.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to use file permissions as a fundamental tool for data security in a precision health context. You now have the skills to inspect and modify access rights to protect sensitive files and essential scripts.</p>
+<ul class="simple">
+<li><p>File permissions are a core security feature in Unix-like systems, controlling read (<code class="docutils literal notranslate"><span class="pre">r</span></code>), write (<code class="docutils literal notranslate"><span class="pre">w</span></code>), and execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>) access for the owner, group, and others.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> command is your tool for viewing the 10-character permission string for any file or directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chmod</span></code> is the essential command for modifying permissions, using either intuitive <strong>symbolic notation</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">u+x,go-w</span></code>) for specific changes or efficient <strong>octal notation</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">750</span></code>) for setting a complete permission profile.</p></li>
+<li><p>For directories, the execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>) permission is uniquely important, as it grants the ability to <code class="docutils literal notranslate"><span class="pre">cd</span></code> into the directory and access its contents.</p></li>
+</ul>
+<p>With a solid grasp of file permissions, you are now better equipped to protect the sensitive data and valuable scripts that are central to precision health research. In the next section, we will learn how to efficiently find files and data within the filesystem.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Consider a script you might use that automates patient data processing. What are the risks if an unauthorized user gains ‘write’ or ‘execute’ permission on that script? How do the permissions you learned about today directly mitigate those risks?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6.4_files_%28cat_less_head_tail%29.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 6: Working with Files and Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="6.6_files_%28grep_find%29.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 6: Essential File and Directory Operations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-file-permissions-with-ls-l">3.1 Viewing File Permissions with <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-permissions-with-chmod">3.2 Modifying Permissions with <code class="docutils literal notranslate"><span class="pre">chmod</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-special-note-on-directory-permissions">3.3 A Special Note on Directory Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-securing-a-clinical-script">Exercise 1: Securing a Clinical Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-protecting-patient-data">Exercise 2: Protecting Patient Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-managing-a-shared-research-folder">Exercise 3: Managing a Shared Research Folder</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ical-skill-for-complying-with-data-privacy-regulations-like-the-health-insurance-portability-and-accountability-act-hipaa-to-view-the-permissions-for-a-file-or-directory-use-the-ls-l-command">ical skill for complying with data privacy regulations like the Health Insurance Portability and Accountability Act (HIPAA). To view the permissions for a file or directory, use the <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> command.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-method-is-intuitive-and-uses-characters-u-g-o-a-operators-and-permissions-r-w-x">This method is intuitive and uses characters (<code class="docutils literal notranslate"><span class="pre">u,g,o,a</span></code>), operators (<code class="docutils literal notranslate"><span class="pre">+,-,=</span></code>), and permissions (<code class="docutils literal notranslate"><span class="pre">r,w,x</span></code>).</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s-to-existing-permissions-without-affecting-others-use-the-octal-method-750-when-you-want-to-set-the-entire-permission-state-absolutely-ensuring-there-are-no-unintended-legacy-permissions">s to existing permissions without affecting others. Use the <strong>octal method</strong> (<code class="docutils literal notranslate"><span class="pre">750</span></code>) when you want to set the entire permission state absolutely, ensuring there are no unintended legacy permissions.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#files-w-but-you-don-t-want-anyone-from-other-departments-others-to-access-it-setting-permissions-to-770-ensures-your-team-has-full-access-while-completely-restricting-access-for-others">files (<code class="docutils literal notranslate"><span class="pre">w</span></code>), but you don’t want anyone from other departments (<code class="docutils literal notranslate"><span class="pre">others</span></code>) to access it. Setting permissions to <code class="docutils literal notranslate"><span class="pre">770</span></code> ensures your team has full access while completely restricting access for others.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
