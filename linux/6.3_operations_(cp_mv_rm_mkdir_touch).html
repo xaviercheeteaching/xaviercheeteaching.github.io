@@ -458,6 +458,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Go back to home directory
+cd
 # Create a single directory for a new patient
 mkdir PT007890
 # Create a nested directory structure for a full genomic analysis
@@ -580,8 +582,12 @@ mv -i PT007890/20251111_CBC_results.txt PT007890/20251111_CBC_results_patient_A.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+cd PT007890/
+mkdir empty_folder
+mkdir old_project_folder
+
 # Safely remove a single file with a confirmation prompt
-rm -i temp_notes.txt
+rm -i 20251111_CBC_results_for_patient_A.txt
 # Safely remove an empty directory only
 rmdir empty_folder/
 # Recursively remove a directory and its contents (USE WITH EXTREME CAUTION)
