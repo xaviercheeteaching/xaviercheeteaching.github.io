@@ -1,0 +1,1209 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 6: Command-Line Data Manipulation &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6.7_and_redirection';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 7: Automating Tasks with Bash Scripting" href="7.1_and_running_bash_scripts.html" />
+    <link rel="prev" title="Chapter 6: Essential File and Directory Operations" href="6.6_files_%28grep_find%29.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.4_files_%28cat_less_head_tail%29.html">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.5_permissions_and_chmod.html">6.5 and Chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6.7 Redirection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/6.7_and_redirection.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/6.7_and_redirection.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 6: Command-Line Data Manipulation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-command-output-and">3.1 Saving Command Output (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redirecting-input-and-errors-2">3.2 Redirecting Input and Errors (<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">2&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-command-pipelines">3.3 Creating Command Pipelines (<code class="docutils literal notranslate"><span class="pre">|</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-output-with-tee">3.4 Splitting Output with <code class="docutils literal notranslate"><span class="pre">tee</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-table">3.5 Quick Reference Table</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-a-unique-gene-list-basic">Exercise 1: Create a Unique Gene List (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-isolate-latest-critical-events-intermediate">Exercise 2: Isolate Latest Critical Events (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-log-and-count-abnormal-results-intermediate">Exercise 3: Log and Count Abnormal Results (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-separate-successful-and-failed-file-access-basic">Exercise 4: Separate Successful and Failed File Access (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-prepare-a-sorted-critical-event-report-intermediate">Exercise 5: Prepare a Sorted Critical Event Report (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append-adds-the-output-to-the-end-of-an-existing-file-preserving-its-previous-contents">*   <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> <strong>(Append):</strong> Adds the output to the end of an existing file, preserving its previous contents.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redirects-both-stdout-and-stderr-to-the-same-destination">*   <code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code>: Redirects both <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> to the same destination.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipe-connects-one-command-s-stdout-to-another-s-stdin-allowing-you-to-chain-multiple-analysis-steps-into-a-single-efficient-command">The pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>) connects one command’s <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to another’s <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, allowing you to chain multiple analysis steps into a single, efficient command.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-passing-it-to-the-next-command-in-a-pipeline-this-is-perfect-for-saving-intermediate-results-for-auditing-or-debugging-by-default-tee-overwrites-the-file-use-the-a-flag-to-append-instead">o passing it to the next command in a pipeline. This is perfect for saving intermediate results for auditing or debugging. By default, <code class="docutils literal notranslate"><span class="pre">tee</span></code> overwrites the file. Use the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag to append instead.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-6-command-line-data-manipulation">
+<h1>Chapter 6: Command-Line Data Manipulation<a class="headerlink" href="#chapter-6-command-line-data-manipulation" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the core of command-line data mastery. In precision health, data is constantly in motion—flowing from sequencers to servers, from patient logs to alert systems. This section introduces pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>) and redirection (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>), the fundamental tools for directing these data streams. You will learn how to save analysis results to files, chain commands into powerful, multi-step workflows, and cleanly separate useful output from error messages. Mastering these skills is the critical step toward building the automated, repeatable, and robust data pipelines essential for modern bioinformatics and clinical informatics.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Standard Input (<code class="docutils literal notranslate"><span class="pre">stdin</span></code>)</strong>: The data stream that feeds data <em>into</em> a command. By default, this is your keyboard, but it can be redirected to come from a file or another command’s output. Medically, this could be a stream of real-time vital signs being fed to an analysis script.</p></li>
+<li><p><strong>Standard Output (<code class="docutils literal notranslate"><span class="pre">stdout</span></code>)</strong>: The data stream for a command’s normal, expected results. When you <code class="docutils literal notranslate"><span class="pre">grep</span></code> a log file for “CRITICAL” events, the matching lines are sent to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>. By default, this is displayed on your screen.</p></li>
+<li><p><strong>Standard Error (<code class="docutils literal notranslate"><span class="pre">stderr</span></code>)</strong>: A separate stream reserved for error messages and diagnostics. If a command fails (e.g., “file not found”), the error is sent to <code class="docutils literal notranslate"><span class="pre">stderr</span></code>. This keeps error messages from contaminating your results in <code class="docutils literal notranslate"><span class="pre">stdout</span></code>.</p></li>
+<li><p><strong>Redirection</strong>: The process of changing the destination of a data stream. This is like diverting a patient’s lab results from the monitor screen directly into their electronic health record (EHR) file.</p></li>
+<li><p><strong>Pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>)</strong>: An operator that connects the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> of one command directly to the <code class="docutils literal notranslate"><span class="pre">stdin</span></code> of another. This creates a “pipeline,” allowing data to flow through multiple processing steps without creating intermediate files, much like an automated lab workflow where a sample moves directly from a centrifuge to an analyzer.</p></li>
+<li><p><strong>Hypoglycemia</strong>: A medical condition characterized by abnormally low blood glucose (blood sugar) levels, which can be a critical event requiring immediate attention.</p></li>
+<li><p><strong>Tachycardia</strong>: A heart rate that exceeds the normal resting rate (generally over 100 beats per minute in adults), often monitored in clinical event logs.</p></li>
+<li><p><strong>STAT</strong>: A standard medical term from the Latin <em>statim</em> (“immediately”), used to designate a task or order (like a lab test) that must be fulfilled with utmost urgency.</p></li>
+<li><p><strong>Phenotype</strong>: The set of observable characteristics of an organism, such as its morphology, development, and behavior. In medicine, this often refers to the clinical presentation of a disease.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="saving-command-output-and">
+<h3>3.1 Saving Command Output (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>)<a class="headerlink" href="#saving-command-output-and" title="Link to this heading">#</a></h3>
+<p>You can save the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> of any command to a file using redirection operators. This is essential for preserving analysis results.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code> <strong>(Overwrite):</strong> Creates a new file or completely overwrites an existing one with the output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> <strong>(Append):</strong> Adds the output to the end of an existing file, preserving its previous contents.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Overwrite a file with new output from a vitals log
+grep &quot;Hypoglycemia&quot; vitals_alerts.log &gt; critical_alerts.txt
+# Append more data to the same file
+grep &quot;Tachycardia&quot; vitals_alerts.log &gt;&gt; critical_alerts.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><em>Note: In a real clinical system, you might search for a specific event code or a structured tag like <code class="docutils literal notranslate"><span class="pre">SEVERITY:CRITICAL</span></code> for more precise filtering, rather than just a single word.</em></p>
+</div></blockquote>
+</section>
+<section id="redirecting-input-and-errors-2">
+<h3>3.2 Redirecting Input and Errors (<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">2&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code>)<a class="headerlink" href="#redirecting-input-and-errors-2" title="Link to this heading">#</a></h3>
+<p>Beyond saving output, you can also provide input from files and manage error messages separately. This is vital for logging and debugging.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code>: Redirects <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, feeding a file’s content to a command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2&gt;</span></code>: Redirects <code class="docutils literal notranslate"><span class="pre">stderr</span></code> (stream #2), capturing only error messages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code>: Redirects both <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> to the same destination.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Redirect stdin from a file to the sort command
+sort &lt; gene_list.txt &gt; gene_list_sorted.txt
+# Redirect stdout and stderr to separate files
+cat patient_data.csv non_existent_file.csv &gt; full_output.log 2&gt; error_log.txt
+# Redirect both stdout and stderr to the same file
+cat patient_data.csv non_existent_file.csv &amp;&gt; full_run.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip: Prefer Arguments Over Input Redirection</strong>
+While <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> is useful for commands that <em>only</em> accept standard input, most modern tools (like <code class="docutils literal notranslate"><span class="pre">sort</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, <code class="docutils literal notranslate"><span class="pre">cat</span></code>) are designed to read files given as arguments (e.g., <code class="docutils literal notranslate"><span class="pre">sort</span> <span class="pre">gene_list.txt</span></code>). Using arguments is generally clearer and more readable than using input redirection.</p>
+</div></blockquote>
+</section>
+<section id="creating-command-pipelines">
+<h3>3.3 Creating Command Pipelines (<code class="docutils literal notranslate"><span class="pre">|</span></code>)<a class="headerlink" href="#creating-command-pipelines" title="Link to this heading">#</a></h3>
+<p>The pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>) connects one command’s <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to another’s <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, allowing you to chain multiple analysis steps into a single, efficient command.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Find, sort, and count unique critical entries
+grep &quot;CRITICAL&quot; patient_vitals.csv | sort | uniq &gt; critical_unique.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>This pipeline works in stages: <code class="docutils literal notranslate"><span class="pre">grep</span></code> finds the lines, <code class="docutils literal notranslate"><span class="pre">sort</span></code> arranges them, and <code class="docutils literal notranslate"><span class="pre">uniq</span></code> removes duplicates before the final result is saved.</p>
+<blockquote>
+<div><p><strong>Important: <code class="docutils literal notranslate"><span class="pre">sort</span></code> Before <code class="docutils literal notranslate"><span class="pre">uniq</span></code></strong>
+The <code class="docutils literal notranslate"><span class="pre">uniq</span></code> command only removes duplicate lines that are <em>adjacent</em> to each other. Always pipe your data through <code class="docutils literal notranslate"><span class="pre">sort</span></code> first to group all identical lines together. Failing to do so will result in an incomplete and inaccurate unique list, which could have serious consequences in data analysis.</p>
+</div></blockquote>
+</section>
+<section id="splitting-output-with-tee">
+<h3>3.4 Splitting Output with <code class="docutils literal notranslate"><span class="pre">tee</span></code><a class="headerlink" href="#splitting-output-with-tee" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">tee</span></code> to send <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to a file while also passing it to the next command in a pipeline. This is perfect for saving intermediate results for auditing or debugging. By default, <code class="docutils literal notranslate"><span class="pre">tee</span></code> overwrites the file. Use the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag to append instead.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Save urgent orders to a file AND count them
+grep &quot;STAT&quot; pending_orders.txt | tee urgent_orders.log | wc -l
+# Expected terminal output (example):
+# 5
+# Append abnormal results to a log AND count them
+grep &quot;ABNORMAL&quot; lab_results.csv | tee -a master_abnormal.log | wc -l
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>In Practice: Creating Audit Trails with <code class="docutils literal notranslate"><span class="pre">tee</span></code></strong>
+In a clinical setting, you might build a script that processes patient admission data. Using <code class="docutils literal notranslate"><span class="pre">tee</span></code>, you can save a raw, intermediate list of all admissions processed on a given day to an audit file <em>while</em> the rest of the pipeline continues to filter for high-risk patients. This creates a permanent record for verification without interrupting the main workflow.</p>
+</div></blockquote>
+</section>
+<section id="quick-reference-table">
+<h3>3.5 Quick Reference Table<a class="headerlink" href="#quick-reference-table" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Operator</p></th>
+<th class="head text-left"><p>Name</p></th>
+<th class="head text-left"><p>Action</p></th>
+<th class="head text-left"><p>Example Use Case</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
+<td class="text-left"><p>Overwrite</p></td>
+<td class="text-left"><p>Redirects <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to a file, overwriting it.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">&gt;</span> <span class="pre">file_list.txt</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code></p></td>
+<td class="text-left"><p>Append</p></td>
+<td class="text-left"><p>Appends <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to the end of a file.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">&quot;Fever&quot;</span> <span class="pre">log</span> <span class="pre">&gt;&gt;</span> <span class="pre">alerts.txt</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
+<td class="text-left"><p>Input</p></td>
+<td class="text-left"><p>Takes input for a command from a file.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">-l</span> <span class="pre">&lt;</span> <span class="pre">gene_list.txt</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>`</p></td>
+<td class="text-left"><p>`</p></td>
+<td class="text-left"><p>Pipe</p></td>
+<td class="text-left"><p>Sends one command’s <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to another’s <code class="docutils literal notranslate"><span class="pre">stdin</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">tee</span></code></p></td>
+<td class="text-left"><p>Tee</p></td>
+<td class="text-left"><p>Sends <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to a file AND to the next command.</p></td>
+<td class="text-left"><p>`grep “STAT” …</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">2&gt;</span></code></p></td>
+<td class="text-left"><p>Stderr Redirect</p></td>
+<td class="text-left"><p>Redirects only error messages (<code class="docutils literal notranslate"><span class="pre">stderr</span></code>) to a file.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">run_analysis.sh</span> <span class="pre">2&gt;</span> <span class="pre">errors.log</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code></p></td>
+<td class="text-left"><p>Combined Redirect</p></td>
+<td class="text-left"><p>Redirects both <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> to a file.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">run_analysis.sh</span> <span class="pre">&amp;&gt;</span> <span class="pre">full.log</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">uniq</span></code></p></td>
+<td class="text-left"><p>Unique</p></td>
+<td class="text-left"><p>Filters adjacent, duplicate lines from input.</p></td>
+<td class="text-left"><p>`sort genes.txt</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-create-a-unique-gene-list-basic">
+<h3>Exercise 1: Create a Unique Gene List (Basic)<a class="headerlink" href="#exercise-1-create-a-unique-gene-list-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use a pipeline to process a file and save a clean version.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> You have a raw list of gene identifiers from a sequencing run that contains many duplicates. To prepare for downstream analysis, you need a unique, sorted list.</p>
+<p>Sort <code class="docutils literal notranslate"><span class="pre">gene_list.txt</span></code>, remove any duplicate lines, and save the result to <code class="docutils literal notranslate"><span class="pre">gene_list_unique.txt</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sort<span class="w"> </span>gene_list.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>&gt;<span class="w"> </span>gene_list_unique.txt
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This command first sorts the contents of <code class="docutils literal notranslate"><span class="pre">gene_list.txt</span></code> alphabetically. The sorted output is then piped to <code class="docutils literal notranslate"><span class="pre">uniq</span></code>, which removes any adjacent duplicate lines. Finally, the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> operator redirects the clean output to the new file.
+<strong>Key Learning:</strong> Combining <code class="docutils literal notranslate"><span class="pre">sort</span></code> and <code class="docutils literal notranslate"><span class="pre">uniq</span></code> in a pipeline is the standard method for deduplicating data in a file.</p>
+</div>
+</details></section>
+<section id="exercise-2-isolate-latest-critical-events-intermediate">
+<h3>Exercise 2: Isolate Latest Critical Events (Intermediate)<a class="headerlink" href="#exercise-2-isolate-latest-critical-events-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine filtering and selection commands in a pipeline.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> A clinician needs a quick summary of the most recent critical events from a continuous patient monitoring log that contains thousands of entries.</p>
+<p>From <code class="docutils literal notranslate"><span class="pre">patient_vitals.csv</span></code>, find all lines containing “CRITICAL”, and of that output, save only the last 10 lines to a new file named <code class="docutils literal notranslate"><span class="pre">latest_critical.log</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span><span class="s2">&quot;CRITICAL&quot;</span><span class="w"> </span>patient_vitals.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>&gt;<span class="w"> </span>latest_critical.log
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> <code class="docutils literal notranslate"><span class="pre">grep</span></code> first filters <code class="docutils literal notranslate"><span class="pre">patient_vitals.csv</span></code> to find all lines with the word “CRITICAL”. This output is piped to <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-n</span> <span class="pre">10</span></code>, which selects only the last 10 lines from the data it receives. This final, small subset is then saved.
+<strong>Key Learning:</strong> Pipelines allow you to filter a large dataset and then select a specific subset of the results in a single command.</p>
+</div>
+</details></section>
+<section id="exercise-3-log-and-count-abnormal-results-intermediate">
+<h3>Exercise 3: Log and Count Abnormal Results (Intermediate)<a class="headerlink" href="#exercise-3-log-and-count-abnormal-results-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">tee</span></code> to both save results and perform a subsequent action.
+<strong>Time:</strong> 4 minutes
+<strong>Medical Context:</strong> For auditing purposes, you must append all new abnormal lab results to a running log file while also getting a quick count of how many new results were found in the latest batch.</p>
+<p>Find all “ABNORMAL” lines in <code class="docutils literal notranslate"><span class="pre">lab_results.csv</span></code>. Using a single pipeline, append these lines to <code class="docutils literal notranslate"><span class="pre">abnormal_events.log</span></code> and also display the total count on the terminal.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span><span class="s2">&quot;ABNORMAL&quot;</span><span class="w"> </span>lab_results.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>abnormal_events.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> <code class="docutils literal notranslate"><span class="pre">grep</span></code> finds the “ABNORMAL” lines. These are piped to <code class="docutils literal notranslate"><span class="pre">tee</span> <span class="pre">-a</span></code>, where the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag tells <code class="docutils literal notranslate"><span class="pre">tee</span></code> to append. The data is written to <code class="docutils literal notranslate"><span class="pre">abnormal_events.log</span></code> and simultaneously passed to <code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">-l</span></code>, which counts the lines and prints the number to the screen.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">tee</span> <span class="pre">-a</span></code> is the perfect tool for logging intermediate data in a pipeline while allowing the data to continue to the next processing step.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong> In a real-world scenario, why is it valuable to both append events to a master log (<code class="docutils literal notranslate"><span class="pre">abnormal_events.log</span></code>) and get an immediate count on the terminal? Consider the different needs of automated logging versus an on-duty analyst.</p>
+</div></blockquote>
+</section>
+<section id="exercise-4-separate-successful-and-failed-file-access-basic">
+<h3>Exercise 4: Separate Successful and Failed File Access (Basic)<a class="headerlink" href="#exercise-4-separate-successful-and-failed-file-access-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">2&gt;</span></code> to redirect <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> to different files.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> An automated script needs to process a list of files. You must log which files were processed successfully and which ones failed to open, perhaps due to typos or permission issues.</p>
+<p>Attempt to view <code class="docutils literal notranslate"><span class="pre">gene_list.txt</span></code> and a non-existent file <code class="docutils literal notranslate"><span class="pre">phenotypes.txt</span></code> using <code class="docutils literal notranslate"><span class="pre">cat</span></code>. Send valid output to <code class="docutils literal notranslate"><span class="pre">gene_list_contents.txt</span></code> and errors to <code class="docutils literal notranslate"><span class="pre">access_errors.log</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>gene_list.txt<span class="w"> </span>phenotypes.txt<span class="w"> </span>&gt;<span class="w"> </span>gene_list_contents.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>access_errors.log
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">cat</span></code> command successfully outputs the contents of <code class="docutils literal notranslate"><span class="pre">gene_list.txt</span></code> to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, which is redirected by <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">gene_list_contents.txt</span></code>. It then fails to find <code class="docutils literal notranslate"><span class="pre">phenotypes.txt</span></code> and generates an error message on <code class="docutils literal notranslate"><span class="pre">stderr</span></code>. This error stream is redirected by <code class="docutils literal notranslate"><span class="pre">2&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">access_errors.log</span></code>.
+<strong>Key Learning:</strong> Separating <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> is crucial for robust scripting and error handling.</p>
+</div>
+</details></section>
+<section id="exercise-5-prepare-a-sorted-critical-event-report-intermediate">
+<h3>Exercise 5: Prepare a Sorted Critical Event Report (Intermediate)<a class="headerlink" href="#exercise-5-prepare-a-sorted-critical-event-report-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Build a three-stage pipeline to filter, sort, and save data.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> To prepare a report for a morning briefing, you must extract all “CRITICAL” events from <code class="docutils literal notranslate"><span class="pre">patient_vitals.csv</span></code>, sort them alphabetically for clarity, and save the result to <code class="docutils literal notranslate"><span class="pre">critical_sorted.log</span></code>.</p>
+<p>Create a single command pipeline to accomplish this.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span><span class="s2">&quot;CRITICAL&quot;</span><span class="w"> </span>patient_vitals.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>&gt;<span class="w"> </span>critical_sorted.log
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> <code class="docutils literal notranslate"><span class="pre">grep</span></code> first extracts all lines containing “CRITICAL” from the vitals file. This filtered output is then piped directly to the <code class="docutils literal notranslate"><span class="pre">sort</span></code> command, which arranges the lines alphabetically. Finally, the sorted list of critical events is redirected into the report file <code class="docutils literal notranslate"><span class="pre">critical_sorted.log</span></code>.
+<strong>Key Learning:</strong> Complex data preparation tasks can often be accomplished by chaining simple, single-purpose tools together with pipes.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Genomic Variant Filtering:</strong> A researcher can use a pipeline like <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">&quot;HIGH_IMPACT&quot;</span> <span class="pre">variants.vcf</span> <span class="pre">|</span> <span class="pre">sort</span> <span class="pre">-k1,1</span> <span class="pre">-k2,2n</span> <span class="pre">|</span> <span class="pre">uniq</span> <span class="pre">&gt;</span> <span class="pre">high_impact_variants.txt</span></code> to process a large Variant Call Format (VCF) file. This technique extracts only high-impact variants, sorts them by chromosome and position, removes duplicates, and saves the clean list for investigating disease-causing mutations.</p></li>
+<li><p><strong>Real-time Clinical Alerting:</strong> A hospital script could use <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span> <span class="pre">/var/log/patient_monitor.log</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">--line-buffered</span> <span class="pre">&quot;SepsisAlert&quot;</span></code> to continuously watch a log file for sepsis alerts. The output could be piped to another script that sends a page to a clinician, demonstrating a real-time alerting pipeline built with simple command-line tools.</p></li>
+<li><p><strong>Pharmacogenomics Data Aggregation:</strong> An analyst can combine data from multiple patient cohorts using a command like <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">cohort*.csv</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">&quot;Warfarin&quot;</span> <span class="pre">|</span> <span class="pre">tee</span> <span class="pre">warfarin_patients.log</span> <span class="pre">|</span> <span class="pre">wc</span> <span class="pre">-l</span></code>. This technique uses <code class="docutils literal notranslate"><span class="pre">cat</span></code> to merge files, <code class="docutils literal notranslate"><span class="pre">grep</span></code> to filter for a specific drug, <code class="docutils literal notranslate"><span class="pre">tee</span></code> to save the combined data for deep analysis, and <code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">-l</span></code> to provide a quick count of the total patients involved.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to control and connect command-line data streams using pipes and redirection. These tools are the foundation of powerful, automated data processing in bioinformatics and precision health. By mastering them, you can build complex workflows that are both efficient and easy to manage.</p>
+<ul class="simple">
+<li><p><strong>Three Core Streams:</strong> All commands operate on <code class="docutils literal notranslate"><span class="pre">stdin</span></code> (input), <code class="docutils literal notranslate"><span class="pre">stdout</span></code> (output), and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> (errors). Understanding this separation is key.</p></li>
+<li><p><strong>Redirection Provides Control:</strong> Use <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> to save results to files, and <code class="docutils literal notranslate"><span class="pre">2&gt;</span></code> to capture errors separately, which is critical for debugging automated scripts.</p></li>
+<li><p><strong>Pipes Build Workflows:</strong> The pipe <code class="docutils literal notranslate"><span class="pre">|</span></code> operator is the glue that connects individual commands, allowing you to filter, sort, and process data in a single, elegant line.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tee</span></code> Creates Audit Points:</strong> Use <code class="docutils literal notranslate"><span class="pre">tee</span></code> when you need to save data at a midpoint in a pipeline while also passing it along for further processing.</p></li>
+</ul>
+<p>With this knowledge, you are now prepared to move from running single commands to constructing sophisticated shell scripts that can automate complex, multi-step tasks.</p>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="append-adds-the-output-to-the-end-of-an-existing-file-preserving-its-previous-contents">
+<h3>*   <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> <strong>(Append):</strong> Adds the output to the end of an existing file, preserving its previous contents.<a class="headerlink" href="#append-adds-the-output-to-the-end-of-an-existing-file-preserving-its-previous-contents" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Overwrite a file with new output from a vitals log
+grep &quot;Hypoglycemia&quot; vitals_alerts.log &gt; critical_alerts.txt
+# Append more data to the same file
+grep &quot;Tachycardia&quot; vitals_alerts.log &gt;&gt; critical_alerts.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="redirects-both-stdout-and-stderr-to-the-same-destination">
+<h3>*   <code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code>: Redirects both <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> to the same destination.<a class="headerlink" href="#redirects-both-stdout-and-stderr-to-the-same-destination" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Redirect stdin from a file to the sort command
+sort &lt; gene_list.txt &gt; gene_list_sorted.txt
+# Redirect stdout and stderr to separate files
+cat patient_data.csv non_existent_file.csv &gt; full_output.log 2&gt; error_log.txt
+# Redirect both stdout and stderr to the same file
+cat patient_data.csv non_existent_file.csv &amp;&gt; full_run.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-pipe-connects-one-command-s-stdout-to-another-s-stdin-allowing-you-to-chain-multiple-analysis-steps-into-a-single-efficient-command">
+<h3>The pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>) connects one command’s <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to another’s <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, allowing you to chain multiple analysis steps into a single, efficient command.<a class="headerlink" href="#the-pipe-connects-one-command-s-stdout-to-another-s-stdin-allowing-you-to-chain-multiple-analysis-steps-into-a-single-efficient-command" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Find, sort, and count unique critical entries
+grep &quot;CRITICAL&quot; patient_vitals.csv | sort | uniq &gt; critical_unique.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="o-passing-it-to-the-next-command-in-a-pipeline-this-is-perfect-for-saving-intermediate-results-for-auditing-or-debugging-by-default-tee-overwrites-the-file-use-the-a-flag-to-append-instead">
+<h3>o passing it to the next command in a pipeline. This is perfect for saving intermediate results for auditing or debugging. By default, <code class="docutils literal notranslate"><span class="pre">tee</span></code> overwrites the file. Use the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag to append instead.<a class="headerlink" href="#o-passing-it-to-the-next-command-in-a-pipeline-this-is-perfect-for-saving-intermediate-results-for-auditing-or-debugging-by-default-tee-overwrites-the-file-use-the-a-flag-to-append-instead" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Save urgent orders to a file AND count them
+grep &quot;STAT&quot; pending_orders.txt | tee urgent_orders.log | wc -l
+# Expected terminal output (example):
+# 5
+# Append abnormal results to a log AND count them
+grep &quot;ABNORMAL&quot; lab_results.csv | tee -a master_abnormal.log | wc -l
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+sort gene_list.txt | uniq &gt; gene_list_unique.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3><summary>Solution</summary><a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;CRITICAL&quot; patient_vitals.csv | tail -n 10 &gt; latest_critical.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;ABNORMAL&quot; lab_results.csv | tee -a abnormal_events.log | wc -l
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3><summary>Solution</summary><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+cat gene_list.txt phenotypes.txt &gt; gene_list_contents.txt 2&gt; access_errors.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h3><summary>Solution</summary><a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;CRITICAL&quot; patient_vitals.csv | sort &gt; critical_sorted.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>Try It Yourself:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6.6_files_%28grep_find%29.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 6: Essential File and Directory Operations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7.1_and_running_bash_scripts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 7: Automating Tasks with Bash Scripting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-command-output-and">3.1 Saving Command Output (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redirecting-input-and-errors-2">3.2 Redirecting Input and Errors (<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">2&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-command-pipelines">3.3 Creating Command Pipelines (<code class="docutils literal notranslate"><span class="pre">|</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-output-with-tee">3.4 Splitting Output with <code class="docutils literal notranslate"><span class="pre">tee</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-table">3.5 Quick Reference Table</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-a-unique-gene-list-basic">Exercise 1: Create a Unique Gene List (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-isolate-latest-critical-events-intermediate">Exercise 2: Isolate Latest Critical Events (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-log-and-count-abnormal-results-intermediate">Exercise 3: Log and Count Abnormal Results (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-separate-successful-and-failed-file-access-basic">Exercise 4: Separate Successful and Failed File Access (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-prepare-a-sorted-critical-event-report-intermediate">Exercise 5: Prepare a Sorted Critical Event Report (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append-adds-the-output-to-the-end-of-an-existing-file-preserving-its-previous-contents">*   <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> <strong>(Append):</strong> Adds the output to the end of an existing file, preserving its previous contents.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redirects-both-stdout-and-stderr-to-the-same-destination">*   <code class="docutils literal notranslate"><span class="pre">&amp;&gt;</span></code>: Redirects both <code class="docutils literal notranslate"><span class="pre">stdout</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> to the same destination.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pipe-connects-one-command-s-stdout-to-another-s-stdin-allowing-you-to-chain-multiple-analysis-steps-into-a-single-efficient-command">The pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>) connects one command’s <code class="docutils literal notranslate"><span class="pre">stdout</span></code> to another’s <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, allowing you to chain multiple analysis steps into a single, efficient command.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#o-passing-it-to-the-next-command-in-a-pipeline-this-is-perfect-for-saving-intermediate-results-for-auditing-or-debugging-by-default-tee-overwrites-the-file-use-the-a-flag-to-append-instead">o passing it to the next command in a pipeline. This is perfect for saving intermediate results for auditing or debugging. By default, <code class="docutils literal notranslate"><span class="pre">tee</span></code> overwrites the file. Use the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag to append instead.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

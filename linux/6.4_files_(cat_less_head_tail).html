@@ -1,0 +1,1316 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 6: Working with Files and Data &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6.4_files_(cat_less_head_tail)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 6: The Command Line Interface (CLI) for Precision Health" href="6.5_permissions_and_chmod.html" />
+    <link rel="prev" title="Chapter 6: Navigating the Command-Line Interface" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.5_permissions_and_chmod.html">6.5 and Chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/6.4_files_(cat_less_head_tail).ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/6.4_files_(cat_less_head_tail).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 6: Working with Files and Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cat-command-display-file-contents">3.1 The <code class="docutils literal notranslate"><span class="pre">cat</span></code> Command: Display File Contents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-less-command-view-large-files-interactively">3.2 The <code class="docutils literal notranslate"><span class="pre">less</span></code> Command: View Large Files Interactively</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-head-command-view-the-beginning-of-a-file">3.3 The <code class="docutils literal notranslate"><span class="pre">head</span></code> Command: View the Beginning of a File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tail-command-view-the-end-of-a-file">3.4 The <code class="docutils literal notranslate"><span class="pre">tail</span></code> Command: View the End of a File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pro-tip-viewing-the-middle-of-a-file">3.5 Pro Tip: Viewing the Middle of a File</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-verify-csv-headers-basic">Exercise 1: Verify CSV Headers Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-check-recent-log-entries-basic">Exercise 2: Check Recent Log Entries Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-view-a-small-information-file-basic">Exercise 3: View a Small Information File Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-inspect-a-large-sequence-file-intermediate">Exercise 4: Inspect a Large Sequence File Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-monitor-a-live-analysis-intermediate">Exercise 5: Monitor a Live Analysis Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cat-command-reads-a-file-and-displays-its-entire-content-on-the-screen-it-is-best-suited-for-small-files-where-you-want-to-see-everything-at-once">The <code class="docutils literal notranslate"><span class="pre">cat</span></code> command reads a file and displays its entire content on the screen. It is best suited for small files where you want to see everything at once.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-files-too-large-to-fit-on-one-screen-less-is-the-perfect-tool-it-loads-the-file-one-page-at-a-time-making-it-memory-efficient-and-responsive-for-viewing-massive-datasets">For files too large to fit on one screen, <code class="docutils literal notranslate"><span class="pre">less</span></code> is the perfect tool. It loads the file one page at a time, making it memory-efficient and responsive for viewing massive datasets.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-default-head-shows-the-first-10-lines-use-the-n-flag-to-specify-a-different-number-of-lines">By default, <code class="docutils literal notranslate"><span class="pre">head</span></code> shows the first 10 lines. Use the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag to specify a different number of lines.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tail-command-is-the-counterpart-to-head-and-shows-the-last-few-lines-of-a-file-this-is-perfect-for-viewing-the-most-recent-entries-in-a-log-file">The <code class="docutils literal notranslate"><span class="pre">tail</span></code> command is the counterpart to <code class="docutils literal notranslate"><span class="pre">head</span></code> and shows the last few lines of a file. This is perfect for viewing the most recent entries in a log file.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-powerful-feature-of-tail-is-the-f-follow-flag-this-keeps-the-file-open-and-displays-new-lines-as-they-are-added-in-real-time-it-is-essential-for-monitoring-active-processes">A powerful feature of <code class="docutils literal notranslate"><span class="pre">tail</span></code> is the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (follow) flag. This keeps the file open and displays new lines as they are added in real-time. It is essential for monitoring active processes.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-if-you-need-to-see-a-specific-section-in-the-middle-of-a-file-you-can-combine-head-and-tail-using-a-pipe-for-example-to-see-lines-100-through-110-of-hgnc-brca1-sequence-fasta">What if you need to see a specific section in the middle of a file? You can combine <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> using a pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>). For example, to see lines 100 through 110 of <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-6-working-with-files-and-data">
+<h1>Chapter 6: Working with Files and Data<a class="headerlink" href="#chapter-6-working-with-files-and-data" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In precision health, data is often stored in text-based files on remote servers where graphical interfaces are unavailable. Therefore, being able to inspect file contents directly from the command line is a fundamental skill. This section introduces four essential utilities—<code class="docutils literal notranslate"><span class="pre">cat</span></code>, <code class="docutils literal notranslate"><span class="pre">less</span></code>, <code class="docutils literal notranslate"><span class="pre">head</span></code>, and <code class="docutils literal notranslate"><span class="pre">tail</span></code>—that allow you to view data efficiently. By the end of this lesson, you will be able to choose the right tool for any situation, whether you need to quickly glance at a small configuration file, interactively explore a massive genomic sequence, or monitor a running analysis in real-time.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> In bioinformatics and clinical data science, you’ll constantly need to inspect raw data files. This could be to check the headers of a patient data CSV, preview a massive genomic sequence file before analysis, or monitor the live output of a running diagnostic script. These commands are your first-line tools for data quality control and real-time monitoring.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these core commands is the first step to mastering file inspection on the command line.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cat</span></code> (Concatenate)</strong>: Reads one or more files and prints their entire content to the screen (standard output). In a medical context, it is ideal for quickly viewing small, self-contained files, such as a <code class="docutils literal notranslate"><span class="pre">PT001234_vitals_20241110.txt</span></code> file or a short list of gene IDs for a pathway analysis.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">less</span></code></strong>: A terminal pager program used to view the content of a file one screen at a time. It is indispensable for inspecting large files, like multi-gigabyte genomic sequence files (<code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code>) or variant call files (VCF), without loading the entire file into memory and overwhelming the system.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">head</span></code></strong>: A utility that displays the beginning (the “head”) of a file. This is invaluable for quickly checking the header rows of tabular data files (e.g., CSV, TSV) to understand the data structure, such as verifying column names in a <code class="docutils literal notranslate"><span class="pre">20241111_lab_results_batch_01.csv</span></code> file before processing it.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tail</span></code></strong>: A utility that displays the end (the “tail”) of a file. In clinical research, it is frequently used to check the most recent entries in log files from analysis pipelines (<code class="docutils literal notranslate"><span class="pre">ENC-20241110-005_medication_admin.log</span></code>) or to view the last few records in a continuously growing patient monitoring data file.</p></li>
+<li><p><strong>Flag/Option</strong>: A command-line parameter, typically prefixed with a hyphen (<code class="docutils literal notranslate"><span class="pre">-</span></code> or <code class="docutils literal notranslate"><span class="pre">--</span></code>), that modifies a command’s behavior. For example, the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag allows you to specify a number of lines, while the <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag enables “following” a file to see new data as it is added.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>This section provides a detailed breakdown of each command with practical examples using realistic filenames and data.</p>
+<section id="the-cat-command-display-file-contents">
+<h3>3.1 The <code class="docutils literal notranslate"><span class="pre">cat</span></code> Command: Display File Contents<a class="headerlink" href="#the-cat-command-display-file-contents" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cat</span></code> command reads a file and displays its entire content on the screen. It is best suited for small files where you want to see everything at once.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+cat PT001234_vitals_20241110.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="n">Patient</span> <span class="n">ID</span><span class="p">:</span> <span class="n">PT001234</span>
+<span class="n">Last</span> <span class="n">Update</span><span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">14</span><span class="p">:</span><span class="mi">30</span>
+<span class="n">Heart</span> <span class="n">Rate</span><span class="p">:</span> <span class="mi">78</span> <span class="n">bpm</span>
+<span class="n">Blood</span> <span class="n">Pressure</span><span class="p">:</span> <span class="mi">122</span><span class="o">/</span><span class="mi">79</span> <span class="n">mmHg</span>
+<span class="n">Temperature</span><span class="p">:</span> <span class="mf">37.1</span> <span class="n">C</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> Be very cautious using <code class="docutils literal notranslate"><span class="pre">cat</span></code> on unknown or potentially large files. It will attempt to print the entire file to your screen, which can freeze your terminal session if the file is a multi-gigabyte sequencing file or a large log. Use <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lh</span></code> to check a file’s size first.</p>
+</div></blockquote>
+</section>
+<section id="the-less-command-view-large-files-interactively">
+<h3>3.2 The <code class="docutils literal notranslate"><span class="pre">less</span></code> Command: View Large Files Interactively<a class="headerlink" href="#the-less-command-view-large-files-interactively" title="Link to this heading">#</a></h3>
+<p>For files too large to fit on one screen, <code class="docutils literal notranslate"><span class="pre">less</span></code> is the perfect tool. It loads the file one page at a time, making it memory-efficient and responsive for viewing massive datasets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+less -N HGNC_BRCA1_sequence.fasta
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># The terminal clears and displays the file&#39;s content interactively.</span>
+<span class="c1"># Line numbers appear on the left, and you can scroll or search.</span>
+<span class="c1"># Press &#39;q&#39; to quit and return to the command prompt.</span>
+
+<span class="mi">1</span> <span class="o">&gt;</span><span class="n">ENST00000357654</span><span class="mf">.8</span> <span class="o">|</span> <span class="n">HGNC</span><span class="p">:</span><span class="mi">1100</span> <span class="o">|</span> <span class="n">BRCA1</span>
+<span class="mi">2</span> <span class="n">ATGGATTTATCTGCTCTTCGCGTTGAAGAAGTACAAAATGTCATTAATGCTATGCAGAAAATCTTAGAGTGTCCAATCTGTCTGGAGTTGATCAAGGAACCTGTCTCCACAAAGTGTGACCACATATTTTGCAAATTTTGTATGCTGAAACTTCTCAACCAGAAGAAAGGGCCTTCACAATGTCC</span>
+<span class="mi">3</span> <span class="n">CTTTGTGTAAGAATGAAGATGGATCCAAACACTTCAAAAACATTAAAGAAAACCCTTGCAAGGAGGTGGAAACCCAAGGTGAACATTGTACTGAAGAACTCAAGAAGGAGATGCAGTTTGCTTTTGAGCTGTAAATTTCTGAATGTCACAACATTTCAAGTGTAACACATGGAGGAGTTGA</span>
+<span class="o">...</span>
+<span class="n">HGNC_BRCA1_sequence</span><span class="o">.</span><span class="n">fasta</span> <span class="p">(</span><span class="n">file</span> <span class="mi">1</span> <span class="n">of</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-N</span></code> flag displays line numbers, which helps with orientation in large, uniform files.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> The <code class="docutils literal notranslate"><span class="pre">-N</span></code> flag is invaluable when discussing file contents with a colleague. Instead of saying “it’s about halfway down the file,” you can give a precise location, like “the mutation is on line 11,382.” This improves clarity and precision in collaborative research.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Key Controls inside <code class="docutils literal notranslate"><span class="pre">less</span></code>:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Arrow</span> <span class="pre">Keys</span></code> or <code class="docutils literal notranslate"><span class="pre">j</span></code>/<code class="docutils literal notranslate"><span class="pre">k</span></code>: Scroll up or down line-by-line.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Spacebar</span></code>: Page down one full screen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/pattern</span></code>: Search forward for a <code class="docutils literal notranslate"><span class="pre">pattern</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">/BRCA1</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: Jump to the next match of your search.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g</span></code>: Go to the very top (first line) of the file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">G</span></code>: Go to the very end (last line) of the file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code>: Quit the <code class="docutils literal notranslate"><span class="pre">less</span></code> viewer and return to the command prompt.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="the-head-command-view-the-beginning-of-a-file">
+<h3>3.3 The <code class="docutils literal notranslate"><span class="pre">head</span></code> Command: View the Beginning of a File<a class="headerlink" href="#the-head-command-view-the-beginning-of-a-file" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">head</span></code> command shows the first few lines of a file. This is extremely useful for peeking at the structure of a dataset, especially to check column headers in a CSV file. You would expect to see column headers such as <code class="docutils literal notranslate"><span class="pre">PatientID</span></code>, <code class="docutils literal notranslate"><span class="pre">TestName</span></code>, <code class="docutils literal notranslate"><span class="pre">Value</span></code>, <code class="docutils literal notranslate"><span class="pre">Unit</span></code>, and <code class="docutils literal notranslate"><span class="pre">ReferenceRange</span></code>.</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">head</span></code> shows the first 10 lines. Use the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag to specify a different number of lines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Show the first 5 lines of the lab results file
+head -n 5 20241111_lab_results_batch_01.csv
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="n">PatientID</span><span class="p">,</span><span class="n">TestName</span><span class="p">,</span><span class="n">Value</span><span class="p">,</span><span class="n">Unit</span><span class="p">,</span><span class="n">ReferenceRange</span><span class="p">,</span><span class="n">Timestamp</span>
+<span class="n">PT001234</span><span class="p">,</span><span class="n">Glucose</span><span class="p">,</span><span class="mi">98</span><span class="p">,</span><span class="n">mg</span><span class="o">/</span><span class="n">dL</span><span class="p">,</span><span class="mi">70</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span><span class="n">T08</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span>
+<span class="n">PT001234</span><span class="p">,</span><span class="n">HbA1c</span><span class="p">,</span><span class="mf">5.8</span><span class="p">,</span><span class="o">%</span><span class="p">,</span><span class="mf">4.0</span><span class="o">-</span><span class="mf">5.6</span><span class="p">,</span><span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span><span class="n">T08</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span>
+<span class="n">PT001234</span><span class="p">,</span><span class="n">Cholesterol</span><span class="p">,</span><span class="mi">195</span><span class="p">,</span><span class="n">mg</span><span class="o">/</span><span class="n">dL</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">200</span><span class="p">,</span><span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span><span class="n">T08</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span>
+<span class="n">PT001234</span><span class="p">,</span><span class="n">WBC</span><span class="p">,</span><span class="mf">6.5</span><span class="p">,</span><span class="n">x10</span><span class="o">^</span><span class="mi">9</span><span class="o">/</span><span class="n">L</span><span class="p">,</span><span class="mf">4.5</span><span class="o">-</span><span class="mf">11.0</span><span class="p">,</span><span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span><span class="n">T08</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> The <code class="docutils literal notranslate"><span class="pre">-n</span></code> is optional when specifying line numbers. <code class="docutils literal notranslate"><span class="pre">head</span> <span class="pre">-5</span></code> works the same as <code class="docutils literal notranslate"><span class="pre">head</span> <span class="pre">-n</span> <span class="pre">5</span></code>. This shorthand also works for the <code class="docutils literal notranslate"><span class="pre">tail</span></code> command.</p>
+</div></blockquote>
+</section>
+<section id="the-tail-command-view-the-end-of-a-file">
+<h3>3.4 The <code class="docutils literal notranslate"><span class="pre">tail</span></code> Command: View the End of a File<a class="headerlink" href="#the-tail-command-view-the-end-of-a-file" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">tail</span></code> command is the counterpart to <code class="docutils literal notranslate"><span class="pre">head</span></code> and shows the last few lines of a file. This is perfect for viewing the most recent entries in a log file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Show the last 5 lines of the medication log
+tail -n 5 ENC-20241110-005_medication_admin.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Metformin</span> <span class="o">|</span> <span class="mi">500</span><span class="n">mg</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Lisinopril</span> <span class="o">|</span> <span class="mi">10</span><span class="n">mg</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Metformin</span> <span class="o">|</span> <span class="mi">500</span><span class="n">mg</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">06</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">NOTE</span> <span class="o">|</span> <span class="n">Patient</span> <span class="n">reports</span> <span class="n">mild</span> <span class="n">nausea</span><span class="o">.</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Metformin</span> <span class="o">|</span> <span class="mi">500</span><span class="n">mg</span>
+</pre></div>
+</div>
+<p>A powerful feature of <code class="docutils literal notranslate"><span class="pre">tail</span></code> is the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (follow) flag. This keeps the file open and displays new lines as they are added in real-time. It is essential for monitoring active processes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+tail -f pipeline_alpha_run.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
+<span class="c1"># The terminal displays the last few lines of the file and waits.</span>
+<span class="c1"># New lines are printed to the screen as they are added to the file.</span>
+
+<span class="p">[</span><span class="mi">2025</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">07</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="n">Alignment</span> <span class="n">complete</span> <span class="k">for</span> <span class="n">chunk</span> <span class="mf">150.</span>
+<span class="p">[</span><span class="mi">2025</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">07</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">alignment</span> <span class="k">for</span> <span class="n">sequence</span> <span class="n">chunk</span> <span class="mi">151</span><span class="o">/</span><span class="mf">1000.</span><span class="o">..</span>
+<span class="n">_</span>
+<span class="c1"># (Press Ctrl+C to stop following and exit)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>In Practice:</strong> The <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span></code> command is a standard tool for systems administrators and researchers. Imagine you’ve started a long-running analysis on a critical patient sample. You can use <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span> <span class="pre">analysis.log</span></code> in a separate terminal window to watch the progress in real-time, spot errors as they happen, and see when the process completes without having to repeatedly re-open the file.</p>
+</div></blockquote>
+</section>
+<section id="pro-tip-viewing-the-middle-of-a-file">
+<h3>3.5 Pro Tip: Viewing the Middle of a File<a class="headerlink" href="#pro-tip-viewing-the-middle-of-a-file" title="Link to this heading">#</a></h3>
+<p>What if you need to see a specific section in the middle of a file? You can combine <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> using a pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>). For example, to see lines 100 through 110 of <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+head -n 110 HGNC_BRCA1_sequence.fasta | tail -n 11
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>This command first takes the top 110 lines, and then from that output, it shows the last 11 lines, effectively isolating lines 100-110. We will cover pipes in more detail later.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>Assume you have the files <code class="docutils literal notranslate"><span class="pre">PT001234_vitals_20241110.txt</span></code> (short), <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code> (long), <code class="docutils literal notranslate"><span class="pre">20241111_lab_results_batch_01.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">ENC-20241110-005_medication_admin.log</span></code>, and <code class="docutils literal notranslate"><span class="pre">pipeline_alpha_run.log</span></code>.</p>
+<section id="exercise-1-verify-csv-headers-basic">
+<h3>Exercise 1: Verify CSV Headers Basic<a class="headerlink" href="#exercise-1-verify-csv-headers-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Quickly inspect the first few lines of a new data file to ensure it has the expected columns.
+<strong>Time:</strong> 1 minute
+<strong>Medical Context:</strong> The <code class="docutils literal notranslate"><span class="pre">20241111_lab_results_batch_01.csv</span></code> file just arrived. You need to check its first 3 lines to verify the column headers are correct before running a script that depends on them.</p>
+<p>Write the command to complete this task.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>20241111_lab_results_batch_01.csv
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="n">PatientID</span><span class="p">,</span><span class="n">TestName</span><span class="p">,</span><span class="n">Value</span><span class="p">,</span><span class="n">Unit</span><span class="p">,</span><span class="n">ReferenceRange</span><span class="p">,</span><span class="n">Timestamp</span>
+<span class="n">PT001234</span><span class="p">,</span><span class="n">Glucose</span><span class="p">,</span><span class="mi">98</span><span class="p">,</span><span class="n">mg</span><span class="o">/</span><span class="n">dL</span><span class="p">,</span><span class="mi">70</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span><span class="n">T08</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span>
+<span class="n">PT001234</span><span class="p">,</span><span class="n">HbA1c</span><span class="p">,</span><span class="mf">5.8</span><span class="p">,</span><span class="o">%</span><span class="p">,</span><span class="mf">4.0</span><span class="o">-</span><span class="mf">5.6</span><span class="p">,</span><span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span><span class="n">T08</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">head</span></code> command is used to view the beginning of a file. The <code class="docutils literal notranslate"><span class="pre">-n</span> <span class="pre">3</span></code> flag specifies that only the first 3 lines should be displayed.
+<strong>Key Learning:</strong> Using <code class="docutils literal notranslate"><span class="pre">head</span></code> is the standard method for quickly verifying the structure and headers of tabular data files.</p>
+</div>
+</details></section>
+<section id="exercise-2-check-recent-log-entries-basic">
+<h3>Exercise 2: Check Recent Log Entries Basic<a class="headerlink" href="#exercise-2-check-recent-log-entries-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Display the most recent records from a log file.
+<strong>Time:</strong> 1 minute
+<strong>Medical Context:</strong> You are reviewing a patient’s <code class="docutils literal notranslate"><span class="pre">ENC-20241110-005_medication_admin.log</span></code> to see the latest prescriptions administered. You need to display the last 5 entries.</p>
+<p>Write the command to complete this task.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span><span class="w"> </span>ENC-20241110-005_medication_admin.log
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Metformin</span> <span class="o">|</span> <span class="mi">500</span><span class="n">mg</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Lisinopril</span> <span class="o">|</span> <span class="mi">10</span><span class="n">mg</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Metformin</span> <span class="o">|</span> <span class="mi">500</span><span class="n">mg</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">06</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">NOTE</span> <span class="o">|</span> <span class="n">Patient</span> <span class="n">reports</span> <span class="n">mild</span> <span class="n">nausea</span><span class="o">.</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Administered</span> <span class="o">|</span> <span class="n">Metformin</span> <span class="o">|</span> <span class="mi">500</span><span class="n">mg</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">tail</span></code> command is used to view the end of a file. The <code class="docutils literal notranslate"><span class="pre">-n</span> <span class="pre">5</span></code> flag specifies that the last 5 lines should be displayed, showing the most recent entries.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">tail</span></code> is the go-to command for checking the latest data added to a file.</p>
+</div>
+</details></section>
+<section id="exercise-3-view-a-small-information-file-basic">
+<h3>Exercise 3: View a Small Information File Basic<a class="headerlink" href="#exercise-3-view-a-small-information-file-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Display the entire contents of a small file at once.
+<strong>Time:</strong> 1 minute
+<strong>Medical Context:</strong> A colleague informs you that <code class="docutils literal notranslate"><span class="pre">PT001234_vitals_20241110.txt</span></code> contains a patient’s core summary information. You need to view the entire file at once to confirm its contents.</p>
+<p>Write the command to complete this task.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>PT001234_vitals_20241110.txt
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="n">Patient</span> <span class="n">ID</span><span class="p">:</span> <span class="n">PT001234</span>
+<span class="n">Last</span> <span class="n">Update</span><span class="p">:</span> <span class="mi">2024</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">10</span> <span class="mi">14</span><span class="p">:</span><span class="mi">30</span>
+<span class="n">Heart</span> <span class="n">Rate</span><span class="p">:</span> <span class="mi">78</span> <span class="n">bpm</span>
+<span class="n">Blood</span> <span class="n">Pressure</span><span class="p">:</span> <span class="mi">122</span><span class="o">/</span><span class="mi">79</span> <span class="n">mmHg</span>
+<span class="n">Temperature</span><span class="p">:</span> <span class="mf">37.1</span> <span class="n">C</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> Since the vitals file is small, <code class="docutils literal notranslate"><span class="pre">cat</span></code> is the most direct command to display all of its content on the screen immediately.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">cat</span></code> is most effective for small files where seeing the entire content at once is feasible and desirable.</p>
+</div>
+</details></section>
+<section id="exercise-4-inspect-a-large-sequence-file-intermediate">
+<h3>Exercise 4: Inspect a Large Sequence File Intermediate<a class="headerlink" href="#exercise-4-inspect-a-large-sequence-file-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Open a very large file for inspection without loading it all into memory.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> You need to examine the <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code> file. It’s several gigabytes in size, so you must use a command that allows you to scroll through it interactively.</p>
+<p>Write the command that lets you open and navigate the file.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>less<span class="w"> </span>HGNC_BRCA1_sequence.fasta
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="c1"># The terminal screen clears and shows the beginning of the file.</span>
+<span class="c1"># You can now scroll with arrow keys, page down with spacebar,</span>
+<span class="c1"># search with &#39;/&#39;, and quit with &#39;q&#39;.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> <code class="docutils literal notranslate"><span class="pre">less</span></code> is the standard pager for viewing large files. It opens the file instantly without reading it all into memory, allowing you to navigate efficiently.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">less</span></code> is the essential, memory-safe tool for exploring files that are too big to be displayed by <code class="docutils literal notranslate"><span class="pre">cat</span></code>.</p>
+</div>
+</details></section>
+<section id="exercise-5-monitor-a-live-analysis-intermediate">
+<h3>Exercise 5: Monitor a Live Analysis Intermediate<a class="headerlink" href="#exercise-5-monitor-a-live-analysis-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Monitor a file in real-time to see new data as it is written.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> A bioinformatics pipeline is actively writing its progress to <code class="docutils literal notranslate"><span class="pre">pipeline_alpha_run.log</span></code>. You need to monitor this file to see new updates as they appear without having to re-run the command.</p>
+<p>Write the command to “follow” the file’s output.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tail<span class="w"> </span>-f<span class="w"> </span>pipeline_alpha_run.log
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Expected Output:</span>
+<span class="c1"># The terminal shows the last few lines of the log and then waits.</span>
+<span class="c1"># As new lines are written to the log file, they will appear on your screen</span>
+<span class="c1"># automatically. Press Ctrl+C to stop monitoring.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">tail</span></code> command with the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (follow) flag prints the last few lines of the file and then waits, automatically printing any new lines that are added to the file.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span></code> is the standard and most powerful method for real-time monitoring of log files and other growing data streams.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p>These commands are used daily in real-world precision health and bioinformatics workflows.</p>
+<ul class="simple">
+<li><p><strong>Verifying VCF File Integrity</strong>: Before launching a multi-hour variant annotation pipeline, a computational biologist uses <code class="docutils literal notranslate"><span class="pre">head</span> <span class="pre">-n</span> <span class="pre">100</span></code> on a massive Variant Call Format (VCF) file. This allows them to quickly inspect the file’s metadata header to ensure it is correctly formatted and contains the right reference genome information, preventing costly errors downstream.</p></li>
+<li><p><strong>Real-Time Sequencing Run Monitoring</strong>: During a next-generation sequencing run, the instrument’s software writes log files in real-time. A lab technician can SSH into the machine and use <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span> <span class="pre">/var/log/sequencer.log</span></code> to monitor the run’s progress, watch for critical errors, and estimate completion time without interfering with the machine’s operation.</p></li>
+<li><p><strong>Inspecting Large Gene Annotation Files</strong>: A researcher studying gene regulation needs to find information about the <em>BRCA1</em> gene within a 50 GB gene annotation file (GTF). Instead of trying to open it in a text editor, which would crash, they use <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">Homo_sapiens.GRCh38.104.gtf.gz</span></code> (as <code class="docutils literal notranslate"><span class="pre">less</span></code> can read compressed files) and then search for <code class="docutils literal notranslate"><span class="pre">/BRCA1</span></code> to instantly navigate to the relevant lines.</p></li>
+<li><p><strong>Reviewing Pipeline Configuration</strong>: Before submitting a job to a high-performance computing cluster, a bioinformatician uses <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">params.config</span></code> to display the entire contents of a small configuration file. This provides a final, quick check to confirm all parameters—like sample names, file paths, and thresholds—are set correctly for the analysis.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored four essential command-line utilities for viewing file contents directly in the terminal. Mastering these tools is crucial for effectively working with data in a server environment.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cat</span></code></strong>: Use for small files. It displays the entire file content at once.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">less</span></code></strong>: Use for large files. It allows you to page through content interactively without using much memory.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">head</span></code></strong>: Use to see the beginning of a file. It is perfect for checking headers in tabular data.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tail</span></code></strong>: Use to see the end of a file. It is ideal for checking the most recent log entries or monitoring file changes in real-time with the <code class="docutils literal notranslate"><span class="pre">-f</span></code> flag.</p></li>
+</ul>
+<p>With these file viewing skills, you are now equipped to inspect data of any size. In the next section, we will move from viewing to modifying, learning how to create, edit, and manage files and directories.</p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Consider the four tools you’ve just learned: <code class="docutils literal notranslate"><span class="pre">cat</span></code>, <code class="docutils literal notranslate"><span class="pre">less</span></code>, <code class="docutils literal notranslate"><span class="pre">head</span></code>, and <code class="docutils literal notranslate"><span class="pre">tail</span></code>. Can you think of a scenario in your own work or studies where choosing the wrong tool could lead to a significant problem (e.g., wasted time, a frozen system, or misinterpreting data)? How does understanding the specific purpose of each tool contribute to being a more efficient and careful data analyst?</p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="the-cat-command-reads-a-file-and-displays-its-entire-content-on-the-screen-it-is-best-suited-for-small-files-where-you-want-to-see-everything-at-once">
+<h3>The <code class="docutils literal notranslate"><span class="pre">cat</span></code> command reads a file and displays its entire content on the screen. It is best suited for small files where you want to see everything at once.<a class="headerlink" href="#the-cat-command-reads-a-file-and-displays-its-entire-content-on-the-screen-it-is-best-suited-for-small-files-where-you-want-to-see-everything-at-once" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+cat PT001234_vitals_20241110.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="for-files-too-large-to-fit-on-one-screen-less-is-the-perfect-tool-it-loads-the-file-one-page-at-a-time-making-it-memory-efficient-and-responsive-for-viewing-massive-datasets">
+<h3>For files too large to fit on one screen, <code class="docutils literal notranslate"><span class="pre">less</span></code> is the perfect tool. It loads the file one page at a time, making it memory-efficient and responsive for viewing massive datasets.<a class="headerlink" href="#for-files-too-large-to-fit-on-one-screen-less-is-the-perfect-tool-it-loads-the-file-one-page-at-a-time-making-it-memory-efficient-and-responsive-for-viewing-massive-datasets" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+less -N HGNC_BRCA1_sequence.fasta
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="by-default-head-shows-the-first-10-lines-use-the-n-flag-to-specify-a-different-number-of-lines">
+<h3>By default, <code class="docutils literal notranslate"><span class="pre">head</span></code> shows the first 10 lines. Use the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag to specify a different number of lines.<a class="headerlink" href="#by-default-head-shows-the-first-10-lines-use-the-n-flag-to-specify-a-different-number-of-lines" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Show the first 5 lines of the lab results file
+head -n 5 20241111_lab_results_batch_01.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-tail-command-is-the-counterpart-to-head-and-shows-the-last-few-lines-of-a-file-this-is-perfect-for-viewing-the-most-recent-entries-in-a-log-file">
+<h3>The <code class="docutils literal notranslate"><span class="pre">tail</span></code> command is the counterpart to <code class="docutils literal notranslate"><span class="pre">head</span></code> and shows the last few lines of a file. This is perfect for viewing the most recent entries in a log file.<a class="headerlink" href="#the-tail-command-is-the-counterpart-to-head-and-shows-the-last-few-lines-of-a-file-this-is-perfect-for-viewing-the-most-recent-entries-in-a-log-file" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Show the last 5 lines of the medication log
+tail -n 5 ENC-20241110-005_medication_admin.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-powerful-feature-of-tail-is-the-f-follow-flag-this-keeps-the-file-open-and-displays-new-lines-as-they-are-added-in-real-time-it-is-essential-for-monitoring-active-processes">
+<h3>A powerful feature of <code class="docutils literal notranslate"><span class="pre">tail</span></code> is the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (follow) flag. This keeps the file open and displays new lines as they are added in real-time. It is essential for monitoring active processes.<a class="headerlink" href="#a-powerful-feature-of-tail-is-the-f-follow-flag-this-keeps-the-file-open-and-displays-new-lines-as-they-are-added-in-real-time-it-is-essential-for-monitoring-active-processes" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+tail -f pipeline_alpha_run.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-if-you-need-to-see-a-specific-section-in-the-middle-of-a-file-you-can-combine-head-and-tail-using-a-pipe-for-example-to-see-lines-100-through-110-of-hgnc-brca1-sequence-fasta">
+<h3>What if you need to see a specific section in the middle of a file? You can combine <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> using a pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>). For example, to see lines 100 through 110 of <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code><a class="headerlink" href="#what-if-you-need-to-see-a-specific-section-in-the-middle-of-a-file-you-can-combine-head-and-tail-using-a-pipe-for-example-to-see-lines-100-through-110-of-hgnc-brca1-sequence-fasta" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+head -n 110 HGNC_BRCA1_sequence.fasta | tail -n 11
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+head -n 3 20241111_lab_results_batch_01.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+tail -n 5 ENC-20241110-005_medication_admin.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3><summary>Solution</summary><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+cat PT001234_vitals_20241110.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h3><summary>Solution</summary><a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+less HGNC_BRCA1_sequence.fasta
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>Try It Yourself:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h3><summary>Solution</summary><a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+tail -f pipeline_alpha_run.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h3>Try It Yourself:<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 6: Navigating the Command-Line Interface</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="6.5_permissions_and_chmod.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 6: The Command Line Interface (CLI) for Precision Health</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cat-command-display-file-contents">3.1 The <code class="docutils literal notranslate"><span class="pre">cat</span></code> Command: Display File Contents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-less-command-view-large-files-interactively">3.2 The <code class="docutils literal notranslate"><span class="pre">less</span></code> Command: View Large Files Interactively</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-head-command-view-the-beginning-of-a-file">3.3 The <code class="docutils literal notranslate"><span class="pre">head</span></code> Command: View the Beginning of a File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tail-command-view-the-end-of-a-file">3.4 The <code class="docutils literal notranslate"><span class="pre">tail</span></code> Command: View the End of a File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pro-tip-viewing-the-middle-of-a-file">3.5 Pro Tip: Viewing the Middle of a File</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-verify-csv-headers-basic">Exercise 1: Verify CSV Headers Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-check-recent-log-entries-basic">Exercise 2: Check Recent Log Entries Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-view-a-small-information-file-basic">Exercise 3: View a Small Information File Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-inspect-a-large-sequence-file-intermediate">Exercise 4: Inspect a Large Sequence File Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-monitor-a-live-analysis-intermediate">Exercise 5: Monitor a Live Analysis Intermediate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cat-command-reads-a-file-and-displays-its-entire-content-on-the-screen-it-is-best-suited-for-small-files-where-you-want-to-see-everything-at-once">The <code class="docutils literal notranslate"><span class="pre">cat</span></code> command reads a file and displays its entire content on the screen. It is best suited for small files where you want to see everything at once.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-files-too-large-to-fit-on-one-screen-less-is-the-perfect-tool-it-loads-the-file-one-page-at-a-time-making-it-memory-efficient-and-responsive-for-viewing-massive-datasets">For files too large to fit on one screen, <code class="docutils literal notranslate"><span class="pre">less</span></code> is the perfect tool. It loads the file one page at a time, making it memory-efficient and responsive for viewing massive datasets.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-default-head-shows-the-first-10-lines-use-the-n-flag-to-specify-a-different-number-of-lines">By default, <code class="docutils literal notranslate"><span class="pre">head</span></code> shows the first 10 lines. Use the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag to specify a different number of lines.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tail-command-is-the-counterpart-to-head-and-shows-the-last-few-lines-of-a-file-this-is-perfect-for-viewing-the-most-recent-entries-in-a-log-file">The <code class="docutils literal notranslate"><span class="pre">tail</span></code> command is the counterpart to <code class="docutils literal notranslate"><span class="pre">head</span></code> and shows the last few lines of a file. This is perfect for viewing the most recent entries in a log file.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-powerful-feature-of-tail-is-the-f-follow-flag-this-keeps-the-file-open-and-displays-new-lines-as-they-are-added-in-real-time-it-is-essential-for-monitoring-active-processes">A powerful feature of <code class="docutils literal notranslate"><span class="pre">tail</span></code> is the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (follow) flag. This keeps the file open and displays new lines as they are added in real-time. It is essential for monitoring active processes.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-if-you-need-to-see-a-specific-section-in-the-middle-of-a-file-you-can-combine-head-and-tail-using-a-pipe-for-example-to-see-lines-100-through-110-of-hgnc-brca1-sequence-fasta">What if you need to see a specific section in the middle of a file? You can combine <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> using a pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>). For example, to see lines 100 through 110 of <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1097 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 7: Automating Tasks with Bash Scripting &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7.1_and_running_bash_scripts';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 7: Automating Tasks with Bash Scripting" href="7.2_bash.html" />
+    <link rel="prev" title="Chapter 6: Command-Line Data Manipulation" href="6.7_and_redirection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.4_files_%28cat_less_head_tail%29.html">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.5_permissions_and_chmod.html">6.5 and Chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/7.1_and_running_bash_scripts.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/7.1_and_running_bash_scripts.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 7: Automating Tasks with Bash Scripting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-create-and-run-a-reusable-script">3.1. Method 1: Create and Run a Reusable Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-run-a-script-without-execute-permissions">3.2. Method 2: Run a Script Without Execute Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-run-a-basic-script">Exercise 1: Create and Run a Basic Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-create-a-patient-data-directory">Exercise 2: Create a Patient Data Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-explain-execution-methods">Exercise 3: Explain Execution Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nano-to-create-a-file-while-the-sh-extension-is-not-technically-required-for-the-script-to-run-it-is-a-universal-convention-that-helps-developers-quickly-identify-the-file-as-a-shell-script"><code class="docutils literal notranslate"><span class="pre">nano</span></code> to create a file. While the <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension is not technically required for the script to run, it is a universal convention that helps developers quickly identify the file as a shell script.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-following-content-the-shebang-is-critical-and-using-a-variable-for-the-patient-id-makes-the-script-easier-to-update">Add the following content. The shebang is critical, and using a variable for the <code class="docutils literal notranslate"><span class="pre">PATIENT_ID</span></code> makes the script easier to update.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-chmod-change-mode-command-to-add-the-execute-x-permission-to-your-script">Use the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode) command to add the execute (<code class="docutils literal notranslate"><span class="pre">+x</span></code>) permission to your script.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-the-script-by-providing-its-path-from-the-current-directory">Execute the script by providing its path from the current directory.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-method-is-useful-for-running-a-script-a-single-time-or-when-you-don-t-have-the-rights-to-change-its-permissions-you-explicitly-tell-the-bash-interpreter-to-execute-the-file">This method is useful for running a script a single time or when you don’t have the rights to change its permissions. You explicitly tell the <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter to execute the file.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-content"><strong>2. Add content:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>2. Add content:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><strong>2. Add content:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-7-automating-tasks-with-bash-scripting">
+<h1>Chapter 7: Automating Tasks with Bash Scripting<a class="headerlink" href="#chapter-7-automating-tasks-with-bash-scripting" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>This section introduces the fundamentals of automating tasks in a precision health environment using bash scripts. Imagine you’re at a facility like City Medical Center, where technicians run dozens of routine checks on data files every day. A simple script could automate a “file health check” on new lab reports, saving valuable time and preventing manual errors. In clinical and research settings, you often repeat the same sequence of commands daily, and scripts are the key to making this work efficient and reliable. The learning journey will cover how to create a simple script, make it executable, and run it using two different methods, laying the foundation for building powerful automation workflows.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Bash Script</strong>: A plain text file containing a series of commands that are executed by the bash shell. In a medical context, a script could automate the process of downloading daily lab results, renaming them according to a patient ID convention, and archiving them.</p></li>
+<li><p><strong>Shebang (<code class="docutils literal notranslate"><span class="pre">#!</span></code>)</strong>: The character sequence at the beginning of a script (<code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">bash</span></code>) that tells the operating system which interpreter to use to execute the commands. This ensures that your script is consistently run by the bash shell, even if the user’s default shell is different, providing reliability for critical tasks like processing genomic data.</p></li>
+<li><p><strong>Execute Permission</strong>: A file system property that allows a file to be run as a program. Before a script can be run directly by its name (e.g., <code class="docutils literal notranslate"><span class="pre">./process_labs.sh</span></code>), it must be granted execute permission. This is a security feature to prevent accidental execution of files, ensuring that only trusted scripts, such as those for patient data anonymization, are run.</p></li>
+<li><p><strong>Execution Path (<code class="docutils literal notranslate"><span class="pre">./</span></code>)</strong>: A prefix used to specify the location of a script in the current directory. When you type <code class="docutils literal notranslate"><span class="pre">./script.sh</span></code>, you are explicitly telling the shell to run the <code class="docutils literal notranslate"><span class="pre">script.sh</span></code> file located right here. This prevents the system from accidentally running a different program with the same name that might exist elsewhere in the system’s path, which is crucial for maintaining data integrity in a clinical environment.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="method-1-create-and-run-a-reusable-script">
+<h3>3.1. Method 1: Create and Run a Reusable Script<a class="headerlink" href="#method-1-create-and-run-a-reusable-script" title="Link to this heading">#</a></h3>
+<p>This is the standard method for scripts you intend to use regularly. By making the script executable, you treat it like any other command-line program.</p>
+<p><strong>1. Create the Script File</strong></p>
+<p>Use a text editor like <code class="docutils literal notranslate"><span class="pre">nano</span></code> to create a file. While the <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension is not technically required for the script to run, it is a universal convention that helps developers quickly identify the file as a shell script.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+nano process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>Add the following content. The shebang is critical, and using a variable for the <code class="docutils literal notranslate"><span class="pre">PATIENT_ID</span></code> makes the script easier to update.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/usr/bin/env bash
+# This script prints a mock lab result status.
+# Define a variable for the patient ID for easy updates.
+PATIENT_ID=&quot;PT098765&quot;
+echo &quot;Initializing lab result processing...&quot;
+echo &quot;Processing file: CHEM7_20251110.csv&quot;
+echo &quot;Patient ID: $PATIENT_ID&quot;
+echo &quot;Processing Status: Complete&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>2. Grant Execute Permission</strong></p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode) command to add the execute (<code class="docutils literal notranslate"><span class="pre">+x</span></code>) permission to your script.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+chmod +x process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> Using <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span></code> is convenient but grants execute permission to <em>everyone</em> on a multi-user system. For scripts containing sensitive operations or data paths, it is a critical security best practice to use <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">u+x</span></code>, which restricts execution permission to only your user account (the <strong>u</strong>ser who owns the file).</p>
+</div></blockquote>
+<p><strong>3. Run the Script</strong></p>
+<p>Execute the script by providing its path from the current directory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+./process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note:</strong> If you try to run <code class="docutils literal notranslate"><span class="pre">process_labs.sh</span></code> without the <code class="docutils literal notranslate"><span class="pre">./</span></code> prefix, you will likely get a “command not found” error. This is because the current directory is not typically in the system’s <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> for security reasons. The <code class="docutils literal notranslate"><span class="pre">./</span></code> explicitly tells the shell to look right here.</p>
+</div></blockquote>
+<p>The expected output will be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Initializing</span> <span class="n">lab</span> <span class="n">result</span> <span class="n">processing</span><span class="o">...</span>
+<span class="n">Processing</span> <span class="n">file</span><span class="p">:</span> <span class="n">CHEM7_20251110</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">Patient</span> <span class="n">ID</span><span class="p">:</span> <span class="n">PT098765</span>
+<span class="n">Processing</span> <span class="n">Status</span><span class="p">:</span> <span class="n">Complete</span>
+</pre></div>
+</div>
+</section>
+<section id="method-2-run-a-script-without-execute-permissions">
+<h3>3.2. Method 2: Run a Script Without Execute Permissions<a class="headerlink" href="#method-2-run-a-script-without-execute-permissions" title="Link to this heading">#</a></h3>
+<p>This method is useful for running a script a single time or when you don’t have the rights to change its permissions. You explicitly tell the <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter to execute the file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+bash process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>This command invokes the <code class="docutils literal notranslate"><span class="pre">bash</span></code> program and passes <code class="docutils literal notranslate"><span class="pre">process_labs.sh</span></code> as an argument. The <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter reads and executes the commands in the file line by line. This works even if the script does not have execute permission.</p>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Running a script with <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">script.sh</span></code> is perfect for one-off tasks or for testing a script you’ve just downloaded from a trusted source without immediately making it executable on your system. For any script you plan to use repeatedly, granting execute permission (Method 1) is the standard approach.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-create-and-run-a-basic-script">
+<h3>Exercise 1: Create and Run a Basic Script<a class="headerlink" href="#exercise-1-create-and-run-a-basic-script" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Solidify the process of creating, setting permissions for, and executing a simple script.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You are creating a script to signal the start of a new DNA sequencing analysis pipeline.</p>
+<p>Create a script named <code class="docutils literal notranslate"><span class="pre">init_analysis.sh</span></code>. Make it executable and have it print the following two lines to the terminal:
+<code class="docutils literal notranslate"><span class="pre">Initializing</span> <span class="pre">sequence</span> <span class="pre">analysis...</span></code>
+<code class="docutils literal notranslate"><span class="pre">Ready</span> <span class="pre">for</span> <span class="pre">data</span> <span class="pre">input.</span></code></p>
+<p>Confirm it runs correctly using both <code class="docutils literal notranslate"><span class="pre">./init_analysis.sh</span></code> and <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">init_analysis.sh</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p><strong>1. Create the file:</strong> <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">init_analysis.sh</span></code>
+<strong>2. Add content:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Initializing sequence analysis...&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Ready for data input.&quot;</span>
+</pre></div>
+</div>
+<p><strong>3. Grant permission:</strong> <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">init_analysis.sh</span></code>
+<strong>4. Run with path:</strong> <code class="docutils literal notranslate"><span class="pre">./init_analysis.sh</span></code>
+<strong>5. Run with interpreter:</strong> <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">init_analysis.sh</span></code></p>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong>
+Why does the <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">init_analysis.sh</span></code> command work without execute permission?</p>
+<p><strong>Think about it this way:</strong> When you use <code class="docutils literal notranslate"><span class="pre">./init_analysis.sh</span></code>, you are asking the <em>operating system</em> to run the file. The OS checks for execute permission as a safeguard. However, when you run <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">init_analysis.sh</span></code>, you are not asking the OS to run the file directly. Instead, you are running the <code class="docutils literal notranslate"><span class="pre">bash</span></code> program (which already has execute permission) and simply giving it the <code class="docutils literal notranslate"><span class="pre">init_analysis.sh</span></code> file as an input to read and process. The <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter reads the commands line-by-line, so the script file itself doesn’t need to be executable.</p>
+</div></blockquote>
+<p><strong>Key Learning:</strong> A script can be executed directly if it has <code class="docutils literal notranslate"><span class="pre">+x</span></code> permission or passed as an argument to an interpreter like <code class="docutils literal notranslate"><span class="pre">bash</span></code> regardless of its permissions.</p>
+</div>
+</details></section>
+<section id="exercise-2-create-a-patient-data-directory">
+<h3>Exercise 2: Create a Patient Data Directory<a class="headerlink" href="#exercise-2-create-a-patient-data-directory" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Write a script that performs a file system operation.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You need to quickly create a standardized directory structure for a new patient’s electronic health records (EHR).</p>
+<p>Create a script named <code class="docutils literal notranslate"><span class="pre">new_patient.sh</span></code>. The script should print “Creating directory for new patient…” and then create a new directory named <code class="docutils literal notranslate"><span class="pre">patient_data_001</span></code>. Run the script and verify the directory was created using the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p><strong>1. Create the file:</strong> <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">new_patient.sh</span></code>
+<strong>2. Add content:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="c1"># This script creates a directory for a new patient.</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating directory for new patient...&quot;</span>
+mkdir<span class="w"> </span>patient_data_001
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Directory &#39;patient_data_001&#39; created.&quot;</span>
+</pre></div>
+</div>
+<p><strong>3. Grant permission:</strong> <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">new_patient.sh</span></code>
+<strong>4. Run the script:</strong> <code class="docutils literal notranslate"><span class="pre">./new_patient.sh</span></code>
+<strong>5. Verify:</strong> <code class="docutils literal notranslate"><span class="pre">ls</span></code> (You should see <code class="docutils literal notranslate"><span class="pre">patient_data_001</span></code> in the output).</p>
+<p><strong>Explanation:</strong> This script combines an informational <code class="docutils literal notranslate"><span class="pre">echo</span></code> command with a functional <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> command. This is a common pattern for providing feedback to the user while the script runs.</p>
+<p><strong>Key Learning:</strong> Scripts can execute any command you would normally type into the terminal, including commands that create files and directories.</p>
+</div>
+</details></section>
+<section id="exercise-3-explain-execution-methods">
+<h3>Exercise 3: Explain Execution Methods<a class="headerlink" href="#exercise-3-explain-execution-methods" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Articulate the difference between the two execution methods.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> A colleague has two scripts: <code class="docutils literal notranslate"><span class="pre">run_daily_report.sh</span></code> (run every morning) and <code class="docutils literal notranslate"><span class="pre">fix_corrupt_file.sh</span></code> (a one-time fix). They are unsure which execution method to use for each.</p>
+<p>Create a script named <code class="docutils literal notranslate"><span class="pre">explain_methods.sh</span></code> that uses <code class="docutils literal notranslate"><span class="pre">echo</span></code> commands to print an explanation of when to use <code class="docutils literal notranslate"><span class="pre">./script.sh</span></code> versus <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">script.sh</span></code>. The explanation should reference your colleague’s two scripts.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p><strong>1. Create the file:</strong> <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">explain_methods.sh</span></code>
+<strong>2. Add content:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="c1"># This script explains the two execution methods.</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Choosing the right execution method:&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;------------------------------------&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;For &#39;run_daily_report.sh&#39;, use &#39;chmod +x&#39; once, then run with &#39;./run_daily_report.sh&#39;.&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;This is best for reusable, trusted scripts that act like regular commands.&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;For &#39;fix_corrupt_file.sh&#39;, you can simply use &#39;bash fix_corrupt_file.sh&#39;.&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;This is ideal for one-off scripts where you don&#39;t need to permanently change permissions.&quot;</span>
+</pre></div>
+</div>
+<p><strong>3. Grant permission and run:</strong> <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">explain_methods.sh</span> <span class="pre">&amp;&amp;</span> <span class="pre">./explain_methods.sh</span></code></p>
+<p><strong>Explanation:</strong> This exercise reinforces the conceptual difference between the two methods. The <code class="docutils literal notranslate"><span class="pre">./script.sh</span></code> method is for established, routine tools, while the <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">script.sh</span></code> method is for temporary or single-use tasks.</p>
+<p><strong>Key Learning:</strong> The choice of execution method depends on the script’s intended use case: frequent and routine vs. temporary and single-use.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Automated Daily Lab Report Generation</strong>: In a clinical lab, a script can be written to query a database for the day’s results, format them into a report, and email it to the supervising physicians. This script would be made executable (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span></code>) and scheduled to run automatically every morning, ensuring timely and consistent reporting.</p></li>
+<li><p><strong>Batch Renaming of Imaging Files</strong>: A researcher receives a dataset of 1,000 MRI scans with non-standard names. A bash script can be written to loop through all files and rename them according to a consistent <code class="docutils literal notranslate"><span class="pre">PatientID_ScanDate_View.nii</span></code> format. This would be run once using the <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">rename_scans.sh</span></code> method, as it’s a one-time data preparation task.</p></li>
+<li><p><strong>Initializing a New Analysis Environment</strong>: When a new genomic dataset arrives, a bioinformatician can run an executable script (<code class="docutils literal notranslate"><span class="pre">./setup_project.sh</span></code>) that creates a standard directory structure (<code class="docutils literal notranslate"><span class="pre">/data</span></code>, <code class="docutils literal notranslate"><span class="pre">/scripts</span></code>, <code class="docutils literal notranslate"><span class="pre">/results</span></code>, <code class="docutils literal notranslate"><span class="pre">/logs</span></code>), copies template configuration files, and prints instructions for the next steps. This ensures every project starts with a consistent and organized foundation.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to create, add permissions to, and execute bash scripts—a core skill for automation in any data-driven field, including precision health. By bundling commands into a script, you create a reusable, reliable, and efficient tool for repetitive tasks.</p>
+<ul class="simple">
+<li><p><strong>Scripts are text files</strong>: A bash script is simply a text file with a list of shell commands.</p></li>
+<li><p><strong>The Shebang is essential</strong>: The <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">bash</span></code> line ensures your script is run by the correct interpreter.</p></li>
+<li><p><strong>Permissions are key</strong>: A script must have execute permission (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span></code>) to be run directly as a command (<code class="docutils literal notranslate"><span class="pre">./script.sh</span></code>).</p></li>
+<li><p><strong>Two ways to run</strong>: You can execute a script directly if it has the right permissions (<code class="docutils literal notranslate"><span class="pre">./script.sh</span></code>) or pass it to the interpreter manually (<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">script.sh</span></code>), which bypasses the permission requirement.</p></li>
+</ul>
+<p>Mastering these fundamentals prepares you for the next step: making your scripts more dynamic and powerful by using variables.</p>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="nano-to-create-a-file-while-the-sh-extension-is-not-technically-required-for-the-script-to-run-it-is-a-universal-convention-that-helps-developers-quickly-identify-the-file-as-a-shell-script">
+<h3><code class="docutils literal notranslate"><span class="pre">nano</span></code> to create a file. While the <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension is not technically required for the script to run, it is a universal convention that helps developers quickly identify the file as a shell script.<a class="headerlink" href="#nano-to-create-a-file-while-the-sh-extension-is-not-technically-required-for-the-script-to-run-it-is-a-universal-convention-that-helps-developers-quickly-identify-the-file-as-a-shell-script" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+nano process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-the-following-content-the-shebang-is-critical-and-using-a-variable-for-the-patient-id-makes-the-script-easier-to-update">
+<h3>Add the following content. The shebang is critical, and using a variable for the <code class="docutils literal notranslate"><span class="pre">PATIENT_ID</span></code> makes the script easier to update.<a class="headerlink" href="#add-the-following-content-the-shebang-is-critical-and-using-a-variable-for-the-patient-id-makes-the-script-easier-to-update" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/usr/bin/env bash
+# This script prints a mock lab result status.
+# Define a variable for the patient ID for easy updates.
+PATIENT_ID=&quot;PT098765&quot;
+echo &quot;Initializing lab result processing...&quot;
+echo &quot;Processing file: CHEM7_20251110.csv&quot;
+echo &quot;Patient ID: $PATIENT_ID&quot;
+echo &quot;Processing Status: Complete&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-the-chmod-change-mode-command-to-add-the-execute-x-permission-to-your-script">
+<h3>Use the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode) command to add the execute (<code class="docutils literal notranslate"><span class="pre">+x</span></code>) permission to your script.<a class="headerlink" href="#use-the-chmod-change-mode-command-to-add-the-execute-x-permission-to-your-script" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+chmod +x process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="execute-the-script-by-providing-its-path-from-the-current-directory">
+<h3>Execute the script by providing its path from the current directory.<a class="headerlink" href="#execute-the-script-by-providing-its-path-from-the-current-directory" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+./process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="this-method-is-useful-for-running-a-script-a-single-time-or-when-you-don-t-have-the-rights-to-change-its-permissions-you-explicitly-tell-the-bash-interpreter-to-execute-the-file">
+<h3>This method is useful for running a script a single time or when you don’t have the rights to change its permissions. You explicitly tell the <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter to execute the file.<a class="headerlink" href="#this-method-is-useful-for-running-a-script-a-single-time-or-when-you-don-t-have-the-rights-to-change-its-permissions-you-explicitly-tell-the-bash-interpreter-to-execute-the-file" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+bash process_labs.sh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-content">
+<h3><strong>2. Add content:</strong><a class="headerlink" href="#add-content" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/usr/bin/env bash
+echo &quot;Initializing sequence analysis...&quot;
+echo &quot;Ready for data input.&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3><strong>2. Add content:</strong><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/usr/bin/env bash
+# This script creates a directory for a new patient.
+echo &quot;Creating directory for new patient...&quot;
+mkdir patient_data_001
+echo &quot;Directory &#39;patient_data_001&#39; created.&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>Try It Yourself:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3><strong>2. Add content:</strong><a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/usr/bin/env bash
+# This script explains the two execution methods.
+echo &quot;Choosing the right execution method:&quot;
+echo &quot;------------------------------------&quot;
+echo &quot;For &#39;run_daily_report.sh&#39;, use &#39;chmod +x&#39; once, then run with &#39;./run_daily_report.sh&#39;.&quot;
+echo &quot;This is best for reusable, trusted scripts that act like regular commands.&quot;
+echo &quot;&quot;
+echo &quot;For &#39;fix_corrupt_file.sh&#39;, you can simply use &#39;bash fix_corrupt_file.sh&#39;.&quot;
+echo &quot;This is ideal for one-off scripts where you don&#39;t need to permanently change permissions.&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>Try It Yourself:<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6.7_and_redirection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 6: Command-Line Data Manipulation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7.2_bash.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 7: Automating Tasks with Bash Scripting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-create-and-run-a-reusable-script">3.1. Method 1: Create and Run a Reusable Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-run-a-script-without-execute-permissions">3.2. Method 2: Run a Script Without Execute Permissions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-and-run-a-basic-script">Exercise 1: Create and Run a Basic Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-create-a-patient-data-directory">Exercise 2: Create a Patient Data Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-explain-execution-methods">Exercise 3: Explain Execution Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nano-to-create-a-file-while-the-sh-extension-is-not-technically-required-for-the-script-to-run-it-is-a-universal-convention-that-helps-developers-quickly-identify-the-file-as-a-shell-script"><code class="docutils literal notranslate"><span class="pre">nano</span></code> to create a file. While the <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension is not technically required for the script to run, it is a universal convention that helps developers quickly identify the file as a shell script.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-following-content-the-shebang-is-critical-and-using-a-variable-for-the-patient-id-makes-the-script-easier-to-update">Add the following content. The shebang is critical, and using a variable for the <code class="docutils literal notranslate"><span class="pre">PATIENT_ID</span></code> makes the script easier to update.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-chmod-change-mode-command-to-add-the-execute-x-permission-to-your-script">Use the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode) command to add the execute (<code class="docutils literal notranslate"><span class="pre">+x</span></code>) permission to your script.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-the-script-by-providing-its-path-from-the-current-directory">Execute the script by providing its path from the current directory.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-method-is-useful-for-running-a-script-a-single-time-or-when-you-don-t-have-the-rights-to-change-its-permissions-you-explicitly-tell-the-bash-interpreter-to-execute-the-file">This method is useful for running a script a single time or when you don’t have the rights to change its permissions. You explicitly tell the <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter to execute the file.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-content"><strong>2. Add content:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>2. Add content:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><strong>2. Add content:</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

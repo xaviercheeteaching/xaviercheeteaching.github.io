@@ -1,0 +1,1215 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 7: Scripting Fundamentals for Automation &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7.3_line_arguments';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 7: Command-Line Data Manipulation" href="7.6_processing_%28awk_sed_cut%29.html" />
+    <link rel="prev" title="Chapter 7: Automating Tasks with Bash Scripting" href="7.2_bash.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.4_files_%28cat_less_head_tail%29.html">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.5_permissions_and_chmod.html">6.5 and Chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/7.3_line_arguments.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/7.3_line_arguments.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 7: Scripting Fundamentals for Automation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-arguments-with-positional-parameters">3.1 Accessing Arguments with Positional Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-arguments-defaults-and-errors">3.2 Handling Missing Arguments: Defaults and Errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-arguments-sequentially-with-shift">3.3 Processing Arguments Sequentially with <code class="docutils literal notranslate"><span class="pre">shift</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterating-through-all-arguments-vs">3.4 Iterating Through All Arguments: <code class="docutils literal notranslate"><span class="pre">"$@"</span></code> vs. <code class="docutils literal notranslate"><span class="pre">"$*"</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-simple-patient-greeting-basic">Exercise 1: Simple Patient Greeting Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sample-processing-script-intermediate">Exercise 2: Sample Processing Script Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-batch-file-validator-advanced">Exercise 3: Batch File Validator Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-using-positional-parameters-like-1-for-the-first-argument-2-for-the-second-and-so-on-the-special-variable-0-holds-the-script-s-name-and-holds-the-total-number-of-arguments">script using positional parameters like <code class="docutils literal notranslate"><span class="pre">$1</span></code> for the first argument, <code class="docutils literal notranslate"><span class="pre">$2</span></code> for the second, and so on. The special variable <code class="docutils literal notranslate"><span class="pre">$0</span></code> holds the script’s name, and <code class="docutils literal notranslate"><span class="pre">$#</span></code> holds the total number of arguments.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-expansion-allows-you-to-build-more-robust-scripts-by-setting-default-values-for-optional-arguments-or-ensuring-that-required-arguments-are-present">Parameter expansion allows you to build more robust scripts by setting default values for optional arguments or ensuring that required arguments are present.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-your-focus-to-the-next-person-in-line-this-is-useful-for-scripts-that-process-a-list-of-items-sequentially-such-as-updating-a-batch-of-patient-records-or-processing-a-series-of-lab-results">shift` your focus to the next person in line. This is useful for scripts that process a list of items sequentially, such as updating a batch of patient records or processing a series of lab results.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unexpectedly-combining-arguments-or-failing-on-file-names-with-spaces-check-that-your-for-loop-is-using-for-arg-in-this-ensures-each-argument-is-treated-as-a-separate-and-complete-string">unexpectedly combining arguments or failing on file names with spaces, check that your <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is using <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">"$@"</span></code>. This ensures each argument is treated as a separate and complete string.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-7-scripting-fundamentals-for-automation">
+<h1>Chapter 7: Scripting Fundamentals for Automation<a class="headerlink" href="#chapter-7-scripting-fundamentals-for-automation" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the next step in building powerful automation scripts. So far, our scripts have been static, running the same way every time. In this section, you will learn to pass data directly into your scripts using command-line arguments. This fundamental technique transforms a script from a fixed procedure into a flexible tool.</p>
+<p>Think of a script as a clinical protocol for a lab instrument. A static script can only run the protocol on a pre-defined sample. By using command-line arguments, you can tell the protocol which specific patient sample to analyze, what tests to run, and where to save the results, all without ever modifying the script’s code. This makes your scripts reusable, scalable, and essential for automating real-world bioinformatics and health data tasks. By the end of this section, you will be able to build scripts that can adapt to different inputs on the fly.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these core terms is crucial for working with command-line arguments.</p>
+<ul class="simple">
+<li><p><strong>Command-line Argument</strong>: Data provided to a script when it is executed from the terminal. In a medical context, an argument could be a patient ID (<code class="docutils literal notranslate"><span class="pre">PT012345</span></code>), a file path to genomic data (<code class="docutils literal notranslate"><span class="pre">/data/patient_x.vcf</span></code>), or a setting for an analysis (<code class="docutils literal notranslate"><span class="pre">--quality-threshold</span> <span class="pre">30</span></code>).</p></li>
+<li><p><strong>Positional Parameter (<code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$2</span></code>, …)</strong>: Special variables inside a script that hold the arguments in the order they are provided. <code class="docutils literal notranslate"><span class="pre">$1</span></code> always refers to the first argument, <code class="docutils literal notranslate"><span class="pre">$2</span></code> to the second, and so on. This is like processing a patient form where the first field is always the patient’s ID and the second is their date of birth.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">$0</span></code></strong>: A special variable containing the name of the script itself. This is useful for logging and error messages, allowing a script to report its own name, similar to how a medical report header identifies the procedure performed.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">$#</span></code></strong>: A special variable that stores the total count of command-line arguments passed to the script. This is a critical tool for validation, like a lab technician verifying they have received the correct number of samples for a batch analysis before starting.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code></strong>: A special variable that expands to all arguments as individual, quoted strings. This is the gold standard for iterating through a list of inputs, such as multiple patient files, because it correctly handles arguments that contain spaces (e.g., file names like <code class="docutils literal notranslate"><span class="pre">&quot;Patient</span> <span class="pre">Report</span> <span class="pre">-</span> <span class="pre">John</span> <span class="pre">Doe.pdf&quot;</span></code>).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">shift</span></code></strong>: A built-in command that discards the first positional parameter (<code class="docutils literal notranslate"><span class="pre">$1</span></code>) and moves all subsequent parameters down by one (<code class="docutils literal notranslate"><span class="pre">$2</span></code> becomes <code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$3</span></code> becomes <code class="docutils literal notranslate"><span class="pre">$2</span></code>, etc.). This is analogous to a clinical triage queue: after handling the first patient, you <code class="docutils literal notranslate"><span class="pre">shift</span></code> the queue to bring the next patient to the front.</p></li>
+<li><p><strong>Parameter Expansion (<code class="docutils literal notranslate"><span class="pre">${1:-default}</span></code> or <code class="docutils literal notranslate"><span class="pre">${1:?error}</span></code>)</strong>: A Bash feature to handle missing arguments gracefully. You can provide a default value if an argument is omitted (<code class="docutils literal notranslate"><span class="pre">${2:-&quot;summary&quot;}</span></code>) or exit the script with an error if a required argument is missing (<code class="docutils literal notranslate"><span class="pre">${1:?&quot;Patient</span> <span class="pre">ID</span> <span class="pre">is</span> <span class="pre">required.&quot;}</span></code>).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>Here we explore the core techniques for using command-line arguments in your Bash scripts.</p>
+<section id="accessing-arguments-with-positional-parameters">
+<h3>3.1 Accessing Arguments with Positional Parameters<a class="headerlink" href="#accessing-arguments-with-positional-parameters" title="Link to this heading">#</a></h3>
+<p>You can access data passed to a script using positional parameters like <code class="docutils literal notranslate"><span class="pre">$1</span></code> for the first argument, <code class="docutils literal notranslate"><span class="pre">$2</span></code> for the second, and so on. The special variable <code class="docutils literal notranslate"><span class="pre">$0</span></code> holds the script’s name, and <code class="docutils literal notranslate"><span class="pre">$#</span></code> holds the total number of arguments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Displays patient info from command-line arguments.
+echo &quot;Script being run: $0&quot;
+echo &quot;Fetching data for Patient ID: $1&quot;
+echo &quot;Requested measurement: $2&quot;
+echo &quot;Total arguments provided: $#&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li><p><strong>Execution</strong>: Run the script with arguments: <code class="docutils literal notranslate"><span class="pre">./patient_info.sh</span> <span class="pre">PT012345</span> <span class="pre">&quot;blood</span> <span class="pre">pressure&quot;</span></code>.</p></li>
+<li><p><strong>Explanation</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$0</span></code> becomes <code class="docutils literal notranslate"><span class="pre">./patient_info.sh</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$1</span></code> becomes <code class="docutils literal notranslate"><span class="pre">PT012345</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$2</span></code> becomes <code class="docutils literal notranslate"><span class="pre">blood</span> <span class="pre">pressure</span></code>. Note the quotes are necessary to treat it as a single argument.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$#</span></code> becomes <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Script</span> <span class="n">being</span> <span class="n">run</span><span class="p">:</span> <span class="o">./</span><span class="n">patient_info</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">Fetching</span> <span class="n">data</span> <span class="k">for</span> <span class="n">Patient</span> <span class="n">ID</span><span class="p">:</span> <span class="n">PT012345</span>
+<span class="n">Requested</span> <span class="n">measurement</span><span class="p">:</span> <span class="n">blood</span> <span class="n">pressure</span>
+<span class="n">Total</span> <span class="n">arguments</span> <span class="n">provided</span><span class="p">:</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="handling-missing-arguments-defaults-and-errors">
+<h3>3.2 Handling Missing Arguments: Defaults and Errors<a class="headerlink" href="#handling-missing-arguments-defaults-and-errors" title="Link to this heading">#</a></h3>
+<p>Parameter expansion allows you to build more robust scripts by setting default values for optional arguments or ensuring that required arguments are present.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Usage: ./generate_report.sh &lt;patient_id&gt; [report_type]
+# Use ${1:?&quot;Error&quot;} to require an argument and exit if missing.
+PATIENT_ID=&quot;${1:?&quot;Error: Patient ID is required.&quot;}&quot;
+# Use ${2:=&quot;summary&quot;} to set a fallback value if the second argument is omitted.
+REPORT_TYPE=&quot;${2:=&quot;summary&quot;}&quot;
+echo &quot;Generating report for Patient ID: ${PATIENT_ID}&quot;
+echo &quot;Report Type: ${REPORT_TYPE}&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong>
+Using <code class="docutils literal notranslate"><span class="pre">${1:?&quot;Error&quot;}</span></code> is a critical safety feature. It ensures your script doesn’t proceed with missing or invalid data, which could otherwise lead to incorrect calculations, misidentified patient records, or failed processing downstream. Always enforce required inputs.</p>
+</div></blockquote>
+<ul>
+<li><p>Running <code class="docutils literal notranslate"><span class="pre">./generate_report.sh</span> <span class="pre">PT007890</span></code> uses the default value for <code class="docutils literal notranslate"><span class="pre">REPORT_TYPE</span></code>, as the second argument is missing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Generating</span> <span class="n">report</span> <span class="k">for</span> <span class="n">Patient</span> <span class="n">ID</span><span class="p">:</span> <span class="n">PT007890</span>
+<span class="n">Report</span> <span class="n">Type</span><span class="p">:</span> <span class="n">summary</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="processing-arguments-sequentially-with-shift">
+<h3>3.3 Processing Arguments Sequentially with <code class="docutils literal notranslate"><span class="pre">shift</span></code><a class="headerlink" href="#processing-arguments-sequentially-with-shift" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">shift</span></code> command is perfect for processing a list of arguments one by one. It discards <code class="docutils literal notranslate"><span class="pre">$1</span></code> and re-indexes all remaining arguments.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong>
+The <code class="docutils literal notranslate"><span class="pre">shift</span></code> command mirrors the process of triaging a patient queue. You address the most urgent case (<code class="docutils literal notranslate"><span class="pre">$1</span></code>), and then <code class="docutils literal notranslate"><span class="pre">shift</span></code> your focus to the next person in line. This is useful for scripts that process a list of items sequentially, such as updating a batch of patient records or processing a series of lab results.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Usage: ./process_diagnoses.sh &lt;primary_code&gt; [secondary_codes...]
+PRIMARY_DIAGNOSIS=&quot;$1&quot;
+echo &quot;Primary Diagnosis: ${PRIMARY_DIAGNOSIS}&quot;
+shift # Discard the primary diagnosis; $@ now contains only secondary codes
+# Loop through all remaining arguments (the secondary diagnoses)
+i=1
+while [ &quot;$#&quot; -gt 0 ]; do
+echo &quot;Processing Secondary Diagnosis #${i}: $1&quot;
+shift # Move to the next one
+((i++))
+done
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Run: <code class="docutils literal notranslate"><span class="pre">./process_diagnoses.sh</span> <span class="pre">C50.9</span> <span class="pre">Z85.3</span> <span class="pre">I10</span></code>. The <code class="docutils literal notranslate"><span class="pre">shift</span></code> command allows the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop to process each secondary diagnosis in turn.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Primary</span> <span class="n">Diagnosis</span><span class="p">:</span> <span class="n">C50</span><span class="mf">.9</span>
+<span class="n">Processing</span> <span class="n">Secondary</span> <span class="n">Diagnosis</span> <span class="c1">#1: Z85.3</span>
+<span class="n">Processing</span> <span class="n">Secondary</span> <span class="n">Diagnosis</span> <span class="c1">#2: I10</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="iterating-through-all-arguments-vs">
+<h3>3.4 Iterating Through All Arguments: <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code> vs. <code class="docutils literal notranslate"><span class="pre">&quot;$*&quot;</span></code><a class="headerlink" href="#iterating-through-all-arguments-vs" title="Link to this heading">#</a></h3>
+<p>When you need to process every argument, especially when they might contain spaces, <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code> is the correct tool. It expands each argument into a separate, quoted string. In contrast, <code class="docutils literal notranslate"><span class="pre">&quot;$*&quot;</span></code> joins all arguments into a single string.</p>
+<blockquote>
+<div><p><strong>Debug Note:</strong>
+A common bug is using <code class="docutils literal notranslate"><span class="pre">&quot;$*&quot;</span></code> when you mean <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code>. If your script is unexpectedly combining arguments or failing on file names with spaces, check that your <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is using <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">&quot;$&#64;&quot;</span></code>. This ensures each argument is treated as a separate and complete string.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Usage: ./process_meds.sh &quot;lisinopril (Zestril) 10mg&quot; &quot;metformin (Glucophage) 500mg&quot;
+echo &quot;--- Looping with \&quot;\$@\&quot; (preserves arguments):&quot;
+for arg in &quot;$@&quot;; do
+echo &quot;Argument: &#39;$arg&#39;&quot;
+done
+echo &quot;&quot;
+echo &quot;--- Looping with \&quot;\$*\&quot; (joins arguments into one):&quot;
+for arg in &quot;$*&quot;; do
+echo &quot;Argument: &#39;$arg&#39;&quot;
+done
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Running the script with quoted arguments demonstrates the critical difference:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span> <span class="n">Looping</span> <span class="k">with</span> <span class="s2">&quot;$@&quot;</span> <span class="p">(</span><span class="n">preserves</span> <span class="n">arguments</span><span class="p">):</span>
+<span class="n">Argument</span><span class="p">:</span> <span class="s1">&#39;lisinopril (Zestril) 10mg&#39;</span>
+<span class="n">Argument</span><span class="p">:</span> <span class="s1">&#39;metformin (Glucophage) 500mg&#39;</span>
+
+<span class="o">---</span> <span class="n">Looping</span> <span class="k">with</span> <span class="s2">&quot;$*&quot;</span> <span class="p">(</span><span class="n">joins</span> <span class="n">arguments</span> <span class="n">into</span> <span class="n">one</span><span class="p">):</span>
+<span class="n">Argument</span><span class="p">:</span> <span class="s1">&#39;lisinopril (Zestril) 10mg metformin (Glucophage) 500mg&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>Apply your knowledge with these hands-on exercises.</p>
+<section id="exercise-1-simple-patient-greeting-basic">
+<h3>Exercise 1: Simple Patient Greeting Basic<a class="headerlink" href="#exercise-1-simple-patient-greeting-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice accessing the first two positional parameters.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Creating a personalized script to greet a clinician and reference a patient file.</p>
+<p>Write a script named <code class="docutils literal notranslate"><span class="pre">greeting.sh</span></code> that accepts a clinician’s title and last name (e.g., “Dr.” “Aoki”) and a patient ID as arguments. It should print a personalized message.</p>
+<ul class="simple">
+<li><p>Example Run: <code class="docutils literal notranslate"><span class="pre">./greeting.sh</span> <span class="pre">Dr.</span> <span class="pre">Aoki</span> <span class="pre">PT98765</span></code></p></li>
+<li><p>Expected Output: <code class="docutils literal notranslate"><span class="pre">Welcome,</span> <span class="pre">Dr.</span> <span class="pre">Aoki.</span> <span class="pre">You</span> <span class="pre">are</span> <span class="pre">now</span> <span class="pre">accessing</span> <span class="pre">the</span> <span class="pre">records</span> <span class="pre">for</span> <span class="pre">patient</span> <span class="pre">PT98765.</span></code></p></li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># Greets a clinician and states the patient ID being accessed.</span>
+
+<span class="c1"># Check if enough arguments are provided</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$#</span><span class="s2">&quot;</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;title&gt; &lt;last_name&gt; &lt;patient_id&gt;&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nv">TITLE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="nv">PATIENT_ID</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$3</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Welcome, </span><span class="si">${</span><span class="nv">TITLE</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span><span class="s2">. You are now accessing the records for patient </span><span class="si">${</span><span class="nv">PATIENT_ID</span><span class="si">}</span><span class="s2">.&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The script assigns <code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$2</span></code>, and <code class="docutils literal notranslate"><span class="pre">$3</span></code> to descriptive variables. It then uses these variables in an <code class="docutils literal notranslate"><span class="pre">echo</span></code> statement to print the formatted message. An <code class="docutils literal notranslate"><span class="pre">if</span></code> statement is included to ensure the correct number of arguments are provided.
+<strong>Key Learning:</strong> Accessing multiple positional parameters (<code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$2</span></code>, <code class="docutils literal notranslate"><span class="pre">$3</span></code>) and using <code class="docutils literal notranslate"><span class="pre">$#</span></code> for basic argument validation.</p>
+</div>
+</details></section>
+<section id="exercise-2-sample-processing-script-intermediate">
+<h3>Exercise 2: Sample Processing Script Intermediate<a class="headerlink" href="#exercise-2-sample-processing-script-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use parameter expansion to handle required and optional arguments.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> A script to log the processing of a biological sample, where the sample ID is mandatory but the sequencing kit has a common default.</p>
+<p>Write a script named <code class="docutils literal notranslate"><span class="pre">process_sample.sh</span></code> that accepts up to three arguments: a sample ID, a date (YYYY-MM-DD), and a sequencing kit name.</p>
+<ul>
+<li><p>The script must exit with an error message <code class="docutils literal notranslate"><span class="pre">&quot;Error:</span> <span class="pre">Sample</span> <span class="pre">ID</span> <span class="pre">is</span> <span class="pre">required.&quot;</span></code> if the first argument is not provided.</p></li>
+<li><p>If the sequencing kit name (the third argument) is not provided, its value should default to <code class="docutils literal notranslate"><span class="pre">&quot;Illumina</span> <span class="pre">MiSeq&quot;</span></code>.</p></li>
+<li><p>It must also print the total number of arguments it received.</p></li>
+<li><p>Example Run: <code class="docutils literal notranslate"><span class="pre">./process_sample.sh</span> <span class="pre">SAM25-098</span> <span class="pre">2025-11-11</span></code></p></li>
+<li><p>Expected Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Processing</span> <span class="n">sample</span> <span class="n">SAM25</span><span class="o">-</span><span class="mi">098</span> <span class="n">collected</span> <span class="n">on</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="k">with</span> <span class="n">kit</span> <span class="n">Illumina</span> <span class="n">MiSeq</span><span class="o">.</span>
+<span class="n">Total</span> <span class="n">arguments</span> <span class="n">received</span><span class="p">:</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</li>
+<li><p>Running <code class="docutils literal notranslate"><span class="pre">./process_sample.sh</span></code> with no arguments should produce an error message like this (the script name and line number may vary):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">process_sample</span><span class="o">.</span><span class="n">sh</span><span class="p">:</span> <span class="n">line</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Error</span><span class="p">:</span> <span class="n">Sample</span> <span class="n">ID</span> <span class="ow">is</span> <span class="n">required</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># Processes a sample with a required ID and optional kit name.</span>
+
+<span class="nv">SAMPLE_ID</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="p">:?</span><span class="s2">&quot;Error: Sample ID is required.&quot;</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nv">COLLECTION_DATE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="nv">KIT_NAME</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">3</span><span class="k">:-</span><span class="s2">&quot;Illumina MiSeq&quot;</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Processing sample </span><span class="si">${</span><span class="nv">SAMPLE_ID</span><span class="si">}</span><span class="s2"> collected on </span><span class="si">${</span><span class="nv">COLLECTION_DATE</span><span class="si">}</span><span class="s2"> with kit </span><span class="si">${</span><span class="nv">KIT_NAME</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Total arguments received: </span><span class="nv">$#</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> <code class="docutils literal notranslate"><span class="pre">${1:?&quot;...&quot;}</span></code> ensures the script fails if the sample ID is missing. <code class="docutils literal notranslate"><span class="pre">${3:-&quot;...&quot;}</span></code> provides a default value for the kit name if the third argument is not supplied. <code class="docutils literal notranslate"><span class="pre">$#</span></code> correctly reports the number of arguments that were actually passed on the command line.
+<strong>Key Learning:</strong> Applying parameter expansion for both required (<code class="docutils literal notranslate"><span class="pre">:?</span></code>) and default (<code class="docutils literal notranslate"><span class="pre">:-</span></code>) argument handling.</p>
+</div>
+</details></section>
+<section id="exercise-3-batch-file-validator-advanced">
+<h3>Exercise 3: Batch File Validator Advanced<a class="headerlink" href="#exercise-3-batch-file-validator-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Iterate through an unknown number of arguments using <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code> and perform a check on each.
+<strong>Time:</strong> 15 minutes
+<strong>Medical Context:</strong> Before running a large bioinformatics pipeline, it’s crucial to verify that all input data files exist. This script automates that check.</p>
+<p>Write a script named <code class="docutils literal notranslate"><span class="pre">validate_files.sh</span></code> that accepts one or more file paths as command-line arguments. The script should loop through each argument and check if it exists as a file.</p>
+<ul>
+<li><p>For each argument, it should print <code class="docutils literal notranslate"><span class="pre">SUCCESS:</span> <span class="pre">&lt;file_path&gt;</span> <span class="pre">exists.</span></code> or <code class="docutils literal notranslate"><span class="pre">ERROR:</span> <span class="pre">&lt;file_path&gt;</span> <span class="pre">not</span> <span class="pre">found.</span></code>.</p></li>
+<li><p>To test, first create some dummy files: <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">patient_A.csv</span> <span class="pre">patient_C.csv</span></code>.</p></li>
+<li><p>Example Run: <code class="docutils literal notranslate"><span class="pre">./validate_files.sh</span> <span class="pre">patient_A.csv</span> <span class="pre">patient_B.csv</span> <span class="pre">patient_C.csv</span></code></p></li>
+<li><p>Expected Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SUCCESS</span><span class="p">:</span> <span class="n">patient_A</span><span class="o">.</span><span class="n">csv</span> <span class="n">exists</span><span class="o">.</span>
+<span class="n">ERROR</span><span class="p">:</span> <span class="n">patient_B</span><span class="o">.</span><span class="n">csv</span> <span class="ow">not</span> <span class="n">found</span><span class="o">.</span>
+<span class="n">SUCCESS</span><span class="p">:</span> <span class="n">patient_C</span><span class="o">.</span><span class="n">csv</span> <span class="n">exists</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># Validates the existence of multiple files passed as arguments.</span>
+
+<span class="c1"># Check if at least one argument is given</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$#</span><span class="s2">&quot;</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;file1&gt; [file2] ...&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting file validation...&quot;</span>
+<span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SUCCESS: </span><span class="nv">$file</span><span class="s2"> exists.&quot;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: </span><span class="nv">$file</span><span class="s2"> not found.&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The script first checks if any arguments were provided. Then, the <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">file</span> <span class="pre">in</span> <span class="pre">&quot;$&#64;&quot;</span></code> loop iterates through each argument passed to the script. The <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">-f</span> <span class="pre">&quot;$file&quot;</span> <span class="pre">]</span></code> test condition checks if a file with that name exists and is a regular file.
+<strong>Key Learning:</strong> Using the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code> to robustly handle an arbitrary number of arguments, a common pattern for batch processing scripts.</p>
+</div>
+</details><blockquote>
+<div><p><strong>Reflection Moment:</strong>
+In the sample processing lab scenario, what other arguments might be useful? Could you add an optional argument for the researcher’s name with a default value of “unassigned”? How would you modify the script to handle that?</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p>Command-line arguments are the bridge between your scripts and real-world, dynamic data. Here are some practical applications in precision health.</p>
+<ul class="simple">
+<li><p><strong>Batch Processing of Genomic Data</strong>: A bioinformatician can write a script to annotate genetic variants. Instead of running it manually for hundreds of patient VCF (Variant Call Format) files, they can execute <code class="docutils literal notranslate"><span class="pre">./annotate_variants.sh</span> <span class="pre">/data/vcf/*.vcf</span></code>. The script uses a <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">file</span> <span class="pre">in</span> <span class="pre">&quot;$&#64;&quot;</span></code> loop to apply the same annotation logic to every file, saving hours of manual work and ensuring consistency.</p></li>
+<li><p><strong>Generating Custom Patient Reports</strong>: A clinician needs a summary of a patient’s lab results from the last month. A script can be run as <code class="docutils literal notranslate"><span class="pre">./generate_report.sh</span> <span class="pre">PT12345</span> <span class="pre">2025-10-01</span> <span class="pre">2025-11-01</span></code>. The script takes the patient ID (<code class="docutils literal notranslate"><span class="pre">$1</span></code>), start date (<code class="docutils literal notranslate"><span class="pre">$2</span></code>), and end date (<code class="docutils literal notranslate"><span class="pre">$3</span></code>) to query a database, format the results, and generate a PDF, providing on-demand, customized clinical summaries.</p></li>
+<li><p><strong>Automating Quality Control on Sequencing Runs</strong>: After a DNA sequencer completes a run, a script can be automatically triggered: <code class="docutils literal notranslate"><span class="pre">./qc_pipeline.sh</span> <span class="pre">--run-id</span> <span class="pre">RUN-55AB</span> <span class="pre">--kit-type</span> <span class="pre">&quot;TruSeq&quot;</span> <span class="pre">--output-dir</span> <span class="pre">/results/RUN-55AB</span></code>. This script uses arguments to know which run data to analyze, what quality metrics to apply based on the kit, and where to store the output reports, enabling a fully automated “sequencer-to-report” pipeline.</p></li>
+<li><p><strong>Dynamic Environment Configuration for Clinical Software</strong>: A script that launches a clinical analysis application can accept arguments to configure its environment. For instance, <code class="docutils literal notranslate"><span class="pre">./launch_app.sh</span> <span class="pre">--mode</span> <span class="pre">&quot;clinical&quot;</span> <span class="pre">--user</span> <span class="pre">&quot;Dr.Smith&quot;</span></code> could set the application to run with FDA-compliant features enabled (<code class="docutils literal notranslate"><span class="pre">clinical</span></code> mode) and log all actions under Dr. Smith’s user profile, ensuring auditability and compliance.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how to make Bash scripts interactive and reusable by using command-line arguments. You learned to capture, validate, and process external data, transforming your scripts from simple command sequences into powerful, flexible tools.</p>
+<ul class="simple">
+<li><p>You can access arguments passed to a script using positional parameters: <code class="docutils literal notranslate"><span class="pre">$1</span></code>, <code class="docutils literal notranslate"><span class="pre">$2</span></code>, and so on.</p></li>
+<li><p>Special variables provide critical metadata: <code class="docutils literal notranslate"><span class="pre">$#</span></code> gives the count of arguments, <code class="docutils literal notranslate"><span class="pre">$0</span></code> provides the script’s name, and <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code> represents all arguments as a list of separate items.</p></li>
+<li><p>Robust scripts should handle missing arguments, either by providing default values with <code class="docutils literal notranslate"><span class="pre">${VAR:-default}</span></code> or by exiting with an error for required ones with <code class="docutils literal notranslate"><span class="pre">${VAR:?message}</span></code>.</p></li>
+<li><p>For processing a list of items, such as batch-processing files, the <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">&quot;$&#64;&quot;</span></code> loop is the standard and safest method.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">shift</span></code> command is a useful technique for processing arguments sequentially, especially when handling a primary argument differently from subsequent ones.</p></li>
+</ul>
+<p>With this foundation, you are now equipped to build scripts that adapt to different inputs. In the next section, we will delve into <strong>conditional logic</strong>, allowing your scripts to make decisions and change their behavior based on the arguments they receive.</p>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="script-using-positional-parameters-like-1-for-the-first-argument-2-for-the-second-and-so-on-the-special-variable-0-holds-the-script-s-name-and-holds-the-total-number-of-arguments">
+<h3>script using positional parameters like <code class="docutils literal notranslate"><span class="pre">$1</span></code> for the first argument, <code class="docutils literal notranslate"><span class="pre">$2</span></code> for the second, and so on. The special variable <code class="docutils literal notranslate"><span class="pre">$0</span></code> holds the script’s name, and <code class="docutils literal notranslate"><span class="pre">$#</span></code> holds the total number of arguments.<a class="headerlink" href="#script-using-positional-parameters-like-1-for-the-first-argument-2-for-the-second-and-so-on-the-special-variable-0-holds-the-script-s-name-and-holds-the-total-number-of-arguments" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Displays patient info from command-line arguments.
+echo &quot;Script being run: $0&quot;
+echo &quot;Fetching data for Patient ID: $1&quot;
+echo &quot;Requested measurement: $2&quot;
+echo &quot;Total arguments provided: $#&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="parameter-expansion-allows-you-to-build-more-robust-scripts-by-setting-default-values-for-optional-arguments-or-ensuring-that-required-arguments-are-present">
+<h3>Parameter expansion allows you to build more robust scripts by setting default values for optional arguments or ensuring that required arguments are present.<a class="headerlink" href="#parameter-expansion-allows-you-to-build-more-robust-scripts-by-setting-default-values-for-optional-arguments-or-ensuring-that-required-arguments-are-present" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Usage: ./generate_report.sh &lt;patient_id&gt; [report_type]
+# Use ${1:?&quot;Error&quot;} to require an argument and exit if missing.
+PATIENT_ID=&quot;${1:?&quot;Error: Patient ID is required.&quot;}&quot;
+# Use ${2:=&quot;summary&quot;} to set a fallback value if the second argument is omitted.
+REPORT_TYPE=&quot;${2:=&quot;summary&quot;}&quot;
+echo &quot;Generating report for Patient ID: ${PATIENT_ID}&quot;
+echo &quot;Report Type: ${REPORT_TYPE}&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="shift-your-focus-to-the-next-person-in-line-this-is-useful-for-scripts-that-process-a-list-of-items-sequentially-such-as-updating-a-batch-of-patient-records-or-processing-a-series-of-lab-results">
+<h3>shift` your focus to the next person in line. This is useful for scripts that process a list of items sequentially, such as updating a batch of patient records or processing a series of lab results.<a class="headerlink" href="#shift-your-focus-to-the-next-person-in-line-this-is-useful-for-scripts-that-process-a-list-of-items-sequentially-such-as-updating-a-batch-of-patient-records-or-processing-a-series-of-lab-results" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Usage: ./process_diagnoses.sh &lt;primary_code&gt; [secondary_codes...]
+PRIMARY_DIAGNOSIS=&quot;$1&quot;
+echo &quot;Primary Diagnosis: ${PRIMARY_DIAGNOSIS}&quot;
+shift # Discard the primary diagnosis; $@ now contains only secondary codes
+# Loop through all remaining arguments (the secondary diagnoses)
+i=1
+while [ &quot;$#&quot; -gt 0 ]; do
+echo &quot;Processing Secondary Diagnosis #${i}: $1&quot;
+shift # Move to the next one
+((i++))
+done
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="unexpectedly-combining-arguments-or-failing-on-file-names-with-spaces-check-that-your-for-loop-is-using-for-arg-in-this-ensures-each-argument-is-treated-as-a-separate-and-complete-string">
+<h3>unexpectedly combining arguments or failing on file names with spaces, check that your <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is using <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">&quot;$&#64;&quot;</span></code>. This ensures each argument is treated as a separate and complete string.<a class="headerlink" href="#unexpectedly-combining-arguments-or-failing-on-file-names-with-spaces-check-that-your-for-loop-is-using-for-arg-in-this-ensures-each-argument-is-treated-as-a-separate-and-complete-string" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Usage: ./process_meds.sh &quot;lisinopril (Zestril) 10mg&quot; &quot;metformin (Glucophage) 500mg&quot;
+echo &quot;--- Looping with \&quot;\$@\&quot; (preserves arguments):&quot;
+for arg in &quot;$@&quot;; do
+echo &quot;Argument: &#39;$arg&#39;&quot;
+done
+echo &quot;&quot;
+echo &quot;--- Looping with \&quot;\$*\&quot; (joins arguments into one):&quot;
+for arg in &quot;$*&quot;; do
+echo &quot;Argument: &#39;$arg&#39;&quot;
+done
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Greets a clinician and states the patient ID being accessed.
+# Check if enough arguments are provided
+if [ &quot;$#&quot; -ne 3 ]; then
+echo &quot;Usage: $0 &lt;title&gt; &lt;last_name&gt; &lt;patient_id&gt;&quot; &gt;&amp;2
+exit 1
+fi
+TITLE=&quot;$1&quot;
+NAME=&quot;$2&quot;
+PATIENT_ID=&quot;$3&quot;
+echo &quot;Welcome, ${TITLE} ${NAME}. You are now accessing the records for patient ${PATIENT_ID}.&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3><summary>Solution</summary><a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Processes a sample with a required ID and optional kit name.
+SAMPLE_ID=&quot;${1:?&quot;Error: Sample ID is required.&quot;}&quot;
+COLLECTION_DATE=&quot;$2&quot;
+KIT_NAME=&quot;${3:-&quot;Illumina MiSeq&quot;}&quot;
+echo &quot;Processing sample ${SAMPLE_ID} collected on ${COLLECTION_DATE} with kit ${KIT_NAME}.&quot;
+echo &quot;Total arguments received: $#&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Validates the existence of multiple files passed as arguments.
+# Check if at least one argument is given
+if [ &quot;$#&quot; -eq 0 ]; then
+echo &quot;Usage: $0 &lt;file1&gt; [file2] ...&quot; &gt;&amp;2
+exit 1
+fi
+echo &quot;Starting file validation...&quot;
+for file in &quot;$@&quot;; do
+if [ -f &quot;$file&quot; ]; then
+echo &quot;SUCCESS: $file exists.&quot;
+else
+echo &quot;ERROR: $file not found.&quot;
+fi
+done
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="7.2_bash.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 7: Automating Tasks with Bash Scripting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7.6_processing_%28awk_sed_cut%29.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 7: Command-Line Data Manipulation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-arguments-with-positional-parameters">3.1 Accessing Arguments with Positional Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-arguments-defaults-and-errors">3.2 Handling Missing Arguments: Defaults and Errors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#processing-arguments-sequentially-with-shift">3.3 Processing Arguments Sequentially with <code class="docutils literal notranslate"><span class="pre">shift</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterating-through-all-arguments-vs">3.4 Iterating Through All Arguments: <code class="docutils literal notranslate"><span class="pre">"$@"</span></code> vs. <code class="docutils literal notranslate"><span class="pre">"$*"</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-simple-patient-greeting-basic">Exercise 1: Simple Patient Greeting Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sample-processing-script-intermediate">Exercise 2: Sample Processing Script Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-batch-file-validator-advanced">Exercise 3: Batch File Validator Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-using-positional-parameters-like-1-for-the-first-argument-2-for-the-second-and-so-on-the-special-variable-0-holds-the-script-s-name-and-holds-the-total-number-of-arguments">script using positional parameters like <code class="docutils literal notranslate"><span class="pre">$1</span></code> for the first argument, <code class="docutils literal notranslate"><span class="pre">$2</span></code> for the second, and so on. The special variable <code class="docutils literal notranslate"><span class="pre">$0</span></code> holds the script’s name, and <code class="docutils literal notranslate"><span class="pre">$#</span></code> holds the total number of arguments.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-expansion-allows-you-to-build-more-robust-scripts-by-setting-default-values-for-optional-arguments-or-ensuring-that-required-arguments-are-present">Parameter expansion allows you to build more robust scripts by setting default values for optional arguments or ensuring that required arguments are present.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-your-focus-to-the-next-person-in-line-this-is-useful-for-scripts-that-process-a-list-of-items-sequentially-such-as-updating-a-batch-of-patient-records-or-processing-a-series-of-lab-results">shift` your focus to the next person in line. This is useful for scripts that process a list of items sequentially, such as updating a batch of patient records or processing a series of lab results.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unexpectedly-combining-arguments-or-failing-on-file-names-with-spaces-check-that-your-for-loop-is-using-for-arg-in-this-ensures-each-argument-is-treated-as-a-separate-and-complete-string">unexpectedly combining arguments or failing on file names with spaces, check that your <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is using <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">"$@"</span></code>. This ensures each argument is treated as a separate and complete string.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

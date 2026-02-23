@@ -1,0 +1,1207 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 6: Navigating the Command-Line Interface &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6.3_operations_(cp_mv_rm_mkdir_touch)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 6: Working with Files and Data" href="6.4_files_%28cat_less_head_tail%29.html" />
+    <link rel="prev" title="Chapter 6: Navigating the Clinical Data Environment" href="6.2_system_navigation_%28pwd_cd_ls%29.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.4_files_%28cat_less_head_tail%29.html">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.5_permissions_and_chmod.html">6.5 and Chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/6.3_operations_(cp_mv_rm_mkdir_touch).ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/6.3_operations_(cp_mv_rm_mkdir_touch).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 6: Navigating the Command-Line Interface</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mkdir-make-directory">3.1 <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>: Make Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#touch-create-an-empty-file">3.2 <code class="docutils literal notranslate"><span class="pre">touch</span></code>: Create an Empty File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cp-copy-a-file-or-directory">3.3 <code class="docutils literal notranslate"><span class="pre">cp</span></code>: Copy a File or Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mv-move-or-rename-a-file-or-directory">3.4 <code class="docutils literal notranslate"><span class="pre">mv</span></code>: Move or Rename a File or Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rm-and-rmdir-remove-files-and-directories">3.5 <code class="docutils literal notranslate"><span class="pre">rm</span></code> and <code class="docutils literal notranslate"><span class="pre">rmdir</span></code>: Remove Files and Directories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-organize-a-new-patient-s-data-basic">Exercise 1: Organize a New Patient’s Data Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-archiving-and-cleanup-intermediate">Exercise 2: Archiving and Cleanup Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-renaming-for-standardization-advanced">Exercise 3: Renaming for Standardization Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-mkdir-to-create-new-directories-proper-directory-structure-is-the-first-step-in-organizing-a-new-project-such-as-creating-a-dedicated-folder-for-a-new-patient-s-data">Use <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create new directories. Proper directory structure is the first step in organizing a new project, such as creating a dedicated folder for a new patient’s data.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-touch-command-creates-a-new-empty-file-this-is-useful-for-creating-placeholders-such-as-a-log-file-or-a-notes-file-before-the-content-is-generated">The <code class="docutils literal notranslate"><span class="pre">touch</span></code> command creates a new, empty file. This is useful for creating placeholders, such as a log file or a notes file, before the content is generated.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reates-a-duplicate-of-a-file-or-directory-this-is-essential-for-creating-backups-testing-changes-on-a-copy-without-altering-the-original-or-applying-a-standard-analysis-template-to-a-new-dataset">reates a duplicate of a file or directory. This is essential for creating backups, testing changes on a copy without altering the original, or applying a standard analysis template to a new dataset.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-mv-to-organize-patient-data-into-correct-folders-or-to-fix-typos-in-filenames">Use <code class="docutils literal notranslate"><span class="pre">mv</span></code> to organize patient data into correct folders or to fix typos in filenames.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rcommand-is-especially-powerful-as-it-deletes-entire-directories-and-all-their-contents-always-double-check-your-command-before-executing-it-and-use-the-i-flag-for-an-extra-layer-of-safety">-r<code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">is</span> <span class="pre">especially</span> <span class="pre">powerful</span> <span class="pre">as</span> <span class="pre">it</span> <span class="pre">deletes</span> <span class="pre">entire</span> <span class="pre">directories</span> <span class="pre">and</span> <span class="pre">all</span> <span class="pre">their</span> <span class="pre">contents.</span> <span class="pre">Always</span> <span class="pre">double-check</span> <span class="pre">your</span> <span class="pre">command</span> <span class="pre">before</span> <span class="pre">executing</span> <span class="pre">it,</span> <span class="pre">and</span> <span class="pre">use</span> <span class="pre">the</span></code>-i` flag for an extra layer of safety.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#here-are-the-commands-to-complete-the-exercise">Here are the commands to complete the exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-6-navigating-the-command-line-interface">
+<h1>Chapter 6: Navigating the Command-Line Interface<a class="headerlink" href="#chapter-6-navigating-the-command-line-interface" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the core of filesystem management. In precision health, data is everything, and how you organize it is critical for reproducibility, efficiency, and preventing errors. A single misplaced file or an incorrectly named directory can derail an entire genomic analysis pipeline. This section provides the foundational command-line tools you need to manage your digital workspace effectively. You will learn how to create, copy, move, and delete files and directories—essential skills for organizing patient data, setting up analysis projects, and maintaining a clean and logical research environment.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Directory</strong>: A folder used to organize files. In a clinical setting, a directory for a patient (e.g., <code class="docutils literal notranslate"><span class="pre">PT007890</span></code>) is like that patient’s individual medical chart, holding all their related documents.</p></li>
+<li><p><strong>File</strong>: A container for storing information, such as text, data, or a program. A file like <code class="docutils literal notranslate"><span class="pre">20251111_CBC_results.txt</span></code> holds specific data for a patient.</p></li>
+<li><p><strong>Path</strong>: The unique location of a file or directory in a file system. A path like <code class="docutils literal notranslate"><span class="pre">/data/wgs/PT007890/raw_reads/</span></code> is the precise “address” of a patient’s genetic information.</p></li>
+<li><p><strong>Flag (or Option)</strong>: A modifier, like <code class="docutils literal notranslate"><span class="pre">-p</span></code> or <code class="docutils literal notranslate"><span class="pre">-r</span></code>, that changes a command’s behavior. This is like giving a specific instruction, such as telling a filing clerk to “copy the <em>entire</em> patient file, including all sub-folders,” not just the cover sheet.</p></li>
+<li><p><strong>WGS (Whole Genome Sequencing)</strong>: A laboratory process that determines the complete DNA sequence of an organism’s genome. The resulting data files are often very large and require careful management.</p></li>
+<li><p><strong>CBC (Complete Blood Count)</strong>: A common blood test used to evaluate overall health. The results are often stored in text or structured data files.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<p>This section covers the five fundamental commands for manipulating files and directories. Each command is a basic building block for creating and managing complex bioinformatics projects.</p>
+<section id="mkdir-make-directory">
+<h3>3.1 <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>: Make Directory<a class="headerlink" href="#mkdir-make-directory" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create new directories. Proper directory structure is the first step in organizing a new project, such as creating a dedicated folder for a new patient’s data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create a single directory for a new patient
+mkdir PT007890
+# Create a nested directory structure for a full genomic analysis
+mkdir -p PT007890/genomic_data/raw_reads
+# Check if the newly created PT007890 folder exists
+ls
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">-p</span></code> (parent)</strong>: A crucial option that creates parent directories as needed. Without <code class="docutils literal notranslate"><span class="pre">-p</span></code>, the second command would fail if <code class="docutils literal notranslate"><span class="pre">PT007890/genomic_data</span></code> didn’t already exist.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>In Practice:</strong> In bioinformatics, a consistent directory structure is critical for reproducible research. Separating raw data (<code class="docutils literal notranslate"><span class="pre">raw_reads</span></code>), processed data, scripts, and reports for each patient (e.g., <code class="docutils literal notranslate"><span class="pre">PT007890</span></code>) prevents data mix-ups and makes it easy for colleagues to understand and verify your analysis pipeline.</p>
+</div></blockquote>
+</section>
+<section id="touch-create-an-empty-file">
+<h3>3.2 <code class="docutils literal notranslate"><span class="pre">touch</span></code>: Create an Empty File<a class="headerlink" href="#touch-create-an-empty-file" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">touch</span></code> command creates a new, empty file. This is useful for creating placeholders, such as a log file or a notes file, before the content is generated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create a placeholder for upcoming lab results
+touch PT007890/20251111_CBC_results.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cp-copy-a-file-or-directory">
+<h3>3.3 <code class="docutils literal notranslate"><span class="pre">cp</span></code>: Copy a File or Directory<a class="headerlink" href="#cp-copy-a-file-or-directory" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cp</span></code> command creates a duplicate of a file or directory. This is essential for creating backups, testing changes on a copy without altering the original, or applying a standard analysis template to a new dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Copy a template analysis script and rename it for a specific patient
+cp -i PT007890/20251111_CBC_results.txt PT007890/20251111_CBC_results_for_patient_A.txt
+# Recursively copy an entire patient directory to an archive, showing progress
+cp -rv PT007890/ patient_archive/
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">-i</span></code> (interactive)</strong>: Prompts for confirmation before overwriting an existing file.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">-r</span></code> (recursive)</strong>: Required to copy a directory and its entire contents.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">-v</span></code> (verbose)</strong>: Shows each file as it is copied.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Debug Note:</strong> The behavior of <code class="docutils literal notranslate"><span class="pre">cp</span></code> depends on the last argument. If the destination is a directory (e.g., <code class="docutils literal notranslate"><span class="pre">patient_archive/</span></code>), the file is copied into it with its original name. If the destination is a new filename (e.g., <code class="docutils literal notranslate"><span class="pre">PT007890_somatic_analysis.R</span></code>), the file is copied and renamed in a single step.</p>
+</div></blockquote>
+</section>
+<section id="mv-move-or-rename-a-file-or-directory">
+<h3>3.4 <code class="docutils literal notranslate"><span class="pre">mv</span></code>: Move or Rename a File or Directory<a class="headerlink" href="#mv-move-or-rename-a-file-or-directory" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">mv</span></code> to organize patient data into correct folders or to fix typos in filenames.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Rename a file to be more specific
+mv -i PT007890/20251111_CBC_results.txt PT007890/20251111_CBC_results_patient_A.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">-i</span></code> (interactive)</strong>: Prompts before overwriting a file.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">-v</span></code> (verbose)</strong>: Shows each file as it is moved.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Debug Note:</strong> Remember that <code class="docutils literal notranslate"><span class="pre">mv</span></code> serves two functions. If the target is a directory, it moves the file(s). If the target is a new name in the <em>same</em> directory, it renames the file. This is why <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">-i</span></code> is so useful—it prevents you from accidentally overwriting a file when you intended to move another file into its directory.</p>
+</div></blockquote>
+</section>
+<section id="rm-and-rmdir-remove-files-and-directories">
+<h3>3.5 <code class="docutils literal notranslate"><span class="pre">rm</span></code> and <code class="docutils literal notranslate"><span class="pre">rmdir</span></code>: Remove Files and Directories<a class="headerlink" href="#rm-and-rmdir-remove-files-and-directories" title="Link to this heading">#</a></h3>
+<p>These commands permanently delete files and directories. They must be used with extreme caution.</p>
+<blockquote>
+<div><p><strong>Important:</strong> The <code class="docutils literal notranslate"><span class="pre">rm</span></code> command permanently deletes files without moving them to a trash bin. This action is generally unrecoverable. The <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span></code> command is especially powerful as it deletes entire directories and all their contents. Always double-check your command before executing it, and use the <code class="docutils literal notranslate"><span class="pre">-i</span></code> flag for an extra layer of safety.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Safely remove a single file with a confirmation prompt
+rm -i temp_notes.txt
+# Safely remove an empty directory only
+rmdir empty_folder/
+# Recursively remove a directory and its contents (USE WITH EXTREME CAUTION)
+rm -r old_project_data/
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> Many experienced developers protect themselves from accidental deletion by creating an “alias” in their shell’s configuration file (e.g., <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>). Adding the line <code class="docutils literal notranslate"><span class="pre">alias</span> <span class="pre">rm='rm</span> <span class="pre">-i'</span></code> makes your system automatically use the interactive <code class="docutils literal notranslate"><span class="pre">-i</span></code> flag every time you type <code class="docutils literal notranslate"><span class="pre">rm</span></code>.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Considering the permanence of <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span></code>, what kind of institutional policies or technical safeguards (like automated backups or restricted permissions) would be essential when managing sensitive patient data on a shared server?</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1-organize-a-new-patient-s-data-basic">
+<h3>Exercise 1: Organize a New Patient’s Data Basic<a class="headerlink" href="#exercise-1-organize-a-new-patient-s-data-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use all five commands to create and organize a directory structure for a new patient, following best practices for naming.
+<strong>Time:</strong> 10 minutes
+<strong>Medical Context:</strong> Setting up a new patient folder is the first step for any analysis. This exercise simulates creating a structured space for a patient’s genomic and clinical data.</p>
+<p>Follow these steps to create and organize a directory structure for patient <code class="docutils literal notranslate"><span class="pre">PT009501</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Create a main directory named <code class="docutils literal notranslate"><span class="pre">PT009501</span></code>.</p></li>
+<li><p>Inside <code class="docutils literal notranslate"><span class="pre">PT009501</span></code>, create the subdirectories <code class="docutils literal notranslate"><span class="pre">genomic_data</span></code> and <code class="docutils literal notranslate"><span class="pre">clinical_reports</span></code>.</p></li>
+<li><p>Create an empty template file named <code class="docutils literal notranslate"><span class="pre">WGS_panel_v1.fasta</span></code> in the <code class="docutils literal notranslate"><span class="pre">PT009501</span></code> directory.</p></li>
+<li><p>Create another empty file named <code class="docutils literal notranslate"><span class="pre">20251111_intake_notes_temp.txt</span></code> in the <code class="docutils literal notranslate"><span class="pre">PT009501</span></code> directory.</p></li>
+<li><p>Move <code class="docutils literal notranslate"><span class="pre">20251111_intake_notes_temp.txt</span></code> into the <code class="docutils literal notranslate"><span class="pre">clinical_reports/</span></code> subdirectory.</p></li>
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">WGS_panel_v1.fasta</span></code> into the <code class="docutils literal notranslate"><span class="pre">genomic_data/</span></code> directory, renaming the copy to <code class="docutils literal notranslate"><span class="pre">PT009501_wgs_run1.fasta</span></code> in one step.</p></li>
+<li><p>The temporary notes file is no longer needed. Safely remove it from the <code class="docutils literal notranslate"><span class="pre">clinical_reports/</span></code> directory using the interactive flag.</p></li>
+<li><p>Create a temporary, empty directory called <code class="docutils literal notranslate"><span class="pre">to_delete</span></code> inside <code class="docutils literal notranslate"><span class="pre">PT009501</span></code>, then immediately remove it using the safest command.</p></li>
+<li><p>Verify your work with <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-RF</span> <span class="pre">PT009501</span></code>.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<p>Here are the commands to complete the exercise:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 1 &amp; 2</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>PT009501/genomic_data<span class="w"> </span>PT009501/clinical_reports
+
+<span class="c1"># Step 3 &amp; 4</span>
+touch<span class="w"> </span>PT009501/WGS_panel_v1.fasta<span class="w"> </span>PT009501/20251111_intake_notes_temp.txt
+
+<span class="c1"># Step 5</span>
+mv<span class="w"> </span>PT009501/20251111_intake_notes_temp.txt<span class="w"> </span>PT009501/clinical_reports/
+
+<span class="c1"># Step 6</span>
+cp<span class="w"> </span>PT009501/WGS_panel_v1.fasta<span class="w"> </span>PT009501/genomic_data/PT009501_wgs_run1.fasta
+
+<span class="c1"># Step 7</span>
+rm<span class="w"> </span>-i<span class="w"> </span>PT009501/clinical_reports/20251111_intake_notes_temp.txt
+
+<span class="c1"># Step 8</span>
+mkdir<span class="w"> </span>PT009501/to_delete
+rmdir<span class="w"> </span>PT009501/to_delete
+
+<span class="c1"># Step 9: Verify the final structure</span>
+ls<span class="w"> </span>-RF<span class="w"> </span>PT009501
+</pre></div>
+</div>
+<p><strong>Expected Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PT009501</span><span class="p">:</span>
+<span class="n">WGS_panel_v1</span><span class="o">.</span><span class="n">fasta</span>
+<span class="n">clinical_reports</span><span class="o">/</span>
+<span class="n">genomic_data</span><span class="o">/</span>
+
+<span class="n">PT009501</span><span class="o">/</span><span class="n">clinical_reports</span><span class="p">:</span>
+
+<span class="n">PT009501</span><span class="o">/</span><span class="n">genomic_data</span><span class="p">:</span>
+<span class="n">PT009501_wgs_run1</span><span class="o">.</span><span class="n">fasta</span>
+</pre></div>
+</div>
+<p><strong>Key Learning:</strong> A logical sequence of commands can build a complex, organized directory structure from scratch. Note that <code class="docutils literal notranslate"><span class="pre">cp</span></code> creates a copy, leaving the original file (<code class="docutils literal notranslate"><span class="pre">WGS_panel_v1.fasta</span></code>) in place.</p>
+</div>
+</details></section>
+<section id="exercise-2-archiving-and-cleanup-intermediate">
+<h3>Exercise 2: Archiving and Cleanup Intermediate<a class="headerlink" href="#exercise-2-archiving-and-cleanup-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">cp</span></code> and <code class="docutils literal notranslate"><span class="pre">rm</span></code> to back up and then clean up completed analysis data.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> After a bioinformatics pipeline runs, it often leaves large intermediate files. To save storage, you archive the final results and delete the rest.</p>
+<p>You have a directory <code class="docutils literal notranslate"><span class="pre">analysis_run_04</span></code> containing <code class="docutils literal notranslate"><span class="pre">final_report.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">raw_data.bam</span></code>, and <code class="docutils literal notranslate"><span class="pre">temp_log.txt</span></code>. Your task is to archive the final report and then delete the entire analysis directory.</p>
+<ol class="arabic simple">
+<li><p>Create the necessary files and directory to simulate the scenario.</p></li>
+<li><p>Create a backup directory named <code class="docutils literal notranslate"><span class="pre">project_archive</span></code>.</p></li>
+<li><p>Copy <em>only</em> the <code class="docutils literal notranslate"><span class="pre">final_report.pdf</span></code> into <code class="docutils literal notranslate"><span class="pre">project_archive</span></code>.</p></li>
+<li><p>Delete the entire <code class="docutils literal notranslate"><span class="pre">analysis_run_04</span></code> directory. <strong>Use the interactive flag for safety.</strong></p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Set up the scenario</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>analysis_run_04
+touch<span class="w"> </span>analysis_run_04/final_report.pdf<span class="w"> </span>analysis_run_04/raw_data.bam<span class="w"> </span>analysis_run_04/temp_log.txt
+
+<span class="c1"># 2. Create archive directory</span>
+mkdir<span class="w"> </span>project_archive
+
+<span class="c1"># 3. Copy the final report to the archive</span>
+cp<span class="w"> </span>analysis_run_04/final_report.pdf<span class="w"> </span>project_archive/
+
+<span class="c1"># 4. Remove the original analysis directory with caution</span>
+rm<span class="w"> </span>-ri<span class="w"> </span>analysis_run_04
+<span class="c1"># You will be prompted to confirm deletion for each file and the directory.</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This exercise demonstrates a common workflow: preserving key results (<code class="docutils literal notranslate"><span class="pre">cp</span></code>) while cleaning up the workspace (<code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span></code>). Using the <code class="docutils literal notranslate"><span class="pre">-i</span></code> flag with <code class="docutils literal notranslate"><span class="pre">-r</span></code> provides a file-by-file confirmation, adding a layer of safety to a dangerous command.</p>
+<p><strong>Key Learning:</strong> Combining <code class="docutils literal notranslate"><span class="pre">cp</span></code> for preservation and <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span></code> for cleanup is a powerful but high-stakes pattern. Always back up before you delete.</p>
+</div>
+</details></section>
+<section id="exercise-3-renaming-for-standardization-advanced">
+<h3>Exercise 3: Renaming for Standardization Advanced<a class="headerlink" href="#exercise-3-renaming-for-standardization-advanced" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">mv</span></code> in a loop to rename files to conform to a standard naming convention.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> Labs often have strict naming conventions (e.g., <code class="docutils literal notranslate"><span class="pre">PatientID_SampleType_Date.extension</span></code>). Raw data from a sequencer might have generic names that need to be corrected.</p>
+<p>A sequencer has output three files: <code class="docutils literal notranslate"><span class="pre">run1.fastq</span></code>, <code class="docutils literal notranslate"><span class="pre">run2.fastq</span></code>, and <code class="docutils literal notranslate"><span class="pre">run3.fastq</span></code>. You need to rename them to match the patient ID <code class="docutils literal notranslate"><span class="pre">PT0117</span></code> and sample type <code class="docutils literal notranslate"><span class="pre">TUMOR</span></code>. The final names should be <code class="docutils literal notranslate"><span class="pre">PT0117_TUMOR_run1.fastq</span></code>, etc.</p>
+<ol class="arabic simple">
+<li><p>Create the three empty files.</p></li>
+<li><p>Write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that renames each file according to the convention.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Set up the scenario</span>
+touch<span class="w"> </span>run1.fastq<span class="w"> </span>run2.fastq<span class="w"> </span>run3.fastq
+
+<span class="c1"># 2. Use a for loop with mv to rename the files</span>
+<span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>run*.fastq
+<span class="k">do</span>
+<span class="w">  </span><span class="c1"># The mv command renames the file in place</span>
+<span class="w">  </span>mv<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;PT0117_TUMOR_</span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># Verify the result with ls</span>
+ls
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This solution introduces a simple <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. The loop iterates through each file matching the pattern <code class="docutils literal notranslate"><span class="pre">run*.fastq</span></code>. Inside the loop, <code class="docutils literal notranslate"><span class="pre">mv</span></code> renames the original filename (<code class="docutils literal notranslate"><span class="pre">$file</span></code>) to a new, standardized name by adding a prefix. The <code class="docutils literal notranslate"><span class="pre">-v</span></code> (verbose) flag confirms each renaming operation.</p>
+<p><strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">mv</span></code> command is not just for moving files; it is the primary tool for renaming. Combining it with loops allows for powerful, automated batch-renaming operations.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Setting Up a New Patient Project</strong>: A clinical bioinformatician receives a new tumor sample for sequencing. They use <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">PT0123/{raw_data,analysis,reports}</span></code> to instantly create a standardized, organized directory structure. This ensures all subsequent data and results are stored in a predictable and reproducible manner.</p></li>
+<li><p><strong>Applying a Standard Analysis Pipeline</strong>: A research lab has a validated R script (<code class="docutils literal notranslate"><span class="pre">somatic_variant_calling.R</span></code>). When a new dataset arrives, they use <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">templates/somatic_variant_calling.R</span> <span class="pre">PT0456/analysis/</span></code> to copy the script into the new project. This prevents accidental modification of the original template and ensures consistency across analyses.</p></li>
+<li><p><strong>Data Curation and Renaming</strong>: Data from a sequencing core arrives with generic names like <code class="docutils literal notranslate"><span class="pre">LANE1_S1_R1.fastq.gz</span></code>. A technician uses a script with the <code class="docutils literal notranslate"><span class="pre">mv</span></code> command to rename it to <code class="docutils literal notranslate"><span class="pre">PT0789_TUMOR_20251111_R1.fastq.gz</span></code>, embedding critical metadata directly into the filename for better tracking.</p></li>
+<li><p><strong>Managing Storage by Cleaning Up Intermediate Files</strong>: A whole-genome alignment process can generate terabytes of temporary files. After the final, validated results are created, the bioinformatician uses <code class="docutils literal notranslate"><span class="pre">rm</span></code> to delete the large intermediate files, freeing up critical space on the high-performance computing cluster.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential commands for managing the lifecycle of files and directories. Mastering <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>, <code class="docutils literal notranslate"><span class="pre">touch</span></code>, <code class="docutils literal notranslate"><span class="pre">cp</span></code>, <code class="docutils literal notranslate"><span class="pre">mv</span></code>, and <code class="docutils literal notranslate"><span class="pre">rm</span></code> is non-negotiable for anyone working with data on the command line. These tools empower you to build logical project structures, back up critical data, standardize naming conventions, and manage storage resources effectively—all fundamental tasks in a precision health data environment.</p>
+<ul class="simple">
+<li><p><strong>Creation</strong>: Use <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to build your directory structure and <code class="docutils literal notranslate"><span class="pre">touch</span></code> to create empty placeholder files.</p></li>
+<li><p><strong>Duplication</strong>: Use <code class="docutils literal notranslate"><span class="pre">cp</span></code> to copy files and directories, ensuring you use the <code class="docutils literal notranslate"><span class="pre">-r</span></code> flag for directories.</p></li>
+<li><p><strong>Organization</strong>: Use <code class="docutils literal notranslate"><span class="pre">mv</span></code> to either rename files in place or move them to different directories.</p></li>
+<li><p><strong>Deletion</strong>: Use <code class="docutils literal notranslate"><span class="pre">rm</span></code> and <code class="docutils literal notranslate"><span class="pre">rmdir</span></code> with extreme caution to remove files and directories. Always favor the <code class="docutils literal notranslate"><span class="pre">-i</span></code> (interactive) flag with <code class="docutils literal notranslate"><span class="pre">rm</span></code>.</p></li>
+<li><p><strong>Caution is Key</strong>: The command line does not have a recycle bin. Actions, especially <code class="docutils literal notranslate"><span class="pre">rm</span></code>, are permanent. Always think twice and check your command before pressing Enter.</p></li>
+</ul>
+<p>With these file operations mastered, you are now equipped to manage your digital workspace. The next section will focus on how to view and inspect the contents of the files you have just learned to organize.</p>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="use-mkdir-to-create-new-directories-proper-directory-structure-is-the-first-step-in-organizing-a-new-project-such-as-creating-a-dedicated-folder-for-a-new-patient-s-data">
+<h3>Use <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create new directories. Proper directory structure is the first step in organizing a new project, such as creating a dedicated folder for a new patient’s data.<a class="headerlink" href="#use-mkdir-to-create-new-directories-proper-directory-structure-is-the-first-step-in-organizing-a-new-project-such-as-creating-a-dedicated-folder-for-a-new-patient-s-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create a single directory for a new patient
+mkdir PT007890
+# Create a nested directory structure for a full genomic analysis
+mkdir -p PT007890/genomic_data/raw_reads
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-touch-command-creates-a-new-empty-file-this-is-useful-for-creating-placeholders-such-as-a-log-file-or-a-notes-file-before-the-content-is-generated">
+<h3>The <code class="docutils literal notranslate"><span class="pre">touch</span></code> command creates a new, empty file. This is useful for creating placeholders, such as a log file or a notes file, before the content is generated.<a class="headerlink" href="#the-touch-command-creates-a-new-empty-file-this-is-useful-for-creating-placeholders-such-as-a-log-file-or-a-notes-file-before-the-content-is-generated" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create a placeholder for upcoming lab results
+touch PT007890/20251111_CBC_results.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reates-a-duplicate-of-a-file-or-directory-this-is-essential-for-creating-backups-testing-changes-on-a-copy-without-altering-the-original-or-applying-a-standard-analysis-template-to-a-new-dataset">
+<h3>reates a duplicate of a file or directory. This is essential for creating backups, testing changes on a copy without altering the original, or applying a standard analysis template to a new dataset.<a class="headerlink" href="#reates-a-duplicate-of-a-file-or-directory-this-is-essential-for-creating-backups-testing-changes-on-a-copy-without-altering-the-original-or-applying-a-standard-analysis-template-to-a-new-dataset" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Copy a template analysis script and rename it for a specific patient
+cp -i analysis_template.R PT007890/PT007890_somatic_analysis.R
+# Recursively copy an entire patient directory to an archive, showing progress
+cp -rv PT007890/ patient_archive/
+# Expected output:
+# &#39;PT007890/&#39; -&gt; &#39;patient_archive/PT007890&#39;
+# &#39;PT007890/genomic_data&#39; -&gt; &#39;patient_archive/PT007890/genomic_data&#39;
+# ... (and so on for all files)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-mv-to-organize-patient-data-into-correct-folders-or-to-fix-typos-in-filenames">
+<h3>Use <code class="docutils literal notranslate"><span class="pre">mv</span></code> to organize patient data into correct folders or to fix typos in filenames.<a class="headerlink" href="#use-mv-to-organize-patient-data-into-correct-folders-or-to-fix-typos-in-filenames" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Rename a file to be more specific
+mv -i temp_results.txt 20251111_CBC_final.txt
+# Move multiple reports into a clinical reports directory and show the action
+mv -v 20251015_PathologyReport.txt 20251020_DischargeSummary.txt clinical_reports/
+# Expected output:
+# &#39;20251015_PathologyReport.txt&#39; -&gt; &#39;clinical_reports/20251015_PathologyReport.txt&#39;
+# &#39;20251020_DischargeSummary.txt&#39; -&gt; &#39;clinical_reports/20251020_DischargeSummary.txt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="rcommand-is-especially-powerful-as-it-deletes-entire-directories-and-all-their-contents-always-double-check-your-command-before-executing-it-and-use-the-i-flag-for-an-extra-layer-of-safety">
+<h3>-r<code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">is</span> <span class="pre">especially</span> <span class="pre">powerful</span> <span class="pre">as</span> <span class="pre">it</span> <span class="pre">deletes</span> <span class="pre">entire</span> <span class="pre">directories</span> <span class="pre">and</span> <span class="pre">all</span> <span class="pre">their</span> <span class="pre">contents.</span> <span class="pre">Always</span> <span class="pre">double-check</span> <span class="pre">your</span> <span class="pre">command</span> <span class="pre">before</span> <span class="pre">executing</span> <span class="pre">it,</span> <span class="pre">and</span> <span class="pre">use</span> <span class="pre">the</span></code>-i` flag for an extra layer of safety.<a class="headerlink" href="#rcommand-is-especially-powerful-as-it-deletes-entire-directories-and-all-their-contents-always-double-check-your-command-before-executing-it-and-use-the-i-flag-for-an-extra-layer-of-safety" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Safely remove a single file with a confirmation prompt
+rm -i temp_notes.txt
+# Safely remove an empty directory only
+rmdir empty_folder/
+# Recursively remove a directory and its contents (USE WITH EXTREME CAUTION)
+rm -r old_project_data/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="here-are-the-commands-to-complete-the-exercise">
+<h3>Here are the commands to complete the exercise<a class="headerlink" href="#here-are-the-commands-to-complete-the-exercise" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Step 1 &amp; 2
+mkdir -p PT009501/genomic_data PT009501/clinical_reports
+# Step 3 &amp; 4
+touch PT009501/WGS_panel_v1.fasta PT009501/20251111_intake_notes_temp.txt
+# Step 5
+mv PT009501/20251111_intake_notes_temp.txt PT009501/clinical_reports/
+# Step 6
+cp PT009501/WGS_panel_v1.fasta PT009501/genomic_data/PT009501_wgs_run1.fasta
+# Step 7
+rm -i PT009501/clinical_reports/20251111_intake_notes_temp.txt
+# Step 8
+mkdir PT009501/to_delete
+rmdir PT009501/to_delete
+# Step 9: Verify the final structure
+ls -RF PT009501
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# 1. Set up the scenario
+mkdir -p analysis_run_04
+touch analysis_run_04/final_report.pdf analysis_run_04/raw_data.bam analysis_run_04/temp_log.txt
+# 2. Create archive directory
+mkdir project_archive
+# 3. Copy the final report to the archive
+cp analysis_run_04/final_report.pdf project_archive/
+# 4. Remove the original analysis directory with caution
+rm -ri analysis_run_04
+# You will be prompted to confirm deletion for each file and the directory.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# 1. Set up the scenario
+touch run1.fastq run2.fastq run3.fastq
+# 2. Use a for loop with mv to rename the files
+for file in run*.fastq
+do
+# The mv command renames the file in place
+mv -v &quot;$file&quot; &quot;PT0117_TUMOR_$file&quot;
+done
+# Verify the result with ls
+ls
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6.2_system_navigation_%28pwd_cd_ls%29.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 6: Navigating the Clinical Data Environment</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="6.4_files_%28cat_less_head_tail%29.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 6: Working with Files and Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mkdir-make-directory">3.1 <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>: Make Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#touch-create-an-empty-file">3.2 <code class="docutils literal notranslate"><span class="pre">touch</span></code>: Create an Empty File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cp-copy-a-file-or-directory">3.3 <code class="docutils literal notranslate"><span class="pre">cp</span></code>: Copy a File or Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mv-move-or-rename-a-file-or-directory">3.4 <code class="docutils literal notranslate"><span class="pre">mv</span></code>: Move or Rename a File or Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rm-and-rmdir-remove-files-and-directories">3.5 <code class="docutils literal notranslate"><span class="pre">rm</span></code> and <code class="docutils literal notranslate"><span class="pre">rmdir</span></code>: Remove Files and Directories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-organize-a-new-patient-s-data-basic">Exercise 1: Organize a New Patient’s Data Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-archiving-and-cleanup-intermediate">Exercise 2: Archiving and Cleanup Intermediate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-renaming-for-standardization-advanced">Exercise 3: Renaming for Standardization Advanced</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-mkdir-to-create-new-directories-proper-directory-structure-is-the-first-step-in-organizing-a-new-project-such-as-creating-a-dedicated-folder-for-a-new-patient-s-data">Use <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create new directories. Proper directory structure is the first step in organizing a new project, such as creating a dedicated folder for a new patient’s data.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-touch-command-creates-a-new-empty-file-this-is-useful-for-creating-placeholders-such-as-a-log-file-or-a-notes-file-before-the-content-is-generated">The <code class="docutils literal notranslate"><span class="pre">touch</span></code> command creates a new, empty file. This is useful for creating placeholders, such as a log file or a notes file, before the content is generated.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reates-a-duplicate-of-a-file-or-directory-this-is-essential-for-creating-backups-testing-changes-on-a-copy-without-altering-the-original-or-applying-a-standard-analysis-template-to-a-new-dataset">reates a duplicate of a file or directory. This is essential for creating backups, testing changes on a copy without altering the original, or applying a standard analysis template to a new dataset.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-mv-to-organize-patient-data-into-correct-folders-or-to-fix-typos-in-filenames">Use <code class="docutils literal notranslate"><span class="pre">mv</span></code> to organize patient data into correct folders or to fix typos in filenames.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rcommand-is-especially-powerful-as-it-deletes-entire-directories-and-all-their-contents-always-double-check-your-command-before-executing-it-and-use-the-i-flag-for-an-extra-layer-of-safety">-r<code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">is</span> <span class="pre">especially</span> <span class="pre">powerful</span> <span class="pre">as</span> <span class="pre">it</span> <span class="pre">deletes</span> <span class="pre">entire</span> <span class="pre">directories</span> <span class="pre">and</span> <span class="pre">all</span> <span class="pre">their</span> <span class="pre">contents.</span> <span class="pre">Always</span> <span class="pre">double-check</span> <span class="pre">your</span> <span class="pre">command</span> <span class="pre">before</span> <span class="pre">executing</span> <span class="pre">it,</span> <span class="pre">and</span> <span class="pre">use</span> <span class="pre">the</span></code>-i` flag for an extra layer of safety.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#here-are-the-commands-to-complete-the-exercise">Here are the commands to complete the exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

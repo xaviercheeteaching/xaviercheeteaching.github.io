@@ -1,0 +1,1949 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 6: Essential File and Directory Operations &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6.6_files_(grep_find)';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 6: Command-Line Data Manipulation" href="6.7_and_redirection.html" />
+    <link rel="prev" title="Chapter 6: The Command Line Interface (CLI) for Precision Health" href="6.5_permissions_and_chmod.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.4_files_%28cat_less_head_tail%29.html">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.5_permissions_and_chmod.html">6.5 and Chmod</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6.6 (grep Find)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/6.6_files_(grep_find).ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/6.6_files_(grep_find).ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 6: Essential File and Directory Operations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-content-with-grep">3.1 Finding Content with <code class="docutils literal notranslate"><span class="pre">grep</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-grep-search"><strong>Basic <code class="docutils literal notranslate"><span class="pre">grep</span></code> Search</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grep-with-options"><strong><code class="docutils literal notranslate"><span class="pre">grep</span></code> with Options</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#using-regular-expressions-with-grep"><strong>Using Regular Expressions with <code class="docutils literal notranslate"><span class="pre">grep</span></code></strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locating-files-with-find">3.2 Locating Files with <code class="docutils literal notranslate"><span class="pre">find</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-find-searches"><strong>Basic <code class="docutils literal notranslate"><span class="pre">find</span></code> Searches</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acting-on-found-files"><strong>Acting on Found Files</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-count-critical-lab-results">Exercise 1: Count Critical Lab Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-find-recent-patient-records">Exercise 2: Find Recent Patient Records</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-filter-out-pending-results">Exercise 3: Filter Out Pending Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-locate-large-genomic-files">Exercise 4: Locate Large Genomic Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-find-all-logs-containing-validation-errors">Exercise 5: Find All Logs Containing Validation Errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-finds-and-displays-lines-containing-warfarin-in-a-medication-list-using-the-generic-name-e-g-warfarin-instead-of-a-brand-name-is-a-best-practice-for-ensuring-comprehensive-search-results">d finds and displays lines containing “Warfarin” in a medication list. Using the generic name (e.g., ‘Warfarin’) instead of a brand name is a best practice for ensuring comprehensive search results.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ignore-case-i-finds-all-case-variations-of-hemoglobin">*   <strong>Ignore Case (<code class="docutils literal notranslate"><span class="pre">-i</span></code>)</strong>: Finds all case variations of “hemoglobin”.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whole-word-w-matches-the-exact-word-brca1-not-brca1-associated">*   <strong>Whole Word (<code class="docutils literal notranslate"><span class="pre">-w</span></code>)</strong>: Matches the exact word “BRCA1”, not “BRCA1-associated”.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invert-match-v-shows-lines-that-do-not-contain-flag-normal-which-is-useful-for-finding-abnormal-results-in-structured-data">*   <strong>Invert Match (<code class="docutils literal notranslate"><span class="pre">-v</span></code>)</strong>: Shows lines that DO NOT contain “Flag: Normal”, which is useful for finding abnormal results in structured data.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#count-matches-c-prints-the-number-of-matching-lines-instead-of-the-lines-themselves">*   <strong>Count Matches (<code class="docutils literal notranslate"><span class="pre">-c</span></code>)</strong>: Prints the number of matching lines instead of the lines themselves.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-filenames-l-shows-only-the-names-of-files-containing-a-match">*   <strong>List Filenames (<code class="docutils literal notranslate"><span class="pre">-l</span></code>)</strong>: Shows only the names of files containing a match.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#show-line-numbers-n-prefixes-each-matching-line-with-its-line-number">*   <strong>Show Line Numbers (<code class="docutils literal notranslate"><span class="pre">-n</span></code>)</strong>: Prefixes each matching line with its line number.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#show-context-c-prints-lines-before-and-after-the-match-for-example-show-2-lines-of-context">*   <strong>Show Context (<code class="docutils literal notranslate"><span class="pre">-C</span></code>)</strong>: Prints lines Before and After the match. For example, show 2 lines of context.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search-recursively-r-searches-for-a-pattern-in-all-files-within-a-directory-and-its-subdirectories">*   <strong>Search Recursively (<code class="docutils literal notranslate"><span class="pre">-r</span></code>)</strong>: Searches for a pattern in all files within a directory and its subdirectories.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-recursive-insensitive-and-number-rin-recursively-search-for-error-ignore-case-and-show-line-numbers-this-is-a-powerful-combination-for-debugging">*   <strong>Combine Recursive, Insensitive, and Number (<code class="docutils literal notranslate"><span class="pre">-rin</span></code>)</strong>: Recursively search for “error”, ignore case, and show line numbers. This is a powerful combination for debugging.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-lines-starting-with-critical-matches-the-start-of-a-line">*   <strong>Find lines starting with “CRITICAL:”.</strong> <code class="docutils literal notranslate"><span class="pre">^</span></code> matches the start of a line.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-gene-variants-tp53-or-tp63-matches-any-single-character-within-the-brackets">*   <strong>Find gene variants <code class="docutils literal notranslate"><span class="pre">TP53</span></code> or <code class="docutils literal notranslate"><span class="pre">TP63</span></code>.</strong> <code class="docutils literal notranslate"><span class="pre">[...]</span></code> matches any single character within the brackets.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-lines-with-aspirin-or-ibuprofen-e-e-enables-extended-patterns-like-or-without-needing-escape-characters">*   <strong>Find lines with “Aspirin” or “Ibuprofen” (<code class="docutils literal notranslate"><span class="pre">-E</span></code>)</strong>. <code class="docutils literal notranslate"><span class="pre">-E</span></code> enables extended patterns like <code class="docutils literal notranslate"><span class="pre">|</span></code> (OR) without needing escape characters.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-name-name-finds-all-fastq-files-in-a-specific-data-directory-the-pattern-is-quoted-to-prevent-shell-expansion">*   <strong>Find by Name (<code class="docutils literal notranslate"><span class="pre">-name</span></code>)</strong>: Finds all FASTQ files in a specific data directory. The pattern is quoted to prevent shell expansion.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-case-insensitive-name-iname-finds-a-file-regardless-of-case">*   <strong>Find by Case-Insensitive Name (<code class="docutils literal notranslate"><span class="pre">-iname</span></code>)</strong>: Finds a file regardless of case.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-modification-time-mtime-finds-reports-modified-in-the-last-48-hours">*   <strong>Find by Modification Time (<code class="docutils literal notranslate"><span class="pre">-mtime</span></code>)</strong>: Finds reports modified in the last 48 hours.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-size-size-finds-large-mri-scan-files-over-100-megabytes">*   <strong>Find by Size (<code class="docutils literal notranslate"><span class="pre">-size</span></code>)</strong>: Finds large MRI scan files over 100 megabytes.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-empty-files-empty-finds-zero-byte-files-from-failed-data-exports">*   <strong>Find Empty Files (<code class="docutils literal notranslate"><span class="pre">-empty</span></code>)</strong>: Finds zero-byte files from failed data exports.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#safely-delete-old-backup-files-with-delete">*   <strong>Safely delete old backup files with <code class="docutils literal notranslate"><span class="pre">-delete</span></code>.</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-a-command-on-found-files-with-exec-this-example-finds-all-vcf-files-containing-mutation-and-lists-just-their-names">*   <strong>Run a command on found files with <code class="docutils literal notranslate"><span class="pre">-exec</span></code>.</strong> This example finds all VCF files containing “mutation” and lists just their names.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-6-essential-file-and-directory-operations">
+<h1>Chapter 6: Essential File and Directory Operations<a class="headerlink" href="#chapter-6-essential-file-and-directory-operations" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to file searching on the command line, a fundamental skill for managing the vast datasets common in precision health. This section introduces two of the most powerful tools in your arsenal: <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">find</span></code>. The key distinction is simple: <code class="docutils literal notranslate"><span class="pre">grep</span></code> finds <em>content</em> inside files (the “what”), while <code class="docutils literal notranslate"><span class="pre">find</span></code> locates the <em>files themselves</em> based on attributes like name or date (the “where”). Our learning journey will cover how to use each tool individually, from simple searches to complex pattern matching, and then how to combine them to perform sophisticated data discovery. Mastering these commands will enable you to efficiently query, manage, and validate the thousands of data files encountered in any large-scale bioinformatic analysis.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> Imagine you’re a clinical researcher with thousands of patient data files. You might use <code class="docutils literal notranslate"><span class="pre">grep</span></code> to quickly find every file that mentions a specific gene mutation (“the what”). Then, you could use <code class="docutils literal notranslate"><span class="pre">find</span></code> to locate all of those files that were generated in the last week to prepare them for a new analysis (“the where”). Mastering both tools is essential for efficient data exploration.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">grep</span></code> (Global Regular Expression Print)</strong>: A command-line utility that searches for a specific text pattern within files. In a medical context, you might use <code class="docutils literal notranslate"><span class="pre">grep</span></code> to scan a patient’s electronic health record (EHR) file for every mention of the drug “Metformin.”</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">find</span></code></strong>: A command-line utility that locates files and directories based on their attributes, such as name, size, type, or modification date. As an analogy, while <code class="docutils literal notranslate"><span class="pre">grep</span></code> reads the books in a library, <code class="docutils literal notranslate"><span class="pre">find</span></code> locates all books published in the last year or all books with “Genetics” in the title.</p></li>
+<li><p><strong>Pattern</strong>: The specific sequence of characters or text that <code class="docutils literal notranslate"><span class="pre">grep</span></code> searches for. A pattern can be a simple word like “cancer” or a complex regular expression that matches a patient ID format.</p></li>
+<li><p><strong>Regular Expression (Regex)</strong>: A special sequence of characters that defines a search pattern, allowing for more flexible and powerful searches than simple text. For example, a regex could find all gene IDs that start with “BRCA” followed by any single digit (e.g., <code class="docutils literal notranslate"><span class="pre">BRCA1</span></code>, <code class="docutils literal notranslate"><span class="pre">BRCA2</span></code>).</p></li>
+<li><p><strong>File Attribute</strong>: A piece of metadata about a file that <code class="docutils literal notranslate"><span class="pre">find</span></code> can use as a search criterion. Common attributes include the filename, file size, modification time, and file type (e.g., file or directory).</p></li>
+<li><p><strong>Recursive Search</strong>: A search that traverses a directory and all of its subdirectories. This is crucial in bioinformatics, where data is often organized in nested folders, such as <code class="docutils literal notranslate"><span class="pre">/project/patient_id/sequencing_run/</span></code>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="finding-content-with-grep">
+<h3>3.1 Finding Content with <code class="docutils literal notranslate"><span class="pre">grep</span></code><a class="headerlink" href="#finding-content-with-grep" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">grep</span></code> scans files for lines containing a text pattern. For example, use it to find a specific gene name or patient ID within a large report.</p>
+<section id="basic-grep-search">
+<h4><strong>Basic <code class="docutils literal notranslate"><span class="pre">grep</span></code> Search</strong><a class="headerlink" href="#basic-grep-search" title="Link to this heading">#</a></h4>
+<p>This command finds and displays lines containing “Warfarin” in a medication list. Using the generic name (e.g., ‘Warfarin’) instead of a brand name is a best practice for ensuring comprehensive search results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;Warfarin&quot; medications.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="grep-with-options">
+<h4><strong><code class="docutils literal notranslate"><span class="pre">grep</span></code> with Options</strong><a class="headerlink" href="#grep-with-options" title="Link to this heading">#</a></h4>
+<p>Use flags to modify <code class="docutils literal notranslate"><span class="pre">grep</span></code>’s behavior.</p>
+<p><strong>Controlling the Match</strong></p>
+<ul class="simple">
+<li><p><strong>Ignore Case (<code class="docutils literal notranslate"><span class="pre">-i</span></code>)</strong>: Finds all case variations of “hemoglobin”.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -i &quot;hemoglobin&quot; daily_labs.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Whole Word (<code class="docutils literal notranslate"><span class="pre">-w</span></code>)</strong>: Matches the exact word “BRCA1”, not “BRCA1-associated”.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -w &quot;BRCA1&quot; gene_annotations.gff
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Invert Match (<code class="docutils literal notranslate"><span class="pre">-v</span></code>)</strong>: Shows lines that DO NOT contain “Flag: Normal”, which is useful for finding abnormal results in structured data.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -v &quot;Flag: Normal&quot; lab_results.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Controlling the Output</strong></p>
+<ul class="simple">
+<li><p><strong>Count Matches (<code class="docutils literal notranslate"><span class="pre">-c</span></code>)</strong>: Prints the number of matching lines instead of the lines themselves.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -c &quot;ALERT&quot; vital_signs.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>List Filenames (<code class="docutils literal notranslate"><span class="pre">-l</span></code>)</strong>: Shows only the names of files containing a match.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -l &quot;Status: DECEASED&quot; /records/patients/*.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Show Line Numbers (<code class="docutils literal notranslate"><span class="pre">-n</span></code>)</strong>: Prefixes each matching line with its line number.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -n &quot;PatientID: PT078910&quot; /records/cardiology_consults_202411.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Show Context (<code class="docutils literal notranslate"><span class="pre">-C</span></code>)</strong>: Prints lines Before and After the match. For example, show 2 lines of context.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -C 2 &quot;BRCA1&quot; gene_annotations.gff
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">-A</span> <span class="pre">2</span></code> for 2 lines After or <code class="docutils literal notranslate"><span class="pre">-B</span> <span class="pre">2</span></code> for 2 lines Before the match.</p></li>
+</ul>
+<p><strong>Controlling the Scope</strong></p>
+<ul class="simple">
+<li><p><strong>Search Recursively (<code class="docutils literal notranslate"><span class="pre">-r</span></code>)</strong>: Searches for a pattern in all files within a directory and its subdirectories.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -r &quot;PatientID: PT078910&quot; /records/
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Combine Recursive, Insensitive, and Number (<code class="docutils literal notranslate"><span class="pre">-rin</span></code>)</strong>: Recursively search for “error”, ignore case, and show line numbers. This is a powerful combination for debugging.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -rin &quot;error&quot; /var/log/
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> You can combine most <code class="docutils literal notranslate"><span class="pre">grep</span></code> flags to create powerful, specific searches. For example, <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-inw</span> <span class="pre">&quot;error&quot;</span></code> will perform a case-<strong>i</strong>nsensitive search, show line <strong>n</strong>umbers, and match only the <strong>w</strong>hole word “error”.</p>
+</div></blockquote>
+</section>
+<section id="using-regular-expressions-with-grep">
+<h4><strong>Using Regular Expressions with <code class="docutils literal notranslate"><span class="pre">grep</span></code></strong><a class="headerlink" href="#using-regular-expressions-with-grep" title="Link to this heading">#</a></h4>
+<p>Regular expressions search for patterns, not just fixed text.</p>
+<ul class="simple">
+<li><p><strong>Find lines starting with “CRITICAL:”.</strong> <code class="docutils literal notranslate"><span class="pre">^</span></code> matches the start of a line.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;^CRITICAL:&quot; vital_signs.log
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Find gene variants <code class="docutils literal notranslate"><span class="pre">TP53</span></code> or <code class="docutils literal notranslate"><span class="pre">TP63</span></code>.</strong> <code class="docutils literal notranslate"><span class="pre">[...]</span></code> matches any single character within the brackets.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;TP[56]3&quot; gene_list.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Find lines with “Aspirin” or “Ibuprofen” (<code class="docutils literal notranslate"><span class="pre">-E</span></code>)</strong>. <code class="docutils literal notranslate"><span class="pre">-E</span></code> enables extended patterns like <code class="docutils literal notranslate"><span class="pre">|</span></code> (OR) without needing escape characters.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -E &quot;Aspirin|Ibuprofen&quot; medications.txt
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="locating-files-with-find">
+<h3>3.2 Locating Files with <code class="docutils literal notranslate"><span class="pre">find</span></code><a class="headerlink" href="#locating-files-with-find" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">find</span></code> locates files and directories using attributes like name or modification date. This is essential for managing large sets of raw data files.</p>
+<section id="basic-find-searches">
+<h4><strong>Basic <code class="docutils literal notranslate"><span class="pre">find</span></code> Searches</strong><a class="headerlink" href="#basic-find-searches" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Find by Name (<code class="docutils literal notranslate"><span class="pre">-name</span></code>)</strong>: Finds all FASTQ files in a specific data directory. The pattern is quoted to prevent shell expansion.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/sequencing_runs/ -type f -name &quot;*.fastq&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Find by Case-Insensitive Name (<code class="docutils literal notranslate"><span class="pre">-iname</span></code>)</strong>: Finds a file regardless of case.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find . -type f -iname &quot;patient_summary.txt&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Find by Modification Time (<code class="docutils literal notranslate"><span class="pre">-mtime</span></code>)</strong>: Finds reports modified in the last 48 hours.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/reports/ -mtime -2
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Key Terms: Numerical Tests</strong>
+When using options like <code class="docutils literal notranslate"><span class="pre">-mtime</span></code> or <code class="docutils literal notranslate"><span class="pre">-size</span></code>, the number sign is important:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n</span></code>: “less than n” (e.g., <code class="docutils literal notranslate"><span class="pre">-mtime</span> <span class="pre">-2</span></code> means less than 2 days old).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+n</span></code>: “more than n” (e.g., <code class="docutils literal notranslate"><span class="pre">-size</span> <span class="pre">+100M</span></code> means larger than 100MB).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: “exactly n” (e.g., <code class="docutils literal notranslate"><span class="pre">-mtime</span> <span class="pre">2</span></code> means between 48 and 72 hours old).</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Find by Size (<code class="docutils literal notranslate"><span class="pre">-size</span></code>)</strong>: Finds large MRI scan files over 100 megabytes.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/mri_scans/ -type f -size +100M
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Find Empty Files (<code class="docutils literal notranslate"><span class="pre">-empty</span></code>)</strong>: Finds zero-byte files from failed data exports.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/lab_exports/ -type f -empty
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="acting-on-found-files">
+<h4><strong>Acting on Found Files</strong><a class="headerlink" href="#acting-on-found-files" title="Link to this heading">#</a></h4>
+<p>Use <code class="docutils literal notranslate"><span class="pre">-delete</span></code> or <code class="docutils literal notranslate"><span class="pre">-exec</span></code> to perform actions on files that <code class="docutils literal notranslate"><span class="pre">find</span></code> locates.</p>
+<blockquote>
+<div><p><strong>Important:</strong> Always run a <code class="docutils literal notranslate"><span class="pre">find</span></code> command without an action like <code class="docutils literal notranslate"><span class="pre">-delete</span></code> or <code class="docutils literal notranslate"><span class="pre">-exec</span></code> first. This allows you to preview the list of files that will be affected, preventing irreversible mistakes. Treat <code class="docutils literal notranslate"><span class="pre">-delete</span></code> with extreme caution.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Safely delete old backup files with <code class="docutils literal notranslate"><span class="pre">-delete</span></code>.</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# 1. List .bak files older than 7 days to verify
+find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7
+# 2. After verifying, run the same command with -delete
+find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7 -delete
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Run a command on found files with <code class="docutils literal notranslate"><span class="pre">-exec</span></code>.</strong> This example finds all VCF files containing “mutation” and lists just their names.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /project/genomics/ -type f -name &quot;*.vcf&quot; -exec grep -l &quot;mutation&quot; {} +
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Pro Tip:</strong> When using <code class="docutils literal notranslate"><span class="pre">-exec</span></code>, prefer ending your command with <code class="docutils literal notranslate"><span class="pre">+</span></code> instead of <code class="docutils literal notranslate"><span class="pre">\;</span></code> where possible. The <code class="docutils literal notranslate"><span class="pre">+</span></code> groups all found file paths into a single command, which is much more efficient than <code class="docutils literal notranslate"><span class="pre">\;</span></code>, which runs a separate command for every single file found.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Reflection Moment:</strong> Think about a recent data-related task you performed. Could <code class="docutils literal notranslate"><span class="pre">grep</span></code> or <code class="docutils literal notranslate"><span class="pre">find</span></code> have made it faster or easier? Consider how you might use these tools to automate file cleanup, search through logs, or quickly locate specific research data.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>You are working with data from City Medical Center. Use the skills you’ve just learned to perform the following data management tasks. For each task, write the command you would use.</p>
+<section id="exercise-1-count-critical-lab-results">
+<h3>Exercise 1: Count Critical Lab Results<a class="headerlink" href="#exercise-1-count-critical-lab-results" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">grep</span></code> to count the number of lines containing a specific keyword.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> You are monitoring incoming lab results and need to quickly quantify how many results have been flagged as “CRITICAL” to assess the urgency.</p>
+<p>Count how many times the status “CRITICAL” appears in <code class="docutils literal notranslate"><span class="pre">lab_results.log</span></code>.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;CRITICAL&quot;</span><span class="w"> </span>lab_results.log
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">-c</span></code> (count) option tells <code class="docutils literal notranslate"><span class="pre">grep</span></code> to output the number of matching lines instead of the line content itself.
+<strong>Key Learning:</strong> Using <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-c</span></code> is a fast way to get a quantitative summary from log files without needing to manually count lines.</p>
+</div>
+</details></section>
+<section id="exercise-2-find-recent-patient-records">
+<h3>Exercise 2: Find Recent Patient Records<a class="headerlink" href="#exercise-2-find-recent-patient-records" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">find</span></code> to locate files based on their modification time.
+<strong>Time:</strong> 2 minutes
+<strong>Medical Context:</strong> A physician needs to review all patient records that have been updated in the last two days to prepare for morning rounds.</p>
+<p>Find all <em>regular files</em> in the <code class="docutils literal notranslate"><span class="pre">/data/patient_records/</span></code> directory that were modified in the last 48 hours.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>/data/patient_records/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>-2
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">-type</span> <span class="pre">f</span></code> test ensures we only match regular files (not directories). The <code class="docutils literal notranslate"><span class="pre">-mtime</span> <span class="pre">-2</span></code> test matches files modified less than 2 days (48 hours) ago.
+<strong>Key Learning:</strong> The <code class="docutils literal notranslate"><span class="pre">-mtime</span></code> flag is essential for managing files based on their age, which is useful for backups, archiving, or reviewing recent data. Using <code class="docutils literal notranslate"><span class="pre">-type</span> <span class="pre">f</span></code> makes the search more precise.</p>
+</div>
+</details></section>
+<section id="exercise-3-filter-out-pending-results">
+<h3>Exercise 3: Filter Out Pending Results<a class="headerlink" href="#exercise-3-filter-out-pending-results" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">grep</span></code> to invert a match and show all lines that <em>do not</em> contain a pattern.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> You need to generate a report of all completed lab results. You can do this by filtering out any results that are still marked as “PENDING”.</p>
+<p>Display all lines from <code class="docutils literal notranslate"><span class="pre">lab_results.log</span></code> that do <em>not</em> have the status “PENDING”.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;PENDING&quot;</span><span class="w"> </span>lab_results.log
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">-v</span></code> (invert-match) option selects non-matching lines. This command prints every line from <code class="docutils literal notranslate"><span class="pre">lab_results.log</span></code> that does not contain the word “PENDING”.
+<strong>Key Learning:</strong> Inverting matches with <code class="docutils literal notranslate"><span class="pre">-v</span></code> is a powerful technique for data cleaning and filtering, allowing you to exclude irrelevant information.</p>
+</div>
+</details></section>
+<section id="exercise-4-locate-large-genomic-files">
+<h3>Exercise 4: Locate Large Genomic Files<a class="headerlink" href="#exercise-4-locate-large-genomic-files" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use <code class="docutils literal notranslate"><span class="pre">find</span></code> to locate files based on both type and size.
+<strong>Time:</strong> 3 minutes
+<strong>Medical Context:</strong> Your analysis pipeline has failed, and you suspect it’s due to unexpectedly large input files. You need to identify all genomic variant files (<code class="docutils literal notranslate"><span class="pre">.vcf</span></code>) that exceed a certain size threshold.</p>
+<p>Find all genomic variant files (<code class="docutils literal notranslate"><span class="pre">.vcf</span></code>) in <code class="docutils literal notranslate"><span class="pre">/data/genomics/</span></code> that are larger than 5 megabytes.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>/data/genomics/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.vcf&quot;</span><span class="w"> </span>-size<span class="w"> </span>+5M
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> This command combines three tests: <code class="docutils literal notranslate"><span class="pre">-type</span> <span class="pre">f</span></code> ensures we only find files, <code class="docutils literal notranslate"><span class="pre">-name</span> <span class="pre">&quot;*.vcf&quot;</span></code> matches the file extension, and <code class="docutils literal notranslate"><span class="pre">-size</span> <span class="pre">+5M</span></code> finds files larger than 5 megabytes.
+<strong>Key Learning:</strong> <code class="docutils literal notranslate"><span class="pre">find</span></code> allows you to chain multiple criteria together to create highly specific searches for file management and troubleshooting.</p>
+</div>
+</details></section>
+<section id="exercise-5-find-all-logs-containing-validation-errors">
+<h3>Exercise 5: Find All Logs Containing Validation Errors<a class="headerlink" href="#exercise-5-find-all-logs-containing-validation-errors" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine <code class="docutils literal notranslate"><span class="pre">find</span></code> and <code class="docutils literal notranslate"><span class="pre">grep</span></code> to first locate relevant files and then search their content.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> You are performing a quality assurance check on a bioinformatics pipeline. You need to find the names of all log files anywhere in the <code class="docutils literal notranslate"><span class="pre">/data/</span></code> directory that contain the term “validation_error”, regardless of its case.</p>
+<p>Find the <em>names</em> of all log files (<code class="docutils literal notranslate"><span class="pre">.log</span></code>) in the <code class="docutils literal notranslate"><span class="pre">/data/</span></code> directory that contain the case-insensitive word “validation_error”.</p>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>/data/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.log&quot;</span><span class="w"> </span>-exec<span class="w"> </span>grep<span class="w"> </span>-li<span class="w"> </span><span class="s2">&quot;validation_error&quot;</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> <code class="docutils literal notranslate"><span class="pre">find</span></code> first locates all files (<code class="docutils literal notranslate"><span class="pre">-type</span> <span class="pre">f</span></code>) ending in <code class="docutils literal notranslate"><span class="pre">.log</span></code>. Then, <code class="docutils literal notranslate"><span class="pre">-exec</span></code> runs the <code class="docutils literal notranslate"><span class="pre">grep</span></code> command on those found files. <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-l</span></code> lists the filenames of matching files, and <code class="docutils literal notranslate"><span class="pre">-i</span></code> ignores case. The <code class="docutils literal notranslate"><span class="pre">{}</span></code> is a placeholder for the file paths found by <code class="docutils literal notranslate"><span class="pre">find</span></code>, and <code class="docutils literal notranslate"><span class="pre">+</span></code> groups them efficiently.
+<strong>Key Learning:</strong> Combining <code class="docutils literal notranslate"><span class="pre">find</span></code> and <code class="docutils literal notranslate"><span class="pre">grep</span></code> with <code class="docutils literal notranslate"><span class="pre">-exec</span></code> is a classic and powerful pattern for complex data discovery tasks. <code class="docutils literal notranslate"><span class="pre">find</span></code> answers “where are the files?” and <code class="docutils literal notranslate"><span class="pre">grep</span></code> answers “what’s in them?”.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Pharmacogenomics Screening</strong>: A researcher can use <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-w</span> <span class="pre">&quot;CYP2D6&quot;</span></code> on thousands of variant call format (VCF) files to quickly identify patients with variants in a key drug-metabolizing gene. This helps shortlist candidates for a pharmacogenomics study without manually opening each file.</p></li>
+<li><p><strong>Data Archiving and Cleanup</strong>: A systems administrator at a hospital can use <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">/data/ehr_backups/</span> <span class="pre">-mtime</span> <span class="pre">+365</span> <span class="pre">-delete</span></code> to automatically locate and remove electronic health record backups that are more than a year old, ensuring compliance with data retention policies and freeing up storage space.</p></li>
+<li><p><strong>Clinical Trial Data Validation</strong>: During a clinical trial, a data manager can run <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-rli</span> <span class="pre">&quot;error|warning&quot;</span> <span class="pre">/data/trial_XYZ/</span></code> to recursively search all data submission folders for any files containing the words “error” or “warning”. This provides a quick quality control check to identify problematic data files that need investigation.</p></li>
+<li><p><strong>Identifying Failed Sequencing Runs</strong>: A bioinformatician can use <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">/sequencing_data/</span> <span class="pre">-type</span> <span class="pre">f</span> <span class="pre">-name</span> <span class="pre">&quot;*.fastq.gz&quot;</span> <span class="pre">-empty</span></code> to locate any empty FASTQ files. An empty file often indicates a failed data transfer from a sequencing machine, allowing for rapid identification and re-initiation of the transfer.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored the essential command-line tools for searching: <code class="docutils literal notranslate"><span class="pre">grep</span></code> for finding content <em>within</em> files and <code class="docutils literal notranslate"><span class="pre">find</span></code> for locating the <em>files themselves</em>. We saw how to use various options to refine our searches and how to combine these tools to perform complex data discovery tasks critical for managing large-scale precision health data.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">grep</span></code> is for content</strong>: Use it to find lines matching a text pattern (the “what”). Key options include <code class="docutils literal notranslate"><span class="pre">-i</span></code> (ignore case), <code class="docutils literal notranslate"><span class="pre">-c</span></code> (count), <code class="docutils literal notranslate"><span class="pre">-v</span></code> (invert), <code class="docutils literal notranslate"><span class="pre">-l</span></code> (list files), and <code class="docutils literal notranslate"><span class="pre">-r</span></code> (recursive).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">find</span></code> is for files</strong>: Use it to locate files based on attributes like name, size, and modification time (the “where”). Key tests include <code class="docutils literal notranslate"><span class="pre">-name</span></code>, <code class="docutils literal notranslate"><span class="pre">-type</span></code>, <code class="docutils literal notranslate"><span class="pre">-mtime</span></code>, and <code class="docutils literal notranslate"><span class="pre">-size</span></code>.</p></li>
+<li><p><strong>Combine for Power</strong>: You can use <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">...</span> <span class="pre">-exec</span> <span class="pre">grep</span> <span class="pre">...</span> <span class="pre">{}</span> <span class="pre">+</span></code> to first locate a specific set of files and then search for content within them.</p></li>
+<li><p><strong>Safety First</strong>: When using actions like <code class="docutils literal notranslate"><span class="pre">-delete</span></code> or <code class="docutils literal notranslate"><span class="pre">-exec</span></code> with <code class="docutils literal notranslate"><span class="pre">find</span></code>, always run the command without the action first to ensure you are targeting the correct files.</p></li>
+</ul>
+<p>With these tools, you can now locate and inspect data with precision and speed. In the next section, we will learn how to connect commands together using pipes, further enhancing your data processing capabilities.</p>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="d-finds-and-displays-lines-containing-warfarin-in-a-medication-list-using-the-generic-name-e-g-warfarin-instead-of-a-brand-name-is-a-best-practice-for-ensuring-comprehensive-search-results">
+<h3>d finds and displays lines containing “Warfarin” in a medication list. Using the generic name (e.g., ‘Warfarin’) instead of a brand name is a best practice for ensuring comprehensive search results.<a class="headerlink" href="#d-finds-and-displays-lines-containing-warfarin-in-a-medication-list-using-the-generic-name-e-g-warfarin-instead-of-a-brand-name-is-a-best-practice-for-ensuring-comprehensive-search-results" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;Warfarin&quot; medications.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ignore-case-i-finds-all-case-variations-of-hemoglobin">
+<h3>*   <strong>Ignore Case (<code class="docutils literal notranslate"><span class="pre">-i</span></code>)</strong>: Finds all case variations of “hemoglobin”.<a class="headerlink" href="#ignore-case-i-finds-all-case-variations-of-hemoglobin" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -i &quot;hemoglobin&quot; daily_labs.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="whole-word-w-matches-the-exact-word-brca1-not-brca1-associated">
+<h3>*   <strong>Whole Word (<code class="docutils literal notranslate"><span class="pre">-w</span></code>)</strong>: Matches the exact word “BRCA1”, not “BRCA1-associated”.<a class="headerlink" href="#whole-word-w-matches-the-exact-word-brca1-not-brca1-associated" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -w &quot;BRCA1&quot; gene_annotations.gff
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="invert-match-v-shows-lines-that-do-not-contain-flag-normal-which-is-useful-for-finding-abnormal-results-in-structured-data">
+<h3>*   <strong>Invert Match (<code class="docutils literal notranslate"><span class="pre">-v</span></code>)</strong>: Shows lines that DO NOT contain “Flag: Normal”, which is useful for finding abnormal results in structured data.<a class="headerlink" href="#invert-match-v-shows-lines-that-do-not-contain-flag-normal-which-is-useful-for-finding-abnormal-results-in-structured-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -v &quot;Flag: Normal&quot; lab_results.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="count-matches-c-prints-the-number-of-matching-lines-instead-of-the-lines-themselves">
+<h3>*   <strong>Count Matches (<code class="docutils literal notranslate"><span class="pre">-c</span></code>)</strong>: Prints the number of matching lines instead of the lines themselves.<a class="headerlink" href="#count-matches-c-prints-the-number-of-matching-lines-instead-of-the-lines-themselves" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -c &quot;ALERT&quot; vital_signs.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="list-filenames-l-shows-only-the-names-of-files-containing-a-match">
+<h3>*   <strong>List Filenames (<code class="docutils literal notranslate"><span class="pre">-l</span></code>)</strong>: Shows only the names of files containing a match.<a class="headerlink" href="#list-filenames-l-shows-only-the-names-of-files-containing-a-match" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -l &quot;Status: DECEASED&quot; /records/patients/*.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="show-line-numbers-n-prefixes-each-matching-line-with-its-line-number">
+<h3>*   <strong>Show Line Numbers (<code class="docutils literal notranslate"><span class="pre">-n</span></code>)</strong>: Prefixes each matching line with its line number.<a class="headerlink" href="#show-line-numbers-n-prefixes-each-matching-line-with-its-line-number" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -n &quot;PatientID: PT078910&quot; /records/cardiology_consults_202411.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="show-context-c-prints-lines-before-and-after-the-match-for-example-show-2-lines-of-context">
+<h3>*   <strong>Show Context (<code class="docutils literal notranslate"><span class="pre">-C</span></code>)</strong>: Prints lines Before and After the match. For example, show 2 lines of context.<a class="headerlink" href="#show-context-c-prints-lines-before-and-after-the-match-for-example-show-2-lines-of-context" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -C 2 &quot;BRCA1&quot; gene_annotations.gff
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>Try It Yourself:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="search-recursively-r-searches-for-a-pattern-in-all-files-within-a-directory-and-its-subdirectories">
+<h3>*   <strong>Search Recursively (<code class="docutils literal notranslate"><span class="pre">-r</span></code>)</strong>: Searches for a pattern in all files within a directory and its subdirectories.<a class="headerlink" href="#search-recursively-r-searches-for-a-pattern-in-all-files-within-a-directory-and-its-subdirectories" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -r &quot;PatientID: PT078910&quot; /records/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="combine-recursive-insensitive-and-number-rin-recursively-search-for-error-ignore-case-and-show-line-numbers-this-is-a-powerful-combination-for-debugging">
+<h3>*   <strong>Combine Recursive, Insensitive, and Number (<code class="docutils literal notranslate"><span class="pre">-rin</span></code>)</strong>: Recursively search for “error”, ignore case, and show line numbers. This is a powerful combination for debugging.<a class="headerlink" href="#combine-recursive-insensitive-and-number-rin-recursively-search-for-error-ignore-case-and-show-line-numbers-this-is-a-powerful-combination-for-debugging" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -rin &quot;error&quot; /var/log/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>Try It Yourself:<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-lines-starting-with-critical-matches-the-start-of-a-line">
+<h3>*   <strong>Find lines starting with “CRITICAL:”.</strong> <code class="docutils literal notranslate"><span class="pre">^</span></code> matches the start of a line.<a class="headerlink" href="#find-lines-starting-with-critical-matches-the-start-of-a-line" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;^CRITICAL:&quot; vital_signs.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-gene-variants-tp53-or-tp63-matches-any-single-character-within-the-brackets">
+<h3>*   <strong>Find gene variants <code class="docutils literal notranslate"><span class="pre">TP53</span></code> or <code class="docutils literal notranslate"><span class="pre">TP63</span></code>.</strong> <code class="docutils literal notranslate"><span class="pre">[...]</span></code> matches any single character within the brackets.<a class="headerlink" href="#find-gene-variants-tp53-or-tp63-matches-any-single-character-within-the-brackets" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep &quot;TP[56]3&quot; gene_list.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h3>Try It Yourself:<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-lines-with-aspirin-or-ibuprofen-e-e-enables-extended-patterns-like-or-without-needing-escape-characters">
+<h3>*   <strong>Find lines with “Aspirin” or “Ibuprofen” (<code class="docutils literal notranslate"><span class="pre">-E</span></code>)</strong>. <code class="docutils literal notranslate"><span class="pre">-E</span></code> enables extended patterns like <code class="docutils literal notranslate"><span class="pre">|</span></code> (OR) without needing escape characters.<a class="headerlink" href="#find-lines-with-aspirin-or-ibuprofen-e-e-enables-extended-patterns-like-or-without-needing-escape-characters" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -E &quot;Aspirin|Ibuprofen&quot; medications.txt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>Try It Yourself:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-by-name-name-finds-all-fastq-files-in-a-specific-data-directory-the-pattern-is-quoted-to-prevent-shell-expansion">
+<h3>*   <strong>Find by Name (<code class="docutils literal notranslate"><span class="pre">-name</span></code>)</strong>: Finds all FASTQ files in a specific data directory. The pattern is quoted to prevent shell expansion.<a class="headerlink" href="#find-by-name-name-finds-all-fastq-files-in-a-specific-data-directory-the-pattern-is-quoted-to-prevent-shell-expansion" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/sequencing_runs/ -type f -name &quot;*.fastq&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h3>Try It Yourself:<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-by-case-insensitive-name-iname-finds-a-file-regardless-of-case">
+<h3>*   <strong>Find by Case-Insensitive Name (<code class="docutils literal notranslate"><span class="pre">-iname</span></code>)</strong>: Finds a file regardless of case.<a class="headerlink" href="#find-by-case-insensitive-name-iname-finds-a-file-regardless-of-case" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find . -type f -iname &quot;patient_summary.txt&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h3>Try It Yourself:<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-by-modification-time-mtime-finds-reports-modified-in-the-last-48-hours">
+<h3>*   <strong>Find by Modification Time (<code class="docutils literal notranslate"><span class="pre">-mtime</span></code>)</strong>: Finds reports modified in the last 48 hours.<a class="headerlink" href="#find-by-modification-time-mtime-finds-reports-modified-in-the-last-48-hours" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/reports/ -mtime -2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id15">
+<h3>Try It Yourself:<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-by-size-size-finds-large-mri-scan-files-over-100-megabytes">
+<h3>*   <strong>Find by Size (<code class="docutils literal notranslate"><span class="pre">-size</span></code>)</strong>: Finds large MRI scan files over 100 megabytes.<a class="headerlink" href="#find-by-size-size-finds-large-mri-scan-files-over-100-megabytes" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/mri_scans/ -type f -size +100M
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id16">
+<h3>Try It Yourself:<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="find-empty-files-empty-finds-zero-byte-files-from-failed-data-exports">
+<h3>*   <strong>Find Empty Files (<code class="docutils literal notranslate"><span class="pre">-empty</span></code>)</strong>: Finds zero-byte files from failed data exports.<a class="headerlink" href="#find-empty-files-empty-finds-zero-byte-files-from-failed-data-exports" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/lab_exports/ -type f -empty
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id17">
+<h3>Try It Yourself:<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="safely-delete-old-backup-files-with-delete">
+<h3>*   <strong>Safely delete old backup files with <code class="docutils literal notranslate"><span class="pre">-delete</span></code>.</strong><a class="headerlink" href="#safely-delete-old-backup-files-with-delete" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# 1. List .bak files older than 7 days to verify
+find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7
+# 2. After verifying, run the same command with -delete
+find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7 -delete
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id18">
+<h3>Try It Yourself:<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-a-command-on-found-files-with-exec-this-example-finds-all-vcf-files-containing-mutation-and-lists-just-their-names">
+<h3>*   <strong>Run a command on found files with <code class="docutils literal notranslate"><span class="pre">-exec</span></code>.</strong> This example finds all VCF files containing “mutation” and lists just their names.<a class="headerlink" href="#run-a-command-on-found-files-with-exec-this-example-finds-all-vcf-files-containing-mutation-and-lists-just-their-names" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /project/genomics/ -type f -name &quot;*.vcf&quot; -exec grep -l &quot;mutation&quot; {} +
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id19">
+<h3>Try It Yourself:<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -c &quot;CRITICAL&quot; lab_results.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id20">
+<h3>Try It Yourself:<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id21">
+<h3><summary>Solution</summary><a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/patient_records/ -type f -mtime -2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id22">
+<h3>Try It Yourself:<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id23">
+<h3><summary>Solution</summary><a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+grep -v &quot;PENDING&quot; lab_results.log
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id24">
+<h3>Try It Yourself:<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id25">
+<h3><summary>Solution</summary><a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/genomics/ -type f -name &quot;*.vcf&quot; -size +5M
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id26">
+<h3>Try It Yourself:<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id27">
+<h3><summary>Solution</summary><a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+find /data/ -type f -name &quot;*.log&quot; -exec grep -li &quot;validation_error&quot; {} +
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id28">
+<h3>Try It Yourself:<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6.5_permissions_and_chmod.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 6: The Command Line Interface (CLI) for Precision Health</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="6.7_and_redirection.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 6: Command-Line Data Manipulation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-content-with-grep">3.1 Finding Content with <code class="docutils literal notranslate"><span class="pre">grep</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-grep-search"><strong>Basic <code class="docutils literal notranslate"><span class="pre">grep</span></code> Search</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grep-with-options"><strong><code class="docutils literal notranslate"><span class="pre">grep</span></code> with Options</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#using-regular-expressions-with-grep"><strong>Using Regular Expressions with <code class="docutils literal notranslate"><span class="pre">grep</span></code></strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locating-files-with-find">3.2 Locating Files with <code class="docutils literal notranslate"><span class="pre">find</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-find-searches"><strong>Basic <code class="docutils literal notranslate"><span class="pre">find</span></code> Searches</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acting-on-found-files"><strong>Acting on Found Files</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-count-critical-lab-results">Exercise 1: Count Critical Lab Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-find-recent-patient-records">Exercise 2: Find Recent Patient Records</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-filter-out-pending-results">Exercise 3: Filter Out Pending Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-locate-large-genomic-files">Exercise 4: Locate Large Genomic Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-find-all-logs-containing-validation-errors">Exercise 5: Find All Logs Containing Validation Errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-finds-and-displays-lines-containing-warfarin-in-a-medication-list-using-the-generic-name-e-g-warfarin-instead-of-a-brand-name-is-a-best-practice-for-ensuring-comprehensive-search-results">d finds and displays lines containing “Warfarin” in a medication list. Using the generic name (e.g., ‘Warfarin’) instead of a brand name is a best practice for ensuring comprehensive search results.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ignore-case-i-finds-all-case-variations-of-hemoglobin">*   <strong>Ignore Case (<code class="docutils literal notranslate"><span class="pre">-i</span></code>)</strong>: Finds all case variations of “hemoglobin”.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whole-word-w-matches-the-exact-word-brca1-not-brca1-associated">*   <strong>Whole Word (<code class="docutils literal notranslate"><span class="pre">-w</span></code>)</strong>: Matches the exact word “BRCA1”, not “BRCA1-associated”.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invert-match-v-shows-lines-that-do-not-contain-flag-normal-which-is-useful-for-finding-abnormal-results-in-structured-data">*   <strong>Invert Match (<code class="docutils literal notranslate"><span class="pre">-v</span></code>)</strong>: Shows lines that DO NOT contain “Flag: Normal”, which is useful for finding abnormal results in structured data.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#count-matches-c-prints-the-number-of-matching-lines-instead-of-the-lines-themselves">*   <strong>Count Matches (<code class="docutils literal notranslate"><span class="pre">-c</span></code>)</strong>: Prints the number of matching lines instead of the lines themselves.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-filenames-l-shows-only-the-names-of-files-containing-a-match">*   <strong>List Filenames (<code class="docutils literal notranslate"><span class="pre">-l</span></code>)</strong>: Shows only the names of files containing a match.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#show-line-numbers-n-prefixes-each-matching-line-with-its-line-number">*   <strong>Show Line Numbers (<code class="docutils literal notranslate"><span class="pre">-n</span></code>)</strong>: Prefixes each matching line with its line number.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#show-context-c-prints-lines-before-and-after-the-match-for-example-show-2-lines-of-context">*   <strong>Show Context (<code class="docutils literal notranslate"><span class="pre">-C</span></code>)</strong>: Prints lines Before and After the match. For example, show 2 lines of context.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search-recursively-r-searches-for-a-pattern-in-all-files-within-a-directory-and-its-subdirectories">*   <strong>Search Recursively (<code class="docutils literal notranslate"><span class="pre">-r</span></code>)</strong>: Searches for a pattern in all files within a directory and its subdirectories.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-recursive-insensitive-and-number-rin-recursively-search-for-error-ignore-case-and-show-line-numbers-this-is-a-powerful-combination-for-debugging">*   <strong>Combine Recursive, Insensitive, and Number (<code class="docutils literal notranslate"><span class="pre">-rin</span></code>)</strong>: Recursively search for “error”, ignore case, and show line numbers. This is a powerful combination for debugging.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-lines-starting-with-critical-matches-the-start-of-a-line">*   <strong>Find lines starting with “CRITICAL:”.</strong> <code class="docutils literal notranslate"><span class="pre">^</span></code> matches the start of a line.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-gene-variants-tp53-or-tp63-matches-any-single-character-within-the-brackets">*   <strong>Find gene variants <code class="docutils literal notranslate"><span class="pre">TP53</span></code> or <code class="docutils literal notranslate"><span class="pre">TP63</span></code>.</strong> <code class="docutils literal notranslate"><span class="pre">[...]</span></code> matches any single character within the brackets.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-lines-with-aspirin-or-ibuprofen-e-e-enables-extended-patterns-like-or-without-needing-escape-characters">*   <strong>Find lines with “Aspirin” or “Ibuprofen” (<code class="docutils literal notranslate"><span class="pre">-E</span></code>)</strong>. <code class="docutils literal notranslate"><span class="pre">-E</span></code> enables extended patterns like <code class="docutils literal notranslate"><span class="pre">|</span></code> (OR) without needing escape characters.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-name-name-finds-all-fastq-files-in-a-specific-data-directory-the-pattern-is-quoted-to-prevent-shell-expansion">*   <strong>Find by Name (<code class="docutils literal notranslate"><span class="pre">-name</span></code>)</strong>: Finds all FASTQ files in a specific data directory. The pattern is quoted to prevent shell expansion.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-case-insensitive-name-iname-finds-a-file-regardless-of-case">*   <strong>Find by Case-Insensitive Name (<code class="docutils literal notranslate"><span class="pre">-iname</span></code>)</strong>: Finds a file regardless of case.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-modification-time-mtime-finds-reports-modified-in-the-last-48-hours">*   <strong>Find by Modification Time (<code class="docutils literal notranslate"><span class="pre">-mtime</span></code>)</strong>: Finds reports modified in the last 48 hours.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-by-size-size-finds-large-mri-scan-files-over-100-megabytes">*   <strong>Find by Size (<code class="docutils literal notranslate"><span class="pre">-size</span></code>)</strong>: Finds large MRI scan files over 100 megabytes.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-empty-files-empty-finds-zero-byte-files-from-failed-data-exports">*   <strong>Find Empty Files (<code class="docutils literal notranslate"><span class="pre">-empty</span></code>)</strong>: Finds zero-byte files from failed data exports.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#safely-delete-old-backup-files-with-delete">*   <strong>Safely delete old backup files with <code class="docutils literal notranslate"><span class="pre">-delete</span></code>.</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-a-command-on-found-files-with-exec-this-example-finds-all-vcf-files-containing-mutation-and-lists-just-their-names">*   <strong>Run a command on found files with <code class="docutils literal notranslate"><span class="pre">-exec</span></code>.</strong> This example finds all VCF files containing “mutation” and lists just their names.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

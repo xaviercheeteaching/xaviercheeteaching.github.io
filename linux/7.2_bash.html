@@ -1,0 +1,1279 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 7: Automating Tasks with Bash Scripting &#8212; Interactive Learning Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7.2_bash';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 7: Scripting Fundamentals for Automation" href="7.3_line_arguments.html" />
+    <link rel="prev" title="Chapter 7: Automating Tasks with Bash Scripting" href="7.1_and_running_bash_scripts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="6.1_to_linux_and_terminal.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Interactive Learning Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="6.1_to_linux_and_terminal.html">
+                    Chapter 6: The Linux Command Line for Bioinformatics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="6.2_system_navigation_%28pwd_cd_ls%29.html">6.2 Navigation (pwd Cd Ls)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.3_operations_%28cp_mv_rm_mkdir_touch%29.html">6.3 (cp Mv Rm Mkdir Touch)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.4_files_%28cat_less_head_tail%29.html">6.4 (cat Less Head Tail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.5_permissions_and_chmod.html">6.5 and Chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/7.2_bash.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/7.2_bash.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 7: Automating Tasks with Bash Scripting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#declare-and-use-variables">3.1. Declare and Use Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-variables-with-braces">3.2. Isolate Variables with Braces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-expansion-with-quotes">3.3. Control Expansion with Quotes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-read-only-variables">3.4. Create Read-Only Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integer-arithmetic">3.5. Integer Arithmetic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-substitution">3.6. Command Substitution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-a-patient-summary-script-basic">Exercise 1: Create a Patient Summary Script (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calculate-and-report-drug-dosage-intermediate">Exercise 2: Calculate and Report Drug Dosage (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-generate-a-timestamped-log-file-intermediate">Exercise 3: Generate a Timestamped Log File (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store-data-like-patient-ids-in-variables-to-make-scripts-dynamic-and-reusable">Store data like patient IDs in variables to make scripts dynamic and reusable.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-variables-it-s-crucial-to-learn-how-to-use-them-safely-within-other-strings-like-when-creating-filenames-use-curly-braces-to-safely-embed-variables-within-text-preventing-errors">create variables, it’s crucial to learn how to use them safely within other strings, like when creating filenames. Use curly braces <code class="docutils literal notranslate"><span class="pre">${...}</span></code> to safely embed variables within text, preventing errors.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-double-quotes-to-expand-variables-to-their-values-and-single-quotes-to-treat-them-as-literal-text">Use double quotes to expand variables to their values and single quotes to treat them as literal text.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-flexible-some-data-is-too-important-to-change-let-s-see-how-to-protect-it-make-a-variable-read-only-with-readonly-to-protect-critical-data-like-a-reference-file-path-from-being-overwritten">e flexible, some data is too important to change. Let’s see how to protect it. Make a variable read-only with <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect critical data, like a reference file path, from being overwritten.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perform-math-on-whole-numbers-integers-like-counting-samples-using-the-syntax">Perform math on whole numbers (integers), like counting samples, using the <code class="docutils literal notranslate"><span class="pre">$((...))</span></code> syntax.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tic-values-or-simple-math-results-to-variables-a-more-powerful-technique-is-to-assign-the-output-of-an-entire-command-to-a-variable-use-command-substitution-to-capture-a-command-s-output">tic values or simple math results to variables. A more powerful technique is to assign the output of an entire command to a variable. Use command substitution <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> to capture a command’s output.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-7-automating-tasks-with-bash-scripting">
+<h1>Chapter 7: Automating Tasks with Bash Scripting<a class="headerlink" href="#chapter-7-automating-tasks-with-bash-scripting" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Welcome to the core of scripting automation: variables. In precision health, we are constantly handling data—patient IDs, gene names, sequencing read counts, and lab values. Manually entering this information is slow and prone to error. Variables act as named containers, allowing us to store, retrieve, and manipulate this data efficiently. In this section, you will learn how to use Bash variables to make your scripts dynamic, reusable, and robust. We will cover how to declare variables, handle different data types, and capture command outputs, transforming static commands into powerful, automated workflows.</p>
+</section>
+<hr class="docutils" />
+<section id="key-concepts-and-definitions">
+<h2>2. Key Concepts and Definitions<a class="headerlink" href="#key-concepts-and-definitions" title="Link to this heading">#</a></h2>
+<p>Understanding these core concepts is crucial for using variables effectively in your scripts. Each term represents a building block for creating dynamic and reliable automations.</p>
+<ul class="simple">
+<li><p><strong>Variable</strong>: Think of a variable as a labeled container or a sticky note on a lab sample. The label is the variable’s name (e.g., <code class="docutils literal notranslate"><span class="pre">patient_id</span></code>), and the content inside is its value (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;PT9876543A&quot;</span></code>). This allows you to refer to data by a memorable name instead of the raw value itself.</p></li>
+<li><p><strong>String</strong>: A sequence of characters treated as text. Patient identifiers, filenames, and gene symbols are all stored as strings. In Bash, strings are often enclosed in quotes (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;BRCA1&quot;</span></code>).</p></li>
+<li><p><strong>Integer</strong>: A whole number (without a decimal point). Integers are essential for counting operations, such as tallying the number of genetic variants found in a sample or counting the total samples in a sequencing run.</p></li>
+<li><p><strong>Hemoglobin (Hb)</strong>: A protein in red blood cells that carries oxygen from the lungs to the body’s tissues. Its concentration is a common blood test parameter used to screen for conditions like anemia.</p></li>
+<li><p><strong>Body Mass Index (BMI)</strong>: A value derived from the mass and height of a person, used as a screening tool to identify potential weight-related health issues.</p></li>
+<li><p><strong>Read-Only Variable</strong>: A variable whose value is “locked” and cannot be changed after it is set. This is used to protect critical, constant information, like the file path to a human reference genome, from being accidentally overwritten during script execution.</p></li>
+<li><p><strong>Command Substitution</strong>: A powerful feature that allows you to capture the output of a command and store it in a variable. For example, you could run a command to count the lines in a file (<code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">-l</span></code>) and store that count directly into a variable named <code class="docutils literal notranslate"><span class="pre">line_count</span></code>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-content">
+<h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
+<section id="declare-and-use-variables">
+<h3>3.1. Declare and Use Variables<a class="headerlink" href="#declare-and-use-variables" title="Link to this heading">#</a></h3>
+<p>Store data like patient IDs in variables to make scripts dynamic and reusable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Assign a de-identified patient ID and hemoglobin level (g/dL).
+patient_id=&quot;PT9876543A&quot;
+hemoglobin_level=14.5 # Normal adult male range: 13.5-17.5 g/dL (Mayo Clinic Laboratories 2024)
+# Access variable values using the &#39;$&#39; prefix.
+echo &quot;Processing patient: $patient_id&quot;
+echo &quot;Hemoglobin (g/dL): $hemoglobin_level&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+# Processing patient: PT9876543A
+# Hemoglobin (g/dL): 14.5
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Medical Background</strong>
+The hemoglobin value of <code class="docutils literal notranslate"><span class="pre">14.5</span> <span class="pre">g/dL</span></code> falls within the normal range for adult males (13.5-17.5 g/dL), as cited. In a real clinical script, you might later use this variable in a conditional statement to flag abnormal results for review.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Assignment:</strong> Use <code class="docutils literal notranslate"><span class="pre">VARIABLE=&quot;value&quot;</span></code> with no spaces around the <code class="docutils literal notranslate"><span class="pre">=</span></code> symbol.</p></li>
+<li><p><strong>Access:</strong> Use the <code class="docutils literal notranslate"><span class="pre">$</span></code> prefix to retrieve the variable’s value (e.g., <code class="docutils literal notranslate"><span class="pre">$patient_id</span></code>).</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Pro Tip</strong>
+Use <code class="docutils literal notranslate"><span class="pre">lowercase_with_underscores</span></code> for your script variables. Bash uses <code class="docutils literal notranslate"><span class="pre">UPPERCASE_VARIABLES</span></code> for its own internal system and environment settings (e.g., <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>). Sticking to lowercase helps you avoid accidentally overwriting a critical system variable, which can cause unexpected script behavior.</p>
+</div></blockquote>
+</section>
+<section id="isolate-variables-with-braces">
+<h3>3.2. Isolate Variables with Braces<a class="headerlink" href="#isolate-variables-with-braces" title="Link to this heading">#</a></h3>
+<p>Now that you know how to create variables, it’s crucial to learn how to use them safely within other strings, like when creating filenames. Use curly braces <code class="docutils literal notranslate"><span class="pre">${...}</span></code> to safely embed variables within text, preventing errors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Correct: Creates the file PT9876543A_results.txt
+echo &quot;Saving results to ${patient_id}_results.txt&quot;
+# Incorrect: Searches for a variable named patient_id_results
+echo &quot;Incorrectly saving to $patient_id_results.txt&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+# Saving results to PT9876543A_results.txt
+# Incorrectly saving to .txt
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Debug Note</strong>
+If your script produces an empty value or an error when you combine a variable with text (like <code class="docutils literal notranslate"><span class="pre">&quot;$patient_id_results&quot;</span></code>), the most likely cause is a missing pair of curly braces. Bash is trying to find a single variable named <code class="docutils literal notranslate"><span class="pre">patient_id_results</span></code> which doesn’t exist. Always use <code class="docutils literal notranslate"><span class="pre">${variable}</span></code> when it’s not separated from other text by a space.</p>
+</div></blockquote>
+</section>
+<section id="control-expansion-with-quotes">
+<h3>3.3. Control Expansion with Quotes<a class="headerlink" href="#control-expansion-with-quotes" title="Link to this heading">#</a></h3>
+<p>Use double quotes to expand variables to their values and single quotes to treat them as literal text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+genome_file=&quot;/data/hg38/chr1.fa&quot;
+# Double quotes expand the variable to its value.
+echo &quot;Reference genome is $genome_file&quot;
+# Single quotes treat the variable name as literal text.
+echo &#39;Reference genome is $genome_file&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+# Reference genome is /data/hg38/chr1.fa
+# Reference genome is $genome_file
+</pre></div>
+</div>
+</section>
+<section id="create-read-only-variables">
+<h3>3.4. Create Read-Only Variables<a class="headerlink" href="#create-read-only-variables" title="Link to this heading">#</a></h3>
+<p>While variables are designed to be flexible, some data is too important to change. Let’s see how to protect it. Make a variable read-only with <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect critical data, like a reference file path, from being overwritten.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Declare a variable as read-only.
+readonly GENOME_FILE=&quot;/data/hg38/chr1.fa&quot;
+# This will now cause an error and stop the script.
+GENOME_FILE=&quot;/new/path/file.fa&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+# bash: GENOME_FILE: readonly variable
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important</strong>
+Use <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect variables that must not change, such as file paths to reference genomes, configuration settings, or patient identifiers loaded at the start of a script. This prevents accidental modification and acts as a crucial safety feature. By convention, <code class="docutils literal notranslate"><span class="pre">readonly</span></code> variables are named in <code class="docutils literal notranslate"><span class="pre">ALL_CAPS</span></code>. In a real script, you would also use <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-e</span></code> at the top, which automatically stops the script if any command fails, including an attempt to modify a read-only variable.</p>
+</div></blockquote>
+</section>
+<section id="integer-arithmetic">
+<h3>3.5. Integer Arithmetic<a class="headerlink" href="#integer-arithmetic" title="Link to this heading">#</a></h3>
+<p>Perform math on whole numbers (integers), like counting samples, using the <code class="docutils literal notranslate"><span class="pre">$((...))</span></code> syntax.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+run1_samples=48
+run2_samples=48
+total_samples=$((run1_samples + run2_samples))
+echo &quot;Total samples processed: $total_samples&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+# Total samples processed: 96
+</pre></div>
+</div>
+</section>
+<section id="command-substitution">
+<h3>3.6. Command Substitution<a class="headerlink" href="#command-substitution" title="Link to this heading">#</a></h3>
+<p>So far, we’ve assigned static values or simple math results to variables. A more powerful technique is to assign the output of an entire command to a variable. Use command substitution <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> to capture a command’s output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Calculate BMI from weight (kg) and height (m).
+patient_weight_kg=70.5
+patient_height_m=1.75
+# (Formula Source: CDC 2023)
+# Use the bc (basic calculator) utility for floating-point math; bash cannot do this natively.
+bmi=$(echo &quot;scale=2; $patient_weight_kg / $patient_height_m^2&quot; | bc)
+echo &quot;Patient BMI: $bmi&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Output:
+# Patient BMI: 23.02
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>In Practice</strong>
+Bash itself cannot perform decimal (floating-point) arithmetic, which is essential for many clinical calculations like BMI, drug dosages, or lab value ratios. We delegate these tasks to specialized command-line tools like <code class="docutils literal notranslate"><span class="pre">bc</span></code> (basic calculator) or <code class="docutils literal notranslate"><span class="pre">awk</span></code>. Capturing their output with <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> is a standard and powerful pattern in shell scripting.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-exercises">
+<h2>4. Practice Exercises<a class="headerlink" href="#practice-exercises" title="Link to this heading">#</a></h2>
+<p>Let’s apply these concepts to create a simple patient summary script. This exercise simulates the first steps of an analysis pipeline where you prepare files and calculate initial metrics.</p>
+<section id="exercise-1-create-a-patient-summary-script-basic">
+<h3>Exercise 1: Create a Patient Summary Script (Basic)<a class="headerlink" href="#exercise-1-create-a-patient-summary-script-basic" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Practice declaring variables, performing integer arithmetic, and using variables to create filenames and generate reports.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> In genomics, sequencing runs produce read files (R1 and R2). A common first step is to sum the reads to get a total count for quality control and create a summary file for the patient.</p>
+<ol class="arabic simple">
+<li><p>Create a variable <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> with the value “PT012345”.</p></li>
+<li><p>After creating the <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> variable, make it read-only.</p></li>
+<li><p>Create two integer variables: <code class="docutils literal notranslate"><span class="pre">read_count_r1</span></code> with a value of <code class="docutils literal notranslate"><span class="pre">15000</span></code> and <code class="docutils literal notranslate"><span class="pre">read_count_r2</span></code> with a value of <code class="docutils literal notranslate"><span class="pre">15050</span></code>.</p></li>
+<li><p>Calculate <code class="docutils literal notranslate"><span class="pre">total_reads</span></code> by adding the two read count variables.</p></li>
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">touch</span></code> command and your <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> variable, create an empty file named <code class="docutils literal notranslate"><span class="pre">PT012345_summary.txt</span></code>.</p></li>
+<li><p>Finally, use <code class="docutils literal notranslate"><span class="pre">echo</span></code> to print the exact line: <code class="docutils literal notranslate"><span class="pre">Summary</span> <span class="pre">for</span> <span class="pre">PT012345:</span> <span class="pre">Total</span> <span class="pre">reads</span> <span class="pre">=</span> <span class="pre">30050</span></code>. Your command must use the <code class="docutils literal notranslate"><span class="pre">$patient_id</span></code> and <code class="docutils literal notranslate"><span class="pre">$total_reads</span></code> variables.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 1. Create and 2. make patient_id read-only</span>
+<span class="nv">patient_id</span><span class="o">=</span><span class="s2">&quot;PT012345&quot;</span>
+<span class="nb">readonly</span><span class="w"> </span>patient_id
+
+<span class="c1"># 3. Create read count variables</span>
+<span class="nv">read_count_r1</span><span class="o">=</span><span class="m">15000</span>
+<span class="nv">read_count_r2</span><span class="o">=</span><span class="m">15050</span>
+
+<span class="c1"># 4. Calculate total reads</span>
+<span class="nv">total_reads</span><span class="o">=</span><span class="k">$((</span><span class="nv">read_count_r1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">read_count_r2</span><span class="k">))</span>
+
+<span class="c1"># 5. Create the summary file</span>
+touch<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">patient_id</span><span class="si">}</span><span class="s2">_summary.txt&quot;</span>
+
+<span class="c1"># 6. Print the summary line</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Summary for </span><span class="si">${</span><span class="nv">patient_id</span><span class="si">}</span><span class="s2">: Total reads = </span><span class="si">${</span><span class="nv">total_reads</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The script first declares and locks the <code class="docutils literal notranslate"><span class="pre">patient_id</span></code>. It then performs integer arithmetic to calculate <code class="docutils literal notranslate"><span class="pre">total_reads</span></code>. Finally, it uses variable expansion with curly braces <code class="docutils literal notranslate"><span class="pre">${...}</span></code> for safety to create the file and print the final report string.
+<strong>Key Learning:</strong> Combining variable declaration, <code class="docutils literal notranslate"><span class="pre">readonly</span></code>, integer arithmetic, and variable expansion to perform a complete, albeit simple, task.</p>
+<blockquote>
+<div><p><strong>Reflection Moment</strong>
+The <code class="docutils literal notranslate"><span class="pre">readonly</span></code> command in step 2 prevents the <code class="docutils literal notranslate"><span class="pre">patient_id</span></code> from being changed. In a complex clinical script that processes hundreds of patients, how could this single command prevent a serious data mix-up?</p>
+</div></blockquote>
+</div>
+</details></section>
+<section id="exercise-2-calculate-and-report-drug-dosage-intermediate">
+<h3>Exercise 2: Calculate and Report Drug Dosage (Intermediate)<a class="headerlink" href="#exercise-2-calculate-and-report-drug-dosage-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Use variables and command substitution with <code class="docutils literal notranslate"><span class="pre">bc</span></code> to perform a floating-point calculation.
+<strong>Time:</strong> 7 minutes
+<strong>Medical Context:</strong> Drug dosage is often calculated based on patient weight. This exercise simulates calculating a dosage in milligrams (mg) based on a prescribed amount per kilogram (kg).</p>
+<p>Create a script that performs the following:</p>
+<ol class="arabic simple">
+<li><p>Define a <code class="docutils literal notranslate"><span class="pre">patient_weight_kg</span></code> variable with a value of <code class="docutils literal notranslate"><span class="pre">82.5</span></code>.</p></li>
+<li><p>Define a <code class="docutils literal notranslate"><span class="pre">dosage_mg_per_kg</span></code> variable with a value of <code class="docutils literal notranslate"><span class="pre">1.5</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">bc</span></code> and command substitution to calculate the <code class="docutils literal notranslate"><span class="pre">total_dosage_mg</span></code>. The formula is <code class="docutils literal notranslate"><span class="pre">weight</span> <span class="pre">*</span> <span class="pre">dosage_per_kg</span></code>.</p></li>
+<li><p>Print the result in the format: <code class="docutils literal notranslate"><span class="pre">Patient</span> <span class="pre">Weight:</span> <span class="pre">82.5</span> <span class="pre">kg,</span> <span class="pre">Total</span> <span class="pre">Dosage:</span> <span class="pre">123.75</span> <span class="pre">mg</span></code>.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 1. Define patient weight</span>
+<span class="nv">patient_weight_kg</span><span class="o">=</span><span class="m">82</span>.5
+
+<span class="c1"># 2. Define dosage per kg</span>
+<span class="nv">dosage_mg_per_kg</span><span class="o">=</span><span class="m">1</span>.5
+
+<span class="c1"># 3. Calculate total dosage using bc for floating-point math</span>
+<span class="nv">total_dosage_mg</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;scale=2; </span><span class="nv">$patient_weight_kg</span><span class="s2"> * </span><span class="nv">$dosage_mg_per_kg</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="k">)</span>
+
+<span class="c1"># 4. Print the formatted result</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Patient Weight: </span><span class="si">${</span><span class="nv">patient_weight_kg</span><span class="si">}</span><span class="s2"> kg, Total Dosage: </span><span class="si">${</span><span class="nv">total_dosage_mg</span><span class="si">}</span><span class="s2"> mg&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> Since Bash cannot handle decimal arithmetic, we pipe an expression to the <code class="docutils literal notranslate"><span class="pre">bc</span></code> utility. The <code class="docutils literal notranslate"><span class="pre">echo</span></code> command constructs the calculation as a string, and <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> captures the output of <code class="docutils literal notranslate"><span class="pre">bc</span></code> into the <code class="docutils literal notranslate"><span class="pre">total_dosage_mg</span></code> variable.
+<strong>Key Learning:</strong> Using command substitution with an external tool (<code class="docutils literal notranslate"><span class="pre">bc</span></code>) is the standard way to perform floating-point math in Bash scripts.</p>
+</div>
+</details></section>
+<section id="exercise-3-generate-a-timestamped-log-file-intermediate">
+<h3>Exercise 3: Generate a Timestamped Log File (Intermediate)<a class="headerlink" href="#exercise-3-generate-a-timestamped-log-file-intermediate" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong> Combine command substitution and variable isolation to create dynamically named files.
+<strong>Time:</strong> 5 minutes
+<strong>Medical Context:</strong> When running analysis pipelines, it’s critical to log outputs to files with unique names, often including a timestamp, to prevent overwriting results and to track when an analysis was performed.</p>
+<p>Create a script that does the following:</p>
+<ol class="arabic simple">
+<li><p>Create a variable <code class="docutils literal notranslate"><span class="pre">analysis_type</span></code> with the value <code class="docutils literal notranslate"><span class="pre">&quot;variant_calling&quot;</span></code>.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">date</span></code> command with an appropriate format string and command substitution to capture the current date and time in <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD_HH-MM-SS</span></code> format into a variable named <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>. (Hint: <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">date</span></code> can show you format codes like <code class="docutils literal notranslate"><span class="pre">%Y</span></code>, <code class="docutils literal notranslate"><span class="pre">%m</span></code>, <code class="docutils literal notranslate"><span class="pre">%d</span></code>).</p></li>
+<li><p>Create a variable <code class="docutils literal notranslate"><span class="pre">log_filename</span></code> that combines the <code class="docutils literal notranslate"><span class="pre">analysis_type</span></code> and <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> to form a filename like <code class="docutils literal notranslate"><span class="pre">variant_calling_2025-11-11_07-21-42.log</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">echo</span></code> to print the message <code class="docutils literal notranslate"><span class="pre">Log</span> <span class="pre">file</span> <span class="pre">created:</span> <span class="pre">[your_log_filename]</span></code> to the terminal.</p></li>
+</ol>
+<p><strong>📝 Your Solution:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Write your solution here</span>
+<span class="c1"># Hint: Check the task description above</span>
+</pre></div>
+</div>
+</div>
+</div>
+<details>
+<summary style="background-color: #f0f0f0; padding: 10px; cursor: pointer; border-radius: 5px;">
+<strong>🔍 Click to reveal solution</strong>
+</summary>
+<div style="padding: 10px; border-left: 3px solid #2196F3; margin-top: 10px;">
+<p><strong>Solution</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># 1. Define the analysis type</span>
+<span class="nv">analysis_type</span><span class="o">=</span><span class="s2">&quot;variant_calling&quot;</span>
+
+<span class="c1"># 2. Capture the formatted timestamp</span>
+<span class="nv">timestamp</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y-%m-%d_%H-%M-%S&quot;</span><span class="k">)</span>
+
+<span class="c1"># 3. Construct the log filename</span>
+<span class="nv">log_filename</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">analysis_type</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">timestamp</span><span class="si">}</span><span class="s2">.log&quot;</span>
+
+<span class="c1"># 4. Announce the log file name</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Log file created: </span><span class="si">${</span><span class="nv">log_filename</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p><strong>Explanation:</strong> The <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">+&quot;...&quot;</span></code> command generates a formatted string. Command substitution <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> captures this string into the <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> variable. String concatenation is then used to build the final, unique filename.
+<strong>Key Learning:</strong> Command substitution is not just for calculations; it’s frequently used to capture system information like the current date to make scripts more robust.</p>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="practical-applications">
+<h2>5. Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">#</a></h2>
+<p>Variables are indispensable in computational biology and precision health. They serve as the glue that connects different tools and automates complex workflows.</p>
+<ul class="simple">
+<li><p><strong>Dynamic File Naming in NGS Pipelines</strong>: In a genomics workflow, a script can take a patient ID as a variable. All subsequent output files—from alignment (<code class="docutils literal notranslate"><span class="pre">.bam</span></code>) to variant calls (<code class="docutils literal notranslate"><span class="pre">.vcf</span></code>)—can be automatically named using this variable (e.g., <code class="docutils literal notranslate"><span class="pre">${patient_id}.bam</span></code>). This makes the pipeline scalable and eliminates manual naming errors when processing hundreds of samples.</p></li>
+<li><p><strong>Centralized Configuration Management</strong>: Scripts for complex analyses often have many parameters, such as file paths to reference genomes, annotation databases, or software executables. Storing these as <code class="docutils literal notranslate"><span class="pre">readonly</span></code> variables at the top of a script (e.g., <code class="docutils literal notranslate"><span class="pre">readonly</span> <span class="pre">REF_GENOME=&quot;/data/genomes/hg38.fa&quot;</span></code>) makes the script easier to read, maintain, and configure for different computing environments.</p></li>
+<li><p><strong>Automated Quality Control Reporting</strong>: A script can run a tool like FastQC, then use command substitution to <code class="docutils literal notranslate"><span class="pre">grep</span></code> for key metrics like “Per base sequence quality” from the output log. These metrics can be stored in variables and compared against thresholds or printed into a concise, custom summary report for a lab manager.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="summary-and-key-takeaways">
+<h2>6. Summary and Key Takeaways<a class="headerlink" href="#summary-and-key-takeaways" title="Link to this heading">#</a></h2>
+<p>In this section, we’ve explored how variables form the backbone of dynamic Bash scripting. By storing data in named containers, we can write flexible and powerful scripts for automating precision health tasks. We learned that proper quoting and variable isolation are critical for preventing common errors.</p>
+<ul class="simple">
+<li><p><strong>Declaration and Access:</strong> Variables are assigned with <code class="docutils literal notranslate"><span class="pre">name=&quot;value&quot;</span></code> and accessed with <code class="docutils literal notranslate"><span class="pre">$name</span></code> or <code class="docutils literal notranslate"><span class="pre">${name}</span></code>.</p></li>
+<li><p><strong>Quoting Matters:</strong> Double quotes (<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>) allow variable expansion, while single quotes (<code class="docutils literal notranslate"><span class="pre">'</span></code>) prevent it, treating all text literally.</p></li>
+<li><p><strong>Constants:</strong> Use <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect important variables from being accidentally changed.</p></li>
+<li><p><strong>Arithmetic:</strong> Use <code class="docutils literal notranslate"><span class="pre">$((...))</span></code> for integer math and <code class="docutils literal notranslate"><span class="pre">$(echo</span> <span class="pre">&quot;...&quot;</span> <span class="pre">|</span> <span class="pre">bc)</span></code> for floating-point math.</p></li>
+<li><p><strong>Capturing Output:</strong> Use command substitution <code class="docutils literal notranslate"><span class="pre">$(command)</span></code> to store the result of any command in a variable. This is a key technique for making scripts interact with other tools.</p></li>
+</ul>
+<p>Mastering variables is the first major step toward moving from simple commands to true automation. In the next section, we will learn how to make our scripts “smart” by using conditional logic to perform different actions based on the data stored in our variables.</p>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="store-data-like-patient-ids-in-variables-to-make-scripts-dynamic-and-reusable">
+<h3>Store data like patient IDs in variables to make scripts dynamic and reusable.<a class="headerlink" href="#store-data-like-patient-ids-in-variables-to-make-scripts-dynamic-and-reusable" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# Assign a de-identified patient ID and hemoglobin level (g/dL).
+patient_id=&quot;PT9876543A&quot;
+hemoglobin_level=14.5 # Normal adult male range: 13.5-17.5 g/dL (Mayo Clinic Laboratories 2024)
+# Access variable values using the &#39;$&#39; prefix.
+echo &quot;Processing patient: $patient_id&quot;
+echo &quot;Hemoglobin (g/dL): $hemoglobin_level&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-variables-it-s-crucial-to-learn-how-to-use-them-safely-within-other-strings-like-when-creating-filenames-use-curly-braces-to-safely-embed-variables-within-text-preventing-errors">
+<h3>create variables, it’s crucial to learn how to use them safely within other strings, like when creating filenames. Use curly braces <code class="docutils literal notranslate"><span class="pre">${...}</span></code> to safely embed variables within text, preventing errors.<a class="headerlink" href="#create-variables-it-s-crucial-to-learn-how-to-use-them-safely-within-other-strings-like-when-creating-filenames-use-curly-braces-to-safely-embed-variables-within-text-preventing-errors" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Correct: Creates the file PT9876543A_results.txt
+echo &quot;Saving results to ${patient_id}_results.txt&quot;
+# Incorrect: Searches for a variable named patient_id_results
+echo &quot;Incorrectly saving to $patient_id_results.txt&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-double-quotes-to-expand-variables-to-their-values-and-single-quotes-to-treat-them-as-literal-text">
+<h3>Use double quotes to expand variables to their values and single quotes to treat them as literal text.<a class="headerlink" href="#use-double-quotes-to-expand-variables-to-their-values-and-single-quotes-to-treat-them-as-literal-text" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+genome_file=&quot;/data/hg38/chr1.fa&quot;
+# Double quotes expand the variable to its value.
+echo &quot;Reference genome is $genome_file&quot;
+# Single quotes treat the variable name as literal text.
+echo &#39;Reference genome is $genome_file&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="e-flexible-some-data-is-too-important-to-change-let-s-see-how-to-protect-it-make-a-variable-read-only-with-readonly-to-protect-critical-data-like-a-reference-file-path-from-being-overwritten">
+<h3>e flexible, some data is too important to change. Let’s see how to protect it. Make a variable read-only with <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect critical data, like a reference file path, from being overwritten.<a class="headerlink" href="#e-flexible-some-data-is-too-important-to-change-let-s-see-how-to-protect-it-make-a-variable-read-only-with-readonly-to-protect-critical-data-like-a-reference-file-path-from-being-overwritten" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Declare a variable as read-only.
+readonly GENOME_FILE=&quot;/data/hg38/chr1.fa&quot;
+# This will now cause an error and stop the script.
+GENOME_FILE=&quot;/new/path/file.fa&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="perform-math-on-whole-numbers-integers-like-counting-samples-using-the-syntax">
+<h3>Perform math on whole numbers (integers), like counting samples, using the <code class="docutils literal notranslate"><span class="pre">$((...))</span></code> syntax.<a class="headerlink" href="#perform-math-on-whole-numbers-integers-like-counting-samples-using-the-syntax" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+run1_samples=48
+run2_samples=48
+total_samples=$((run1_samples + run2_samples))
+echo &quot;Total samples processed: $total_samples&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tic-values-or-simple-math-results-to-variables-a-more-powerful-technique-is-to-assign-the-output-of-an-entire-command-to-a-variable-use-command-substitution-to-capture-a-command-s-output">
+<h3>tic values or simple math results to variables. A more powerful technique is to assign the output of an entire command to a variable. Use command substitution <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> to capture a command’s output.<a class="headerlink" href="#tic-values-or-simple-math-results-to-variables-a-more-powerful-technique-is-to-assign-the-output-of-an-entire-command-to-a-variable-use-command-substitution-to-capture-a-command-s-output" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Calculate BMI from weight (kg) and height (m).
+patient_weight_kg=70.5
+patient_height_m=1.75
+# (Formula Source: CDC 2023)
+# Use the bc (basic calculator) utility for floating-point math; bash cannot do this natively.
+bmi=$(echo &quot;scale=2; $patient_weight_kg / $patient_height_m^2&quot; | bc)
+echo &quot;Patient BMI: $bmi&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# 1. Create and 2. make patient_id read-only
+patient_id=&quot;PT012345&quot;
+readonly patient_id
+# 3. Create read count variables
+read_count_r1=15000
+read_count_r2=15050
+# 4. Calculate total reads
+total_reads=$((read_count_r1 + read_count_r2))
+# 5. Create the summary file
+touch &quot;${patient_id}_summary.txt&quot;
+# 6. Print the summary line
+echo &quot;Summary for ${patient_id}: Total reads = ${total_reads}&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# 1. Define patient weight
+patient_weight_kg=82.5
+# 2. Define dosage per kg
+dosage_mg_per_kg=1.5
+# 3. Calculate total dosage using bc for floating-point math
+total_dosage_mg=$(echo &quot;scale=2; $patient_weight_kg * $dosage_mg_per_kg&quot; | bc)
+# 4. Print the formatted result
+echo &quot;Patient Weight: ${patient_weight_kg} kg, Total Dosage: ${total_dosage_mg} mg&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3><summary>Solution</summary><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+#!/bin/bash
+# 1. Define the analysis type
+analysis_type=&quot;variant_calling&quot;
+# 2. Capture the formatted timestamp
+timestamp=$(date +&quot;%Y-%m-%d_%H-%M-%S&quot;)
+# 3. Construct the log filename
+log_filename=&quot;${analysis_type}_${timestamp}.log&quot;
+# 4. Announce the log file name
+echo &quot;Log file created: ${log_filename}&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="7.1_and_running_bash_scripts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 7: Automating Tasks with Bash Scripting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7.3_line_arguments.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 7: Scripting Fundamentals for Automation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-and-definitions">2. Key Concepts and Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-content">3. Main Content</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#declare-and-use-variables">3.1. Declare and Use Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isolate-variables-with-braces">3.2. Isolate Variables with Braces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-expansion-with-quotes">3.3. Control Expansion with Quotes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-read-only-variables">3.4. Create Read-Only Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integer-arithmetic">3.5. Integer Arithmetic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-substitution">3.6. Command Substitution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-exercises">4. Practice Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-create-a-patient-summary-script-basic">Exercise 1: Create a Patient Summary Script (Basic)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-calculate-and-report-drug-dosage-intermediate">Exercise 2: Calculate and Report Drug Dosage (Intermediate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-generate-a-timestamped-log-file-intermediate">Exercise 3: Generate a Timestamped Log File (Intermediate)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-applications">5. Practical Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-key-takeaways">6. Summary and Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-practice">📝 Interactive Practice</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store-data-like-patient-ids-in-variables-to-make-scripts-dynamic-and-reusable">Store data like patient IDs in variables to make scripts dynamic and reusable.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#try-it-yourself">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-variables-it-s-crucial-to-learn-how-to-use-them-safely-within-other-strings-like-when-creating-filenames-use-curly-braces-to-safely-embed-variables-within-text-preventing-errors">create variables, it’s crucial to learn how to use them safely within other strings, like when creating filenames. Use curly braces <code class="docutils literal notranslate"><span class="pre">${...}</span></code> to safely embed variables within text, preventing errors.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-double-quotes-to-expand-variables-to-their-values-and-single-quotes-to-treat-them-as-literal-text">Use double quotes to expand variables to their values and single quotes to treat them as literal text.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-flexible-some-data-is-too-important-to-change-let-s-see-how-to-protect-it-make-a-variable-read-only-with-readonly-to-protect-critical-data-like-a-reference-file-path-from-being-overwritten">e flexible, some data is too important to change. Let’s see how to protect it. Make a variable read-only with <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect critical data, like a reference file path, from being overwritten.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perform-math-on-whole-numbers-integers-like-counting-samples-using-the-syntax">Perform math on whole numbers (integers), like counting samples, using the <code class="docutils literal notranslate"><span class="pre">$((...))</span></code> syntax.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tic-values-or-simple-math-results-to-variables-a-more-powerful-technique-is-to-assign-the-output-of-an-entire-command-to-a-variable-use-command-substitution-to-capture-a-command-s-output">tic values or simple math results to variables. A more powerful technique is to assign the output of an entire command to a variable. Use command substitution <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> to capture a command’s output.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Try It Yourself:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><summary>Solution</summary></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Try It Yourself:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xavier Chee
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
