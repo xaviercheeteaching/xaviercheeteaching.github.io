@@ -505,6 +505,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "MedName,Dose,Frequency,Route\nWarfarin,5mg,Daily,Oral\nMetformin,500mg,BID,Oral\nLisinopril,10mg,Daily,Oral" | tee medications.txt
+
+# Now grep 
 grep &quot;Warfarin&quot; medications.txt
 </pre></div>
 </div>
@@ -531,6 +535,10 @@ grep &quot;Warfarin&quot; medications.txt
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "2024-11-11 08:00 PT001234 Hemoglobin 13.5 g/dL [12.0-17.5]\n2024-11-11 08:00 PT001234 Hemoglobin_A1c 5.8 % [4.0-5.6]\n2024-11-11 09:30 PT005678 Hemoglobin 11.2 g/dL [12.0-17.5]" | tee daily_labs.log
+
+# Now grep 
 grep -i &quot;hemoglobin&quot; daily_labs.log
 </pre></div>
 </div>
@@ -552,6 +560,10 @@ grep -i &quot;hemoglobin&quot; daily_labs.log
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "chr17\tRefSeq\tgene\t43044295\t43125364\t.\t-\t.\tID=BRCA1;Name=BRCA1;Description=DNA repair\nchr17\tRefSeq\tgene\t43044295\t43125364\t.\t-\t.\tID=BRCA1associated;Name=BRCA1associated;Description=regulatory element\nchr13\tRefSeq\tgene\t32315474\t32400266\t.\t+\t.\tID=BRCA2;Name=BRCA2;Description=DNA repair\nchr17\tRefSeq\texon\t43044295\t43045802\t.\t-\t.\tParent=BRCA1;exon_number=1\nchr17\tRefSeq\texon\t43044295\t43045802\t.\t-\t.\tParent=BRCA1-associated;exon_number=1" | tee gene_annotations.gff
+
+# Now grep 
 grep -w &quot;BRCA1&quot; gene_annotations.gff
 </pre></div>
 </div>
@@ -573,6 +585,10 @@ grep -w &quot;BRCA1&quot; gene_annotations.gff
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp,Flag: Normal\nPT001234,Glucose,98,mg/dL,70-100,2024-11-11T08:05:00Z,Flag: Normal\nPT001234,HbA1c,5.8,%,4.0-5.6,2024-11-11T08:05:00Z,Flag: High\nPT001234,Cholesterol,195,mg/dL,<200,2024-11-11T08:05:00Z,Flag: Normal\nPT001234,WBC,6.5,x10^9/L,4.5-11.0,2024-11-11T08:05:00Z,Flag: Normal\nPT001234,LDL,165,mg/dL,<100,2024-11-11T08:05:00Z,Flag: High\nPT001234,Triglycerides,280,mg/dL,<150,2024-11-11T08:05:00Z,Flag: High\nPT001234,ALT,55,U/L,7-56,2024-11-11T08:05:00Z,Flag: Normal\nPT001234,Creatinine,1.8,mg/dL,0.7-1.3,2024-11-11T08:05:00Z,Flag: High" | tee lab_results.log
+
+# Now grep 
 grep -v &quot;Flag: Normal&quot; lab_results.log
 </pre></div>
 </div>
@@ -595,6 +611,10 @@ grep -v &quot;Flag: Normal&quot; lab_results.log
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "2024-11-11T08:00:00Z INFO Heart rate normal: 72 bpm\n2024-11-11T08:05:00Z ALERT Blood pressure high: 185/110 mmHg\n2024-11-11T08:10:00Z INFO Oxygen saturation normal: 98%\n2024-11-11T08:15:00Z ALERT Temperature elevated: 39.2C\n2024-11-11T08:20:00Z INFO Respiratory rate normal: 16 breaths/min\n2024-11-11T08:25:00Z ALERT Heart rate abnormal: 120 bpm\n2024-11-11T08:30:00Z INFO Blood pressure normal: 120/80 mmHg" | tee vital_signs.log
+
+# Now grep 
 grep -c &quot;ALERT&quot; vital_signs.log
 </pre></div>
 </div>
@@ -616,7 +636,16 @@ grep -c &quot;ALERT&quot; vital_signs.log
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -l &quot;Status: DECEASED&quot; /records/patients/*.log
+# Create file. Put each line separately
+mkdir -p records/patients
+echo -e "Name: John Smith\nDOB: 1945-03-12\nStatus: DECEASED\nDate: 2024-01-15" | tee records/patients/patient001.log
+echo -e "Name: Jane Doe\nDOB: 1980-07-22\nStatus: ACTIVE\nDate: 2024-06-01" | tee records/patients/patient002.log
+echo -e "Name: Bob Lee\nDOB: 1932-11-05\nStatus: DECEASED\nDate: 2023-09-20" | tee records/patients/patient003.log
+echo -e "Name: Alice Tan\nDOB: 1975-01-30\nStatus: ACTIVE\nDate: 2024-08-10" | tee records/patients/patient004.log
+echo -e "Name: Charlie Ng\nDOB: 1940-06-18\nStatus: DECEASED\nDate: 2024-03-02" | tee records/patients/patient005.log
+
+# Now grep 
+grep -l &quot;Status: DECEASED&quot; records/patients/*.log
 </pre></div>
 </div>
 </div>
@@ -637,7 +666,11 @@ grep -l &quot;Status: DECEASED&quot; /records/patients/*.log
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -n &quot;PatientID: PT078910&quot; /records/cardiology_consults_202411.log
+# Create file
+echo -e "2024-11-01 09:00 PatientID: PT056789 Consult: Routine checkup\n2024-11-03 10:30 PatientID: PT078910 Consult: Echocardiogram review\n2024-11-05 14:15 PatientID: PT012345 Consult: Post-op follow-up\n2024-11-08 11:00 PatientID: PT078910 Consult: Stress test results\n2024-11-12 08:45 PatientID: PT099999 Consult: Arrhythmia evaluation\n2024-11-15 13:20 PatientID: PT078910 Consult: Medication adjustment" | tee records/cardiology_consults_202411.log
+
+# Now grep 
+grep -n &quot;PatientID: PT078910&quot; records/cardiology_consults_202411.log
 </pre></div>
 </div>
 </div>
@@ -658,6 +691,10 @@ grep -n &quot;PatientID: PT078910&quot; /records/cardiology_consults_202411.log
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "chr17\tENSEMBL\tgene\t43044295\t43125364\t.\t-\t.\tID=TP53;Name=TP53;biotype=protein_coding\nchr17\tENSEMBL\texon\t43044295\t43044678\t.\t-\t.\tParent=TP53;exon_number=1\nchr17\tENSEMBL\tgene\t43091434\t43170245\t.\t-\t.\tID=BRCA1;Name=BRCA1;biotype=protein_coding\nchr17\tENSEMBL\texon\t43091434\t43091829\t.\t-\t.\tParent=BRCA1;exon_number=1\nchr17\tENSEMBL\tCDS\t43091434\t43091829\t.\t-\t0\tParent=BRCA1;protein_id=ENSP00000350283" | tee gene_annotations.gff
+
+# Now grep 
 grep -C 2 &quot;BRCA1&quot; gene_annotations.gff
 </pre></div>
 </div>
@@ -683,7 +720,23 @@ grep -C 2 &quot;BRCA1&quot; gene_annotations.gff
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -r &quot;PatientID: PT078910&quot; /records/
+# Create file
+mkdir -p clinic/bloodwork clinic/imaging clinic/notes
+
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT001234,Glucose,98,mg/dL,70-100,2024-11-11T08:05:00Z\nPT001234,HbA1c,5.8,%,4.0-5.6,2024-11-11T08:05:00Z\nPT001234,Cholesterol,195,mg/dL,<200,2024-11-11T08:05:00Z\nPT001234,WBC,6.5,x10^9/L,4.5-11.0,2024-11-11T08:05:00Z" | tee clinic/bloodwork/PT001234_labs.csv
+
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT005678,Glucose,142,mg/dL,70-100,2024-11-12T09:30:00Z\nPT005678,HbA1c,7.2,%,4.0-5.6,2024-11-12T09:30:00Z\nPT005678,Cholesterol,240,mg/dL,<200,2024-11-12T09:30:00Z\nPT005678,WBC,11.8,x10^9/L,4.5-11.0,2024-11-12T09:30:00Z" | tee clinic/bloodwork/PT005678_labs.csv
+
+echo -e "PatientID,Study,Finding,Date\nPT001234,Chest X-Ray,No acute findings,2024-11-11\nPT005678,Abdominal US,Hepatic steatosis noted,2024-11-12" | tee clinic/imaging/radiology_reports.csv
+
+echo -e "PT001234: Routine checkup. Labs within normal limits. Follow up in 6 months.\nPT005678: Elevated glucose and HbA1c. Hepatic steatosis on imaging. Start metformin. Refer to dietitian." | tee clinic/notes/clinical_notes.txt
+
+# Now grep 
+grep -r &quot;PatientID: PT078910&quot; clinic/
+grep -r &quot;Glucose&quot; clinic/
+grep -r &quot;steatosis&quot; clinic/
+grep -r &quot;hepatic&quot; clinic/
+
 </pre></div>
 </div>
 </div>
@@ -698,30 +751,7 @@ grep -r &quot;PatientID: PT078910&quot; /records/
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p><strong>Combine Recursive, Insensitive, and Number (<code class="docutils literal notranslate"><span class="pre">-rin</span></code>)</strong>: Recursively search for “error”, ignore case, and show line numbers. This is a powerful combination for debugging.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -rin &quot;error&quot; /var/log/
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-<blockquote>
-<div><p><strong>Pro Tip:</strong> You can combine most <code class="docutils literal notranslate"><span class="pre">grep</span></code> flags to create powerful, specific searches. For example, <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-inw</span> <span class="pre">&quot;error&quot;</span></code> will perform a case-<strong>i</strong>nsensitive search, show line <strong>n</strong>umbers, and match only the <strong>w</strong>hole word “error”.</p>
-</div></blockquote>
+
 </section>
 <section id="using-regular-expressions-with-grep">
 <h4><strong>Using Regular Expressions with <code class="docutils literal notranslate"><span class="pre">grep</span></code></strong><a class="headerlink" href="#using-regular-expressions-with-grep" title="Link to this heading">#</a></h4>
@@ -732,6 +762,10 @@ grep -rin &quot;error&quot; /var/log/
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "INFO: Patient PT001234 checked in at 08:00\nCRITICAL: BP 180/120 - Hypertensive crisis - PT001234\nWARNING: HR 101 - Mild tachycardia - PT005678\nCRITICAL: SpO2 88% - Hypoxemia detected - PT009012\nINFO: Vitals recorded for PT005678\nCRITICAL: Temp 104.2F - High fever - PT003456\nWARNING: BP 145/95 - Elevated - PT007890\nINFO: Shift change logged at 16:00" | tee vital_signs.log
+
+# Now grep 
 grep &quot;^CRITICAL:&quot; vital_signs.log
 </pre></div>
 </div>
@@ -753,6 +787,10 @@ grep &quot;^CRITICAL:&quot; vital_signs.log
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create File
+echo -e "GeneID,GeneName,Variant,Chromosome,Position\nG001,TP53,R175H,chr17,7577120\nG002,BRCA1,C61G,chr17,41276045\nG003,TP63,R304W,chr3,189631389\nG004,EGFR,L858R,chr7,55259515\nG005,TP53,G245S,chr17,7577538\nG006,KRAS,G12D,chr12,25398284\nG007,TP63,R279H,chr3,189632330\nG008,PTEN,R130Q,chr10,89692905" | tee gene_list.txt
+
+# Now grep 
 grep &quot;TP[56]3&quot; gene_list.txt
 </pre></div>
 </div>
@@ -774,6 +812,9 @@ grep &quot;TP[56]3&quot; gene_list.txt
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+echo -e "MedicationName,Dose,Frequency,Route\nAspirin,81mg,Daily,Oral\nMetformin,500mg,Twice Daily,Oral\nIbuprofen,200mg,As Needed,Oral\nLisinopril,10mg,Daily,Oral\nAspirin,325mg,Daily,Oral\nAmoxicillin,500mg,Three Times Daily,Oral" | tee medications.txt
+
+# Now grep 
 grep -E &quot;Aspirin|Ibuprofen&quot; medications.txt
 </pre></div>
 </div>
@@ -802,7 +843,14 @@ grep -E &quot;Aspirin|Ibuprofen&quot; medications.txt
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/sequencing_runs/ -type f -name &quot;*.fastq&quot;
+mkdir -p data/sequencing_runs/batch2
+touch data/sequencing_runs/sample01_R1.fastq
+touch data/sequencing_runs/sample01_R2.fastq
+touch data/sequencing_runs/batch2/sample02_R1.fastq
+touch data/sequencing_runs/batch2/sample02_R2.fastq
+
+# Now find the files
+find data/sequencing_runs/ -type f -name &quot;*.fastq&quot;
 </pre></div>
 </div>
 </div>
@@ -823,6 +871,9 @@ find /data/sequencing_runs/ -type f -name &quot;*.fastq&quot;
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+echo -e "Patient Summary Report\nPatientID: PT001234\nName: John Doe\nDOB: 1985-03-15\nDiagnosis: Type 2 Diabetes\nLast Visit: 2024-11-11" | tee Patient_Summary.txt
+
+# Now find the files
 find . -type f -iname &quot;patient_summary.txt&quot;
 </pre></div>
 </div>
@@ -844,7 +895,14 @@ find . -type f -iname &quot;patient_summary.txt&quot;
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/reports/ -mtime -2
+# Create the directory
+mkdir -p data/reports/
+
+# Create the file
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT001234,Glucose,98,mg/dL,70-100,2024-11-11T08:05:00Z\nPT001234,HbA1c,5.8,%,4.0-5.6,2024-11-11T08:05:00Z\nPT001234,Cholesterol,195,mg/dL,<200,2024-11-11T08:05:00Z\nPT001234,WBC,6.5,x10^9/L,4.5-11.0,2024-11-11T08:05:00Z" | tee data/reports/PT001234_labs.csv
+
+# Now find the files
+find data/reports/ -mtime -2
 </pre></div>
 </div>
 </div>
@@ -874,7 +932,19 @@ When using options like <code class="docutils literal notranslate"><span class="
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/mri_scans/ -type f -size +100M
+# Create directory structure
+mkdir -p data/mri_scans/
+
+# Create dummy MRI files of various sizes (some >100M, some <100M)
+truncate -s 150M data/mri_scans/brain_axial_T1_001.nii
+truncate -s 200M data/mri_scans/brain_sagittal_T2_002.nii
+truncate -s 80M data/mri_scans/spine_coronal_003.nii
+truncate -s 250M data/mri_scans/brain_flair_004.nii
+truncate -s 50M data/mri_scans/knee_axial_005.nii
+truncate -s 120M data/mri_scans/brain_dwi_006.nii
+
+# Now find the files
+find data/mri_scans/ -type f -size +100M
 </pre></div>
 </div>
 </div>
@@ -895,6 +965,19 @@ find /data/mri_scans/ -type f -size +100M
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+mkdir -p data/lab_exports/
+
+# Create non-empty files (successful exports)
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT001234,Glucose,98,mg/dL,70-100,2024-11-11T08:05:00Z" | tee data/lab_exports/PT001234_labs.csv
+
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT005678,WBC,6.5,x10^9/L,4.5-11.0,2024-11-12T09:00:00Z" | tee data/lab_exports/PT005678_labs.csv
+
+# Create empty files (failed exports)
+touch data/lab_exports/PT009999_labs.csv
+touch data/lab_exports/PT004444_labs.csv
+touch data/lab_exports/PT007777_labs.csv
+
+# Now find the files
 find /data/lab_exports/ -type f -empty
 </pre></div>
 </div>
@@ -923,10 +1006,13 @@ find /data/lab_exports/ -type f -empty
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create file
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT001234,Glucose,98,mg/dL,70-100,2024-11-11T08:05:00Z\nPT001234,HbA1c,5.8,%,4.0-5.6,2024-11-11T08:05:00Z\nPT001234,Cholesterol,195,mg/dL,<200,2024-11-11T08:05:00Z\nPT001234,WBC,6.5,x10^9/L,4.5-11.0,2024-11-11T08:05:00Z" | tee PT001234_labs.csv
+
 # 1. List .bak files older than 7 days to verify
-find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7
+find . -type f -name &quot;*.bak&quot; -mtime +7
 # 2. After verifying, run the same command with -delete
-find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7 -delete
+find . -type f -name &quot;*.bak&quot; -mtime +7 -delete
 </pre></div>
 </div>
 </div>
@@ -947,7 +1033,17 @@ find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7 -delete
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /project/genomics/ -type f -name &quot;*.vcf&quot; -exec grep -l &quot;mutation&quot; {} +
+# Create directory structure
+mkdir -p project/genomics/
+
+# Create VCF files (some with "mutation", some without)
+echo -e '##fileformat=VCFv4.2\n##source=TestData\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr1\t12345\trs001\tA\tG\t99\tPASS\tmutation;gene=BRCA1\nchr2\t67890\trs002\tC\tT\t85\tPASS\tmutation;gene=TP53' | tee project/genomics/sample1.vcf
+echo -e '##fileformat=VCFv4.2\n##source=TestData\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr3\t11111\trs003\tG\tA\t90\tPASS\tbenign;gene=EGFR\nchr4\t22222\trs004\tT\tC\t75\tPASS\tbenign;gene=KRAS' | tee project/genomics/sample2.vcf
+echo -e '##fileformat=VCFv4.2\n##source=TestData\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr5\t33333\trs005\tA\tT\t95\tPASS\tmutation;gene=MOAP1\nchr6\t44444\trs006\tG\tC\t88\tPASS\tvariant;gene=ALK' | tee project/genomics/sample3.vcf
+echo -e '##fileformat=VCFv4.2\n##source=TestData\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr7\t55555\trs007\tC\tA\t70\tPASS\tpolymorphism;gene=MTOR\nchr8\t66666\trs008\tT\tG\t60\tPASS\tpolymorphism;gene=PIK3CA' | tee project/genomics/sample4.vcf
+
+# Find VCF files containing "mutation"
+find project/genomics/ -type f -name '*.vcf' -exec grep -l 'mutation' {} +
 </pre></div>
 </div>
 </div>
@@ -1140,614 +1236,6 @@ find /project/genomics/ -type f -name &quot;*.vcf&quot; -exec grep -l &quot;muta
 <hr class="docutils" />
 </section>
 <hr class="docutils" />
-<section id="interactive-practice">
-<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
-<p>Practice the concepts with these interactive exercises:</p>
-<section id="d-finds-and-displays-lines-containing-warfarin-in-a-medication-list-using-the-generic-name-e-g-warfarin-instead-of-a-brand-name-is-a-best-practice-for-ensuring-comprehensive-search-results">
-<h3>d finds and displays lines containing “Warfarin” in a medication list. Using the generic name (e.g., ‘Warfarin’) instead of a brand name is a best practice for ensuring comprehensive search results.<a class="headerlink" href="#d-finds-and-displays-lines-containing-warfarin-in-a-medication-list-using-the-generic-name-e-g-warfarin-instead-of-a-brand-name-is-a-best-practice-for-ensuring-comprehensive-search-results" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep &quot;Warfarin&quot; medications.txt
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="try-it-yourself">
-<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="ignore-case-i-finds-all-case-variations-of-hemoglobin">
-<h3>*   <strong>Ignore Case (<code class="docutils literal notranslate"><span class="pre">-i</span></code>)</strong>: Finds all case variations of “hemoglobin”.<a class="headerlink" href="#ignore-case-i-finds-all-case-variations-of-hemoglobin" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -i &quot;hemoglobin&quot; daily_labs.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="whole-word-w-matches-the-exact-word-brca1-not-brca1-associated">
-<h3>*   <strong>Whole Word (<code class="docutils literal notranslate"><span class="pre">-w</span></code>)</strong>: Matches the exact word “BRCA1”, not “BRCA1-associated”.<a class="headerlink" href="#whole-word-w-matches-the-exact-word-brca1-not-brca1-associated" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -w &quot;BRCA1&quot; gene_annotations.gff
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id2">
-<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="invert-match-v-shows-lines-that-do-not-contain-flag-normal-which-is-useful-for-finding-abnormal-results-in-structured-data">
-<h3>*   <strong>Invert Match (<code class="docutils literal notranslate"><span class="pre">-v</span></code>)</strong>: Shows lines that DO NOT contain “Flag: Normal”, which is useful for finding abnormal results in structured data.<a class="headerlink" href="#invert-match-v-shows-lines-that-do-not-contain-flag-normal-which-is-useful-for-finding-abnormal-results-in-structured-data" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -v &quot;Flag: Normal&quot; lab_results.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id3">
-<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="count-matches-c-prints-the-number-of-matching-lines-instead-of-the-lines-themselves">
-<h3>*   <strong>Count Matches (<code class="docutils literal notranslate"><span class="pre">-c</span></code>)</strong>: Prints the number of matching lines instead of the lines themselves.<a class="headerlink" href="#count-matches-c-prints-the-number-of-matching-lines-instead-of-the-lines-themselves" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -c &quot;ALERT&quot; vital_signs.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id4">
-<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="list-filenames-l-shows-only-the-names-of-files-containing-a-match">
-<h3>*   <strong>List Filenames (<code class="docutils literal notranslate"><span class="pre">-l</span></code>)</strong>: Shows only the names of files containing a match.<a class="headerlink" href="#list-filenames-l-shows-only-the-names-of-files-containing-a-match" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -l &quot;Status: DECEASED&quot; /records/patients/*.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id5">
-<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="show-line-numbers-n-prefixes-each-matching-line-with-its-line-number">
-<h3>*   <strong>Show Line Numbers (<code class="docutils literal notranslate"><span class="pre">-n</span></code>)</strong>: Prefixes each matching line with its line number.<a class="headerlink" href="#show-line-numbers-n-prefixes-each-matching-line-with-its-line-number" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -n &quot;PatientID: PT078910&quot; /records/cardiology_consults_202411.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="show-context-c-prints-lines-before-and-after-the-match-for-example-show-2-lines-of-context">
-<h3>*   <strong>Show Context (<code class="docutils literal notranslate"><span class="pre">-C</span></code>)</strong>: Prints lines Before and After the match. For example, show 2 lines of context.<a class="headerlink" href="#show-context-c-prints-lines-before-and-after-the-match-for-example-show-2-lines-of-context" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -C 2 &quot;BRCA1&quot; gene_annotations.gff
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id7">
-<h3>Try It Yourself:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="search-recursively-r-searches-for-a-pattern-in-all-files-within-a-directory-and-its-subdirectories">
-<h3>*   <strong>Search Recursively (<code class="docutils literal notranslate"><span class="pre">-r</span></code>)</strong>: Searches for a pattern in all files within a directory and its subdirectories.<a class="headerlink" href="#search-recursively-r-searches-for-a-pattern-in-all-files-within-a-directory-and-its-subdirectories" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -r &quot;PatientID: PT078910&quot; /records/
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id8">
-<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="combine-recursive-insensitive-and-number-rin-recursively-search-for-error-ignore-case-and-show-line-numbers-this-is-a-powerful-combination-for-debugging">
-<h3>*   <strong>Combine Recursive, Insensitive, and Number (<code class="docutils literal notranslate"><span class="pre">-rin</span></code>)</strong>: Recursively search for “error”, ignore case, and show line numbers. This is a powerful combination for debugging.<a class="headerlink" href="#combine-recursive-insensitive-and-number-rin-recursively-search-for-error-ignore-case-and-show-line-numbers-this-is-a-powerful-combination-for-debugging" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -rin &quot;error&quot; /var/log/
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id9">
-<h3>Try It Yourself:<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-lines-starting-with-critical-matches-the-start-of-a-line">
-<h3>*   <strong>Find lines starting with “CRITICAL:”.</strong> <code class="docutils literal notranslate"><span class="pre">^</span></code> matches the start of a line.<a class="headerlink" href="#find-lines-starting-with-critical-matches-the-start-of-a-line" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep &quot;^CRITICAL:&quot; vital_signs.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id10">
-<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-gene-variants-tp53-or-tp63-matches-any-single-character-within-the-brackets">
-<h3>*   <strong>Find gene variants <code class="docutils literal notranslate"><span class="pre">TP53</span></code> or <code class="docutils literal notranslate"><span class="pre">TP63</span></code>.</strong> <code class="docutils literal notranslate"><span class="pre">[...]</span></code> matches any single character within the brackets.<a class="headerlink" href="#find-gene-variants-tp53-or-tp63-matches-any-single-character-within-the-brackets" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep &quot;TP[56]3&quot; gene_list.txt
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id11">
-<h3>Try It Yourself:<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-lines-with-aspirin-or-ibuprofen-e-e-enables-extended-patterns-like-or-without-needing-escape-characters">
-<h3>*   <strong>Find lines with “Aspirin” or “Ibuprofen” (<code class="docutils literal notranslate"><span class="pre">-E</span></code>)</strong>. <code class="docutils literal notranslate"><span class="pre">-E</span></code> enables extended patterns like <code class="docutils literal notranslate"><span class="pre">|</span></code> (OR) without needing escape characters.<a class="headerlink" href="#find-lines-with-aspirin-or-ibuprofen-e-e-enables-extended-patterns-like-or-without-needing-escape-characters" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -E &quot;Aspirin|Ibuprofen&quot; medications.txt
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id12">
-<h3>Try It Yourself:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-by-name-name-finds-all-fastq-files-in-a-specific-data-directory-the-pattern-is-quoted-to-prevent-shell-expansion">
-<h3>*   <strong>Find by Name (<code class="docutils literal notranslate"><span class="pre">-name</span></code>)</strong>: Finds all FASTQ files in a specific data directory. The pattern is quoted to prevent shell expansion.<a class="headerlink" href="#find-by-name-name-finds-all-fastq-files-in-a-specific-data-directory-the-pattern-is-quoted-to-prevent-shell-expansion" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/sequencing_runs/ -type f -name &quot;*.fastq&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id13">
-<h3>Try It Yourself:<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-by-case-insensitive-name-iname-finds-a-file-regardless-of-case">
-<h3>*   <strong>Find by Case-Insensitive Name (<code class="docutils literal notranslate"><span class="pre">-iname</span></code>)</strong>: Finds a file regardless of case.<a class="headerlink" href="#find-by-case-insensitive-name-iname-finds-a-file-regardless-of-case" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find . -type f -iname &quot;patient_summary.txt&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id14">
-<h3>Try It Yourself:<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-by-modification-time-mtime-finds-reports-modified-in-the-last-48-hours">
-<h3>*   <strong>Find by Modification Time (<code class="docutils literal notranslate"><span class="pre">-mtime</span></code>)</strong>: Finds reports modified in the last 48 hours.<a class="headerlink" href="#find-by-modification-time-mtime-finds-reports-modified-in-the-last-48-hours" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/reports/ -mtime -2
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id15">
-<h3>Try It Yourself:<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-by-size-size-finds-large-mri-scan-files-over-100-megabytes">
-<h3>*   <strong>Find by Size (<code class="docutils literal notranslate"><span class="pre">-size</span></code>)</strong>: Finds large MRI scan files over 100 megabytes.<a class="headerlink" href="#find-by-size-size-finds-large-mri-scan-files-over-100-megabytes" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/mri_scans/ -type f -size +100M
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id16">
-<h3>Try It Yourself:<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="find-empty-files-empty-finds-zero-byte-files-from-failed-data-exports">
-<h3>*   <strong>Find Empty Files (<code class="docutils literal notranslate"><span class="pre">-empty</span></code>)</strong>: Finds zero-byte files from failed data exports.<a class="headerlink" href="#find-empty-files-empty-finds-zero-byte-files-from-failed-data-exports" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/lab_exports/ -type f -empty
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id17">
-<h3>Try It Yourself:<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="safely-delete-old-backup-files-with-delete">
-<h3>*   <strong>Safely delete old backup files with <code class="docutils literal notranslate"><span class="pre">-delete</span></code>.</strong><a class="headerlink" href="#safely-delete-old-backup-files-with-delete" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# 1. List .bak files older than 7 days to verify
-find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7
-# 2. After verifying, run the same command with -delete
-find /data/analysis/ -type f -name &quot;*.bak&quot; -mtime +7 -delete
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id18">
-<h3>Try It Yourself:<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="run-a-command-on-found-files-with-exec-this-example-finds-all-vcf-files-containing-mutation-and-lists-just-their-names">
-<h3>*   <strong>Run a command on found files with <code class="docutils literal notranslate"><span class="pre">-exec</span></code>.</strong> This example finds all VCF files containing “mutation” and lists just their names.<a class="headerlink" href="#run-a-command-on-found-files-with-exec-this-example-finds-all-vcf-files-containing-mutation-and-lists-just-their-names" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /project/genomics/ -type f -name &quot;*.vcf&quot; -exec grep -l &quot;mutation&quot; {} +
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id19">
-<h3>Try It Yourself:<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="solution">
-<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -c &quot;CRITICAL&quot; lab_results.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id20">
-<h3>Try It Yourself:<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id21">
-<h3><summary>Solution</summary><a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/patient_records/ -type f -mtime -2
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id22">
-<h3>Try It Yourself:<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id23">
-<h3><summary>Solution</summary><a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-grep -v &quot;PENDING&quot; lab_results.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id24">
-<h3>Try It Yourself:<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id25">
-<h3><summary>Solution</summary><a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/genomics/ -type f -name &quot;*.vcf&quot; -size +5M
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id26">
-<h3>Try It Yourself:<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id27">
-<h3><summary>Solution</summary><a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-find /data/ -type f -name &quot;*.log&quot; -exec grep -li &quot;validation_error&quot; {} +
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id28">
-<h3>Try It Yourself:<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
 
     <script type="text/x-thebe-config">
     {
