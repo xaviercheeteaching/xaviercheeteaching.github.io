@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -181,10 +181,9 @@
 <li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> 7.2 Automating Task with Bash Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.4_processing_%28awk_sed_cut%29.html">7.4 Processing with (awk Sed Cut)</a></li>
 </ul>
 
     </div>
@@ -488,7 +487,7 @@ pwd
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
 # List the contents of the &#39;cardiology&#39; directory with detailed, human-readable info
-ls -lhF 
+ls -lhF cardiology/
 </pre></div>
 </div>
 </div>
@@ -536,14 +535,10 @@ When working with patient data that is frequently updated, use <code class="docu
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Print current working directory
-pwd
-# Make new directory
-mkdir cardiology
-# Go into the new direcotur
-cd cardiology
-# Print current directory
-pwd
+# Move to a folder using an absolute path, from anywhere in the system
+cd /home/user/clinical_data/cardiology
+# From within /home/user/clinical_data/, move into a subfolder using a relative path
+cd oncology
 </pre></div>
 </div>
 </div>
@@ -748,7 +743,192 @@ Think about a recent task where you had to find a specific file on a shared serv
 </ul>
 <hr class="docutils" />
 </section>
-
+<hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="al-gps-it-prints-the-absolute-path-of-your-current-working-directory-confirming-your-exact-location-in-the-file-system-this-is-essential-for-orienting-yourself-before-manipulating-sensitive-data">
+<h3>al GPS. It prints the absolute path of your current working directory, confirming your exact location in the file system. This is essential for orienting yourself before manipulating sensitive data.<a class="headerlink" href="#al-gps-it-prints-the-absolute-path-of-your-current-working-directory-confirming-your-exact-location-in-the-file-system-this-is-essential-for-orienting-yourself-before-manipulating-sensitive-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Find out your current location
+pwd
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="that-directory-the-ls-command-lists-the-contents-of-a-directory-showing-you-the-files-and-subdirectories-available-it-s-like-looking-around-a-room-to-see-the-file-cabinets-and-documents-inside">
+<h3>that directory. The <code class="docutils literal notranslate"><span class="pre">ls</span></code> command lists the contents of a directory, showing you the files and subdirectories available. It’s like looking around a room to see the file cabinets and documents inside.<a class="headerlink" href="#that-directory-the-ls-command-lists-the-contents-of-a-directory-showing-you-the-files-and-subdirectories-available-it-s-like-looking-around-a-room-to-see-the-file-cabinets-and-documents-inside" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# List the contents of the &#39;cardiology&#39; directory with detailed, human-readable info
+ls -lhF cardiology/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-cd-command-is-used-to-move-between-directories-you-can-use-absolute-or-relative-paths-to-specify-your-destination">
+<h3>The <code class="docutils literal notranslate"><span class="pre">cd</span></code> command is used to move between directories. You can use absolute or relative paths to specify your destination.<a class="headerlink" href="#the-cd-command-is-used-to-move-between-directories-you-can-use-absolute-or-relative-paths-to-specify-your-destination" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Move to a folder using an absolute path, from anywhere in the system
+cd /home/user/clinical_data/cardiology
+# From within /home/user/clinical_data/, move into a subfolder using a relative path
+cd oncology
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# 1. Navigate into the main data folder from home
+cd clinical_data/
+# 2. List contents to explore departments
+ls
+# Expected Output:
+# cardiology/  oncology/
+# 3. Move into the cardiology subfolder
+cd cardiology/
+# 4. Confirm the final location
+pwd
+# Expected Output:
+# /home/your_username/clinical_data/cardiology
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3><summary>Solution</summary><a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# 1. Navigate directly to the scans directory using a relative path
+cd radiology/scans/
+# 2. List contents, sorted by time (newest first), with details
+ls -lhtF
+# Expected Output (example, newest file is on top):
+# -rw-r--r-- 1 user user 1.2M Nov 11 09:15 cohort_hypertension_q4_2024.csv
+# drwxr-xr-x 2 user user 4.0K Oct 28 11:20 ecg_waveforms/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3><summary>Solution</summary><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# We start in /home/user/clinical_data/oncology/trial_phase_2/
+# 1. Navigate up two levels and then down into cardiology
+cd ../../cardiology/
+# 2. Confirm the new location
+pwd
+# Expected Output:
+# /home/user/clinical_data/cardiology
+# 3. Return to the previous directory
+cd -
+# Expected Output:
+# /home/user/clinical_data/oncology/trial_phase_2
+# 4. Confirm you are back
+pwd
+# Expected Output:
+# /home/user/clinical_data/oncology/trial_phase_2/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>Try It Yourself:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

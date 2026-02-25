@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -181,10 +181,9 @@
 <li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> 7.2 Automating Task with Bash Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.4_processing_%28awk_sed_cut%29.html">7.4 Processing with (awk Sed Cut)</a></li>
 </ul>
 
     </div>
@@ -455,8 +454,6 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Create new csv file
-echo -e "PatientID,Name,DOB,Diagnosis,AdmitDate,DischargeDate,Physician\nPT001234,John Doe,1985-03-15,Hypertension,2024-11-01,2024-11-05,Dr. Smith\nPT005678,Jane Roe,1990-07-22,Type 2 Diabetes,2024-11-03,2024-11-08,Dr. Patel\nPT009012,Alex Kim,1978-12-01,MASLD,2024-11-05,,Dr. Lee\nPT003456,Maria Garcia,1965-09-10,Hyperlipidemia,2024-11-07,2024-11-09,Dr. Chen\nPT007890,Wei Zhang,1992-04-18,Obesity,2024-11-09,,Dr. Nguyen" | head -c 1024 | tee patient_records.csv > /dev/null
 ls -l patient_records.csv
 # Output: -rw-r--r-- 1 jsmith research 1024 Nov 11 09:30 patient_records.csv
 </pre></div>
@@ -489,8 +486,6 @@ ls -l patient_records.csv
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Create sh file
-echo -e '#!/bin/bash\n\n# Dosage Calculator Script\n# Calculates medication dosage based on patient weight and prescribed dose per kg\n\nread -p "Enter patient ID: " patient_id\nread -p "Enter patient weight (kg): " weight\nread -p "Enter medication name: " med_name\nread -p "Enter dose per kg (mg/kg): " dose_per_kg\n\ntotal_dose=$(echo "$weight * $dose_per_kg" | bc)\n\necho ""\necho "===== Dosage Report ====="\necho "Patient ID:  $patient_id"\necho "Medication:  $med_name"\necho "Weight:      $weight kg"\necho "Dose rate:   $dose_per_kg mg/kg"\necho "Total dose:  $total_dose mg"\necho "========================="' | tee dosage_calculator.sh
 # Give the owner execute permission, and remove write permission from the group and others.
 chmod u+x,go-w dosage_calculator.sh
 </pre></div>
@@ -559,8 +554,6 @@ chmod u+x,go-w dosage_calculator.sh
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Create file
-echo -e '#!/bin/bash\n\n# process_intake.sh — Reads patient lab CSVs and flags out-of-range results\n\nif [ $# -eq 0 ]; then\n  echo "Usage: ./process_intake.sh <patient_lab_file.csv>"\n  exit 1\nfi\n\nINPUT="$1"\n\nif [ ! -f "$INPUT" ]; then\n  echo "Error: File '\''$INPUT'\'' not found."\n  exit 1\nfi\n\necho "==================================="\necho " Patient Lab Report"\necho "==================================="\necho "File: $INPUT"\necho "Processed: $(date)"\necho "-----------------------------------"\n\n# Skip header, process each row\ntail -n +2 "$INPUT" | while IFS=, read -r pid test val unit ref ts; do\n  FLAG=""\n  # Handle ranges like 70-100\n  if echo "$ref" | grep -qE "^[0-9.]+-[0-9.]+$"; then\n    LOW=$(echo "$ref" | cut -d- -f1)\n    HIGH=$(echo "$ref" | cut -d- -f2)\n    if (( $(echo "$val < $LOW" | bc -l) )); then\n      FLAG="⬇ LOW"\n    elif (( $(echo "$val > $HIGH" | bc -l) )); then\n      FLAG="⬆ HIGH"\n    else\n      FLAG="✔ Normal"\n    fi\n  # Handle ranges like <200\n  elif echo "$ref" | grep -qE "^<[0-9.]+$"; then\n    LIMIT=$(echo "$ref" | tr -d "<")\n    if (( $(echo "$val >= $LIMIT" | bc -l) )); then\n      FLAG="⬆ HIGH"\n    else\n      FLAG="✔ Normal"\n    fi\n  else\n    FLAG="? Review"\n  fi\n  printf "%-15s %-10s %-8s %-12s %s\\n" "$test" "$val $unit" "Ref:$ref" "[$FLAG]" "$ts"\ndone\n\necho "==================================="\necho "End of Report"\necho "===================================="' | tee process_intake.sh
 # Give the owner full access (7), the group read/execute access (5), and others no access (0).
 # Symbolic equivalent: chmod u=rwx,g=rx,o= process_intake.sh
 chmod 750 process_intake.sh
@@ -579,6 +572,34 @@ chmod 750 process_intake.sh
 </div>
 </div>
 <p>This command secures the script so that only the owner can edit it, but team members in the same group can run it.</p>
+</section>
+<section id="a-special-note-on-directory-permissions">
+<h3>3.3 A Special Note on Directory Permissions<a class="headerlink" href="#a-special-note-on-directory-permissions" title="Link to this heading">#</a></h3>
+<p>Permissions work slightly differently for directories. To <code class="docutils literal notranslate"><span class="pre">cd</span></code> into a directory, you must have <strong>execute (<code class="docutils literal notranslate"><span class="pre">x</span></code>)</strong> permission on it. Without it, you cannot access its contents, even if you have read permissions on the files inside.</p>
+<blockquote>
+<div><p><strong>In Practice:</strong> Imagine a shared research folder on a server (<code class="docutils literal notranslate"><span class="pre">our_research_project/</span></code>). You want your team members (<code class="docutils literal notranslate"><span class="pre">group</span></code>) to be able to enter the directory (<code class="docutils literal notranslate"><span class="pre">x</span></code>), read files (<code class="docutils literal notranslate"><span class="pre">r</span></code>), and add new files (<code class="docutils literal notranslate"><span class="pre">w</span></code>), but you don’t want anyone from other departments (<code class="docutils literal notranslate"><span class="pre">others</span></code>) to access it. Setting permissions to <code class="docutils literal notranslate"><span class="pre">770</span></code> ensures your team has full access while completely restricting access for others.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Allow owner and group full access, but others can only enter and view file names.
+chmod 775 our_research_project/
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Run your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+<p>This setting (<code class="docutils literal notranslate"><span class="pre">rwxrwxr-x</span></code>) is common for collaborative project folders.</p>
+</section>
 </section>
 <hr class="docutils" />
 <section id="practice-exercises">
@@ -725,6 +746,206 @@ ls<span class="w"> </span>-ld<span class="w"> </span>cardio_genomics_project/
 <hr class="docutils" />
 </section>
 <hr class="docutils" />
+<section id="interactive-practice">
+<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
+<p>Practice the concepts with these interactive exercises:</p>
+<section id="ical-skill-for-complying-with-data-privacy-regulations-like-the-health-insurance-portability-and-accountability-act-hipaa-to-view-the-permissions-for-a-file-or-directory-use-the-ls-l-command">
+<h3>ical skill for complying with data privacy regulations like the Health Insurance Portability and Accountability Act (HIPAA). To view the permissions for a file or directory, use the <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> command.<a class="headerlink" href="#ical-skill-for-complying-with-data-privacy-regulations-like-the-health-insurance-portability-and-accountability-act-hipaa-to-view-the-permissions-for-a-file-or-directory-use-the-ls-l-command" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+ls -l patient_records.csv
+# Output: -rw-r--r-- 1 jsmith research 1024 Nov 11 09:30 patient_records.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-it-yourself">
+<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="this-method-is-intuitive-and-uses-characters-u-g-o-a-operators-and-permissions-r-w-x">
+<h3>This method is intuitive and uses characters (<code class="docutils literal notranslate"><span class="pre">u,g,o,a</span></code>), operators (<code class="docutils literal notranslate"><span class="pre">+,-,=</span></code>), and permissions (<code class="docutils literal notranslate"><span class="pre">r,w,x</span></code>).<a class="headerlink" href="#this-method-is-intuitive-and-uses-characters-u-g-o-a-operators-and-permissions-r-w-x" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Give the owner execute permission, and remove write permission from the group and others.
+chmod u+x,go-w dosage_calculator.sh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="s-to-existing-permissions-without-affecting-others-use-the-octal-method-750-when-you-want-to-set-the-entire-permission-state-absolutely-ensuring-there-are-no-unintended-legacy-permissions">
+<h3>s to existing permissions without affecting others. Use the <strong>octal method</strong> (<code class="docutils literal notranslate"><span class="pre">750</span></code>) when you want to set the entire permission state absolutely, ensuring there are no unintended legacy permissions.<a class="headerlink" href="#s-to-existing-permissions-without-affecting-others-use-the-octal-method-750-when-you-want-to-set-the-entire-permission-state-absolutely-ensuring-there-are-no-unintended-legacy-permissions" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Give the owner full access (7), the group read/execute access (5), and others no access (0).
+# Symbolic equivalent: chmod u=rwx,g=rx,o= process_intake.sh
+chmod 750 process_intake.sh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="files-w-but-you-don-t-want-anyone-from-other-departments-others-to-access-it-setting-permissions-to-770-ensures-your-team-has-full-access-while-completely-restricting-access-for-others">
+<h3>files (<code class="docutils literal notranslate"><span class="pre">w</span></code>), but you don’t want anyone from other departments (<code class="docutils literal notranslate"><span class="pre">others</span></code>) to access it. Setting permissions to <code class="docutils literal notranslate"><span class="pre">770</span></code> ensures your team has full access while completely restricting access for others.<a class="headerlink" href="#files-w-but-you-don-t-want-anyone-from-other-departments-others-to-access-it-setting-permissions-to-770-ensures-your-team-has-full-access-while-completely-restricting-access-for-others" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Allow owner and group full access, but others can only enter and view file names.
+chmod 775 our_research_project/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solution">
+<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create an empty file for the exercise
+touch dosage_calculator.sh
+# The required permissions are rwx for owner (4+2+1=7), r-x for group (4+1=5), and --- for others (0).
+# Symbolic equivalent: chmod u=rwx,g=rx,o= dosage_calculator.sh
+chmod 750 dosage_calculator.sh
+# Verify the change
+ls -l dosage_calculator.sh
+# Expected output: -rwxr-x--- 1 jsmith research ... dosage_calculator.sh
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3><summary>Solution</summary><a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create an empty file for the exercise
+touch cohort_data.csv
+# The required permissions are r-- for owner (4), r-- for group (4), and r-- for others (4).
+# Symbolic equivalent: chmod a=r cohort_data.csv
+chmod 444 cohort_data.csv
+# Verify the change
+ls -l cohort_data.csv
+# Expected output: -r--r--r-- 1 jsmith research ... cohort_data.csv
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create a directory for the exercise
+mkdir cardio_genomics_project
+# Using octal notation is most efficient here.
+# rwx for owner (7), rwx for group (7), and r-x for others (5).
+# Symbolic equivalent: chmod ug=rwx,o=rx cardio_genomics_project/
+chmod 775 cardio_genomics_project/
+# Verify the change
+ls -ld cardio_genomics_project/
+# Expected output: drwxrwxr-x 1 jsmith research ... cardio_genomics_project/
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Modify the code above or write your own version:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# TODO: Write your bash commands here
+# Hint: Try modifying the example above
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
