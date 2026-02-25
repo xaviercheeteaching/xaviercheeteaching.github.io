@@ -446,32 +446,23 @@ document.write(`
 <section id="main-content">
 <h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
 <section id="method-1-create-and-run-a-reusable-script">
-<h3>3.1. Method 1: Create and Run a Reusable Script<a class="headerlink" href="#method-1-create-and-run-a-reusable-script" title="Link to this heading">#</a></h3>
+<h3>3.1. Create and Run a Reusable Script<a class="headerlink" href="#method-1-create-and-run-a-reusable-script" title="Link to this heading">#</a></h3>
 <p>This is the standard method for scripts you intend to use regularly. By making the script executable, you treat it like any other command-line program.</p>
 <p><strong>1. Create the Script File</strong></p>
 <p>Use a text editor like <code class="docutils literal notranslate"><span class="pre">nano</span></code> to create a file. While the <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension is not technically required for the script to run, it is a universal convention that helps developers quickly identify the file as a shell script.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-nano process_labs.sh
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
+vim process_labs.sh
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
 <p>Add the following content. The shebang is critical, and using a variable for the <code class="docutils literal notranslate"><span class="pre">PATIENT_ID</span></code> makes the script easier to update.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 #!/usr/bin/env bash
 # This script prints a mock lab result status.
 # Define a variable for the patient ID for easy updates.
@@ -484,32 +475,12 @@ echo &quot;Processing Status: Complete&quot;
 </div>
 </div>
 </div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
 <p><strong>2. Grant Execute Permission</strong></p>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode) command to add the execute (<code class="docutils literal notranslate"><span class="pre">+x</span></code>) permission to your script.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 chmod +x process_labs.sh
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -521,18 +492,8 @@ chmod +x process_labs.sh
 <p>Execute the script by providing its path from the current directory.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 ./process_labs.sh
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -547,33 +508,6 @@ chmod +x process_labs.sh
 <span class="n">Processing</span> <span class="n">Status</span><span class="p">:</span> <span class="n">Complete</span>
 </pre></div>
 </div>
-</section>
-<section id="method-2-run-a-script-without-execute-permissions">
-<h3>3.2. Method 2: Run a Script Without Execute Permissions<a class="headerlink" href="#method-2-run-a-script-without-execute-permissions" title="Link to this heading">#</a></h3>
-<p>This method is useful for running a script a single time or when you don’t have the rights to change its permissions. You explicitly tell the <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter to execute the file.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-bash process_labs.sh
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-<p>This command invokes the <code class="docutils literal notranslate"><span class="pre">bash</span></code> program and passes <code class="docutils literal notranslate"><span class="pre">process_labs.sh</span></code> as an argument. The <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter reads and executes the commands in the file line by line. This works even if the script does not have execute permission.</p>
-<blockquote>
-<div><p><strong>Pro Tip:</strong> Running a script with <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">script.sh</span></code> is perfect for one-off tasks or for testing a script you’ve just downloaded from a trusted source without immediately making it executable on your system. For any script you plan to use repeatedly, granting execute permission (Method 1) is the standard approach.</p>
-</div></blockquote>
-</section>
 </section>
 <hr class="docutils" />
 <section id="practice-exercises">
@@ -722,224 +656,6 @@ mkdir<span class="w"> </span>patient_data_001
 <hr class="docutils" />
 </section>
 <hr class="docutils" />
-<section id="interactive-practice">
-<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
-<p>Practice the concepts with these interactive exercises:</p>
-<section id="nano-to-create-a-file-while-the-sh-extension-is-not-technically-required-for-the-script-to-run-it-is-a-universal-convention-that-helps-developers-quickly-identify-the-file-as-a-shell-script">
-<h3><code class="docutils literal notranslate"><span class="pre">nano</span></code> to create a file. While the <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension is not technically required for the script to run, it is a universal convention that helps developers quickly identify the file as a shell script.<a class="headerlink" href="#nano-to-create-a-file-while-the-sh-extension-is-not-technically-required-for-the-script-to-run-it-is-a-universal-convention-that-helps-developers-quickly-identify-the-file-as-a-shell-script" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-nano process_labs.sh
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="try-it-yourself">
-<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="add-the-following-content-the-shebang-is-critical-and-using-a-variable-for-the-patient-id-makes-the-script-easier-to-update">
-<h3>Add the following content. The shebang is critical, and using a variable for the <code class="docutils literal notranslate"><span class="pre">PATIENT_ID</span></code> makes the script easier to update.<a class="headerlink" href="#add-the-following-content-the-shebang-is-critical-and-using-a-variable-for-the-patient-id-makes-the-script-easier-to-update" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/usr/bin/env bash
-# This script prints a mock lab result status.
-# Define a variable for the patient ID for easy updates.
-PATIENT_ID=&quot;PT098765&quot;
-echo &quot;Initializing lab result processing...&quot;
-echo &quot;Processing file: CHEM7_20251110.csv&quot;
-echo &quot;Patient ID: $PATIENT_ID&quot;
-echo &quot;Processing Status: Complete&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="use-the-chmod-change-mode-command-to-add-the-execute-x-permission-to-your-script">
-<h3>Use the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> (change mode) command to add the execute (<code class="docutils literal notranslate"><span class="pre">+x</span></code>) permission to your script.<a class="headerlink" href="#use-the-chmod-change-mode-command-to-add-the-execute-x-permission-to-your-script" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-chmod +x process_labs.sh
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id2">
-<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="execute-the-script-by-providing-its-path-from-the-current-directory">
-<h3>Execute the script by providing its path from the current directory.<a class="headerlink" href="#execute-the-script-by-providing-its-path-from-the-current-directory" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-./process_labs.sh
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id3">
-<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="this-method-is-useful-for-running-a-script-a-single-time-or-when-you-don-t-have-the-rights-to-change-its-permissions-you-explicitly-tell-the-bash-interpreter-to-execute-the-file">
-<h3>This method is useful for running a script a single time or when you don’t have the rights to change its permissions. You explicitly tell the <code class="docutils literal notranslate"><span class="pre">bash</span></code> interpreter to execute the file.<a class="headerlink" href="#this-method-is-useful-for-running-a-script-a-single-time-or-when-you-don-t-have-the-rights-to-change-its-permissions-you-explicitly-tell-the-bash-interpreter-to-execute-the-file" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-bash process_labs.sh
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id4">
-<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="add-content">
-<h3><strong>2. Add content:</strong><a class="headerlink" href="#add-content" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/usr/bin/env bash
-echo &quot;Initializing sequence analysis...&quot;
-echo &quot;Ready for data input.&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id5">
-<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3><strong>2. Add content:</strong><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/usr/bin/env bash
-# This script creates a directory for a new patient.
-echo &quot;Creating directory for new patient...&quot;
-mkdir patient_data_001
-echo &quot;Directory &#39;patient_data_001&#39; created.&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id7">
-<h3>Try It Yourself:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id8">
-<h3><strong>2. Add content:</strong><a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/usr/bin/env bash
-# This script explains the two execution methods.
-echo &quot;Choosing the right execution method:&quot;
-echo &quot;------------------------------------&quot;
-echo &quot;For &#39;run_daily_report.sh&#39;, use &#39;chmod +x&#39; once, then run with &#39;./run_daily_report.sh&#39;.&quot;
-echo &quot;This is best for reusable, trusted scripts that act like regular commands.&quot;
-echo &quot;&quot;
-echo &quot;For &#39;fix_corrupt_file.sh&#39;, you can simply use &#39;bash fix_corrupt_file.sh&#39;.&quot;
-echo &quot;This is ideal for one-off scripts where you don&#39;t need to permanently change permissions.&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id9">
-<h3>Try It Yourself:<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
 
     <script type="text/x-thebe-config">
     {

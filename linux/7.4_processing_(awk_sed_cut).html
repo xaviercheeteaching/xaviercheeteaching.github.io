@@ -455,7 +455,7 @@ document.write(`
 <section id="main-content">
 <h2>3. Main Content<a class="headerlink" href="#main-content" title="Link to this heading">#</a></h2>
 <p>We will use the following example data files throughout our demonstrations. Note the standardized <code class="docutils literal notranslate"><span class="pre">PT-XXX</span></code> format for patient IDs.</p>
-<p><strong>Example Data Files:</strong></p>
+<p><strong>Example Data Files (Make sure you create them):</strong></p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">patient_labs.csv</span></code>:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PID</span><span class="p">,</span><span class="n">Name</span><span class="p">,</span><span class="n">Glucose</span> <span class="p">(</span><span class="n">mg</span><span class="o">/</span><span class="n">dL</span><span class="p">),</span><span class="n">WBC</span> <span class="p">(</span><span class="n">x10</span><span class="o">^</span><span class="mi">9</span><span class="o">/</span><span class="n">L</span><span class="p">)</span>
 <span class="n">PT</span><span class="o">-</span><span class="mi">101</span><span class="p">,</span><span class="n">Smith</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mf">7.5</span>
@@ -490,7 +490,7 @@ cut -d &#39;,&#39; -f1,3 patient_labs.csv
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Run your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -514,7 +514,7 @@ cut -d &#39;,&#39; -f1,3 patient_labs.csv
 <p>Use <code class="docutils literal notranslate"><span class="pre">sed</span></code> (Stream Editor) to find and replace text. This is highly effective for standardizing terminology, such as annotating a drug name with its class.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 sed &#39;s/Ibuprofen/Ibuprofen (NSAID)/g&#39; prescriptions.txt
 </pre></div>
 </div>
@@ -523,7 +523,7 @@ sed &#39;s/Ibuprofen/Ibuprofen (NSAID)/g&#39; prescriptions.txt
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Run your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -551,7 +551,7 @@ sed &#39;s/Ibuprofen/Ibuprofen (NSAID)/g&#39; prescriptions.txt
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # Log format: Date   Time   PID     Metric Value
 #             $1     $2     $3      $4     $5
 awk &#39;$4 == &quot;HR&quot; &amp;&amp; $5 &gt; 90 {print &quot;High HR Alert for PID:&quot;, $3, &quot;Value:&quot;, $5}&#39; vitals.log
@@ -562,7 +562,7 @@ awk &#39;$4 == &quot;HR&quot; &amp;&amp; $5 &gt; 90 {print &quot;High HR Alert f
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Run your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -584,7 +584,7 @@ awk &#39;$4 == &quot;HR&quot; &amp;&amp; $5 &gt; 90 {print &quot;High HR Alert f
 <p>Chaining tools with pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>) creates workflows. This example finds high glucose readings, reformats the ID, and then extracts the desired columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 awk -F&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print $0}&#39; patient_labs.csv | sed &#39;s/^/FLAG-/&#39; | cut -d&#39;,&#39; -f1,3
 </pre></div>
 </div>
@@ -593,7 +593,7 @@ awk -F&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print $0}&#39; patient_
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Run your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -603,7 +603,7 @@ awk -F&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print $0}&#39; patient_
 <p>A single <code class="docutils literal notranslate"><span class="pre">awk</span></code> command is often more efficient.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print &quot;FLAG-&quot;$1, $3}&#39; patient_labs.csv
 </pre></div>
 </div>
@@ -612,7 +612,7 @@ awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {prin
 <p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Run your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -787,7 +787,7 @@ awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {prin
 <h3>Use <code class="docutils literal notranslate"><span class="pre">cut</span></code> to extract specific columns from delimited text. This is ideal for isolating data like patient IDs or specific lab values from tabular reports.<a class="headerlink" href="#use-cut-to-extract-specific-columns-from-delimited-text-this-is-ideal-for-isolating-data-like-patient-ids-or-specific-lab-values-from-tabular-reports" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 cut -d &#39;,&#39; -f1,3 patient_labs.csv
 </pre></div>
 </div>
@@ -799,7 +799,7 @@ cut -d &#39;,&#39; -f1,3 patient_labs.csv
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -811,7 +811,7 @@ cut -d &#39;,&#39; -f1,3 patient_labs.csv
 <h3>Use <code class="docutils literal notranslate"><span class="pre">sed</span></code> (Stream Editor) to find and replace text. This is highly effective for standardizing terminology, such as annotating a drug name with its class.<a class="headerlink" href="#use-sed-stream-editor-to-find-and-replace-text-this-is-highly-effective-for-standardizing-terminology-such-as-annotating-a-drug-name-with-its-class" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 sed &#39;s/Ibuprofen/Ibuprofen (NSAID)/g&#39; prescriptions.txt
 </pre></div>
 </div>
@@ -823,7 +823,7 @@ sed &#39;s/Ibuprofen/Ibuprofen (NSAID)/g&#39; prescriptions.txt
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -835,7 +835,7 @@ sed &#39;s/Ibuprofen/Ibuprofen (NSAID)/g&#39; prescriptions.txt
 <h3>is <code class="docutils literal notranslate"><span class="pre">$2</span></code>, and so on. This is different from many programming languages like Python or JavaScript, which use 0-based indexing. Keeping this distinction in mind will prevent common “off-by-one” errors.<a class="headerlink" href="#is-2-and-so-on-this-is-different-from-many-programming-languages-like-python-or-javascript-which-use-0-based-indexing-keeping-this-distinction-in-mind-will-prevent-common-off-by-one-errors" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # Log format: Date   Time   PID     Metric Value
 #             $1     $2     $3      $4     $5
 awk &#39;$4 == &quot;HR&quot; &amp;&amp; $5 &gt; 90 {print &quot;High HR Alert for PID:&quot;, $3, &quot;Value:&quot;, $5}&#39; vitals.log
@@ -849,7 +849,7 @@ awk &#39;$4 == &quot;HR&quot; &amp;&amp; $5 &gt; 90 {print &quot;High HR Alert f
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -861,7 +861,7 @@ awk &#39;$4 == &quot;HR&quot; &amp;&amp; $5 &gt; 90 {print &quot;High HR Alert f
 <h3>Chaining tools with pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>) creates workflows. This example finds high glucose readings, reformats the ID, and then extracts the desired columns.<a class="headerlink" href="#chaining-tools-with-pipes-creates-workflows-this-example-finds-high-glucose-readings-reformats-the-id-and-then-extracts-the-desired-columns" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 awk -F&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print $0}&#39; patient_labs.csv | sed &#39;s/^/FLAG-/&#39; | cut -d&#39;,&#39; -f1,3
 </pre></div>
 </div>
@@ -873,7 +873,7 @@ awk -F&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print $0}&#39; patient_
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -885,7 +885,7 @@ awk -F&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print $0}&#39; patient_
 <h3>A single <code class="docutils literal notranslate"><span class="pre">awk</span></code> command is often more efficient.<a class="headerlink" href="#a-single-awk-command-is-often-more-efficient" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {print &quot;FLAG-&quot;$1, $3}&#39; patient_labs.csv
 </pre></div>
 </div>
@@ -897,7 +897,7 @@ awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {prin
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -909,7 +909,7 @@ awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $3 &gt; 125 {prin
 <h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 cut -d &#39;,&#39; -f2,4 patient_labs.csv
 </pre></div>
 </div>
@@ -921,7 +921,7 @@ cut -d &#39;,&#39; -f2,4 patient_labs.csv
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -933,7 +933,7 @@ cut -d &#39;,&#39; -f2,4 patient_labs.csv
 <h3><summary>Solution</summary><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 sed &#39;s/Paracetamol/Acetaminophen/g&#39; prescriptions.txt
 </pre></div>
 </div>
@@ -945,7 +945,7 @@ sed &#39;s/Paracetamol/Acetaminophen/g&#39; prescriptions.txt
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -957,7 +957,7 @@ sed &#39;s/Paracetamol/Acetaminophen/g&#39; prescriptions.txt
 <h3><summary>Solution</summary><a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 awk &#39;$4 == &quot;TEMP&quot; &amp;&amp; $5 &gt; 38.0 {print &quot;HighTemp,&quot; $3 &quot;,&quot; $5}&#39; vitals.log
 </pre></div>
 </div>
@@ -969,7 +969,7 @@ awk &#39;$4 == &quot;TEMP&quot; &amp;&amp; $5 &gt; 38.0 {print &quot;HighTemp,&q
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>
@@ -981,7 +981,7 @@ awk &#39;$4 == &quot;TEMP&quot; &amp;&amp; $5 &gt; 38.0 {print &quot;HighTemp,&q
 <h3><summary>Solution</summary><a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $4 &lt; 4.0 {print &quot;FLAG-LEUKOPENIA&quot;, $1, $4}&#39; patient_labs.csv
 </pre></div>
 </div>
@@ -993,7 +993,7 @@ awk -F&#39;,&#39; -v OFS=&#39;,&#39; &#39;NR &gt; 1 &amp;&amp; $4 &lt; 4.0 {prin
 <p>Modify the code above or write your own version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 # TODO: Write your bash commands here
 # Hint: Try modifying the example above
 </pre></div>

@@ -456,23 +456,13 @@ document.write(`
 <p>You can access data passed to a script using positional parameters like <code class="docutils literal notranslate"><span class="pre">$1</span></code> for the first argument, <code class="docutils literal notranslate"><span class="pre">$2</span></code> for the second, and so on. The special variable <code class="docutils literal notranslate"><span class="pre">$0</span></code> holds the script’s name, and <code class="docutils literal notranslate"><span class="pre">$#</span></code> holds the total number of arguments.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 #!/bin/bash
 # Displays patient info from command-line arguments.
 echo &quot;Script being run: $0&quot;
 echo &quot;Fetching data for Patient ID: $1&quot;
 echo &quot;Requested measurement: $2&quot;
 echo &quot;Total arguments provided: $#&quot;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -502,7 +492,7 @@ echo &quot;Total arguments provided: $#&quot;
 <p>Parameter expansion allows you to build more robust scripts by setting default values for optional arguments or ensuring that required arguments are present.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 #!/bin/bash
 # Usage: ./generate_report.sh &lt;patient_id&gt; [report_type]
 # Use ${1:?&quot;Error&quot;} to require an argument and exit if missing.
@@ -511,16 +501,6 @@ PATIENT_ID=&quot;${1:?&quot;Error: Patient ID is required.&quot;}&quot;
 REPORT_TYPE=&quot;${2:=&quot;summary&quot;}&quot;
 echo &quot;Generating report for Patient ID: ${PATIENT_ID}&quot;
 echo &quot;Report Type: ${REPORT_TYPE}&quot;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -547,7 +527,7 @@ The <code class="docutils literal notranslate"><span class="pre">shift</span></c
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 #!/bin/bash
 # Usage: ./process_diagnoses.sh &lt;primary_code&gt; [secondary_codes...]
 PRIMARY_DIAGNOSIS=&quot;$1&quot;
@@ -560,16 +540,6 @@ echo &quot;Processing Secondary Diagnosis #${i}: $1&quot;
 shift # Move to the next one
 ((i++))
 done
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -593,7 +563,7 @@ A common bug is using <code class="docutils literal notranslate"><span class="pr
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 #!/bin/bash
 # Usage: ./process_meds.sh &quot;lisinopril (Zestril) 10mg&quot; &quot;metformin (Glucophage) 500mg&quot;
 echo &quot;--- Looping with \&quot;\$@\&quot; (preserves arguments):&quot;
@@ -605,16 +575,6 @@ echo &quot;--- Looping with \&quot;\$*\&quot; (joins arguments into one):&quot;
 for arg in &quot;$*&quot;; do
 echo &quot;Argument: &#39;$arg&#39;&quot;
 done
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -822,242 +782,6 @@ In the sample processing lab scenario, what other arguments might be useful? Cou
 <hr class="docutils" />
 </section>
 <hr class="docutils" />
-<section id="interactive-practice">
-<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
-<p>Practice the concepts with these interactive exercises:</p>
-<section id="script-using-positional-parameters-like-1-for-the-first-argument-2-for-the-second-and-so-on-the-special-variable-0-holds-the-script-s-name-and-holds-the-total-number-of-arguments">
-<h3>script using positional parameters like <code class="docutils literal notranslate"><span class="pre">$1</span></code> for the first argument, <code class="docutils literal notranslate"><span class="pre">$2</span></code> for the second, and so on. The special variable <code class="docutils literal notranslate"><span class="pre">$0</span></code> holds the script’s name, and <code class="docutils literal notranslate"><span class="pre">$#</span></code> holds the total number of arguments.<a class="headerlink" href="#script-using-positional-parameters-like-1-for-the-first-argument-2-for-the-second-and-so-on-the-special-variable-0-holds-the-script-s-name-and-holds-the-total-number-of-arguments" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Displays patient info from command-line arguments.
-echo &quot;Script being run: $0&quot;
-echo &quot;Fetching data for Patient ID: $1&quot;
-echo &quot;Requested measurement: $2&quot;
-echo &quot;Total arguments provided: $#&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="try-it-yourself">
-<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="parameter-expansion-allows-you-to-build-more-robust-scripts-by-setting-default-values-for-optional-arguments-or-ensuring-that-required-arguments-are-present">
-<h3>Parameter expansion allows you to build more robust scripts by setting default values for optional arguments or ensuring that required arguments are present.<a class="headerlink" href="#parameter-expansion-allows-you-to-build-more-robust-scripts-by-setting-default-values-for-optional-arguments-or-ensuring-that-required-arguments-are-present" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Usage: ./generate_report.sh &lt;patient_id&gt; [report_type]
-# Use ${1:?&quot;Error&quot;} to require an argument and exit if missing.
-PATIENT_ID=&quot;${1:?&quot;Error: Patient ID is required.&quot;}&quot;
-# Use ${2:=&quot;summary&quot;} to set a fallback value if the second argument is omitted.
-REPORT_TYPE=&quot;${2:=&quot;summary&quot;}&quot;
-echo &quot;Generating report for Patient ID: ${PATIENT_ID}&quot;
-echo &quot;Report Type: ${REPORT_TYPE}&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="shift-your-focus-to-the-next-person-in-line-this-is-useful-for-scripts-that-process-a-list-of-items-sequentially-such-as-updating-a-batch-of-patient-records-or-processing-a-series-of-lab-results">
-<h3>shift` your focus to the next person in line. This is useful for scripts that process a list of items sequentially, such as updating a batch of patient records or processing a series of lab results.<a class="headerlink" href="#shift-your-focus-to-the-next-person-in-line-this-is-useful-for-scripts-that-process-a-list-of-items-sequentially-such-as-updating-a-batch-of-patient-records-or-processing-a-series-of-lab-results" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Usage: ./process_diagnoses.sh &lt;primary_code&gt; [secondary_codes...]
-PRIMARY_DIAGNOSIS=&quot;$1&quot;
-echo &quot;Primary Diagnosis: ${PRIMARY_DIAGNOSIS}&quot;
-shift # Discard the primary diagnosis; $@ now contains only secondary codes
-# Loop through all remaining arguments (the secondary diagnoses)
-i=1
-while [ &quot;$#&quot; -gt 0 ]; do
-echo &quot;Processing Secondary Diagnosis #${i}: $1&quot;
-shift # Move to the next one
-((i++))
-done
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id2">
-<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="unexpectedly-combining-arguments-or-failing-on-file-names-with-spaces-check-that-your-for-loop-is-using-for-arg-in-this-ensures-each-argument-is-treated-as-a-separate-and-complete-string">
-<h3>unexpectedly combining arguments or failing on file names with spaces, check that your <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is using <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">arg</span> <span class="pre">in</span> <span class="pre">&quot;$&#64;&quot;</span></code>. This ensures each argument is treated as a separate and complete string.<a class="headerlink" href="#unexpectedly-combining-arguments-or-failing-on-file-names-with-spaces-check-that-your-for-loop-is-using-for-arg-in-this-ensures-each-argument-is-treated-as-a-separate-and-complete-string" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Usage: ./process_meds.sh &quot;lisinopril (Zestril) 10mg&quot; &quot;metformin (Glucophage) 500mg&quot;
-echo &quot;--- Looping with \&quot;\$@\&quot; (preserves arguments):&quot;
-for arg in &quot;$@&quot;; do
-echo &quot;Argument: &#39;$arg&#39;&quot;
-done
-echo &quot;&quot;
-echo &quot;--- Looping with \&quot;\$*\&quot; (joins arguments into one):&quot;
-for arg in &quot;$*&quot;; do
-echo &quot;Argument: &#39;$arg&#39;&quot;
-done
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id3">
-<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="solution">
-<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Greets a clinician and states the patient ID being accessed.
-# Check if enough arguments are provided
-if [ &quot;$#&quot; -ne 3 ]; then
-echo &quot;Usage: $0 &lt;title&gt; &lt;last_name&gt; &lt;patient_id&gt;&quot; &gt;&amp;2
-exit 1
-fi
-TITLE=&quot;$1&quot;
-NAME=&quot;$2&quot;
-PATIENT_ID=&quot;$3&quot;
-echo &quot;Welcome, ${TITLE} ${NAME}. You are now accessing the records for patient ${PATIENT_ID}.&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id4">
-<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id5">
-<h3><summary>Solution</summary><a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Processes a sample with a required ID and optional kit name.
-SAMPLE_ID=&quot;${1:?&quot;Error: Sample ID is required.&quot;}&quot;
-COLLECTION_DATE=&quot;$2&quot;
-KIT_NAME=&quot;${3:-&quot;Illumina MiSeq&quot;}&quot;
-echo &quot;Processing sample ${SAMPLE_ID} collected on ${COLLECTION_DATE} with kit ${KIT_NAME}.&quot;
-echo &quot;Total arguments received: $#&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id7">
-<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Validates the existence of multiple files passed as arguments.
-# Check if at least one argument is given
-if [ &quot;$#&quot; -eq 0 ]; then
-echo &quot;Usage: $0 &lt;file1&gt; [file2] ...&quot; &gt;&amp;2
-exit 1
-fi
-echo &quot;Starting file validation...&quot;
-for file in &quot;$@&quot;; do
-if [ -f &quot;$file&quot; ]; then
-echo &quot;SUCCESS: $file exists.&quot;
-else
-echo &quot;ERROR: $file not found.&quot;
-fi
-done
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id8">
-<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
 
     <script type="text/x-thebe-config">
     {

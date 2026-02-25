@@ -460,7 +460,7 @@ document.write(`
 <p>Store data like patient IDs in variables to make scripts dynamic and reusable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
 #!/bin/bash
 # Assign a de-identified patient ID and hemoglobin level (g/dL).
 patient_id=&quot;PT9876543A&quot;
@@ -468,16 +468,6 @@ hemoglobin_level=14.5 # Normal adult male range: 13.5-17.5 g/dL (Mayo Clinic Lab
 # Access variable values using the &#39;$&#39; prefix.
 echo &quot;Processing patient: $patient_id&quot;
 echo &quot;Hemoglobin (g/dL): $hemoglobin_level&quot;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -505,21 +495,14 @@ Use <code class="docutils literal notranslate"><span class="pre">lowercase_with_
 <p>Now that you know how to create variables, it’s crucial to learn how to use them safely within other strings, like when creating filenames. Use curly braces <code class="docutils literal notranslate"><span class="pre">${...}</span></code> to safely embed variables within text, preventing errors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
+#!/bin/bash
+
+patient_id="PT9876543A"
 # Correct: Creates the file PT9876543A_results.txt
 echo &quot;Saving results to ${patient_id}_results.txt&quot;
 # Incorrect: Searches for a variable named patient_id_results
 echo &quot;Incorrectly saving to $patient_id_results.txt&quot;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -539,22 +522,14 @@ If your script produces an empty value or an error when you combine a variable w
 <p>Use double quotes to expand variables to their values and single quotes to treat them as literal text.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
+#!/bin/bash
+
 genome_file=&quot;/data/hg38/chr1.fa&quot;
 # Double quotes expand the variable to its value.
 echo &quot;Reference genome is $genome_file&quot;
 # Single quotes treat the variable name as literal text.
 echo &#39;Reference genome is $genome_file&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -570,21 +545,18 @@ echo &#39;Reference genome is $genome_file&#39;
 <p>While variables are designed to be flexible, some data is too important to change. Let’s see how to protect it. Make a variable read-only with <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect critical data, like a reference file path, from being overwritten.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
+#!/bin/bash
+
+genome_file="/data/hg38/chr1.fa"
+# Double quotes expand the variable to its value.
+echo "Reference genome is $genome_file"
+# Single quotes treat the variable name as literal text.
+echo 'Reference genome is $genome_file'
 # Declare a variable as read-only.
 readonly GENOME_FILE=&quot;/data/hg38/chr1.fa&quot;
 # This will now cause an error and stop the script.
 GENOME_FILE=&quot;/new/path/file.fa&quot;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -603,21 +575,13 @@ Use <code class="docutils literal notranslate"><span class="pre">readonly</span>
 <p>Perform math on whole numbers (integers), like counting samples, using the <code class="docutils literal notranslate"><span class="pre">$((...))</span></code> syntax.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
+#!/bin/bash
+
 run1_samples=48
 run2_samples=48
 total_samples=$((run1_samples + run2_samples))
 echo &quot;Total samples processed: $total_samples&quot;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -632,7 +596,9 @@ echo &quot;Total samples processed: $total_samples&quot;
 <p>So far, we’ve assigned static values or simple math results to variables. A more powerful technique is to assign the output of an entire command to a variable. Use command substitution <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> to capture a command’s output.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre>
+#!/bin/bash
+
 # Calculate BMI from weight (kg) and height (m).
 patient_weight_kg=70.5
 patient_height_m=1.75
@@ -640,16 +606,6 @@ patient_height_m=1.75
 # Use the bc (basic calculator) utility for floating-point math; bash cannot do this natively.
 bmi=$(echo &quot;scale=2; $patient_weight_kg / $patient_height_m^2&quot; | bc)
 echo &quot;Patient BMI: $bmi&quot;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
 </pre></div>
 </div>
 </div>
@@ -842,281 +798,6 @@ The <code class="docutils literal notranslate"><span class="pre">readonly</span>
 <hr class="docutils" />
 </section>
 <hr class="docutils" />
-<section id="interactive-practice">
-<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
-<p>Practice the concepts with these interactive exercises:</p>
-<section id="store-data-like-patient-ids-in-variables-to-make-scripts-dynamic-and-reusable">
-<h3>Store data like patient IDs in variables to make scripts dynamic and reusable.<a class="headerlink" href="#store-data-like-patient-ids-in-variables-to-make-scripts-dynamic-and-reusable" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# Assign a de-identified patient ID and hemoglobin level (g/dL).
-patient_id=&quot;PT9876543A&quot;
-hemoglobin_level=14.5 # Normal adult male range: 13.5-17.5 g/dL (Mayo Clinic Laboratories 2024)
-# Access variable values using the &#39;$&#39; prefix.
-echo &quot;Processing patient: $patient_id&quot;
-echo &quot;Hemoglobin (g/dL): $hemoglobin_level&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="try-it-yourself">
-<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="create-variables-it-s-crucial-to-learn-how-to-use-them-safely-within-other-strings-like-when-creating-filenames-use-curly-braces-to-safely-embed-variables-within-text-preventing-errors">
-<h3>create variables, it’s crucial to learn how to use them safely within other strings, like when creating filenames. Use curly braces <code class="docutils literal notranslate"><span class="pre">${...}</span></code> to safely embed variables within text, preventing errors.<a class="headerlink" href="#create-variables-it-s-crucial-to-learn-how-to-use-them-safely-within-other-strings-like-when-creating-filenames-use-curly-braces-to-safely-embed-variables-within-text-preventing-errors" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Correct: Creates the file PT9876543A_results.txt
-echo &quot;Saving results to ${patient_id}_results.txt&quot;
-# Incorrect: Searches for a variable named patient_id_results
-echo &quot;Incorrectly saving to $patient_id_results.txt&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="use-double-quotes-to-expand-variables-to-their-values-and-single-quotes-to-treat-them-as-literal-text">
-<h3>Use double quotes to expand variables to their values and single quotes to treat them as literal text.<a class="headerlink" href="#use-double-quotes-to-expand-variables-to-their-values-and-single-quotes-to-treat-them-as-literal-text" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-genome_file=&quot;/data/hg38/chr1.fa&quot;
-# Double quotes expand the variable to its value.
-echo &quot;Reference genome is $genome_file&quot;
-# Single quotes treat the variable name as literal text.
-echo &#39;Reference genome is $genome_file&#39;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id2">
-<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="e-flexible-some-data-is-too-important-to-change-let-s-see-how-to-protect-it-make-a-variable-read-only-with-readonly-to-protect-critical-data-like-a-reference-file-path-from-being-overwritten">
-<h3>e flexible, some data is too important to change. Let’s see how to protect it. Make a variable read-only with <code class="docutils literal notranslate"><span class="pre">readonly</span></code> to protect critical data, like a reference file path, from being overwritten.<a class="headerlink" href="#e-flexible-some-data-is-too-important-to-change-let-s-see-how-to-protect-it-make-a-variable-read-only-with-readonly-to-protect-critical-data-like-a-reference-file-path-from-being-overwritten" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Declare a variable as read-only.
-readonly GENOME_FILE=&quot;/data/hg38/chr1.fa&quot;
-# This will now cause an error and stop the script.
-GENOME_FILE=&quot;/new/path/file.fa&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id3">
-<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="perform-math-on-whole-numbers-integers-like-counting-samples-using-the-syntax">
-<h3>Perform math on whole numbers (integers), like counting samples, using the <code class="docutils literal notranslate"><span class="pre">$((...))</span></code> syntax.<a class="headerlink" href="#perform-math-on-whole-numbers-integers-like-counting-samples-using-the-syntax" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-run1_samples=48
-run2_samples=48
-total_samples=$((run1_samples + run2_samples))
-echo &quot;Total samples processed: $total_samples&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id4">
-<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="tic-values-or-simple-math-results-to-variables-a-more-powerful-technique-is-to-assign-the-output-of-an-entire-command-to-a-variable-use-command-substitution-to-capture-a-command-s-output">
-<h3>tic values or simple math results to variables. A more powerful technique is to assign the output of an entire command to a variable. Use command substitution <code class="docutils literal notranslate"><span class="pre">$(...)</span></code> to capture a command’s output.<a class="headerlink" href="#tic-values-or-simple-math-results-to-variables-a-more-powerful-technique-is-to-assign-the-output-of-an-entire-command-to-a-variable-use-command-substitution-to-capture-a-command-s-output" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Calculate BMI from weight (kg) and height (m).
-patient_weight_kg=70.5
-patient_height_m=1.75
-# (Formula Source: CDC 2023)
-# Use the bc (basic calculator) utility for floating-point math; bash cannot do this natively.
-bmi=$(echo &quot;scale=2; $patient_weight_kg / $patient_height_m^2&quot; | bc)
-echo &quot;Patient BMI: $bmi&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id5">
-<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="solution">
-<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# 1. Create and 2. make patient_id read-only
-patient_id=&quot;PT012345&quot;
-readonly patient_id
-# 3. Create read count variables
-read_count_r1=15000
-read_count_r2=15050
-# 4. Calculate total reads
-total_reads=$((read_count_r1 + read_count_r2))
-# 5. Create the summary file
-touch &quot;${patient_id}_summary.txt&quot;
-# 6. Print the summary line
-echo &quot;Summary for ${patient_id}: Total reads = ${total_reads}&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id7">
-<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# 1. Define patient weight
-patient_weight_kg=82.5
-# 2. Define dosage per kg
-dosage_mg_per_kg=1.5
-# 3. Calculate total dosage using bc for floating-point math
-total_dosage_mg=$(echo &quot;scale=2; $patient_weight_kg * $dosage_mg_per_kg&quot; | bc)
-# 4. Print the formatted result
-echo &quot;Patient Weight: ${patient_weight_kg} kg, Total Dosage: ${total_dosage_mg} mg&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id8">
-<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id9">
-<h3><summary>Solution</summary><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-#!/bin/bash
-# 1. Define the analysis type
-analysis_type=&quot;variant_calling&quot;
-# 2. Capture the formatted timestamp
-timestamp=$(date +&quot;%Y-%m-%d_%H-%M-%S&quot;)
-# 3. Construct the log filename
-log_filename=&quot;${analysis_type}_${timestamp}.log&quot;
-# 4. Announce the log file name
-echo &quot;Log file created: ${log_filename}&quot;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id10">
-<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
