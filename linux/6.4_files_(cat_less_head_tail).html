@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -181,9 +181,10 @@
 <li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> 7.2 Automating Task with Bash Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.4_processing_%28awk_sed_cut%29.html">7.4 Processing with (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
 </ul>
 
     </div>
@@ -468,6 +469,11 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Go to main directory
+cd
+# Create file
+echo -e "Patient ID: PT001234\nLast Update: 2024-11-10 14:30\nHeart Rate: 78 bpm\nBlood Pressure: 122/79 mmHg\nTemperature: 37.1 C" > PT001234_vitals_20241110.txt
+# Read file
 cat PT001234_vitals_20241110.txt
 </pre></div>
 </div>
@@ -506,28 +512,6 @@ less -N HGNC_BRCA1_sequence.fasta
 </div>
 </div>
 </div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
-<span class="c1"># The terminal clears and displays the file&#39;s content interactively.</span>
-<span class="c1"># Line numbers appear on the left, and you can scroll or search.</span>
-<span class="c1"># Press &#39;q&#39; to quit and return to the command prompt.</span>
-
-<span class="mi">1</span> <span class="o">&gt;</span><span class="n">ENST00000357654</span><span class="mf">.8</span> <span class="o">|</span> <span class="n">HGNC</span><span class="p">:</span><span class="mi">1100</span> <span class="o">|</span> <span class="n">BRCA1</span>
-<span class="mi">2</span> <span class="n">ATGGATTTATCTGCTCTTCGCGTTGAAGAAGTACAAAATGTCATTAATGCTATGCAGAAAATCTTAGAGTGTCCAATCTGTCTGGAGTTGATCAAGGAACCTGTCTCCACAAAGTGTGACCACATATTTTGCAAATTTTGTATGCTGAAACTTCTCAACCAGAAGAAAGGGCCTTCACAATGTCC</span>
-<span class="mi">3</span> <span class="n">CTTTGTGTAAGAATGAAGATGGATCCAAACACTTCAAAAACATTAAAGAAAACCCTTGCAAGGAGGTGGAAACCCAAGGTGAACATTGTACTGAAGAACTCAAGAAGGAGATGCAGTTTGCTTTTGAGCTGTAAATTTCTGAATGTCACAACATTTCAAGTGTAACACATGGAGGAGTTGA</span>
-<span class="o">...</span>
-<span class="n">HGNC_BRCA1_sequence</span><span class="o">.</span><span class="n">fasta</span> <span class="p">(</span><span class="n">file</span> <span class="mi">1</span> <span class="n">of</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">-N</span></code> flag displays line numbers, which helps with orientation in large, uniform files.</p></li>
 </ul>
@@ -555,8 +539,10 @@ less -N HGNC_BRCA1_sequence.fasta
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create CSV file
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT001234,Glucose,98,mg/dL,70-100,2024-11-11T08:05:00Z\nPT001234,HbA1c,5.8,%,4.0-5.6,2024-11-11T08:05:00Z\nPT001234,Cholesterol,195,mg/dL,<200,2024-11-11T08:05:00Z\nPT001234,WBC,6.5,x10^9/L,4.5-11.0,2024-11-11T08:05:00Z" | tee PT001234_labs.csv
 # Show the first 5 lines of the lab results file
-head -n 5 20241111_lab_results_batch_01.csv
+head -n 5 PT001234_labs.csv
 </pre></div>
 </div>
 </div>
@@ -589,6 +575,8 @@ head -n 5 20241111_lab_results_batch_01.csv
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create log file
+echo -e "2024-11-09 08:00:00 | Administered | Metformin | 500mg\n2024-11-09 12:00:00 | Administered | Lisinopril | 10mg\n2024-11-09 20:00:00 | Administered | Metformin | 500mg\n2024-11-10 06:00:00 | NOTE | Vitals within normal range.\n2024-11-10 08:00:00 | Administered | Metformin | 500mg\n2024-11-10 12:00:00 | Administered | Lisinopril | 10mg\n2024-11-10 20:00:00 | Administered | Metformin | 500mg\n2024-11-11 06:00:00 | NOTE | Patient reports mild nausea.\n2024-11-11 08:00:00 | Administered | Metformin | 500mg" | tee ENC-20241110-005_medication_admin.log
 # Show the last 5 lines of the medication log
 tail -n 5 ENC-20241110-005_medication_admin.log
 </pre></div>
@@ -614,61 +602,10 @@ tail -n 5 ENC-20241110-005_medication_admin.log
 </pre></div>
 </div>
 <p>A powerful feature of <code class="docutils literal notranslate"><span class="pre">tail</span></code> is the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (follow) flag. This keeps the file open and displays new lines as they are added in real-time. It is essential for monitoring active processes.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-tail -f pipeline_alpha_run.log
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Output:</span>
-<span class="c1"># The terminal displays the last few lines of the file and waits.</span>
-<span class="c1"># New lines are printed to the screen as they are added to the file.</span>
 
-<span class="p">[</span><span class="mi">2025</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">07</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="n">Alignment</span> <span class="n">complete</span> <span class="k">for</span> <span class="n">chunk</span> <span class="mf">150.</span>
-<span class="p">[</span><span class="mi">2025</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">07</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">alignment</span> <span class="k">for</span> <span class="n">sequence</span> <span class="n">chunk</span> <span class="mi">151</span><span class="o">/</span><span class="mf">1000.</span><span class="o">..</span>
-<span class="n">_</span>
-<span class="c1"># (Press Ctrl+C to stop following and exit)</span>
-</pre></div>
-</div>
 <blockquote>
 <div><p><strong>In Practice:</strong> The <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span></code> command is a standard tool for systems administrators and researchers. Imagine you’ve started a long-running analysis on a critical patient sample. You can use <code class="docutils literal notranslate"><span class="pre">tail</span> <span class="pre">-f</span> <span class="pre">analysis.log</span></code> in a separate terminal window to watch the progress in real-time, spot errors as they happen, and see when the process completes without having to repeatedly re-open the file.</p>
 </div></blockquote>
-</section>
-<section id="pro-tip-viewing-the-middle-of-a-file">
-<h3>3.5 Pro Tip: Viewing the Middle of a File<a class="headerlink" href="#pro-tip-viewing-the-middle-of-a-file" title="Link to this heading">#</a></h3>
-<p>What if you need to see a specific section in the middle of a file? You can combine <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> using a pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>). For example, to see lines 100 through 110 of <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-head -n 110 HGNC_BRCA1_sequence.fasta | tail -n 11
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Try it yourself:</strong> Modify the code above or write your own version</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Run your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-<p>This command first takes the top 110 lines, and then from that output, it shows the last 11 lines, effectively isolating lines 100-110. We will cover pipes in more detail later.</p>
-</section>
 </section>
 <hr class="docutils" />
 <section id="practice-exercises">
@@ -877,277 +814,7 @@ head -n 110 HGNC_BRCA1_sequence.fasta | tail -n 11
 <hr class="docutils" />
 </section>
 <hr class="docutils" />
-<section id="interactive-practice">
-<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
-<p>Practice the concepts with these interactive exercises:</p>
-<section id="the-cat-command-reads-a-file-and-displays-its-entire-content-on-the-screen-it-is-best-suited-for-small-files-where-you-want-to-see-everything-at-once">
-<h3>The <code class="docutils literal notranslate"><span class="pre">cat</span></code> command reads a file and displays its entire content on the screen. It is best suited for small files where you want to see everything at once.<a class="headerlink" href="#the-cat-command-reads-a-file-and-displays-its-entire-content-on-the-screen-it-is-best-suited-for-small-files-where-you-want-to-see-everything-at-once" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-cat PT001234_vitals_20241110.txt
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="try-it-yourself">
-<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="for-files-too-large-to-fit-on-one-screen-less-is-the-perfect-tool-it-loads-the-file-one-page-at-a-time-making-it-memory-efficient-and-responsive-for-viewing-massive-datasets">
-<h3>For files too large to fit on one screen, <code class="docutils literal notranslate"><span class="pre">less</span></code> is the perfect tool. It loads the file one page at a time, making it memory-efficient and responsive for viewing massive datasets.<a class="headerlink" href="#for-files-too-large-to-fit-on-one-screen-less-is-the-perfect-tool-it-loads-the-file-one-page-at-a-time-making-it-memory-efficient-and-responsive-for-viewing-massive-datasets" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-less -N HGNC_BRCA1_sequence.fasta
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="by-default-head-shows-the-first-10-lines-use-the-n-flag-to-specify-a-different-number-of-lines">
-<h3>By default, <code class="docutils literal notranslate"><span class="pre">head</span></code> shows the first 10 lines. Use the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag to specify a different number of lines.<a class="headerlink" href="#by-default-head-shows-the-first-10-lines-use-the-n-flag-to-specify-a-different-number-of-lines" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Show the first 5 lines of the lab results file
-head -n 5 20241111_lab_results_batch_01.csv
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id2">
-<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-tail-command-is-the-counterpart-to-head-and-shows-the-last-few-lines-of-a-file-this-is-perfect-for-viewing-the-most-recent-entries-in-a-log-file">
-<h3>The <code class="docutils literal notranslate"><span class="pre">tail</span></code> command is the counterpart to <code class="docutils literal notranslate"><span class="pre">head</span></code> and shows the last few lines of a file. This is perfect for viewing the most recent entries in a log file.<a class="headerlink" href="#the-tail-command-is-the-counterpart-to-head-and-shows-the-last-few-lines-of-a-file-this-is-perfect-for-viewing-the-most-recent-entries-in-a-log-file" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# Show the last 5 lines of the medication log
-tail -n 5 ENC-20241110-005_medication_admin.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id3">
-<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="a-powerful-feature-of-tail-is-the-f-follow-flag-this-keeps-the-file-open-and-displays-new-lines-as-they-are-added-in-real-time-it-is-essential-for-monitoring-active-processes">
-<h3>A powerful feature of <code class="docutils literal notranslate"><span class="pre">tail</span></code> is the <code class="docutils literal notranslate"><span class="pre">-f</span></code> (follow) flag. This keeps the file open and displays new lines as they are added in real-time. It is essential for monitoring active processes.<a class="headerlink" href="#a-powerful-feature-of-tail-is-the-f-follow-flag-this-keeps-the-file-open-and-displays-new-lines-as-they-are-added-in-real-time-it-is-essential-for-monitoring-active-processes" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-tail -f pipeline_alpha_run.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id4">
-<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="what-if-you-need-to-see-a-specific-section-in-the-middle-of-a-file-you-can-combine-head-and-tail-using-a-pipe-for-example-to-see-lines-100-through-110-of-hgnc-brca1-sequence-fasta">
-<h3>What if you need to see a specific section in the middle of a file? You can combine <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> using a pipe (<code class="docutils literal notranslate"><span class="pre">|</span></code>). For example, to see lines 100 through 110 of <code class="docutils literal notranslate"><span class="pre">HGNC_BRCA1_sequence.fasta</span></code><a class="headerlink" href="#what-if-you-need-to-see-a-specific-section-in-the-middle-of-a-file-you-can-combine-head-and-tail-using-a-pipe-for-example-to-see-lines-100-through-110-of-hgnc-brca1-sequence-fasta" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-head -n 110 HGNC_BRCA1_sequence.fasta | tail -n 11
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id5">
-<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="solution">
-<h3><summary>Solution</summary><a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-head -n 3 20241111_lab_results_batch_01.csv
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id7">
-<h3><summary>Solution</summary><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-tail -n 5 ENC-20241110-005_medication_admin.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id8">
-<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id9">
-<h3><summary>Solution</summary><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-cat PT001234_vitals_20241110.txt
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id10">
-<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id11">
-<h3><summary>Solution</summary><a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-less HGNC_BRCA1_sequence.fasta
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id12">
-<h3>Try It Yourself:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id13">
-<h3><summary>Solution</summary><a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-tail -f pipeline_alpha_run.log
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id14">
-<h3>Try It Yourself:<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
+
 
     <script type="text/x-thebe-config">
     {

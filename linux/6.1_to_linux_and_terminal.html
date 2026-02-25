@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -182,9 +182,10 @@
 <li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="6.7_and_redirection.html">6.7 Redirection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> 7.2 Automating Task with Bash Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.4_processing_%28awk_sed_cut%29.html">7.4 Processing with (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
 </ul>
 
     </div>
@@ -500,7 +501,6 @@ whoami
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
 hostname
-research-server-01
 </pre></div>
 </div>
 </div>
@@ -543,7 +543,6 @@ uname -a
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
 date
-Tue Nov 11 06:54:02 EST 2025
 </pre></div>
 </div>
 </div>
@@ -565,7 +564,6 @@ Tue Nov 11 06:54:02 EST 2025
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
 uptime
-06:48:41 up 10 days,  2:53,  1 user,  load average: 0.03, 0.02, 0.00
 </pre></div>
 </div>
 </div>
@@ -754,7 +752,6 @@ exit
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>whoami
 user
 $<span class="w"> </span>hostname
-research-server-01
 </pre></div>
 </div>
 <p><strong>2. Display UTC time:</strong></p>
@@ -877,464 +874,7 @@ analyst2<span class="w"> </span>pts/1<span class="w">    </span><span class="m">
 <p>With these foundational skills, you are now prepared to interact with the terminal environment confidently. In the next section, we will build on this by learning how to navigate the Linux filesystem to find and organize your data files.</p>
 <hr class="docutils" />
 </section>
-<hr class="docutils" />
-<section id="interactive-practice">
-<h2>📝 Interactive Practice<a class="headerlink" href="#interactive-practice" title="Link to this heading">#</a></h2>
-<p>Practice the concepts with these interactive exercises:</p>
-<section id="whoami-displays-your-user-id-which-is-required-for-creating-compliant-data-access-audit-logs">
-<h3>*   <strong><code class="docutils literal notranslate"><span class="pre">whoami</span></code></strong>: Displays your user ID, which is required for creating compliant data access audit logs.<a class="headerlink" href="#whoami-displays-your-user-id-which-is-required-for-creating-compliant-data-access-audit-logs" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-whoami
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="try-it-yourself">
-<h3>Try It Yourself:<a class="headerlink" href="#try-it-yourself" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="hostname-shows-the-server-s-network-name-to-log-the-machine-used-for-analysis">
-<h3>*   <strong><code class="docutils literal notranslate"><span class="pre">hostname</span></code></strong>: Shows the server’s network name to log the machine used for analysis.<a class="headerlink" href="#hostname-shows-the-server-s-network-name-to-log-the-machine-used-for-analysis" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-hostname
-research-server-01
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id1">
-<h3>Try It Yourself:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="rsion-can-cause-bioinformatics-software-to-behave-differently-so-logging-this-output-is-key-to-debugging-reproducibility-issues-the-output-is-often-long-and-has-been-truncated-here-for-brevity">
-<h3>rsion can cause bioinformatics software to behave differently, so logging this output is key to debugging reproducibility issues. The output is often long and has been truncated here for brevity.<a class="headerlink" href="#rsion-can-cause-bioinformatics-software-to-behave-differently-so-logging-this-output-is-key-to-debugging-reproducibility-issues-the-output-is-often-long-and-has-been-truncated-here-for-brevity" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-uname -a
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id2">
-<h3>Try It Yourself:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="date-displays-the-current-system-date-and-time-for-timestamping-the-start-of-a-query-against-an-electronic-health-record-ehr-database">
-<h3>*   <strong><code class="docutils literal notranslate"><span class="pre">date</span></code></strong>: Displays the current system date and time for timestamping the start of a query against an Electronic Health Record (EHR) database.<a class="headerlink" href="#date-displays-the-current-system-date-and-time-for-timestamping-the-start-of-a-query-against-an-electronic-health-record-ehr-database" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-date
-Tue Nov 11 06:54:02 EST 2025
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id3">
-<h3>Try It Yourself:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="uptime-shows-server-runtime-and-load-to-check-stability-before-starting-a-long-genomic-alignment">
-<h3>*   <strong><code class="docutils literal notranslate"><span class="pre">uptime</span></code></strong>: Shows server runtime and load to check stability before starting a long genomic alignment.<a class="headerlink" href="#uptime-shows-server-runtime-and-load-to-check-stability-before-starting-a-long-genomic-alignment" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-uptime
-06:48:41 up 10 days,  2:53,  1 user,  load average: 0.03, 0.02, 0.00
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id4">
-<h3>Try It Yourself:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="a-shared-server-it-is-a-good-practice-to-use-who-and-uptime-to-see-who-else-is-logged-in-and-what-the-current-system-load-is-this-helps-prevent-slowing-down-the-server-for-your-colleagues">
-<h3>a shared server, it is a good practice to use <code class="docutils literal notranslate"><span class="pre">who</span></code> and <code class="docutils literal notranslate"><span class="pre">uptime</span></code> to see who else is logged in and what the current system load is. This helps prevent slowing down the server for your colleagues.<a class="headerlink" href="#a-shared-server-it-is-a-good-practice-to-use-who-and-uptime-to-see-who-else-is-logged-in-and-what-the-current-system-load-is-this-helps-prevent-slowing-down-the-server-for-your-colleagues" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-who
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id5">
-<h3>Try It Yourself:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="up-advanced-options-like-finding-a-specific-date-format-for-a-report-once-inside-a-man-page-you-can-search-for-keywords-by-pressing-the-key-typing-your-search-term-and-pressing-enter">
-<h3>up advanced options, like finding a specific date format for a report. Once inside a <code class="docutils literal notranslate"><span class="pre">man</span></code> page, you can search for keywords by pressing the <code class="docutils literal notranslate"><span class="pre">/</span></code> key, typing your search term, and pressing Enter.<a class="headerlink" href="#up-advanced-options-like-finding-a-specific-date-format-for-a-report-once-inside-a-man-page-you-can-search-for-keywords-by-pressing-the-key-typing-your-search-term-and-pressing-enter" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-man date
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id6">
-<h3>Try It Yourself:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="command-help-shows-a-brief-usage-summary-providing-a-quick-syntax-reminder-while-writing-an-analysis-script">
-<h3>*   <strong><code class="docutils literal notranslate"><span class="pre">[command]</span> <span class="pre">--help</span></code></strong>: Shows a brief usage summary, providing a quick syntax reminder while writing an analysis script.<a class="headerlink" href="#command-help-shows-a-brief-usage-summary-providing-a-quick-syntax-reminder-while-writing-an-analysis-script" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-date --help
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id7">
-<h3>Try It Yourself:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="to-manually-document-an-analysis-workflow-for-an-audit-log-to-create-a-physical-audit-log-file-you-can-redirect-the-output-to-a-text-file-like-this-history-my-analysis-log-2025-11-11-txt">
-<h3>to manually document an analysis workflow for an audit log. To create a physical audit log file, you can redirect the output to a text file like this: <code class="docutils literal notranslate"><span class="pre">history</span> <span class="pre">&gt;</span> <span class="pre">my_analysis_log_2025-11-11.txt</span></code>.<a class="headerlink" href="#to-manually-document-an-analysis-workflow-for-an-audit-log-to-create-a-physical-audit-log-file-you-can-redirect-the-output-to-a-text-file-like-this-history-my-analysis-log-2025-11-11-txt" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-history
-1  whoami
-2  hostname
-3  uname -a
-4  date
-5  ...
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id8">
-<h3>Try It Yourself:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="a-passerby-shoulder-surfing-it-is-important-to-note-that-this-only-hides-the-text-from-view-it-does-not-erase-commands-from-your-session-s-history-or-from-the-terminal-s-scrollback-buffer">
-<h3>a passerby (shoulder surfing). It is important to note that this only hides the text from view; it does not erase commands from your session’s <code class="docutils literal notranslate"><span class="pre">history</span></code> or from the terminal’s scrollback buffer.<a class="headerlink" href="#a-passerby-shoulder-surfing-it-is-important-to-note-that-this-only-hides-the-text-from-view-it-does-not-erase-commands-from-your-session-s-history-or-from-the-terminal-s-scrollback-buffer" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-clear
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id9">
-<h3>Try It Yourself:<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="exit-terminates-the-current-terminal-session-to-securely-log-out-and-prevent-unauthorized-access">
-<h3>*   <strong><code class="docutils literal notranslate"><span class="pre">exit</span></code></strong>: Terminates the current terminal session to securely log out and prevent unauthorized access.<a class="headerlink" href="#exit-terminates-the-current-terminal-session-to-securely-log-out-and-prevent-unauthorized-access" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-exit
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id10">
-<h3>Try It Yourself:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="get-username-and-server-name">
-<h3><strong>1. Get username and server name:</strong><a class="headerlink" href="#get-username-and-server-name" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-whoami
-hostname
-research-server-01
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id11">
-<h3>Try It Yourself:<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="display-utc-time">
-<h3><strong>2. Display UTC time:</strong><a class="headerlink" href="#display-utc-time" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-date -u
-Tue Nov 11 11:54:02 UTC 2025
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id12">
-<h3>Try It Yourself:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="review-history">
-<h3><strong>4. Review history:</strong><a class="headerlink" href="#review-history" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-history
-1  whoami
-2  hostname
-3  date -u
-4  history
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id13">
-<h3>Try It Yourself:<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="check-server-uptime-and-load">
-<h3><strong>1. Check server uptime and load:</strong><a class="headerlink" href="#check-server-uptime-and-load" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-uptime
-07:10:15 up 10 days,  3:15,  2 users,  load average: 0.15, 0.05, 0.01
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id14">
-<h3>Try It Yourself:<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="check-who-is-logged-in">
-<h3><strong>2. Check who is logged in:</strong><a class="headerlink" href="#check-who-is-logged-in" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-who
-analyst2 pts/1    2025-11-11 07:09 (10.0.1.25)
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id15">
-<h3>Try It Yourself:<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="open-the-manual-no-output-shown">
-<h3><strong>1. Open the manual (no output shown):</strong><a class="headerlink" href="#open-the-manual-no-output-shown" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-man date
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id16">
-<h3>Try It Yourself:<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="construct-and-run-the-command">
-<h3><strong>3. Construct and run the command:</strong><a class="headerlink" href="#construct-and-run-the-command" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-date +%Y-%m-%d
-2025-11-11
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id17">
-<h3>Try It Yourself:<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
-<p>Modify the code above or write your own version:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-# TODO: Write your bash commands here
-# Hint: Try modifying the example above
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<div class="toctree-wrapper compound">
-</div>
-</section>
+
 
     <script type="text/x-thebe-config">
     {

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -181,9 +181,10 @@
 <li class="toctree-l1"><a class="reference internal" href="6.6_files_%28grep_find%29.html">6.6 (grep Find)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6.7 Redirection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.1_and_running_bash_scripts.html">7.1 Running Bash Scripts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> 7.2 Automating Task with Bash Scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.2_bash.html"> </a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.3_line_arguments.html">7.3 Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7.4_processing_%28awk_sed_cut%29.html">7.4 Processing with (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.6_processing_%28awk_sed_cut%29.html">7.6 (awk Sed Cut)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.7_scripts_for_bioinformatics_workflows.html">7.7 For Bioinformatics Workflows</a></li>
 </ul>
 
     </div>
@@ -467,6 +468,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create the lab results CSV
+echo -e "PatientID,TestName,Value,Unit,ReferenceRange,Timestamp\nPT001234,Glucose,98,mg/dL,70-100,2024-11-11T08:05:00Z\nPT001234,HbA1c,5.8,%,4.0-5.6,2024-11-11T08:05:00Z\nPT001234,Cholesterol,195,mg/dL,<200,2024-11-11T08:05:00Z\nPT001234,WBC,6.5,x10^9/L,4.5-11.0,2024-11-11T08:05:00Z" | tee PT001234_labs.csv
+# Create a vitals alert log to demo redirection
+echo -e "2024-11-11T08:10:00Z INFO Normal sinus rhythm\n2024-11-11T08:15:00Z ALERT Hypoglycemia detected - Glucose 55 mg/dL\n2024-11-11T08:20:00Z ALERT Tachycardia detected - HR 120 bpm\n2024-11-11T08:25:00Z INFO Blood pressure within normal limits\n2024-11-11T08:30:00Z ALERT Hypoglycemia detected - Glucose 60 mg/dL\n2024-11-11T08:35:00Z ALERT Tachycardia detected - HR 115 bpm" | tee vitals_alerts.log
 # Overwrite a file with new output from a vitals log
 grep &quot;Hypoglycemia&quot; vitals_alerts.log &gt; critical_alerts.txt
 # Append more data to the same file
@@ -500,6 +505,9 @@ grep &quot;Tachycardia&quot; vitals_alerts.log &gt;&gt; critical_alerts.txt
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+# Create the input files
+echo -e "BRCA1\nTP53\nEGFR\nMYC\nKRAS" | tee gene_list.txt
+echo -e "PatientID,Name,Age,Diagnosis\nPT001,Alice,45,Diabetes\nPT002,Bob,60,Hypertension\nPT003,Carol,33,Asthma" | tee patient_data.csv
 # Redirect stdin from a file to the sort command
 sort &lt; gene_list.txt &gt; gene_list_sorted.txt
 # Redirect stdout and stderr to separate files
@@ -532,7 +540,11 @@ While <code class="docutils literal notranslate"><span class="pre">&lt;</span></
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
 # Find, sort, and count unique critical entries
+echo -e "PatientID,Metric,Value,Status,Timestamp\nPT001234,HR,120,CRITICAL,2024-11-11T08:05:00Z\nPT001234,BP,90/60,CRITICAL,2024-11-11T08:10:00Z\nPT005678,HR,75,NORMAL,2024-11-12T09:15:00Z\nPT005678,SpO2,88,CRITICAL,2024-11-12T09:20:00Z\nPT009012,HR,130,CRITICAL,2024-11-13T07:30:00Z\nPT009012,BP,90/60,CRITICAL,2024-11-13T07:35:00Z\nPT001234,HR,120,CRITICAL,2024-11-11T08:05:00Z" | tee patient_vitals.csv
 grep &quot;CRITICAL&quot; patient_vitals.csv | sort | uniq &gt; critical_unique.log
+# Print only unique values
+echo -e "\n-------------Unique values-------------"
+cat critical_unique.log
 </pre></div>
 </div>
 </div>
