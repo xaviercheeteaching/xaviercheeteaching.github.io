@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHM5013 Peer Evaluation</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1A1A2E;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        /* ── Banner ── */
+        .banner {
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 50%, #3498DB 100%);
+            border-radius: 12px;
+            padding: 36px 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 32px rgba(10, 77, 143, 0.22);
+        }
+        .banner h1 {
+            color: #fff;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+        .banner p {
+            color: #E8F4F8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px 36px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0A4D8F;
+            margin-bottom: 6px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498DB;
+            display: inline-block;
+        }
+
+        .section-desc {
+            color: #4A5568;
+            font-size: 0.9rem;
+            margin: 10px 0 20px;
+        }
+
+        /* ── Form Elements ── */
+        label.field-label {
+            display: block;
+            font-weight: 600;
+            color: #1A1A2E;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        select, textarea, input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d1dce6;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #1A1A2E;
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+        select:focus, textarea:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #1B74BD;
+            box-shadow: 0 0 0 3px rgba(27, 116, 189, 0.12);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+
+        /* ── Peer Card ── */
+        .peer-card {
+            background: #f7fafc;
+            border-left: 4px solid #1B74BD;
+            border-radius: 0 10px 10px 0;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+        }
+        .peer-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0A4D8F;
+            margin-bottom: 16px;
+        }
+
+        /* ── Rating Grid ── */
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .rating-label {
+            flex: 0 0 200px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1A1A2E;
+        }
+        .rating-options {
+            display: flex;
+            gap: 4px;
+            flex: 1;
+        }
+        .rating-options input[type="radio"] { display: none; }
+        .rating-options label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 2px solid #d1dce6;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #4A5568;
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+        }
+        .rating-options label:hover {
+            border-color: #1B74BD;
+            background: #E8F4F8;
+            color: #0A4D8F;
+        }
+        .rating-options input[type="radio"]:checked + label {
+            background: #0A4D8F;
+            border-color: #0A4D8F;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(10, 77, 143, 0.3);
+        }
+        .rating-scale-hint {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+            font-size: 0.75rem;
+            color: #4A5568;
+            margin-top: -6px;
+            padding: 0 4px;
+        }
+
+        /* ── Info Box ── */
+        .info-box {
+            background: #E8F4F8;
+            border-left: 4px solid #1B74BD;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.88rem;
+            color: #1A1A2E;
+        }
+
+        /* ── Buttons ── */
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+            color: #fff;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(10, 77, 143, 0.25);
+            letter-spacing: 0.3px;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(10, 77, 143, 0.35);
+        }
+        .btn-submit:active { transform: translateY(0); }
+        .btn-submit:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ── Status Messages ── */
+        .status-msg {
+            text-align: center;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 16px;
+            font-weight: 600;
+            display: none;
+        }
+        .status-msg.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        .status-msg.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        /* ── Hidden ── */
+        .hidden { display: none; }
+
+        /* ── Confirmation Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #fff;
+            border-radius: 12px;
+            max-width: 560px;
+            width: 100%;
+            padding: 36px 36px 28px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-box h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0A4D8F;
+            margin-bottom: 16px;
+        }
+        .modal-box p {
+            font-size: 0.9rem;
+            color: #1A1A2E;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .modal-buttons button {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-modal-cancel {
+            background: #f0f4f8;
+            color: #4A5568;
+        }
+        .btn-modal-cancel:hover {
+            background: #e2e8f0;
+        }
+        .btn-modal-confirm {
+            background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(10, 77, 143, 0.25);
+        }
+        .btn-modal-confirm:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(10, 77, 143, 0.35);
+        }
+
+        /* ── PAM Sliders ── */
+        .pam-member {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: #f7fafc;
+            border-left: 4px solid #1B74BD;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .pam-member.is-self { border-left-color: #EF7C00; }
+        .pam-member-name {
+            flex: 0 0 180px;
+            font-weight: 600;
+            color: #1A1A2E;
+            font-size: 0.95rem;
+        }
+        .pam-member-name .self-tag {
+            display: inline-block;
+            background: #EF7C00;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .pam-slider-wrap {
+            flex: 1;
+            min-width: 160px;
+        }
+        input[type="range"].pam-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            outline: none;
+            cursor: pointer;
+        }
+        input[type="range"].pam-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #0A4D8F;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(10, 77, 143, 0.35);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        input[type="range"].pam-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        input[type="range"].pam-slider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #0A4D8F;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(10, 77, 143, 0.35);
+            cursor: pointer;
+        }
+        .pam-value {
+            flex: 0 0 64px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0A4D8F;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .container { padding: 20px 12px 40px; }
+            .banner { padding: 24px 20px; }
+            .banner h1 { font-size: 1.35rem; }
+            .card { padding: 20px 18px; }
+            .peer-card { padding: 18px 16px; }
+            .rating-label { flex: 0 0 100%; }
+            .rating-options label { width: 32px; height: 32px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>PHM5013 Peer Evaluation</h1>
+        <p>Confidential assessment of each team member's contribution to the group project. Your responses are visible only to the course coordinator. All sections are compulsory.</p>
+    </div>
+
+    <!-- Login Section -->
+    <div class="card" id="login-section">
+        <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:6px;">
+            <div class="section-title" style="margin-bottom:0;">Login</div>
+            <span style="background:#dc3545; color:#fff; font-size:0.72rem; font-weight:700; padding:2px 10px; border-radius:20px;">Required</span>
+        </div>
+        <p class="section-desc">Enter your credentials to access the peer evaluation form. Your identity will be verified against the course roster.</p>
+
+        <label class="field-label" for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="e.g. yourname@u.nus.edu" style="margin-bottom: 16px;">
+
+        <label class="field-label" for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password" style="margin-bottom: 20px;">
+
+        <button class="btn-submit" id="btn-login" onclick="handleLogin()">Login</button>
+        <div class="status-msg" id="login-status"></div>
+    </div>
+
+    <!-- Main Form (hidden until login) -->
+    <div id="main-form" class="hidden">
+
+    <!-- Step 1: Identity (auto-filled and locked after login) -->
+    <div class="card" id="step-identity">
+        <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:6px;">
+            <div class="section-title" style="margin-bottom:0;">Your Identity</div>
+            <span style="background:#dc3545; color:#fff; font-size:0.72rem; font-weight:700; padding:2px 10px; border-radius:20px;">Required</span>
+        </div>
+        <p class="section-desc">Your identity has been verified via login. Your teammates are identified automatically.</p>
+
+        <label class="field-label" for="student-select">Your Name</label>
+        <select id="student-select">
+            <option value="">— Select your name —</option>
+        </select>
+
+        <div class="info-box" id="group-info" style="margin-top: 16px; display: none;">
+            You belong to <strong id="group-label"></strong>. You will evaluate: <strong id="teammates-label"></strong>
+        </div>
+    </div>
+
+    <!-- Step 2: Evaluations (generated dynamically) -->
+    <div id="evaluations-container" class="hidden"></div>
+
+    <!-- Step 3: Peer Allocation of Marks -->
+    <div id="pam-section" class="card hidden">
+        <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:6px;">
+            <div class="section-title" style="margin-bottom:0;">Peer Allocation of Marks</div>
+            <span style="background:#dc3545; color:#fff; font-size:0.72rem; font-weight:700; padding:2px 10px; border-radius:20px;">Required</span>
+        </div>
+        <p class="section-desc">Rate each team member's contribution to the project on a scale of <strong>0 to 100</strong> (including yourself), where 100 represents full contribution. Each member's scores will be averaged across all evaluators to produce a scaling factor (out of 100) applied directly to the group mark.</p>
+
+        <!-- Worked Example -->
+        <div style="background:#E8F4F8; border-left:4px solid #1B74BD; border-radius:0 10px 10px 0; padding:22px 26px; margin-bottom:24px;">
+            <div style="font-weight:700; color:#0A4D8F; font-size:1rem; margin-bottom:14px;">Worked Example: How Your Allocation Affects Marks</div>
+            <div style="font-size:0.9rem; color:#1A1A2E; line-height:1.7;">
+                Suppose your group scores <strong>85 / 100</strong> on the project. Each evaluator (including self) rates every member's contribution from 0 to 100. The <strong>scaling factor</strong> for each member is their average PAM score divided by 100.
+            </div>
+
+            <!-- Table -->
+            <table style="width:100%; border-collapse:collapse; margin:16px 0; font-size:0.88rem;">
+                <thead>
+                    <tr style="background:#0A4D8F; color:#fff;">
+                        <th style="padding:10px 14px; text-align:left; border-radius:6px 0 0 0;">Member</th>
+                        <th style="padding:10px 14px; text-align:center;">Avg Contribution Score</th>
+                        <th style="padding:10px 14px; text-align:center;">Scaling Factor</th>
+                        <th style="padding:10px 14px; text-align:center;">Calculation</th>
+                        <th style="padding:10px 14px; text-align:center; border-radius:0 6px 0 0;">Final Mark</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#fff;">
+                        <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0;">Alice</td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0; font-weight:600;">93</td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0;">93 / 100 = <strong>0.93</strong></td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0;">85 × 0.93</td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0; font-weight:700; color:#0A4D8F;">79</td>
+                    </tr>
+                    <tr style="background:#f7fafc;">
+                        <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0;">Bob</td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0; font-weight:600;">70</td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0;">70 / 100 = <strong>0.70</strong></td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0;">85 × 0.70</td>
+                        <td style="padding:10px 14px; text-align:center; border-bottom:1px solid #e2e8f0; font-weight:700; color:#EF7C00;">60</td>
+                    </tr>
+                    <tr style="background:#fff;">
+                        <td style="padding:10px 14px;">Carol</td>
+                        <td style="padding:10px 14px; text-align:center; font-weight:600;">40</td>
+                        <td style="padding:10px 14px; text-align:center;">40 / 100 = <strong>0.40</strong></td>
+                        <td style="padding:10px 14px; text-align:center;">85 × 0.40</td>
+                        <td style="padding:10px 14px; text-align:center; font-weight:700; color:#dc3545;">34</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="font-size:0.85rem; color:#4A5568; line-height:1.6; margin-top:8px;">
+                A score of <strong>100</strong> means the member contributed fully and receives the full group mark. Lower scores reduce the final mark proportionally. For example, an average contribution score of 70 means the member receives 70% of the group mark.
+            </div>
+        </div>
+
+        <!-- Sliders generated dynamically -->
+        <div id="pam-sliders"></div>
+
+        <!-- Equal distribution warning with confirmation -->
+        <div id="pam-equal-warning" style="
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 0 8px 8px 0;
+            padding: 18px 22px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: #856404;
+            display: none;
+        ">
+            <div style="font-weight: 600; margin-bottom: 10px;">
+                Are you sure all contributions were equal?
+            </div>
+            <div style="line-height: 1.6; margin-bottom: 14px;">
+                Equal point allocation is uncommon. In most teams, members contribute differently across research, writing, analysis, and coordination. Please reconsider whether your allocation truly reflects each person's contribution.
+            </div>
+            <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-weight: 600; user-select: none;">
+                <input type="checkbox" id="pam-equal-confirm" style="
+                    margin-top: 3px;
+                    width: 18px;
+                    height: 18px;
+                    accent-color: #EF7C00;
+                    cursor: pointer;
+                    flex-shrink: 0;
+                ">
+                <span>I confirm that all team members contributed equally to this project.</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Step 4: Overall Comments -->
+    <div id="overall-section" class="card hidden">
+        <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:6px;">
+            <div class="section-title" style="margin-bottom:0;">Overall Reflection</div>
+            <span style="background:#dc3545; color:#fff; font-size:0.72rem; font-weight:700; padding:2px 10px; border-radius:20px;">Required</span>
+        </div>
+        <p class="section-desc">Briefly describe your own contribution to the project.</p>
+        <textarea id="self-reflection" placeholder="Describe your role, key tasks completed, and any challenges faced..."></textarea>
+    </div>
+
+    <!-- Submit -->
+    <div id="submit-section" class="hidden">
+        <button class="btn-submit" id="btn-submit" onclick="submitEvaluation()">Submit Evaluation</button>
+        <div class="status-msg" id="status-msg"></div>
+    </div>
+
+    </div><!-- /main-form -->
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// DATA: Groups and Students
+// ══════════════════════════════════════════════════════════════
+const GROUPS = {
+    "Group 1":  ["Guo Qing", "Dong Yuzhi", "Huang Jiajiani"],
+    "Group 2":  ["Ho Chien Tzu", "Chen Xiaoyang", "Lam Sharon Thyllas"],
+    "Group 3":  ["Ren Guanxi", "Hu Jiakun", "Sirui Luo"],
+    "Group 4":  ["Chong Yoke Sin", "Yong Khee Fui", "Lim En Huey Jerlyn"],
+    "Group 5":  ["Sheng Jie", "Xie Chengzhi", "Lu Yiting"],
+    "Group 6":  ["Danial Haqim", "Liu Yaojia", "Yu Hansheng"],
+    "Group 7":  ["Lu Junlin", "Mao Kexin", "Wang Xianzhe"],
+    "Group 8":  ["Kim Hyun Soo", "Yuquan Xu", "Jungwoo Joo"],
+    "Group 9":  ["Tan Rui", "Chen Tao", "Cui Lin"],
+    "Group 10": ["Tan Weng I", "Liang Shi Qi Brian", "Wang Xuanzhe"]
+};
+
+// Rating dimensions
+const DIMENSIONS = [
+    { id: "intellectual",   label: "Intellectual Contribution", desc: "Quality of ideas, analysis, and problem-solving" },
+    { id: "effort",         label: "Effort & Reliability",     desc: "Consistency, meeting deadlines, doing fair share" },
+    { id: "communication",  label: "Communication",            desc: "Responsiveness, clarity, collaboration in discussions" },
+    { id: "quality",        label: "Quality of Deliverables",  desc: "Standard of written work, code, or outputs produced" }
+];
+
+// ══════════════════════════════════════════════════════════════
+// POWER AUTOMATE WEBHOOK URLS
+// ══════════════════════════════════════════════════════════════
+// Replace with your actual Power Automate HTTP trigger URLs
+const WEBHOOK_URL = "https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c448dac92c964fe19fbb8cd7522e10cc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3FEgaF_8F60wcJAnay1Wa5wP8whhnWbdUnsnIXnwIvk";
+const LOGIN_WEBHOOK_URL = "https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c47f204a8860493b92a193260af5a0dd/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=hF5acvTyoxNOxrKdySNv9I6AD9lTC5UPAo4-w8e_p34";
+
+
+// ══════════════════════════════════════════════════════════════
+// LOGIN: Authenticate via Power Automate → Excel lookup
+// ══════════════════════════════════════════════════════════════
+async function handleLogin() {
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    const statusEl = document.getElementById("login-status");
+    const btn = document.getElementById("btn-login");
+
+    if (!email || !password) {
+        statusEl.className = "status-msg error";
+        statusEl.textContent = "Please enter both email and password.";
+        statusEl.style.display = "block";
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Verifying...";
+    statusEl.style.display = "none";
+
+    try {
+        const resp = await fetch(LOGIN_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (!resp.ok) throw new Error("auth_failed");
+
+        const data = await resp.json();
+        const studentId = data.studentId;
+
+        if (!studentId) throw new Error("no_student_id");
+
+        // Match StudentID to a name in GROUPS
+        let matched = null;
+        for (const [group, members] of Object.entries(GROUPS)) {
+            for (const name of members) {
+                if (name === studentId) {
+                    matched = { group, name };
+                    break;
+                }
+            }
+            if (matched) break;
+        }
+
+        if (!matched) {
+            statusEl.className = "status-msg error";
+            statusEl.textContent = "Your account was verified but your Student ID does not match any student in the course roster. Please contact the course coordinator.";
+            statusEl.style.display = "block";
+            btn.disabled = false;
+            btn.textContent = "Login";
+            return;
+        }
+
+        // Auto-select the student in the dropdown
+        const sel = document.getElementById("student-select");
+        const targetValue = JSON.stringify(matched);
+        for (const opt of sel.options) {
+            if (opt.value === targetValue) {
+                opt.selected = true;
+                break;
+            }
+        }
+
+        // Lock the dropdown
+        sel.disabled = true;
+
+        // Trigger the selection event to build evaluation cards
+        onStudentSelected();
+
+        // Hide login, show main form
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("main-form").classList.remove("hidden");
+
+        // Show identity confirmation
+        document.getElementById("group-info").style.display = "block";
+        document.getElementById("group-label").textContent = matched.group;
+        const teammates = GROUPS[matched.group].filter(m => m !== matched.name);
+        document.getElementById("teammates-label").textContent = teammates.join(" and ");
+
+    } catch (err) {
+        statusEl.className = "status-msg error";
+        statusEl.textContent = "Login failed. Please check your email and password.";
+        statusEl.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Login";
+    }
+}
+
+// ══════════════════════════════════════════════════════════════
+// INITIALISE: Populate student dropdown
+// ══════════════════════════════════════════════════════════════
+(function init() {
+    const sel = document.getElementById("student-select");
+    for (const [group, members] of Object.entries(GROUPS)) {
+        const optgroup = document.createElement("optgroup");
+        optgroup.label = group;
+        members.forEach(name => {
+            const opt = document.createElement("option");
+            opt.value = JSON.stringify({ group, name });
+            opt.textContent = name;
+            optgroup.appendChild(opt);
+        });
+        sel.appendChild(optgroup);
+    }
+    sel.addEventListener("change", onStudentSelected);
+
+    // Enter key triggers login
+    document.getElementById("login-password").addEventListener("keydown", function(e) {
+        if (e.key === "Enter") handleLogin();
+    });
+    document.getElementById("login-email").addEventListener("keydown", function(e) {
+        if (e.key === "Enter") document.getElementById("login-password").focus();
+    });
+})();
+
+// ══════════════════════════════════════════════════════════════
+// EVENT: Student selected → build peer evaluation cards
+// ══════════════════════════════════════════════════════════════
+function onStudentSelected() {
+    const sel = document.getElementById("student-select");
+    if (!sel.value) {
+        document.getElementById("group-info").style.display = "none";
+        document.getElementById("evaluations-container").classList.add("hidden");
+        document.getElementById("pam-section").classList.add("hidden");
+        document.getElementById("overall-section").classList.add("hidden");
+        document.getElementById("submit-section").classList.add("hidden");
+        return;
+    }
+
+    const { group, name } = JSON.parse(sel.value);
+    const teammates = GROUPS[group].filter(m => m !== name);
+
+    // Show group info
+    document.getElementById("group-label").textContent = group;
+    document.getElementById("teammates-label").textContent = teammates.join(" and ");
+    document.getElementById("group-info").style.display = "block";
+
+    // Build evaluation cards
+    const container = document.getElementById("evaluations-container");
+    container.innerHTML = "";
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+        <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px;">
+            <div class="section-title" style="margin-bottom:0;">Teammate Evaluations</div>
+            <span style="background:#dc3545; color:#fff; font-size:0.72rem; font-weight:700; padding:2px 10px; border-radius:20px;">Required</span>
+        </div>
+        <p class="section-desc">Rate each teammate on a scale of 1 (poor) to 10 (excellent) across four dimensions. Provide a brief justification for each. These ratings serve as qualitative evidence to support your Peer Allocation of Marks below.</p>
+    `;
+
+    teammates.forEach((peer, pi) => {
+        const peerDiv = document.createElement("div");
+        peerDiv.className = "peer-card";
+        peerDiv.setAttribute("data-peer", peer);
+
+        let ratingsHTML = "";
+        DIMENSIONS.forEach(dim => {
+            const radioName = `peer${pi}_${dim.id}`;
+            let optionsHTML = "";
+            for (let v = 1; v <= 10; v++) {
+                optionsHTML += `<input type="radio" name="${radioName}" id="${radioName}_${v}" value="${v}"><label for="${radioName}_${v}">${v}</label>`;
+            }
+            ratingsHTML += `
+                <div class="rating-row">
+                    <span class="rating-label">${dim.label}</span>
+                    <div class="rating-options">${optionsHTML}</div>
+                </div>
+            `;
+        });
+
+        // Scale hint (shown once under first dimension row)
+        const scaleHint = `
+            <div style="display:flex; gap:12px; margin-bottom:18px; flex-wrap:wrap;">
+                <span style="flex:0 0 200px;"></span>
+                <div class="rating-scale-hint">
+                    <span>1 = Poor</span>
+                    <span>5 = Average</span>
+                    <span>10 = Excellent</span>
+                </div>
+            </div>
+        `;
+
+        peerDiv.innerHTML = `
+            <div class="peer-name">${peer}</div>
+            ${scaleHint}
+            ${ratingsHTML}
+            <label class="field-label" style="margin-top: 12px;">Justification</label>
+            <textarea class="peer-justification" placeholder="Briefly explain your ratings for ${peer}..." data-peer="${peer}"></textarea>
+        `;
+        card.appendChild(peerDiv);
+    });
+
+    container.appendChild(card);
+    container.classList.remove("hidden");
+
+    // ── Build PAM sliders ──
+    const allMembers = GROUPS[group]; // includes self
+    const pamContainer = document.getElementById("pam-sliders");
+    pamContainer.innerHTML = "";
+
+    allMembers.forEach((member, i) => {
+        const isSelf = member === name;
+        const div = document.createElement("div");
+        div.className = "pam-member" + (isSelf ? " is-self" : "");
+        div.innerHTML = `
+            <div class="pam-member-name">
+                ${member}${isSelf ? '<span class="self-tag">YOU</span>' : ''}
+            </div>
+            <div class="pam-slider-wrap">
+                <input type="range" class="pam-slider" id="pam-slider-${i}" min="0" max="100" value="80" step="5"
+                       data-member="${member}" oninput="updatePAM()">
+                <div id="pam-hint-${i}" style="font-size:0.75rem; color:#4A5568; margin-top:4px; min-height:1.1em;"></div>
+            </div>
+            <div class="pam-value" id="pam-val-${i}">80</div>
+        `;
+        pamContainer.appendChild(div);
+    });
+
+    document.getElementById("pam-section").classList.remove("hidden");
+    updatePAM();
+
+    document.getElementById("overall-section").classList.remove("hidden");
+    document.getElementById("submit-section").classList.remove("hidden");
+
+    // Reset status
+    const statusEl = document.getElementById("status-msg");
+    statusEl.className = "status-msg";
+    statusEl.style.display = "none";
+}
+
+// ══════════════════════════════════════════════════════════════
+// PAM: Real-time budget tracking
+// ══════════════════════════════════════════════════════════════
+const PAM_MAX = 100;
+
+function updatePAM() {
+    const sliders = document.querySelectorAll(".pam-slider");
+
+    sliders.forEach((slider, i) => {
+        const val = parseInt(slider.value);
+        const valEl = document.getElementById(`pam-val-${i}`);
+        const hintEl = document.getElementById(`pam-hint-${i}`);
+        valEl.textContent = val;
+
+        // Color feedback
+        if (val === 0) {
+            valEl.style.color = "#dc3545";
+            hintEl.textContent = "This member would receive 0 marks";
+            hintEl.style.color = "#dc3545";
+        } else if (val < 50) {
+            const factor = (val / PAM_MAX).toFixed(2);
+            valEl.style.color = "#dc3545";
+            hintEl.textContent = `Scaling factor: ${factor} — receives ${val}% of group mark`;
+            hintEl.style.color = "#dc3545";
+        } else if (val < PAM_MAX) {
+            const factor = (val / PAM_MAX).toFixed(2);
+            valEl.style.color = val < 70 ? "#EF7C00" : "#0A4D8F";
+            hintEl.textContent = `Scaling factor: ${factor} — receives ${val}% of group mark`;
+            hintEl.style.color = "#4A5568";
+        } else {
+            valEl.style.color = "#0A4D8F";
+            hintEl.textContent = "Full contribution — receives 100% of group mark";
+            hintEl.style.color = "#28a745";
+        }
+    });
+
+    // Check equal distribution → show warning with confirmation
+    const values = Array.from(sliders).map(s => parseInt(s.value));
+    const allEqual = values.every(v => v === values[0]);
+    const equalWarning = document.getElementById("pam-equal-warning");
+
+    if (allEqual) {
+        equalWarning.style.display = "block";
+    } else {
+        equalWarning.style.display = "none";
+        const cb = document.getElementById("pam-equal-confirm");
+        if (cb) cb.checked = false;
+    }
+}
+
+// ══════════════════════════════════════════════════════════════
+// SUBMIT: Validate → Show Confirmation → POST to Power Automate
+// ══════════════════════════════════════════════════════════════
+let pendingPayload = null;
+
+function submitEvaluation() {
+    const sel = document.getElementById("student-select");
+    if (!sel.value) return;
+
+    const { group, name: evaluator } = JSON.parse(sel.value);
+    const teammates = GROUPS[group].filter(m => m !== evaluator);
+    const statusEl = document.getElementById("status-msg");
+
+    // ── Validate: all ratings filled ──
+    let valid = true;
+    const evaluations = [];
+
+    teammates.forEach((peer, pi) => {
+        const entry = { peer };
+        DIMENSIONS.forEach(dim => {
+            const radioName = `peer${pi}_${dim.id}`;
+            const checked = document.querySelector(`input[name="${radioName}"]:checked`);
+            if (!checked) { valid = false; }
+            entry[dim.id] = checked ? parseInt(checked.value) : null;
+        });
+        const justArea = document.querySelector(`.peer-justification[data-peer="${peer}"]`);
+        entry.justification = justArea ? justArea.value.trim() : "";
+        if (!entry.justification) { valid = false; }
+        evaluations.push(entry);
+    });
+
+    const selfReflection = document.getElementById("self-reflection").value.trim();
+    if (!selfReflection) valid = false;
+
+    if (!valid) {
+        statusEl.className = "status-msg error";
+        statusEl.textContent = "Please complete all ratings, justifications, and your self-reflection before submitting.";
+        statusEl.style.display = "block";
+        return;
+    }
+
+    // ── Validate: PAM allocation ──
+    const pamSliders = document.querySelectorAll(".pam-slider");
+    const pamValues = Array.from(pamSliders).map(s => ({
+        member: s.dataset.member,
+        points: parseInt(s.value)
+    }));
+    const pamAllEqual = pamValues.every(v => v.points === pamValues[0].points);
+
+    if (pamAllEqual) {
+        const confirmed = document.getElementById("pam-equal-confirm").checked;
+        if (!confirmed) {
+            statusEl.className = "status-msg error";
+            statusEl.textContent = "You have rated all members equally. Please tick the confirmation checkbox to acknowledge this, or adjust your scores.";
+            statusEl.style.display = "block";
+            document.getElementById("pam-equal-warning").scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+    }
+
+    // ── Build payload and store for confirmation ──
+    pendingPayload = {
+        timestamp: new Date().toISOString(),
+        evaluator: evaluator,
+        group: group,
+        self_reflection: selfReflection,
+        pam_equal_override: pamAllEqual,
+        pam: pamValues,
+        evaluations: evaluations.map(ev => ({
+            peer: ev.peer,
+            intellectual: ev.intellectual,
+            effort: ev.effort,
+            communication: ev.communication,
+            quality: ev.quality,
+            total: ev.intellectual + ev.effort + ev.communication + ev.quality,
+            justification: ev.justification
+        }))
+    };
+
+    // Show confirmation modal
+    document.getElementById("confirm-modal").classList.add("active");
+}
+
+function closeConfirmModal() {
+    document.getElementById("confirm-modal").classList.remove("active");
+    pendingPayload = null;
+}
+
+async function confirmSubmit() {
+    if (!pendingPayload) return;
+
+    // Close modal immediately
+    document.getElementById("confirm-modal").classList.remove("active");
+
+    const statusEl = document.getElementById("status-msg");
+    const btn = document.getElementById("btn-submit");
+
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
+
+    try {
+        const resp = await fetch(WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(pendingPayload)
+        });
+
+        if (resp.ok) {
+            statusEl.className = "status-msg success";
+            statusEl.textContent = "Evaluation submitted successfully. Thank you!";
+            statusEl.style.display = "block";
+            btn.textContent = "Submitted";
+            // Disable form to prevent double submission
+            document.getElementById("student-select").disabled = true;
+            document.querySelectorAll("input, textarea").forEach(el => el.disabled = true);
+        } else {
+            throw new Error("Server returned " + resp.status);
+        }
+    } catch (err) {
+        statusEl.className = "status-msg error";
+        statusEl.textContent = "Submission failed. Please try again or contact the course coordinator.";
+        statusEl.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Submit Evaluation";
+    }
+
+    pendingPayload = null;
+}
+</script>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="confirm-modal" onclick="if(event.target===this)closeConfirmModal()">
+    <div class="modal-box">
+        <h3>Before You Submit</h3>
+        <p>By submitting this evaluation, you acknowledge and agree to the following:</p>
+        <div style="background:#E8F4F8; border-left:4px solid #1B74BD; border-radius:0 8px 8px 0; padding:18px 22px; margin:16px 0; font-size:0.88rem; color:#1A1A2E; line-height:1.7;">
+            Your peer evaluation responses will be treated as <strong>confidential</strong> and reviewed only by the course coordinator(s). To ensure a fair and accurate assessment for every student, the course coordinator(s) reserve the right to review, moderate, and adjust how peer evaluation data is used in determining final marks — including modifying the weighting of individual components. Any such adjustments will be applied consistently across all groups and students, guided solely by principles of academic fairness.
+        </div>
+        <p style="color:#4A5568; font-size:0.85rem;">This evaluation cannot be edited after submission.</p>
+        <div class="modal-buttons">
+            <button class="btn-modal-cancel" onclick="closeConfirmModal()">Go Back</button>
+            <button class="btn-modal-confirm" onclick="confirmSubmit()">I Agree &amp; Submit</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
