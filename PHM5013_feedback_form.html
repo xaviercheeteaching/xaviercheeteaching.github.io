@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHM5013 Student Feedback</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #F5F8FB;
+    color: #1A1A2E;
+    line-height: 1.65;
+  }
+
+  /* ==========  STICKY PROGRESS BAR  ========== */
+  .sticky-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+    color: #FFFFFF;
+    padding: 14px 20px 10px 20px;
+    box-shadow: 0 4px 14px rgba(10, 77, 143, 0.25);
+  }
+  .sticky-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sticky-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sticky-title {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+  }
+  .sticky-meta {
+    font-size: 13px;
+    color: #E8F4F8;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .sticky-meta strong { color: #FFFFFF; font-weight: 600; }
+  .progress-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.20);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FFFFFF 0%, #E8F4F8 100%);
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ==========  LAYOUT (navigator + content)  ========== */
+  .layout {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+    padding: 24px 20px 80px 20px;
+    align-items: start;
+  }
+  .navigator {
+    position: sticky;
+    top: 88px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 14px 10px;
+    box-shadow: 0 2px 8px rgba(10, 77, 143, 0.06);
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+  }
+  .navigator-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #4A5568;
+    text-transform: uppercase;
+    padding: 4px 10px 10px 10px;
+    margin: 0;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    color: #1A1A2E;
+    text-align: left;
+    transition: background 0.15s ease;
+  }
+  .nav-item:hover { background: #E8F4F8; }
+  .nav-item.active { background: #E8F4F8; color: #0A4D8F; font-weight: 600; }
+  .nav-status {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #C9D6E2;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1;
+  }
+  .nav-status.in-progress {
+    border-color: #1B74BD;
+    background: #FFFFFF;
+  }
+  .nav-status.in-progress::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1B74BD;
+  }
+  .nav-status.complete {
+    border-color: #28a745;
+    background: #28a745;
+  }
+  .nav-status.complete::after {
+    content: "\2713";
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .nav-num { color: #4A5568; font-size: 12px; font-weight: 600; }
+  .nav-item.active .nav-num { color: #0A4D8F; }
+  .nav-toggle {
+    display: none;
+  }
+
+  .content { min-width: 0; }
+
+  /* ==========  SECTIONS (collapsible)  ========== */
+  .section {
+    background: #FFFFFF;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(10, 77, 143, 0.06);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+  .section.is-open { box-shadow: 0 6px 18px rgba(10, 77, 143, 0.12); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 18px 26px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    border-left: 5px solid #1B74BD;
+    transition: background 0.15s ease;
+  }
+  .section-header:hover { background: #F5F8FB; }
+  .section.is-complete .section-header { border-left-color: #28a745; }
+  .section.is-open .section-header {
+    background: #F5F8FB;
+    border-bottom: 1px solid #E5ECF2;
+  }
+  .section-status {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #C9D6E2;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4A5568;
+  }
+  .section.is-complete .section-status {
+    border-color: #28a745;
+    background: #28a745;
+    color: #FFFFFF;
+  }
+  .section.is-complete .section-status::before { content: "\2713"; }
+  .section:not(.is-complete) .section-status::before {
+    content: attr(data-num);
+    color: #4A5568;
+  }
+  .section-title-block {
+    flex: 1;
+    min-width: 0;
+  }
+  .section-title {
+    font-size: 19px;
+    font-weight: 600;
+    color: #0A4D8F;
+    margin: 0;
+    line-height: 1.3;
+  }
+  .section-subtitle {
+    font-size: 13px;
+    color: #4A5568;
+    margin: 2px 0 0 0;
+  }
+  .section-chevron {
+    flex: 0 0 auto;
+    color: #4A5568;
+    font-size: 18px;
+    transition: transform 0.25s ease;
+    line-height: 1;
+  }
+  .section.is-open .section-chevron { transform: rotate(180deg); color: #0A4D8F; }
+
+  .section-body {
+    display: none;
+    padding: 6px 30px 26px 30px;
+    animation: fadeIn 0.3s ease;
+  }
+  .section.is-open .section-body { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ==========  QUESTIONS  ========== */
+  .question { margin: 22px 0 6px 0; }
+  .qlabel {
+    font-weight: 600;
+    color: #1A1A2E;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 15px;
+  }
+  .qhint {
+    color: #4A5568;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* ==========  SLIDER RATING (single, full-size)  ========== */
+  .slider-rating {
+    margin: 8px 0 4px 0;
+    padding: 6px 4px 0 4px;
+  }
+  .slider-scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #4A5568;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .slider-track-wrap {
+    position: relative;
+    padding: 18px 12px 8px 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .slider-track {
+    position: relative;
+    height: 6px;
+    background: #E5ECF2;
+    border-radius: 999px;
+  }
+  .slider-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #1B74BD 0%, #0A4D8F 100%);
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.18s ease;
+  }
+  .slider-fill.empty { background: transparent; }
+  .slider-handle {
+    position: absolute;
+    top: 50%;
+    width: 22px;
+    height: 22px;
+    background: #FFFFFF;
+    border: 3px solid #C9D6E2;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 6px rgba(10, 77, 143, 0.15);
+    transition: transform 0.18s ease, left 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    left: 0%;
+    cursor: grab;
+  }
+  .slider-handle.set {
+    border-color: #0A4D8F;
+    box-shadow: 0 2px 6px rgba(10, 77, 143, 0.3);
+  }
+  .slider-handle:active { cursor: grabbing; transform: translate(-50%, -50%) scale(1.15); }
+  .slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+    padding: 0 2px;
+  }
+  .slider-tick {
+    flex: 0 0 24px;
+    text-align: center;
+    font-size: 11px;
+    color: #4A5568;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 2px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+  .slider-tick:hover { background: #E8F4F8; color: #0A4D8F; }
+  .slider-tick.active { color: #0A4D8F; font-weight: 700; }
+
+  .slider-current {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .slider-value-box {
+    background: #E8F4F8;
+    color: #0A4D8F;
+    border: 1.5px solid #1B74BD;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-weight: 600;
+    font-size: 14px;
+    min-width: 60px;
+    text-align: center;
+  }
+  .slider-value-box.empty {
+    background: #FFFFFF;
+    color: #4A5568;
+    border-color: #C9D6E2;
+    border-style: dashed;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .slider-rating.compact {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .slider-rating.compact .slider-track-wrap {
+    flex: 1;
+    padding: 12px 8px 6px 8px;
+    min-width: 120px;
+  }
+  .slider-rating.compact .slider-handle { width: 16px; height: 16px; border-width: 2.5px; }
+  .slider-rating.compact .slider-ticks { display: none; }
+  .slider-rating.compact .slider-current { margin: 0; flex: 0 0 auto; }
+  .slider-rating.compact .slider-value-box { padding: 3px 8px; font-size: 12px; min-width: 36px; }
+  .slider-rating.compact .slider-scale-labels { display: none; }
+
+  /* ==========  MATRIX TABLE  ========== */
+  table.matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 8px 0;
+  }
+  table.matrix th, table.matrix td {
+    padding: 10px 8px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #E5ECF2;
+    font-size: 14px;
+  }
+  table.matrix tbody tr:nth-child(odd) { background: #FAFCFE; }
+  table.matrix tbody tr:hover { background: #F0F7FB; }
+  table.matrix th {
+    background: #E8F4F8;
+    color: #0A4D8F;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  /* ==========  CHOICE ROWS (Q16/Q18)  ========== */
+  .choice-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 6px 0;
+  }
+  .choice-row label {
+    flex: 1 1 200px;
+    border: 1.5px solid #C9D6E2;
+    background: #FFFFFF;
+    padding: 12px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+  .choice-row label:hover { background: #E8F4F8; border-color: #1B74BD; }
+  .choice-row input[type="radio"] { display: none; }
+  .choice-row input[type="radio"]:checked + label {
+    background: #0A4D8F; color: #FFFFFF; border-color: #0A4D8F; font-weight: 600;
+  }
+
+  /* ==========  TEXTAREAS (auto-grow)  ========== */
+  textarea {
+    width: 100%;
+    border: 1.5px solid #C9D6E2;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #1A1A2E;
+    background: #FFFFFF;
+    resize: none;
+    min-height: 44px;
+    overflow: hidden;
+    transition: min-height 0.15s ease, border-color 0.15s ease;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: #1B74BD;
+    box-shadow: 0 0 0 3px rgba(27, 116, 189, 0.15);
+    min-height: 80px;
+  }
+
+  /* ==========  OPTIONAL COMMENTS TOGGLE  ========== */
+  .optional-toggle {
+    display: inline-block;
+    background: none;
+    border: none;
+    color: #1B74BD;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 0;
+    margin-top: 6px;
+    cursor: pointer;
+    border-bottom: 1.5px dashed #1B74BD;
+  }
+  .optional-toggle:hover { color: #0A4D8F; border-bottom-color: #0A4D8F; }
+  .optional-toggle .plus {
+    display: inline-block;
+    width: 14px;
+    text-align: center;
+    margin-right: 4px;
+    font-weight: 700;
+  }
+  .optional-wrap { display: none; margin-top: 10px; }
+  .optional-wrap.open { display: block; }
+
+  /* ==========  CONTINUE BUTTON  ========== */
+  .section-footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px dashed #E5ECF2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
+  }
+  .continue-hint {
+    color: #4A5568;
+    font-size: 13px;
+    font-style: italic;
+  }
+  .continue-btn {
+    background: #FFFFFF;
+    color: #0A4D8F;
+    border: 2px solid #0A4D8F;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .continue-btn:hover { background: #0A4D8F; color: #FFFFFF; }
+  .continue-btn.ready {
+    background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+    color: #FFFFFF;
+    border-color: #0A4D8F;
+    animation: pulseReady 1.6s ease-in-out infinite;
+  }
+  @keyframes pulseReady {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(27, 116, 189, 0.5); }
+    50%      { box-shadow: 0 0 0 10px rgba(27, 116, 189, 0); }
+  }
+
+  /* ==========  SUBMIT BAR  ========== */
+  .submit-bar {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 26px 28px;
+    margin-top: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(10, 77, 143, 0.06);
+  }
+  .submit-btn {
+    background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+    color: #FFFFFF;
+    border: none;
+    padding: 16px 56px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.4px;
+    box-shadow: 0 4px 14px rgba(10, 77, 143, 0.3);
+    transition: all 0.2s ease;
+  }
+  .submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(10, 77, 143, 0.4);
+  }
+  .submit-btn:disabled {
+    background: #C9D6E2;
+    color: #FFFFFF;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+  .submit-note {
+    color: #4A5568;
+    font-size: 13px;
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .submit-warning {
+    color: #856404;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  /* ==========  INTRO MODAL  ========== */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 26, 46, 0.78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .modal-card {
+    background: #FFFFFF;
+    border-radius: 14px;
+    max-width: 640px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  .modal-header {
+    background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+    color: #FFFFFF;
+    padding: 24px 30px;
+  }
+  .modal-header h2 {
+    margin: 0; font-size: 22px; font-weight: 700;
+  }
+  .modal-body {
+    padding: 26px 30px; color: #1A1A2E; font-size: 15px; line-height: 1.7;
+  }
+  .modal-body p { margin: 0 0 14px 0; }
+  .modal-body p:last-child { margin-bottom: 0; }
+  .modal-body strong { color: #0A4D8F; }
+  .modal-footer {
+    padding: 18px 30px 26px 30px; text-align: right; background: #F5F8FB;
+  }
+  .modal-btn {
+    background: linear-gradient(135deg, #0A4D8F 0%, #1B74BD 100%);
+    color: #FFFFFF; border: none;
+    padding: 12px 32px; font-size: 15px; font-weight: 600;
+    border-radius: 8px; cursor: pointer; font-family: inherit;
+  }
+
+  /* ==========  THANK YOU OVERLAY  ========== */
+  .thanks-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(10, 77, 143, 0.95) 0%, rgba(27, 116, 189, 0.95) 100%);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+    animation: fadeInOverlay 0.5s ease;
+  }
+  .thanks-overlay.show { display: flex; }
+  @keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .thanks-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 50px 50px 40px 50px;
+    text-align: center;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.7) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .thanks-check {
+    width: 88px; height: 88px;
+    margin: 0 auto 24px auto;
+    border-radius: 50%;
+    background: #28a745;
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF;
+    font-size: 48px; font-weight: 700;
+    box-shadow: 0 8px 24px rgba(40, 167, 69, 0.4);
+    animation: checkPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  }
+  @keyframes checkPop {
+    from { transform: scale(0) rotate(-180deg); }
+    to   { transform: scale(1) rotate(0); }
+  }
+  .thanks-title {
+    color: #0A4D8F;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+  }
+  .thanks-body {
+    color: #1A1A2E;
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 12px 0;
+  }
+  .thanks-signature {
+    color: #4A5568;
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 24px;
+  }
+  /* Confetti */
+  .confetti {
+    position: absolute;
+    width: 10px; height: 16px;
+    top: -20px;
+    opacity: 0;
+    animation: confettiFall 2.6s ease-in forwards;
+  }
+  @keyframes confettiFall {
+    0%   { opacity: 1; transform: translateY(0) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+  }
+
+  /* ==========  RESTORE TOAST  ========== */
+  .toast {
+    position: fixed;
+    top: 84px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: #1A1A2E;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast .toast-clear {
+    margin-left: 14px;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: #FFFFFF;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    pointer-events: auto;
+  }
+
+  /* ==========  RESPONSIVE  ========== */
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+      padding: 16px 12px 80px 12px;
+    }
+    .navigator {
+      position: relative;
+      top: auto;
+      max-height: none;
+      display: none;
+    }
+    .navigator.open { display: block; }
+    .nav-toggle {
+      display: block;
+      background: #FFFFFF;
+      color: #0A4D8F;
+      border: 1.5px solid #C9D6E2;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    .section-header { padding: 14px 18px; }
+    .section-body { padding: 6px 18px 22px 18px; }
+    .section-title { font-size: 17px; }
+    table.matrix th, table.matrix td { padding: 8px 4px; font-size: 13px; }
+    table.matrix th:nth-child(2), table.matrix th:nth-child(3),
+    table.matrix td:nth-child(2), table.matrix td:nth-child(3) {
+      min-width: 130px;
+    }
+    .slider-rating.compact .slider-track-wrap { min-width: 90px; }
+    .sticky-meta { font-size: 12px; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== INTRO MODAL ===== -->
+<div class="modal-backdrop" id="introModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>Before you begin — a note from the teaching team</h2>
+    </div>
+    <div class="modal-body">
+      <p>This feedback form is <strong>completely anonymous</strong>. We do not collect your name, your email, your student ID, or any device or login information. There is no way for the teaching team to trace any response back to an individual student.</p>
+      <p>Our goal is simple: <strong>we want to make PHM5013 better</strong>. To do that, we need to hear what genuinely worked, what didn't, and what frustrated you. Critical feedback is the most useful thing you can give us — please be candid.</p>
+      <p>Your honesty <strong>will not affect your grade, your standing in the course, or your relationship with any of the lecturers</strong>. The form is only opened after grades are finalised, and lecturers will only see aggregated and anonymised feedback used to improve future iterations of the course.</p>
+      <p>Please write what you really think. We promise to read every response carefully and use it constructively.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn" onclick="dismissIntro()">I understand — begin feedback</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STICKY PROGRESS BAR ===== -->
+<header class="sticky-bar">
+  <div class="sticky-inner">
+    <div class="sticky-row">
+      <div class="sticky-title">PHM5013 Feedback &nbsp;&middot;&nbsp; AY 2025/2026</div>
+      <div class="sticky-meta">
+        <span>Section <strong id="currentSecLabel">1</strong> of <strong>8</strong></span>
+        <span><strong id="completedSecCount">0</strong>/8 sections complete</span>
+        <span id="timeRemainingLabel"></span>
+      </div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="restoreToast">
+  Your previous draft has been restored.
+  <button class="toast-clear" onclick="clearDraftAndReload()">Start over</button>
+</div>
+
+<!-- ===== MAIN LAYOUT ===== -->
+<div class="layout">
+
+  <aside class="navigator" id="navigator">
+    <h3 class="navigator-title">Sections</h3>
+    <div id="navItems"></div>
+  </aside>
+
+  <main class="content">
+
+    <button type="button" class="nav-toggle" onclick="toggleNavigator()">Show sections menu</button>
+
+    <form id="feedbackForm" onsubmit="return submitFeedback(event)">
+
+      <!-- ============ SECTION 1 ============ -->
+      <div class="section" data-section="1">
+        <button type="button" class="section-header" onclick="openSection(1)">
+          <span class="section-status" data-num="1"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 1 &middot; What You Learned</div>
+            <div class="section-subtitle">Your confidence before vs now, and which topics landed</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q1. For each learning outcome, rate your confidence BEFORE the course and your confidence NOW.</span>
+            <span class="qhint">1 = not at all confident, 10 = extremely confident</span>
+            <table class="matrix">
+              <thead>
+                <tr><th style="width:50%;">Learning Outcome</th><th style="width:25%;">Before</th><th style="width:25%;">Now</th></tr>
+              </thead>
+              <tbody id="q1-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q2. Rate your ability to perform each of the following NOW, compared with before the course.</span>
+            <span class="qhint">1 = cannot do at all, 10 = can do confidently and independently</span>
+            <table class="matrix">
+              <thead>
+                <tr><th style="width:50%;">Skill</th><th style="width:25%;">Before</th><th style="width:25%;">Now</th></tr>
+              </thead>
+              <tbody id="q2-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q3. I could explain the key concepts of this course to a peer who has not taken it.</span>
+            <div class="slider-rating-mount" data-name="Q3" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q4. I feel confident applying what I learned in PHM5013 to a new drug discovery or pharmacogenomics problem outside this course.</span>
+            <div class="slider-rating-mount" data-name="Q4" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q5. I intend to continue using or developing the skills from this course after it ends.</span>
+            <div class="slider-rating-mount" data-name="Q5" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q6. Overall, how much did this course advance your knowledge and skills in precision drug discovery and pharmacogenomics?</span>
+            <span class="qhint">1 = no advance, 10 = enormous advance</span>
+            <div class="slider-rating-mount" data-name="Q6" data-required="true"
+                 data-min-label="No advance" data-max-label="Enormous advance"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q7. Which topic or skill from PHM5013 do you feel you learned the MOST deeply? <span style="color:#dc3545;">*</span></span>
+            <textarea name="Q7" placeholder="Required — your response..."></textarea>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q8. Which topic or skill do you feel you did NOT learn well enough, and why? <span style="color:#dc3545;">*</span></span>
+            <textarea name="Q8" placeholder="Required — your response..."></textarea>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q9. Have you applied, or do you plan to apply, any skills or concepts from PHM5013 in your research, internship, or workplace? <span style="color:#dc3545;">*</span></span>
+            <textarea name="Q9" placeholder="Required — briefly describe..."></textarea>
+          </div>
+
+          <div class="section-footer">
+            <span class="continue-hint">Q7&ndash;Q9 are required.</span>
+            <button type="button" class="continue-btn" onclick="advanceFromSection(1)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECTION 2 ============ -->
+      <div class="section" data-section="2">
+        <button type="button" class="section-header" onclick="openSection(2)">
+          <span class="section-status" data-num="2"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 2 &middot; Course Structure &amp; Organisation</div>
+            <div class="section-subtitle">Pacing, logical flow, and Canvas navigation</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q10. The course was well-organised, with weekly modules following a logical progression from drug discovery fundamentals through to pharmacogenomics and regulation.</span>
+            <div class="slider-rating-mount" data-name="Q10" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q11. The pacing across the 13 weeks supported my learning (neither too fast nor too slow).</span>
+            <div class="slider-rating-mount" data-name="Q11" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q12. Course materials and supporting sections on Canvas were easy to find and navigate.</span>
+            <div class="slider-rating-mount" data-name="Q12" data-required="true"></div>
+          </div>
+
+          <div class="section-footer">
+            <button type="button" class="continue-btn" onclick="advanceFromSection(2)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECTION 3 ============ -->
+      <div class="section" data-section="3">
+        <button type="button" class="section-header" onclick="openSection(3)">
+          <span class="section-status" data-num="3"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 3 &middot; Lecture Quality</div>
+            <div class="section-subtitle">Per-lecture rating &mdash; leave any blank if you didn't attend</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q13. Rate how much each lecture topic helped you learn. Leave blank if you did not attend.</span>
+            <table class="matrix">
+              <thead>
+                <tr><th style="width:60%;">Lecture</th><th style="width:40%;">Rating (1&ndash;10)</th></tr>
+              </thead>
+              <tbody id="q13-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="section-footer">
+            <span class="continue-hint">All lectures here are optional. Continue when ready.</span>
+            <button type="button" class="continue-btn" onclick="advanceFromSection(3)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECTION 4 ============ -->
+      <div class="section" data-section="4">
+        <button type="button" class="section-header" onclick="openSection(4)">
+          <span class="section-status" data-num="4"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 4 &middot; Course Resources &amp; Materials</div>
+            <div class="section-subtitle">Slides, Colab notebooks, manuals, and quizzes</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q14. Rate how much each resource contributed to your learning. Leave blank if not used.</span>
+            <table class="matrix">
+              <thead>
+                <tr><th style="width:60%;">Resource</th><th style="width:40%;">Rating (1&ndash;10)</th></tr>
+              </thead>
+              <tbody id="q14-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q15. Overall, the practical manuals and guides adequately prepared me to complete the assignments and project independently.</span>
+            <div class="slider-rating-mount" data-name="Q15" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <button type="button" class="optional-toggle" onclick="toggleOptional(this)"><span class="plus">+</span>Add optional comment</button>
+            <div class="optional-wrap">
+              <textarea name="Q15_comments" placeholder="Optional..."></textarea>
+            </div>
+          </div>
+
+          <div class="section-footer">
+            <button type="button" class="continue-btn" onclick="advanceFromSection(4)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECTION 5 ============ -->
+      <div class="section" data-section="5">
+        <button type="button" class="section-header" onclick="openSection(5)">
+          <span class="section-status" data-num="5"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 5 &middot; Medicinal Chemistry Refresher</div>
+            <div class="section-subtitle">The optional pre-course refresher module</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q16. Did you complete the Intro to Medicinal Chemistry refresher course?</span>
+            <div class="choice-row" id="q16-choices"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q17. If you took the refresher (fully or partially), it was useful in preparing me for PHM5013. Skip if not applicable.</span>
+            <div class="slider-rating-mount" data-name="Q17"></div>
+          </div>
+
+          <div class="question">
+            <button type="button" class="optional-toggle" onclick="toggleOptional(this)"><span class="plus">+</span>Add optional comment</button>
+            <div class="optional-wrap">
+              <textarea name="Q17_comments" placeholder="Optional..."></textarea>
+            </div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q18. In your opinion, should the medicinal chemistry refresher be made mandatory for all students?</span>
+            <div class="choice-row" id="q18-choices"></div>
+          </div>
+
+          <div class="question">
+            <button type="button" class="optional-toggle" onclick="toggleOptional(this)"><span class="plus">+</span>Add optional comment</button>
+            <div class="optional-wrap">
+              <textarea name="Q18_comments" placeholder="Optional..."></textarea>
+            </div>
+          </div>
+
+          <div class="section-footer">
+            <button type="button" class="continue-btn" onclick="advanceFromSection(5)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECTION 6 ============ -->
+      <div class="section" data-section="6">
+        <button type="button" class="section-header" onclick="openSection(6)">
+          <span class="section-status" data-num="6"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 6 &middot; Drug Discovery Project (60%)</div>
+            <div class="section-subtitle">Brief, scope, integration, guidance, check-in</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q19. The project brief was clear and I understood what was expected of me.</span>
+            <div class="slider-rating-mount" data-name="Q19" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q20. The scope and workload of the project were manageable within the semester.</span>
+            <div class="slider-rating-mount" data-name="Q20" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q21. The project deepened my understanding and let me integrate the computational skills taught in the course.</span>
+            <div class="slider-rating-mount" data-name="Q21" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q22. I received adequate guidance and support from the instructor(s) during the project.</span>
+            <div class="slider-rating-mount" data-name="Q22" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <button type="button" class="optional-toggle" onclick="toggleOptional(this)"><span class="plus">+</span>Add optional comment</button>
+            <div class="optional-wrap">
+              <textarea name="Q22_comments" placeholder="Optional comments on Q19&ndash;Q22..."></textarea>
+            </div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q23. The Project Check-in was helpful for managing my progress and staying on track.</span>
+            <div class="slider-rating-mount" data-name="Q23" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <button type="button" class="optional-toggle" onclick="toggleOptional(this)"><span class="plus">+</span>Add optional comment</button>
+            <div class="optional-wrap">
+              <textarea name="Q23_comments" placeholder="Optional..."></textarea>
+            </div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q24. I would prefer working individually rather than in a group for this project.</span>
+            <div class="slider-rating-mount" data-name="Q24" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <button type="button" class="optional-toggle" onclick="toggleOptional(this)"><span class="plus">+</span>Add optional comment</button>
+            <div class="optional-wrap">
+              <textarea name="Q24_comments" placeholder="Optional..."></textarea>
+            </div>
+          </div>
+
+          <div class="section-footer">
+            <button type="button" class="continue-btn" onclick="advanceFromSection(6)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECTION 7 ============ -->
+      <div class="section" data-section="7">
+        <button type="button" class="section-header" onclick="openSection(7)">
+          <span class="section-status" data-num="7"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 7 &middot; Final Assessment (40%)</div>
+            <div class="section-subtitle">Format, preparation, and weighting</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q25. The expectations and format of the Final Assessment were clearly communicated.</span>
+            <div class="slider-rating-mount" data-name="Q25" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q26. The course content and materials adequately prepared me for the Final Assessment.</span>
+            <div class="slider-rating-mount" data-name="Q26" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q27. The overall assessment weighting (60% project / 40% final assessment) is appropriate and fair.</span>
+            <div class="slider-rating-mount" data-name="Q27" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <button type="button" class="optional-toggle" onclick="toggleOptional(this)"><span class="plus">+</span>Add optional comment</button>
+            <div class="optional-wrap">
+              <textarea name="Q27_comments" placeholder="Optional..."></textarea>
+            </div>
+          </div>
+
+          <div class="section-footer">
+            <button type="button" class="continue-btn" onclick="advanceFromSection(7)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECTION 8 ============ -->
+      <div class="section" data-section="8">
+        <button type="button" class="section-header" onclick="openSection(8)">
+          <span class="section-status" data-num="8"></span>
+          <div class="section-title-block">
+            <div class="section-title">Section 8 &middot; Overall Experience</div>
+            <div class="section-subtitle">Final ratings and your open feedback for next year</div>
+          </div>
+          <span class="section-chevron">&#9662;</span>
+        </button>
+        <div class="section-body">
+
+          <div class="question">
+            <span class="qlabel">Q28. Overall, PHM5013 was a valuable learning experience.</span>
+            <div class="slider-rating-mount" data-name="Q28" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q29. I would recommend this course to future students.</span>
+            <div class="slider-rating-mount" data-name="Q29" data-required="true"></div>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q30. What was the MOST valuable part of the course for your learning? <span style="color:#dc3545;">*</span></span>
+            <textarea name="Q30" placeholder="Required — your response..."></textarea>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q31. What was the LEAST valuable or most challenging part? <span style="color:#dc3545;">*</span></span>
+            <textarea name="Q31" placeholder="Required — your response..."></textarea>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q32. If you could make changes to improve learning in PHM5013 next year, what would they be? <span style="color:#dc3545;">*</span></span>
+            <textarea name="Q32" placeholder="Required — your response..."></textarea>
+          </div>
+
+          <div class="question">
+            <span class="qlabel">Q33. Any other comments? (Optional)</span>
+            <textarea name="Q33" placeholder="Optional..."></textarea>
+          </div>
+
+          <div class="section-footer">
+            <span class="continue-hint">Q33 is optional. Q30&ndash;Q32 are required.</span>
+            <button type="button" class="continue-btn" onclick="advanceFromSection(8)">Continue &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SUBMIT ============ -->
+      <div class="submit-bar">
+        <div id="statusArea"></div>
+        <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit Feedback</button>
+        <div class="submit-note" id="submitNote">Complete all 8 sections to enable submission.</div>
+      </div>
+
+    </form>
+  </main>
+</div>
+
+<!-- ===== THANK YOU OVERLAY ===== -->
+<div class="thanks-overlay" id="thanksOverlay">
+  <div class="thanks-card">
+    <div class="thanks-check">&#10003;</div>
+    <h2 class="thanks-title">Thank you</h2>
+    <p class="thanks-body">Your feedback has been submitted anonymously. We genuinely appreciate the time and thought you put into this — it directly shapes how PHM5013 evolves for next year's cohort.</p>
+    <p class="thanks-body">Every response is read carefully and used constructively.</p>
+    <p class="thanks-signature">&mdash; The PHM5013 teaching team</p>
+  </div>
+</div>
+
+
+<script>
+"use strict";
+
+// =============================================================
+// CONFIG
+// =============================================================
+const POWER_AUTOMATE_URL = "https://default5ba5ef5e31094e7785bdcfeb0d347e.82.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c32ec8442e5a469b9315383ceca26d43/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=jP1eqILEmq2m3uqbNnR7QRHFcUgJrPnlgJjPYgAD86E";
+
+const STORAGE_KEY = "phm5013_feedback_draft_v2";
+const TOTAL_SECTIONS = 8;
+
+const SECTION_NAMES = {
+  1: "What You Learned",
+  2: "Course Structure",
+  3: "Lecture Quality",
+  4: "Resources & Materials",
+  5: "Med Chem Refresher",
+  6: "Drug Discovery Project",
+  7: "Final Assessment",
+  8: "Overall Experience"
+};
+
+// Required ratings/choices per section. Optional fields excluded.
+const SECTION_REQUIREMENTS = {
+  1: ["Q1a_before","Q1a_now","Q1b_before","Q1b_now","Q1c_before","Q1c_now","Q1d_before","Q1d_now",
+      "Q2a_before","Q2a_now","Q2b_before","Q2b_now","Q2c_before","Q2c_now","Q2d_before","Q2d_now",
+      "Q2e_before","Q2e_now","Q2f_before","Q2f_now",
+      "Q3","Q4","Q5","Q6","Q7","Q8","Q9"],
+  2: ["Q10","Q11","Q12"],
+  3: [],                              // Q13 lectures all optional
+  4: ["Q15"],                         // Q14 resources optional
+  5: ["Q16","Q18"],                   // Q17 optional (skip if no refresher)
+  6: ["Q19","Q20","Q21","Q22","Q23","Q24"],
+  7: ["Q25","Q26","Q27"],
+  8: ["Q28","Q29","Q30","Q31","Q32"]    // Q33 free text remains optional
+};
+
+// Sections that REQUIRE the Continue button click (no rating-driven advance)
+const MANUAL_ADVANCE_SECTIONS = new Set([3]);
+
+// =============================================================
+// QUESTION DEFINITIONS
+// =============================================================
+const Q1_OUTCOMES = [
+  { id: "Q1a", text: "(a) Explain the principles of modern drug discovery and pharmacogenomics" },
+  { id: "Q1b", text: "(b) Apply computational and AI tools to optimise molecular drug design" },
+  { id: "Q1c", text: "(c) Interpret genetic and population-based determinants of variability in drug efficacy and safety" },
+  { id: "Q1d", text: "(d) Evaluate regulatory frameworks and real-world case studies of pharmacogenomics-driven pharmacovigilance" }
+];
+const Q2_SKILLS = [
+  { id: "Q2a", text: "Run a ligand-based virtual screen" },
+  { id: "Q2b", text: "Build and interpret a QSAR model" },
+  { id: "Q2c", text: "Perform molecular docking and interpret results" },
+  { id: "Q2d", text: "Set up and analyse a molecular dynamics simulation" },
+  { id: "Q2e", text: "Use the NUS HPC cluster for a computational task" },
+  { id: "Q2f", text: "Interpret a pharmacogenomic variant in a clinical context" }
+];
+const Q13_LECTURES = [
+  { id: "Q13_W1",  text: "Week 1 — From Drug Discovery to Clinical Trials (Prof Jorg Kreuzer)" },
+  { id: "Q13_W2",  text: "Week 2 — Target Identification and Validation (Dr Yeo Shi Yun & Dr Nicole Boo, MSD)" },
+  { id: "Q13_W3",  text: "Week 3 — Ligand-based Virtual Screening (Dr Xavier)" },
+  { id: "Q13_W4",  text: "Week 4 — QSAR Modelling (Dr Xavier)" },
+  { id: "Q13_W56", text: "Weeks 5 & 6 — Protein and RNA Structure Prediction (Prof Zhang Yang)" },
+  { id: "Q13_W78", text: "Weeks 7 & 8 — Structure-based Virtual Screening (Dr Xavier)" },
+  { id: "Q13_W9",  text: "Week 9 — Molecular Dynamics Simulation (Dr Xavier)" },
+  { id: "Q13_W10", text: "Week 10 — Foundations of Drug Response and Pharmacogenomics (Dr Elaine Lo, NUH)" },
+  { id: "Q13_W12", text: "Week 12 — Population and Clinical Pharmacogenomics (A/Prof Leong Khai Pang, TTSH/A*STAR)" },
+  { id: "Q13_W13", text: "Week 13 — Regulatory Aspects of Pharmacogenomics (Drs Dorothy Toh & Esther Woon, HSA)" }
+];
+const Q14_RESOURCES = [
+  { id: "Q14_slides",       text: "Lecture slides (in-class and revision)" },
+  { id: "Q14_colab",        text: "Google Colab interactive tutorials (Lectures 3, 4, 7, 8)" },
+  { id: "Q14_manuals",      text: "Practical manuals (OpenEye, QSAR, Docking, MD)" },
+  { id: "Q14_primers",      text: "Primer documents (background reading)" },
+  { id: "Q14_setup_guides", text: "Installation and setup guides (PyMOL, OpenEye, NUS HPC)" },
+  { id: "Q14_cfu",          text: "Check-Your-Understanding (CFU) quizzes" }
+];
+const Q16_OPTIONS = ["Yes, before semester", "Yes, during semester", "Partially", "No"];
+const Q18_OPTIONS = ["Mandatory", "Recommended but optional", "Not necessary"];
+
+// All canonical field names (for collectFormData / autosave)
+const ALL_FIELDS = [
+  ...Q1_OUTCOMES.flatMap(o => [o.id+"_before", o.id+"_now"]),
+  ...Q2_SKILLS.flatMap(s => [s.id+"_before", s.id+"_now"]),
+  "Q3","Q4","Q5","Q6","Q7","Q8","Q9",
+  "Q10","Q11","Q12",
+  ...Q13_LECTURES.map(l => l.id),
+  ...Q14_RESOURCES.map(r => r.id),
+  "Q15","Q15_comments",
+  "Q16","Q17","Q17_comments","Q18","Q18_comments",
+  "Q19","Q20","Q21","Q22","Q22_comments",
+  "Q23","Q23_comments",
+  "Q24","Q24_comments",
+  "Q25","Q26","Q27","Q27_comments",
+  "Q28","Q29","Q30","Q31","Q32","Q33"
+];
+
+// =============================================================
+// SLIDER COMPONENT
+// =============================================================
+function buildSlider(mount, opts) {
+  opts = opts || {};
+  const name = mount.dataset.name;
+  const required = mount.dataset.required === "true";
+  const compact = !!opts.compact;
+  const minLabel = mount.dataset.minLabel || "Strongly disagree";
+  const maxLabel = mount.dataset.maxLabel || "Strongly agree";
+
+  if (compact) mount.classList.add("slider-rating", "compact");
+  else mount.classList.add("slider-rating");
+
+  let ticksHtml = "";
+  for (let i = 1; i <= 10; i++) {
+    ticksHtml += `<button type="button" class="slider-tick" data-val="${i}">${i}</button>`;
+  }
+
+  mount.innerHTML = `
+    <div class="slider-scale-labels">
+      <span>1 &mdash; ${minLabel}</span>
+      <span>10 &mdash; ${maxLabel}</span>
+    </div>
+    <div class="slider-track-wrap">
+      <div class="slider-track">
+        <div class="slider-fill empty"></div>
+        <div class="slider-handle" tabindex="0" role="slider"
+             aria-valuemin="1" aria-valuemax="10" aria-label="${name} rating"></div>
+      </div>
+      <div class="slider-ticks">${ticksHtml}</div>
+    </div>
+    <div class="slider-current">
+      <div class="slider-value-box empty">Not rated</div>
+    </div>
+    <input type="hidden" name="${name}" value="">
+  `;
+
+  const trackWrap = mount.querySelector(".slider-track-wrap");
+  const track     = mount.querySelector(".slider-track");
+  const fill      = mount.querySelector(".slider-fill");
+  const handle    = mount.querySelector(".slider-handle");
+  const valueBox  = mount.querySelector(".slider-value-box");
+  const tickBtns  = mount.querySelectorAll(".slider-tick");
+  const hidden    = mount.querySelector("input[type='hidden']");
+
+  let value = null;
+
+  function render() {
+    if (value === null) {
+      handle.classList.remove("set");
+      handle.style.left = "0%";
+      fill.style.width = "0%";
+      fill.classList.add("empty");
+      valueBox.classList.add("empty");
+      valueBox.textContent = "Not rated";
+      tickBtns.forEach(t => t.classList.remove("active"));
+      handle.setAttribute("aria-valuenow", "");
+      hidden.value = "";
+    } else {
+      const pct = ((value - 1) / 9) * 100;
+      handle.classList.add("set");
+      handle.style.left = pct + "%";
+      fill.style.width = pct + "%";
+      fill.classList.remove("empty");
+      valueBox.classList.remove("empty");
+      valueBox.textContent = value + " / 10";
+      tickBtns.forEach((t, i) => t.classList.toggle("active", (i+1) === value));
+      handle.setAttribute("aria-valuenow", String(value));
+      hidden.value = String(value);
+    }
+  }
+
+  function setValue(v, fire) {
+    if (v === null || v === "" || v === undefined) v = null;
+    else v = Math.max(1, Math.min(10, Math.round(Number(v))));
+    if (v === value) return;
+    value = v;
+    render();
+    if (fire !== false) {
+      mount.dispatchEvent(new CustomEvent("rating-change", {
+        bubbles: true, detail: { name, value }
+      }));
+    }
+  }
+
+  function valueFromEvent(clientX) {
+    const rect = track.getBoundingClientRect();
+    let pct = (clientX - rect.left) / rect.width;
+    pct = Math.max(0, Math.min(1, pct));
+    return Math.round(pct * 9) + 1;  // 1..10
+  }
+
+  // Click track / drag handle
+  let dragging = false;
+  trackWrap.addEventListener("pointerdown", e => {
+    e.preventDefault();
+    dragging = true;
+    handle.setPointerCapture && handle.setPointerCapture(e.pointerId);
+    setValue(valueFromEvent(e.clientX), true);
+  });
+  window.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    setValue(valueFromEvent(e.clientX), true);
+  });
+  window.addEventListener("pointerup", () => { dragging = false; });
+
+  // Tick click
+  tickBtns.forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      setValue(parseInt(btn.dataset.val, 10), true);
+    });
+  });
+
+  // Keyboard on handle
+  handle.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setValue((value || 5) - 1, true);
+    } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setValue((value || 5) + 1, true);
+    } else if (e.key === "Home") {
+      e.preventDefault(); setValue(1, true);
+    } else if (e.key === "End") {
+      e.preventDefault(); setValue(10, true);
+    } else if (e.key === "Delete" || e.key === "Backspace") {
+      e.preventDefault(); setValue(null, true);
+    }
+  });
+
+  mount._slider = {
+    name, required,
+    setValue: (v) => setValue(v, false),
+    getValue: () => value
+  };
+  render();
+  return mount._slider;
+}
+
+// =============================================================
+// BUILD ALL DYNAMIC CONTENT
+// =============================================================
+function buildAll() {
+  // Q1 matrix
+  const q1tbody = document.getElementById("q1-tbody");
+  Q1_OUTCOMES.forEach(o => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${o.text}</td>
+      <td><div class="slider-rating-mount" data-name="${o.id}_before" data-required="true"></div></td>
+      <td><div class="slider-rating-mount" data-name="${o.id}_now" data-required="true"></div></td>`;
+    q1tbody.appendChild(tr);
+  });
+
+  // Q2 matrix
+  const q2tbody = document.getElementById("q2-tbody");
+  Q2_SKILLS.forEach(s => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${s.text}</td>
+      <td><div class="slider-rating-mount" data-name="${s.id}_before" data-required="true"></div></td>
+      <td><div class="slider-rating-mount" data-name="${s.id}_now" data-required="true"></div></td>`;
+    q2tbody.appendChild(tr);
+  });
+
+  // Q13 lectures
+  const q13tbody = document.getElementById("q13-tbody");
+  Q13_LECTURES.forEach(l => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${l.text}</td>
+      <td><div class="slider-rating-mount" data-name="${l.id}"></div></td>`;
+    q13tbody.appendChild(tr);
+  });
+
+  // Q14 resources
+  const q14tbody = document.getElementById("q14-tbody");
+  Q14_RESOURCES.forEach(r => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${r.text}</td>
+      <td><div class="slider-rating-mount" data-name="${r.id}"></div></td>`;
+    q14tbody.appendChild(tr);
+  });
+
+  // Build all single-rating sliders (full size) — these are all .slider-rating-mount
+  // outside of matrix tables.
+  document.querySelectorAll("table.matrix .slider-rating-mount").forEach(m => buildSlider(m, { compact: true }));
+  document.querySelectorAll(".slider-rating-mount:not(.slider-rating)").forEach(m => buildSlider(m, { compact: false }));
+
+  // Choice rows (Q16, Q18)
+  function makeChoices(name, container, options) {
+    let html = "";
+    options.forEach((opt, i) => {
+      const id = `${name}_${i}`;
+      const safe = opt.replace(/"/g, "&quot;");
+      html += `<input type="radio" name="${name}" id="${id}" value="${safe}"><label for="${id}">${opt}</label>`;
+    });
+    container.innerHTML = html;
+  }
+  makeChoices("Q16", document.getElementById("q16-choices"), Q16_OPTIONS);
+  makeChoices("Q18", document.getElementById("q18-choices"), Q18_OPTIONS);
+
+  // Build navigator
+  const navItems = document.getElementById("navItems");
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "nav-item";
+    btn.dataset.section = i;
+    btn.innerHTML = `
+      <span class="nav-status"></span>
+      <span class="nav-num">${i}.</span>
+      <span class="nav-label">${SECTION_NAMES[i]}</span>
+    `;
+    btn.addEventListener("click", () => { openSection(i); closeNavigatorMobile(); });
+    navItems.appendChild(btn);
+  }
+}
+
+// =============================================================
+// SECTION OPEN / CLOSE / COMPLETE
+// =============================================================
+let currentOpenSection = 1;
+
+function openSection(n) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("is-open"));
+  const sec = document.querySelector(`.section[data-section="${n}"]`);
+  if (sec) {
+    sec.classList.add("is-open");
+    currentOpenSection = n;
+    // Smooth scroll to section header
+    setTimeout(() => {
+      const header = sec.querySelector(".section-header");
+      const top = header.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 50);
+  }
+  updateProgress();
+  saveDraft();
+}
+
+function isSectionComplete(n) {
+  const reqs = SECTION_REQUIREMENTS[n] || [];
+  if (reqs.length === 0) {
+    // Manual sections: complete only after explicit advance
+    const sec = document.querySelector(`.section[data-section="${n}"]`);
+    return sec && sec.dataset.manuallyDone === "true";
+  }
+  return reqs.every(field => {
+    const val = getFieldValue(field);
+    return val !== null && val !== undefined && String(val).trim() !== "";
+  });
+}
+
+function getFieldValue(name) {
+  const el = document.querySelector(`[name="${name}"]`);
+  if (!el) return "";
+  if (el.type === "hidden" || el.tagName === "TEXTAREA" || el.type === "text") return el.value;
+  // For radio (Q16/Q18), find the checked one
+  const checked = document.querySelector(`input[name="${name}"]:checked`);
+  return checked ? checked.value : "";
+}
+
+function recomputeSectionStates() {
+  let completedCount = 0;
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+    const sec = document.querySelector(`.section[data-section="${i}"]`);
+    const navBtn = document.querySelector(`.nav-item[data-section="${i}"]`);
+    const navStatus = navBtn.querySelector(".nav-status");
+    const complete = isSectionComplete(i);
+
+    sec.classList.toggle("is-complete", complete);
+    navStatus.classList.remove("complete", "in-progress");
+    navBtn.classList.toggle("active", i === currentOpenSection);
+
+    if (complete) {
+      completedCount++;
+      navStatus.classList.add("complete");
+    } else if (sectionHasAnyAnswer(i)) {
+      navStatus.classList.add("in-progress");
+    }
+  }
+  return completedCount;
+}
+
+function sectionHasAnyAnswer(n) {
+  const sec = document.querySelector(`.section[data-section="${n}"]`);
+  if (!sec) return false;
+  const inputs = sec.querySelectorAll("input[type='hidden'][name^='Q'], input[type='radio']:checked, textarea");
+  for (const el of inputs) {
+    if (el.tagName === "TEXTAREA") {
+      if (el.value.trim()) return true;
+    } else if (el.value !== "") {
+      return true;
+    }
+  }
+  return false;
+}
+
+// =============================================================
+// PROGRESS BAR + TIME ESTIMATION
+// =============================================================
+let formStartTime = null;
+let firstAnswerTime = null;
+let answerCount = 0;
+
+function updateProgress() {
+  const completed = recomputeSectionStates();
+  const pct = (completed / TOTAL_SECTIONS) * 100;
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("currentSecLabel").textContent = currentOpenSection;
+  document.getElementById("completedSecCount").textContent = completed;
+
+  updateTimeRemaining(completed);
+  updateSubmitButton(completed);
+}
+
+function updateTimeRemaining(completed) {
+  const lbl = document.getElementById("timeRemainingLabel");
+  if (completed >= TOTAL_SECTIONS) {
+    lbl.textContent = "All set — ready to submit";
+    return;
+  }
+  if (!firstAnswerTime || answerCount < 5) {
+    lbl.textContent = "";
+    return;
+  }
+  const elapsedSec = (Date.now() - firstAnswerTime) / 1000;
+  const perAnswer = elapsedSec / answerCount;
+  // Estimate remaining work as remaining required fields × per-answer rate
+  let remainingFields = 0;
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+    if (isSectionComplete(i)) continue;
+    const reqs = SECTION_REQUIREMENTS[i] || [];
+    reqs.forEach(f => { if (getFieldValue(f) === "") remainingFields++; });
+    // Manual-advance sections without reqs estimated as 30s each
+    if (reqs.length === 0 && !isSectionComplete(i)) remainingFields += 3;
+  }
+  const remainingSec = Math.round(remainingFields * perAnswer);
+  if (remainingSec < 30) lbl.textContent = "Less than 1 min remaining";
+  else if (remainingSec < 90) lbl.textContent = "About 1 min remaining";
+  else lbl.textContent = "About " + Math.round(remainingSec / 60) + " min remaining";
+}
+
+function updateSubmitButton(completed) {
+  const btn = document.getElementById("submitBtn");
+  const note = document.getElementById("submitNote");
+  if (completed === TOTAL_SECTIONS) {
+    btn.disabled = false;
+    note.textContent = "All sections complete. Your responses are anonymous.";
+  } else {
+    btn.disabled = true;
+    note.textContent = `Complete all 8 sections to enable submission (${TOTAL_SECTIONS - completed} remaining).`;
+  }
+}
+
+// =============================================================
+// AUTO-ADVANCE
+// =============================================================
+let advanceTimer = null;
+
+function maybeAutoAdvance(fromSection) {
+  if (MANUAL_ADVANCE_SECTIONS.has(fromSection)) return;
+  if (!isSectionComplete(fromSection)) return;
+  if (fromSection !== currentOpenSection) return;
+
+  // Highlight Continue button immediately
+  const sec = document.querySelector(`.section[data-section="${fromSection}"]`);
+  const btn = sec.querySelector(".continue-btn");
+  if (btn) btn.classList.add("ready");
+
+  clearTimeout(advanceTimer);
+  advanceTimer = setTimeout(() => {
+    advanceFromSection(fromSection);
+  }, 1400);
+}
+
+function advanceFromSection(n) {
+  clearTimeout(advanceTimer);
+  // Mark manual sections as done
+  if (MANUAL_ADVANCE_SECTIONS.has(n)) {
+    const sec = document.querySelector(`.section[data-section="${n}"]`);
+    sec.dataset.manuallyDone = "true";
+  }
+  updateProgress();
+
+  // Find next incomplete section
+  let next = null;
+  for (let i = n + 1; i <= TOTAL_SECTIONS; i++) {
+    if (!isSectionComplete(i)) { next = i; break; }
+  }
+  if (next === null) {
+    // Wrap: open any remaining incomplete section, or close current and scroll to submit
+    for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+      if (!isSectionComplete(i)) { next = i; break; }
+    }
+  }
+  if (next !== null) {
+    openSection(next);
+  } else {
+    // All complete — collapse and scroll to submit
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("is-open"));
+    currentOpenSection = TOTAL_SECTIONS;
+    updateProgress();
+    setTimeout(() => {
+      document.getElementById("submitBtn").scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 200);
+  }
+  saveDraft();
+}
+
+// =============================================================
+// OPTIONAL COMMENTS TOGGLE (with auto-open on rating change)
+// =============================================================
+function toggleOptional(btn) {
+  const wrap = btn.nextElementSibling;
+  const isOpen = wrap.classList.toggle("open");
+  if (isOpen) {
+    btn.innerHTML = '<span class="plus">&minus;</span>Hide comment';
+    const ta = wrap.querySelector("textarea");
+    if (ta) setTimeout(() => ta.focus(), 0);
+  } else {
+    btn.innerHTML = '<span class="plus">+</span>Add optional comment';
+    const ta = wrap.querySelector("textarea");
+    if (ta) { ta.value = ""; resizeTextarea(ta); }
+  }
+}
+
+function autoOpenNextOptional(fromQuestionEl) {
+  const section = fromQuestionEl.closest(".section");
+  if (!section) return;
+  const wraps = section.querySelectorAll(".optional-wrap");
+  for (const wrap of wraps) {
+    if (fromQuestionEl.compareDocumentPosition(wrap) & Node.DOCUMENT_POSITION_FOLLOWING) {
+      if (!wrap.classList.contains("open")) {
+        const btn = wrap.previousElementSibling;
+        if (btn && btn.classList.contains("optional-toggle")) {
+          wrap.classList.add("open");
+          btn.innerHTML = '<span class="plus">&minus;</span>Hide comment';
+        }
+      }
+      return;
+    }
+  }
+}
+
+// =============================================================
+// AUTO-GROW TEXTAREAS
+// =============================================================
+function resizeTextarea(ta) {
+  ta.style.height = "auto";
+  ta.style.height = Math.max(44, ta.scrollHeight) + "px";
+}
+
+function setupTextareas() {
+  document.querySelectorAll("textarea").forEach(ta => {
+    ta.style.overflow = "hidden";
+    ta.addEventListener("input", () => {
+      resizeTextarea(ta);
+      saveDraft();
+      updateProgress();
+    });
+  });
+}
+
+// =============================================================
+// LOCALSTORAGE SAVE / RESTORE
+// =============================================================
+let saveTimer = null;
+function saveDraft() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      const data = {
+        savedAt: new Date().toISOString(),
+        currentSection: currentOpenSection,
+        manualAdvances: {},
+        fields: {},
+        toggledComments: []
+      };
+      ALL_FIELDS.forEach(f => {
+        const v = getFieldValue(f);
+        if (v !== "" && v !== null && v !== undefined) data.fields[f] = v;
+      });
+      // Capture manual-advance flags
+      MANUAL_ADVANCE_SECTIONS.forEach(s => {
+        const sec = document.querySelector(`.section[data-section="${s}"]`);
+        if (sec && sec.dataset.manuallyDone === "true") data.manualAdvances[s] = true;
+      });
+      // Capture which optional comment sections are open
+      document.querySelectorAll(".optional-wrap.open").forEach(w => {
+        const ta = w.querySelector("textarea");
+        if (ta) data.toggledComments.push(ta.name);
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) { /* localStorage may be full or disabled */ }
+  }, 250);
+}
+
+function restoreDraft() {
+  let data;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    data = JSON.parse(raw);
+  } catch (e) { return false; }
+  if (!data || !data.fields) return false;
+
+  // Restore field values
+  Object.entries(data.fields).forEach(([name, value]) => {
+    // Slider mounts have _slider attached
+    const mount = document.querySelector(`.slider-rating[data-name="${name}"]`);
+    if (mount && mount._slider) {
+      mount._slider.setValue(value);
+      const hidden = mount.querySelector("input[type='hidden']");
+      if (hidden) hidden.value = String(value);
+      answerCount++;
+      return;
+    }
+    // Choice radio
+    const radio = document.querySelector(`input[type='radio'][name="${name}"][value="${CSS.escape ? CSS.escape(value) : value}"]`);
+    if (radio) { radio.checked = true; answerCount++; return; }
+    // Textarea
+    const ta = document.querySelector(`textarea[name="${name}"]`);
+    if (ta) { ta.value = value; resizeTextarea(ta); return; }
+  });
+
+  // Restore manual-advance flags
+  Object.keys(data.manualAdvances || {}).forEach(s => {
+    const sec = document.querySelector(`.section[data-section="${s}"]`);
+    if (sec) sec.dataset.manuallyDone = "true";
+  });
+
+  // Restore opened optional comment sections (textareas already have content if present)
+  (data.toggledComments || []).forEach(name => {
+    const ta = document.querySelector(`textarea[name="${name}"]`);
+    if (ta) {
+      const wrap = ta.closest(".optional-wrap");
+      if (wrap && !wrap.classList.contains("open")) {
+        wrap.classList.add("open");
+        const btn = wrap.previousElementSibling;
+        if (btn) btn.innerHTML = '<span class="plus">&minus;</span>Hide comment';
+      }
+    } else {
+      // textarea had no value but section was open — reopen anyway
+      const allWraps = document.querySelectorAll(`.optional-wrap`);
+      allWraps.forEach(w => {
+        const t = w.querySelector("textarea");
+        if (t && t.name === name && !w.classList.contains("open")) {
+          w.classList.add("open");
+          const btn = w.previousElementSibling;
+          if (btn) btn.innerHTML = '<span class="plus">&minus;</span>Hide comment';
+        }
+      });
+    }
+  });
+
+  if (data.currentSection) currentOpenSection = data.currentSection;
+  if (answerCount > 0) firstAnswerTime = Date.now() - (answerCount * 8000); // assume ~8s/answer historically
+  return true;
+}
+
+function clearDraftAndReload() {
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+function showRestoreToast() {
+  const toast = document.getElementById("restoreToast");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 6000);
+}
+
+// =============================================================
+// NAVIGATOR (mobile toggle)
+// =============================================================
+function toggleNavigator() {
+  document.getElementById("navigator").classList.toggle("open");
+}
+function closeNavigatorMobile() {
+  if (window.innerWidth <= 900) document.getElementById("navigator").classList.remove("open");
+}
+
+// =============================================================
+// INTRO MODAL
+// =============================================================
+function dismissIntro() {
+  document.getElementById("introModal").style.display = "none";
+}
+
+// =============================================================
+// SUBMIT
+// =============================================================
+function collectFormData() {
+  const payload = {
+    submitted_at_utc: new Date().toISOString(),
+    course: "PHM5013",
+    academic_year: "2025/2026"
+  };
+  ALL_FIELDS.forEach(f => {
+    const v = getFieldValue(f);
+    payload[f] = (v === null || v === undefined) ? "" : String(v).trim();
+  });
+  return payload;
+}
+
+async function submitFeedback(event) {
+  event.preventDefault();
+
+  // Final completeness check
+  let allComplete = true;
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+    if (!isSectionComplete(i)) { allComplete = false; break; }
+  }
+  if (!allComplete) {
+    showStatus("Please complete all 8 sections before submitting.", false);
+    return false;
+  }
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+  const payload = collectFormData();
+
+  try {
+    const res = await fetch(POWER_AUTOMATE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error(`Server returned status ${res.status}`);
+    // Success
+    localStorage.removeItem(STORAGE_KEY);
+    showThanks();
+  } catch (err) {
+    showStatus(`Submission failed: ${err.message}. Please try again, or contact the course coordinator if this issue persists.`, false);
+    btn.disabled = false;
+    btn.textContent = "Submit Feedback";
+  }
+  return false;
+}
+
+function showStatus(msg, isSuccess) {
+  const statusArea = document.getElementById("statusArea");
+  statusArea.innerHTML = `<div class="submit-warning" style="${
+    isSuccess ? 'background:#d4edda;border-color:#28a745;color:#155724;' : ''
+  }">${msg}</div>`;
+}
+
+// =============================================================
+// THANK YOU + CONFETTI
+// =============================================================
+function showThanks() {
+  const overlay = document.getElementById("thanksOverlay");
+  overlay.classList.add("show");
+  launchConfetti(overlay);
+}
+
+function launchConfetti(overlay) {
+  const colors = ["#0A4D8F", "#1B74BD", "#3498DB", "#EF7C00", "#FFC107", "#28a745", "#FFFFFF"];
+  for (let i = 0; i < 80; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "%";
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animationDelay = (Math.random() * 0.6) + "s";
+    c.style.animationDuration = (1.8 + Math.random() * 1.4) + "s";
+    c.style.transform = `rotate(${Math.random() * 360}deg)`;
+    overlay.appendChild(c);
+    setTimeout(() => c.remove(), 4000);
+  }
+}
+
+// =============================================================
+// EVENT WIRING
+// =============================================================
+function wireEvents() {
+  const form = document.getElementById("feedbackForm");
+
+  // Slider rating change
+  form.addEventListener("rating-change", e => {
+    if (firstAnswerTime === null) firstAnswerTime = Date.now();
+    answerCount++;
+    saveDraft();
+    updateProgress();
+    // Auto-open next optional comment in same section
+    const question = e.target.closest(".question");
+    if (question) autoOpenNextOptional(question);
+    // Auto-advance if section just completed
+    maybeAutoAdvance(currentOpenSection);
+  });
+
+  // Choice radio change (Q16, Q18)
+  form.addEventListener("change", e => {
+    if (e.target.type === "radio") {
+      if (firstAnswerTime === null) firstAnswerTime = Date.now();
+      answerCount++;
+      saveDraft();
+      updateProgress();
+      const question = e.target.closest(".question");
+      if (question) autoOpenNextOptional(question);
+      maybeAutoAdvance(currentOpenSection);
+    }
+  });
+
+  // Cancel auto-advance if user interacts elsewhere in current section
+  form.addEventListener("input", e => {
+    if (advanceTimer) {
+      clearTimeout(advanceTimer);
+      advanceTimer = null;
+    }
+  });
+}
+
+// =============================================================
+// INIT
+// =============================================================
+window.addEventListener("DOMContentLoaded", () => {
+  buildAll();
+  setupTextareas();
+  wireEvents();
+  formStartTime = Date.now();
+
+  const restored = restoreDraft();
+  if (restored) {
+    showRestoreToast();
+    // Hide intro modal if user already started
+    setTimeout(() => dismissIntro(), 50);
+  }
+
+  openSection(restored ? currentOpenSection : 1);
+  updateProgress();
+});
+</script>
+
+</body>
+</html>
