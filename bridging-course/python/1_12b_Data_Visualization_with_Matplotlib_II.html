@@ -3,7 +3,7 @@
 ===============================================================================
 Built by build_module_v4_2.py v4.2
 Source : 1_12b_Data_Visualization_with_Matplotlib_II.docx
-Built  : 2026-06-01 22:32
+Built  : 2026-06-02 00:01
 
 v4.2 changes vs v4.1:
   - bridgingTrack() is now a live transport: sendBeacon to Power
@@ -1464,12 +1464,6 @@ body.no-llm [onclick*="askParsonsHint"] { display: none !important; }
 .results-delta-up { color: #2ea36b; font-weight: 700; }
 .results-delta-down { color: #c94f4f; font-weight: 700; }
 .results-delta-flat { color: #888; font-weight: 600; }
-.results-gain {
-  font-size: 14px; color: #555; margin-top: 8px;
-  background: rgba(0,61,124,0.04); padding: 10px 14px; border-radius: 6px;
-}
-.results-gain strong { color: #003D7C; font-size: 18px; }
-.results-gain-note { color: #888; font-size: 12px; }
 
 .result-item {
   padding: 14px 0;
@@ -1968,6 +1962,31 @@ button:focus-visible,
 }
 .storage-confirm-actions {
   display: flex; gap: 10px; justify-content: flex-end;
+}
+
+/* --- site footer: support / contact line (matches dashboard footer) --- */
+footer.site-foot {
+  max-width: 1600px; margin: 0 auto;
+  padding: 24px clamp(20px, 5vw, 48px) 44px;
+  font-size: 12px; color: #94a3b8;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  border-top: 1px solid rgba(0,61,124,0.06);
+}
+footer.site-foot .foot-contact { color: #5a6c7d; }
+footer.site-foot .foot-contact strong { color: #003D7C; font-weight: 600; }
+footer.site-foot a.foot-mail {
+  color: #003D7C; font-weight: 600; text-decoration: none;
+  border-bottom: 1px solid rgba(0,61,124,0.25);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+footer.site-foot a.foot-mail:hover { color: #FF6B35; border-bottom-color: #FF6B35; }
+footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline-offset: 2px; }
+/* On narrow screens the floating "</> Python" FAB (fixed, bottom-right) would
+   overlap the contact line at the page bottom — give the footer room to clear it.
+   Placed AFTER the base rule so it wins by source order (see build-docx-lock note). */
+@media (max-width: 1180px) {
+  footer.site-foot { padding-bottom: 92px; }
 }
 </style>
 </head>
@@ -2991,19 +3010,19 @@ plt.show()"
     <div class="parsons-column">
       <div class="parsons-column-label">Line bank</div>
       <ul class="parsons-bank" data-bank="1">
-        <li class="parsons-line" draggable="true" data-index="0" data-correct="1" data-line="weight_kg = [82, 79, 75, 73]"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>weight_kg = [82, 79, 75, 73]</code></li>
-<li class="parsons-line" draggable="true" data-index="1" data-correct="1" data-line="months = [0, 3, 6, 12]"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>months = [0, 3, 6, 12]</code></li>
-<li class="parsons-line" draggable="true" data-index="2" data-correct="1" data-line="plt.ylabel(&quot;Weight (kg)&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.ylabel(&quot;Weight (kg)&quot;)</code></li>
-<li class="parsons-line" draggable="true" data-index="3" data-correct="0" data-line="plt.legend(&quot;Patient A&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.legend(&quot;Patient A&quot;)</code></li>
-<li class="parsons-line" draggable="true" data-index="4" data-correct="0" data-line="plt.show()"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.show()</code></li>
-<li class="parsons-line" draggable="true" data-index="5" data-correct="1" data-line="plt.title(&quot;Patient weight over follow-up&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.title(&quot;Patient weight over follow-up&quot;)</code></li>
-<li class="parsons-line" draggable="true" data-index="6" data-correct="1" data-line="plt.savefig(&quot;weight.png&quot;, dpi=300, bbox_inches=&quot;tight&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.savefig(&quot;weight.png&quot;, dpi=300, bbox_inches=&quot;tight&quot;)</code></li>
-<li class="parsons-line" draggable="true" data-index="7" data-correct="0" data-line="plt.scatter(months, weight_kg, marker=&quot;o&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.scatter(months, weight_kg, marker=&quot;o&quot;)</code></li>
-<li class="parsons-line" draggable="true" data-index="8" data-correct="0" data-line="plt.savefig(&quot;weight.png&quot;, dpi=300)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.savefig(&quot;weight.png&quot;, dpi=300)</code></li>
-<li class="parsons-line" draggable="true" data-index="9" data-correct="1" data-line="import matplotlib.pyplot as plt"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>import matplotlib.pyplot as plt</code></li>
-<li class="parsons-line" draggable="true" data-index="10" data-correct="1" data-line="plt.show()"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.show()</code></li>
-<li class="parsons-line" draggable="true" data-index="11" data-correct="1" data-line="plt.plot(months, weight_kg, marker=&quot;o&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.plot(months, weight_kg, marker=&quot;o&quot;)</code></li>
-<li class="parsons-line" draggable="true" data-index="12" data-correct="1" data-line="plt.xlabel(&quot;Months since baseline&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.xlabel(&quot;Months since baseline&quot;)</code></li>
+        <li class="parsons-line" draggable="true" data-index="0" data-correct="1" data-line="months = [0, 3, 6, 12]"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>months = [0, 3, 6, 12]</code></li>
+<li class="parsons-line" draggable="true" data-index="1" data-correct="0" data-line="plt.savefig(&quot;weight.png&quot;, dpi=300)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.savefig(&quot;weight.png&quot;, dpi=300)</code></li>
+<li class="parsons-line" draggable="true" data-index="2" data-correct="0" data-line="plt.scatter(months, weight_kg, marker=&quot;o&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.scatter(months, weight_kg, marker=&quot;o&quot;)</code></li>
+<li class="parsons-line" draggable="true" data-index="3" data-correct="1" data-line="plt.show()"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.show()</code></li>
+<li class="parsons-line" draggable="true" data-index="4" data-correct="1" data-line="weight_kg = [82, 79, 75, 73]"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>weight_kg = [82, 79, 75, 73]</code></li>
+<li class="parsons-line" draggable="true" data-index="5" data-correct="1" data-line="plt.plot(months, weight_kg, marker=&quot;o&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.plot(months, weight_kg, marker=&quot;o&quot;)</code></li>
+<li class="parsons-line" draggable="true" data-index="6" data-correct="1" data-line="import matplotlib.pyplot as plt"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>import matplotlib.pyplot as plt</code></li>
+<li class="parsons-line" draggable="true" data-index="7" data-correct="1" data-line="plt.savefig(&quot;weight.png&quot;, dpi=300, bbox_inches=&quot;tight&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.savefig(&quot;weight.png&quot;, dpi=300, bbox_inches=&quot;tight&quot;)</code></li>
+<li class="parsons-line" draggable="true" data-index="8" data-correct="1" data-line="plt.title(&quot;Patient weight over follow-up&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.title(&quot;Patient weight over follow-up&quot;)</code></li>
+<li class="parsons-line" draggable="true" data-index="9" data-correct="0" data-line="plt.legend(&quot;Patient A&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.legend(&quot;Patient A&quot;)</code></li>
+<li class="parsons-line" draggable="true" data-index="10" data-correct="1" data-line="plt.xlabel(&quot;Months since baseline&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.xlabel(&quot;Months since baseline&quot;)</code></li>
+<li class="parsons-line" draggable="true" data-index="11" data-correct="0" data-line="plt.show()"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.show()</code></li>
+<li class="parsons-line" draggable="true" data-index="12" data-correct="1" data-line="plt.ylabel(&quot;Weight (kg)&quot;)"><span class="parsons-grip" aria-hidden="true">&#x2630;</span><code>plt.ylabel(&quot;Weight (kg)&quot;)</code></li>
       </ul>
     </div>
     <div class="parsons-column">
@@ -3334,6 +3353,11 @@ print("Hello, bridging course!")
   </aside>
 
 </div>
+
+<footer class="site-foot">
+  <span>Department of Biochemistry · Yong Loo Lin School of Medicine, NUS</span>
+  <span class="foot-contact">Issues or comments? Contact <strong>Dr Xavier Chee</strong> at <a class="foot-mail" href="mailto:xchee-01@nus.edu.sg">xchee-01@nus.edu.sg</a></span>
+</footer>
 
 <button type="button" class="scratch-fab" id="scratchFab" aria-label="Open the Python scratchpad">
   <span class="scratch-fab-ico" aria-hidden="true">&lt;/&gt;</span>
@@ -4611,6 +4635,7 @@ function submitPosttestPage(pageEl) {
     window.bridgingTrack('confidence_post', item);
   });
   _lockAssessmentPage(pageEl);
+  _savePosttestState(data);
 }
 
 function populatePosttestResults() {
@@ -4635,13 +4660,6 @@ function populatePosttestResults() {
       : (delta < 0
           ? '<span class="results-delta-down">▼ ' + Math.abs(delta) + ' fewer correct than before</span>'
           : '<span class="results-delta-flat">No change in score</span>');
-    // Normalised gain g = (post - pre) / (max - pre), if pre < max
-    let gainText = '';
-    if (postTotal - preCorrect > 0) {
-      const g = (postCorrect - preCorrect) / (postTotal - preCorrect);
-      gainText = '<p class="results-gain">Normalised learning gain: <strong>' + g.toFixed(2) + '</strong> '
-        + '<span class="results-gain-note">(0 = no improvement, 1 = perfect improvement on what you had wrong before)</span></p>';
-    }
     // v5.0: add context paragraph explaining what scores mean
     var pct = Math.round((postCorrect / postTotal) * 100);
     var contextText = '';
@@ -4659,7 +4677,6 @@ function populatePosttestResults() {
       '<p class="results-headline">You scored <strong>' + postCorrect + ' / ' + postTotal + '</strong> on the post-test, '
       + 'up from <strong>' + preCorrect + ' / ' + postTotal + '</strong> on the pre-test.</p>'
       + '<p class="results-delta-line">' + deltaText + '</p>'
-      + gainText
       + '<p class="results-context">' + contextText + '</p>';
   } else if (summaryBody) {
     summaryBody.innerHTML = '<p class="results-pending">No post-test answers were recorded.</p>';
@@ -5043,6 +5060,103 @@ function _restorePretestPage() {
     notice.style.cssText = 'background:#eef4ff;border:1px solid #5b8def;border-radius:8px;padding:10px 14px;margin-top:12px;color:#003D7C;';
     notice.innerHTML = '<strong>Your earlier answers are shown below.</strong> ' +
       'The pre-test is locked once submitted, so the answers you see here are the ones used to measure your learning gain at the end.';
+    const intro = pageEl.querySelector('.assess-intro');
+    if (intro && intro.parentNode) {
+      intro.parentNode.insertBefore(notice, intro.nextSibling);
+    }
+  }
+}
+
+// ── post-test persistence (mirror of pre-test) ──────────────────
+// The post-test is a one-shot paired measurement just like the
+// pre-test, so it must survive a reload: persist on submit, then
+// restore + re-lock on load. Without this a refresh blanks the
+// post-test and lets the student re-attempt it (contaminating the
+// pre/post learning-gain pairing) and also wipes window.postTestState,
+// making the results page report "no answers recorded".
+const POSTTEST_KEY_PREFIX = 'bridging_posttest_v1_';
+function _posttestKey() {
+  let lid = 'anon';
+  try {
+    const phm = localStorage.getItem('phm_student');
+    if (phm) {
+      const o = JSON.parse(phm);
+      if (o && o.student_id) lid = String(o.student_id);
+    }
+  } catch (e) {}
+  return POSTTEST_KEY_PREFIX + MODULE_ID + '_' + lid;
+}
+
+function _savePosttestState(data) {
+  try {
+    localStorage.setItem(_posttestKey(), JSON.stringify({
+      saved_at: Date.now(),
+      mcqs: data.mcqs || [],
+      confidence: data.confidence || [],
+    }));
+  } catch (e) {}
+}
+
+function _loadPosttestState() {
+  try {
+    const raw = localStorage.getItem(_posttestKey());
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
+function _restorePosttestPage() {
+  const saved = _loadPosttestState();
+  if (!saved) return;
+  const pageEl = document.getElementById('page-post-test');
+  if (!pageEl) return;
+  if (pageEl.dataset.submitted === '1') return;
+
+  (saved.mcqs || []).forEach(function(item) {
+    const card = pageEl.querySelector(
+      '.mcq-card[data-phase="post"][data-item-id="' + item.item_id + '"]'
+    );
+    if (!card) return;
+    const opt = card.querySelector(
+      '.mcq-option[data-option-index="' + item.selected_index + '"]'
+    );
+    if (opt) {
+      card.querySelectorAll('.mcq-option').forEach(function(o) {
+        o.classList.remove('selected');
+        o.setAttribute('aria-checked', 'false');
+      });
+      opt.classList.add('selected');
+      opt.setAttribute('aria-checked', 'true');
+    }
+  });
+  (saved.confidence || []).forEach(function(item) {
+    const card = pageEl.querySelector(
+      '.confidence-card[data-phase="post"][data-item-id="' + item.item_id + '"]'
+    );
+    if (!card) return;
+    const btn = card.querySelector('.confidence-btn[data-value="' + item.value + '"]');
+    if (btn) {
+      card.querySelectorAll('.confidence-btn').forEach(function(b) {
+        b.classList.remove('selected');
+      });
+      btn.classList.add('selected');
+    }
+  });
+
+  window.postTestState = {
+    mcqs: saved.mcqs || [],
+    confidence: saved.confidence || [],
+  };
+  pageEl.dataset.submitted = '1';
+  _lockAssessmentPage(pageEl);
+
+  if (!document.getElementById('posttestRestoredNotice')) {
+    const notice = document.createElement('p');
+    notice.id = 'posttestRestoredNotice';
+    notice.className = 'assess-intro';
+    notice.style.cssText = 'background:#e9f9f0;border:1px solid #2ea36b;border-radius:8px;padding:10px 14px;margin-top:12px;color:#14603a;';
+    notice.innerHTML = '<strong>Your earlier answers are shown below.</strong> ' +
+      'The post-test is locked once submitted — these are the answers paired ' +
+      'with your pre-test to measure your learning gain. Continue to see your results.';
     const intro = pageEl.querySelector('.assess-intro');
     if (intro && intro.parentNode) {
       intro.parentNode.insertBefore(notice, intro.nextSibling);
@@ -8297,10 +8411,11 @@ function _initResponsiveChrome() {
 
 window.addEventListener('DOMContentLoaded', async () => {
   renderNav();
-  // Restore pre-test before pagination wires up showPage(0): the restore
-  // sets data-submitted='1' so the Next-button gate stays open and the
-  // student can't refill the locked pre-test.
+  // Restore pre/post-test before pagination wires up showPage(0): each
+  // restore sets data-submitted='1' so the Next-button gate stays open and
+  // the student can't refill the locked assessment after a reload.
   try { _restorePretestPage(); } catch (e) {}
+  try { _restorePosttestPage(); } catch (e) {}
   setupPagination();
   initScratchpad();
   _initResponsiveChrome();
