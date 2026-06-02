@@ -3,7 +3,7 @@
 ===============================================================================
 Built by build_module_v4_2.py v4.2
 Source : 1_6a_Functions.docx
-Built  : 2026-06-02 00:01
+Built  : 2026-06-02 10:30
 
 v4.2 changes vs v4.1:
   - bridgingTrack() is now a live transport: sendBeacon to Power
@@ -3157,7 +3157,7 @@ function renderNav() {
 // learner traces, compute pre/post pairing, and slice by tier.
 const FLOW_TELEMETRY_URL = "https://nus-llm-proxy.xavierchee-teaching.workers.dev/telemetry";
 const MODULE_ID           = "1";
-const MODULE_VERSION      = "v5.1";
+const MODULE_VERSION      = "v5.2";
 const TRACK_QUEUE_KEY     = "bridging_track_queue_v1";
 const SESSION_KEY         = "bridging_session_id_v1";
 const LEARNER_KEY         = "bridging_learner_id";
@@ -3764,11 +3764,16 @@ function _truncForTelemetry(s) {
 }
 
 function _buildEnvelope(eventType, payload) {
-  let locale = '', tz = '';
+  let locale = '', tz = '', utcOffsetMin = '';
   try {
     const opts = Intl.DateTimeFormat().resolvedOptions();
     locale = opts.locale || '';
     tz = opts.timeZone || '';
+    // Minutes EAST of UTC. getTimezoneOffset() returns the opposite sign
+    // (minutes the local zone is BEHIND UTC), so negate it: Singapore -> +480,
+    // India -> +330, US-Eastern -> -300/-240. Lets the Office Script render a
+    // learner-local clock from the UTC client_ts without a timezone database.
+    utcOffsetMin = -new Date().getTimezoneOffset();
   } catch (e) {}
   const ctx = window.__canvasCtx || {};
   return {
@@ -3783,6 +3788,7 @@ function _buildEnvelope(eventType, payload) {
     device_type: _detectDeviceType(),
     locale: locale,
     timezone: tz,
+    utc_offset_min: utcOffsetMin,
     user_agent: navigator.userAgent || '',
     canvas_uid: ctx.uid || null,
     canvas_cid: ctx.cid || null,
