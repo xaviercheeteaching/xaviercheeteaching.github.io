@@ -3,7 +3,7 @@
 ===============================================================================
 Built by build_module_v4_2.py v4.2
 Source : 1_12a_Data_Visualization_with_Matplotlib_I.docx
-Built  : 2026-06-02 10:30
+Built  : 2026-06-03 08:49
 
 v4.2 changes vs v4.1:
   - bridgingTrack() is now a live transport: sendBeacon to Power
@@ -6717,6 +6717,11 @@ function advanceWorkedStage(btn, fromStage) {
   var nextPanel = card.querySelector('[data-stage-panel="' + (fromStage + 1) + '"]');
   if (fromPanel) fromPanel.hidden = true;
   if (nextPanel) nextPanel.hidden = false;
+  // Smoothly bring the newly revealed stage into view (matches the PRIMM
+  // phase-advance scroll) so the student isn't left staring at the old panel.
+  if (nextPanel && nextPanel.scrollIntoView) {
+    nextPanel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
   card.dataset.stage = String(fromStage + 1);
   _workedMarkPip(card, fromStage);
   window.bridgingTrack('worked_example_advance', {
@@ -6843,50 +6848,88 @@ async function submitWorkedStage(btn, stage) {
     btn.disabled = true;
     var runRes3 = await _runPythonInCard(card, codeText);
     actualOutput = runRes3.output || '';
+    // _runPythonInCard writes to the card's FIRST .code-output, which is Stage 2's
+    // panel (hidden while we are on Stage 3). Mirror the result into THIS stage's
+    // own output box so the student actually sees what their code printed — this is
+    // the same fix the PRIMM 'run' phase uses.
+    if (output && output !== card.querySelector('.code-output')) {
+      output.hidden = false;
+      output.textContent = actualOutput || '(no output)';
+      output.className = 'code-output' + (runRes3.ok ? '' : ' is-error');
+    }
+
+    // Students legitimately format the same answer differently (a bare value, a
+    // quoted string, a labelled sentence), so we no longer gate Stage 3 on a
+    // brittle string-equality check. Instead:
+    //   - no-LLM build -> show the expected answer and let the student self-check
+    //                     (no auto pass/fail); a clean run unlocks completion.
+    //   - LLM build    -> the tutor judges whether the answer is *essentially*
+    //                     equivalent, and we also show the expected answer.
+    // The strict compare below is kept ONLY so telemetry keeps logging a
+    // MATCH/MISMATCH signal for the analytics workbook — it does not gate the UI.
     var aN3 = _normaliseOutputForCompare(actualOutput);
     var eN3 = _normaliseOutputForCompare(expected);
-    var match3 = runRes3.ok && aN3.length > 0 && (eN3 === '' || aN3 === eN3);
-    verdict = match3 ? 'MATCH' : 'MISMATCH';
-    ok = match3;
+    var strictMatch = runRes3.ok && aN3.length > 0 && (eN3 === '' || aN3 === eN3);
+    verdict = strictMatch ? 'MATCH' : 'MISMATCH';
+
+    var expectedBlock = expected
+      ? '<div style="margin-top:10px;font-weight:600">Expected answer</div>' +
+        '<pre class="code-ref code-ref--output"><code>' + _escapeHtml(expected) + '</code></pre>'
+      : '';
 
     var sys3 =
       "You are a supportive Python tutor. The student has just written an " +
-      "independent solution to a problem, after studying a worked example and " +
-      "filling in a scaffold. A deterministic grader has compared their output " +
-      "to the author's expected output — respect the VERDICT absolutely. " +
-      "If MATCH: in 2-3 sentences celebrate the independent solve and point out " +
-      "one thing they did well in their own code. " +
-      "If MISMATCH: in 3-5 sentences (1) say the solution is not yet correct, " +
-      "(2) name the conceptual gap between what they wrote and what the problem " +
-      "asked for, (3) give a concrete next step — do NOT paste the full answer. " +
-      "Never give a numeric grade.";
+      "independent solution, after studying a worked example and filling in a " +
+      "scaffold. Students legitimately format the same correct answer in different " +
+      "ways — a bare value, a quoted string, or a labelled sentence (for example " +
+      "29.8, '29.8', and 'BMI is 29.8' are all the same answer). Judge whether the " +
+      "student's output is ESSENTIALLY the same as the expected output, ignoring " +
+      "such formatting differences; only the underlying value(s) matter. " +
+      "Your reply MUST begin with a first line containing exactly CORRECT or NEEDS WORK, " +
+      "then a blank line, then your feedback. " +
+      "If CORRECT: 2-3 sentences celebrating the independent solve and one thing they " +
+      "did well. If NEEDS WORK: 3-5 sentences naming the conceptual gap and a concrete " +
+      "next step — do NOT paste the full answer. Never give a numeric grade.";
     var usr3 =
-      "GRADER VERDICT: " + verdict + "\n\n" +
       "Problem prompt:\n" + (card.querySelector('.worked-indep-prompt') ? card.querySelector('.worked-indep-prompt').textContent : '') + "\n\n" +
       "Expected output:\n" + expected + "\n\n" +
       "Student's code:\n```python\n" + codeText + "\n```\n\n" +
       "Student's actual output:\n" + actualOutput + "\n\n" +
-      "Write your feedback. Verdict is " + verdict + ".";
+      "Decide CORRECT or NEEDS WORK, then write your feedback.";
     var result3 = await _callLLMTutor(usr3, sys3);
+
     if (result3.ok) {
+      var raw3 = String(result3.reply);
+      var firstLine3 = (raw3.split('\n', 1)[0] || '').trim().toUpperCase();
+      ok = /^CORRECT\b/.test(firstLine3) && !/NEEDS|INCORRECT|NOT\b/.test(firstLine3);
+      var prose3 = raw3.replace(/^[^\n]*\n?/, '').trim() || raw3;
+      verdict = ok ? 'MATCH' : 'MISMATCH';
       feedback.className = 'code-feedback' + (ok ? ' is-correct' : ' is-incorrect');
       feedback.innerHTML = '<strong>Tutor feedback:</strong> ' +
-        String(result3.reply).replace(/</g, '&lt;');
+        prose3.replace(/</g, '&lt;') + expectedBlock;
     } else if (result3.disabled) {
-      var ov3 = _offlineVerdict(ok, actualOutput, {
-        correctHead: '<strong>Correct!</strong> Your independent solution matches the expected output:',
-        wrongHead: '<strong>Not yet.</strong> Your output does not match the expected output:' });
-      feedback.className = ov3.cls;
-      feedback.innerHTML = ov3.html;
+      // no-LLM build: no auto pass/fail. Show the expected answer for self-check.
+      ok = runRes3.ok;
+      if (runRes3.ok) {
+        feedback.className = 'code-feedback';
+        feedback.innerHTML = (expected
+          ? '<strong>Run complete.</strong> Compare your output above with the expected answer below.'
+          : '<strong>Run complete.</strong> Your output is shown above.') + expectedBlock;
+      } else {
+        feedback.className = 'code-feedback is-incorrect';
+        feedback.innerHTML = '<strong>Your code hit an error.</strong> Fix it so it runs, then compare with the expected answer below.' + expectedBlock;
+      }
     } else {
       feedback.className = 'code-feedback is-incorrect';
-      feedback.innerHTML = '<strong>Could not reach the tutor right now.</strong> Your code has been saved — try again in a moment.';
+      feedback.innerHTML = '<strong>Could not reach the tutor right now.</strong> Your code has been saved — try again in a moment.' + expectedBlock;
     }
     if (ok) _workedMarkPip(card, 3);
     btn.disabled = false;
     window.bridgingTrack('worked_example_submit', {
       card_id: card.dataset.cardId, stage: 3, verdict: verdict,
-      ok: result3.ok, latency_ms: Date.now() - started,
+      ok: result3.ok, strict_match: strictMatch,
+      judged: (result3.ok ? 'llm' : (result3.disabled ? 'none' : 'error')),
+      latency_ms: Date.now() - started,
       http_status: result3.status, error_kind: result3.error_kind,
       code: _truncForTelemetry(codeText),
       output: _truncForTelemetry(actualOutput),
