@@ -3,7 +3,7 @@
 ===============================================================================
 Built by build_module_v4_2.py v4.2
 Source : 1_11c_Pandas_III.docx
-Built  : 2026-06-03 18:26
+Built  : 2026-06-04 10:48
 
 v4.2 changes vs v4.1:
   - bridgingTrack() is now a live transport: sendBeacon to Power
@@ -30,6 +30,23 @@ v3 changes vs v2:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="theme-color" content="#003D7C">
+<script>
+/* v6.1: apply the saved View setting (Settings -> View) BEFORE first paint so
+   there is no layout flash. 'auto' leaves the responsive media queries in
+   charge; a forced mode sets html[data-vm] (CSS overrides) and, for the
+   larger views, widens the layout viewport so phones scale-to-fit. */
+(function(){
+  try {
+    var mode = localStorage.getItem('phm_view_mode') || 'auto';
+    if (mode !== 'auto') document.documentElement.setAttribute('data-vm', mode);
+    var vp = document.querySelector('meta[name="viewport"]');
+    if (vp) {
+      if (mode === 'desktop') vp.setAttribute('content', 'width=1200');
+      else if (mode === 'tablet') vp.setAttribute('content', 'width=900');
+    }
+  } catch (e) {}
+})();
+</script>
 <title>Python Fundamentals — Pandas III | NUS Bridging Course</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -1013,6 +1030,24 @@ body::before {
   box-shadow: 0 6px 16px rgba(0,61,124,0.30);
 }
 .rating-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+/* v6.x: glow nudge — once the learner fills the muddiest point or the
+   rating, the matching Submit button pulses twice then holds a steady
+   ring, so it is hard to leave without clicking. Manual submit only —
+   nothing about telemetry changes. prefers-reduced-motion drops the
+   pulse but keeps the steady ring. */
+.muddiest-submit.glow-nudge,
+.rating-submit.glow-nudge {
+  box-shadow: 0 0 0 3px rgba(255,107,53,0.40), 0 4px 16px rgba(255,107,53,0.32);
+  animation: glowNudge 1.3s ease-in-out 2;
+}
+@keyframes glowNudge {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(255,107,53,0.40), 0 4px 16px rgba(255,107,53,0.32); }
+  50%      { box-shadow: 0 0 0 7px rgba(255,107,53,0.22), 0 7px 24px rgba(255,107,53,0.58); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .muddiest-submit.glow-nudge,
+  .rating-submit.glow-nudge { animation: none; }
+}
 .rating-ack {
   margin-top: 14px; font-size: 14px; color: #2ea36b; font-weight: 600;
 }
@@ -1556,17 +1591,28 @@ body.no-llm [onclick*="askParsonsHint"] { display: none !important; }
 .page-nav-indicator strong { color: #003D7C; }
 
 @media (max-width: 1180px) {
+  /* v6.0: keep the scratchpad docked side-by-side down to 1024px by
+     slimming the rails; the lesson column stays comfortably readable.
+     The floating bottom-sheet only takes over below 1024 (next query). */
   .module-grid {
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: 210px minmax(0, 1fr) 320px;
     gap: 24px;
-    padding: 20px 32px 60px;
+    padding: 20px 28px 60px;
   }
-  .module-content { padding: 32px 40px; }
-  .module-hero { padding: 40px 40px 24px; }
-  .top-banner { padding: 20px 40px; }
-  .nav-bar-content { padding: 0 40px; }
-  /* v5.9: the scratchpad leaves the column flow and becomes a bottom
-     sheet opened by the floating button; it sits off-screen until then. */
+  .module-content { padding: 32px 36px; }
+  .module-hero { padding: 40px 36px 24px; }
+  .top-banner { padding: 20px 36px; }
+  .nav-bar-content { padding: 0 36px; }
+}
+@media (max-width: 1024px) {
+  .module-grid,
+  .module-grid.no-scratchpad {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 20px 24px 60px;
+  }
+  /* v6.0: below 1024 the scratchpad leaves the column flow and becomes a
+     bottom sheet opened by the floating button; off-screen until opened. */
   .scratchpad-panel {
     position: fixed;
     left: 0; right: 0; bottom: 0; top: auto;
@@ -1581,14 +1627,6 @@ body.no-llm [onclick*="askParsonsHint"] { display: none !important; }
   .scratchpad-panel.floating-open { transform: translateY(0); visibility: visible; }
   .scratchpad-editor { min-height: 150px; max-height: 30dvh; }
   .scratch-fab { display: inline-flex !important; }
-}
-@media (max-width: 1024px) {
-  .module-grid,
-  .module-grid.no-scratchpad {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
-    padding: 20px 24px 60px;
-  }
   /* v5.9: the section nav becomes a left slide-in drawer behind the
      hamburger in the sticky mobile top bar. */
   .subnav {
@@ -1611,6 +1649,9 @@ body.no-llm [onclick*="askParsonsHint"] { display: none !important; }
   .module-hero { padding: 32px 24px 16px; }
   .module-hero h1 { font-size: 32px; }
   .top-banner { padding: 16px 24px; }
+  /* v6.1: keep every banner control (incl. the Settings gear) reachable on
+     narrow screens — wrap instead of overflowing off the right edge. */
+  .top-banner-content { flex-wrap: wrap; gap: 12px; }
   .nav-bar-content { padding: 0 16px; }
   .nav-links { overflow-x: auto; gap: 8px; }
   .nav-links > li > a { font-size: 12px; padding: 18px 8px; }
@@ -1662,7 +1703,7 @@ body.no-llm [onclick*="askParsonsHint"] { display: none !important; }
 .overlay-backdrop[hidden] { display: none; }
 /* Floating action button — draggable, opens the scratchpad sheet. */
 .scratch-fab {
-  display: none;            /* shown at <=1180 via the media query above */
+  display: none;            /* shown at <=1024 via the media query above */
   position: fixed; right: 20px; bottom: 20px;
   align-items: center; gap: 8px;
   padding: 13px 18px;
@@ -1689,6 +1730,94 @@ body.no-llm [onclick*="askParsonsHint"] { display: none !important; }
 .scratchpad-panel.floating-open .scratch-sheet-close { display: inline-flex; align-items: center; justify-content: center; }
 .scratchpad-panel.floating-open { box-shadow: 0 -10px 40px rgba(0,61,124,0.25); }
 body.no-scroll { overflow: hidden; }
+
+/* ── v6.1: Settings gear + popover (core-owned so it exists on every lesson,
+   GIF lessons included). The GIF injector appends its toggle into #gpPopItems. ── */
+.gp-gear-wrap { position: relative; margin-left: auto; display: inline-flex; align-items: center; }
+.gp-gear { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; background: #fff;
+  border: 1px solid #e2e8f0; border-radius: 8px; padding: 7px 12px; color: #5a6c7d;
+  font: 600 12px 'Inter', sans-serif; transition: all .2s ease; }
+.gp-gear:hover { color: #FF6B35; border-color: #FF6B35; background: #fff7f3; }
+.gp-gear.open { color: #003D7C; border-color: #cdd7e5; background: #f8fafc; }
+.gp-gear svg { width: 15px; height: 15px; display: block; }
+.gp-pop { position: absolute; top: calc(100% + 10px); right: 0; width: 300px; background: #fff;
+  border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 16px 40px rgba(0,61,124,.18);
+  padding: 6px; z-index: 1102; }
+.gp-pop[hidden] { display: none; }
+.gp-pop h4 { font: 700 11px 'Inter', sans-serif; letter-spacing: .6px; text-transform: uppercase;
+  color: #9aa6b6; padding: 12px 12px 8px; margin: 0; }
+.gp-pop-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; }
+.gp-pop-item:hover { background: #f8fafc; }
+.gp-pop-item[hidden] { display: none; }
+.gp-pop-txt { flex: 1; }
+.gp-pop-txt b { font: 600 14px 'Inter', sans-serif; color: #003D7C; display: block; }
+.gp-pop-txt small { color: #5a6c7d; font-size: 11.5px; line-height: 1.4; display: block; margin-top: 2px; }
+.gp-pop-note { border-top: 1px solid #eef2f7; color: #9aa6b6; font-size: 11px; padding: 9px 12px 7px; }
+.gp-switch { position: relative; width: 46px; height: 26px; flex: 0 0 auto; }
+.gp-switch input { opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.gp-slider { position: absolute; inset: 0; background: #cbd5e1; border-radius: 999px; transition: .2s; pointer-events: none; }
+.gp-slider:before { content: ""; position: absolute; width: 20px; height: 20px; left: 3px; top: 3px;
+  background: #fff; border-radius: 50%; transition: .2s; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+.gp-switch input:checked + .gp-slider { background: #FF6B35; }
+.gp-switch input:checked + .gp-slider:before { transform: translateX(20px); }
+/* View segmented control */
+.vm-seg { display: flex; gap: 4px; padding: 8px 12px 4px; }
+.vm-seg-btn { flex: 1; cursor: pointer; border: 1px solid #e2e8f0; background: #fff; border-radius: 8px;
+  padding: 8px 4px; color: #5a6c7d; font: 600 11px 'Inter', sans-serif; display: flex;
+  flex-direction: column; align-items: center; gap: 4px; transition: all .15s ease; }
+.vm-seg-btn svg { width: 18px; height: 18px; display: block; }
+.vm-seg-btn:hover { border-color: #cdd7e5; color: #003D7C; background: #f8fafc; }
+.vm-seg-btn[aria-pressed="true"] { border-color: #FF6B35; color: #003D7C; background: #fff7f3;
+  box-shadow: 0 2px 8px rgba(255,107,53,.15); }
+@media (max-width: 640px) { .gp-gear .gp-gear-label { display: none; } }
+
+/* ── v6.1: manual View overrides. data-vm on <html> beats the auto media
+   queries via attribute specificity; 'auto' sets no attribute (queries rule). ── */
+/* COMPUTER — force the 3-column desktop layout */
+html[data-vm="desktop"] .module-grid { grid-template-columns: 240px minmax(0, 1fr) 360px; padding: 20px 48px 80px; }
+html[data-vm="desktop"] .module-grid.no-scratchpad { grid-template-columns: 240px minmax(0, 1fr); }
+html[data-vm="desktop"] .module-content { padding: 40px 52px; }
+html[data-vm="desktop"] .scratchpad-panel { position: sticky; top: 90px; left: auto; right: auto; bottom: auto;
+  width: auto; max-width: none; margin: 0; max-height: calc(100vh - 110px); border-radius: 16px;
+  transform: none; visibility: visible; z-index: auto; }
+html[data-vm="desktop"] .subnav { position: sticky; top: 90px; left: auto; width: auto; height: auto;
+  max-height: calc(100vh - 110px); border-radius: 16px; padding: 22px 16px; transform: none;
+  visibility: visible; box-shadow: 0 8px 32px rgba(0,61,124,0.10); }
+html[data-vm="desktop"] .mobile-topbar { display: none !important; }
+html[data-vm="desktop"] .scratch-fab { display: none !important; }
+
+/* TABLET — force 2 columns (nav + content), scratchpad as the floating sheet */
+html[data-vm="tablet"] .module-grid,
+html[data-vm="tablet"] .module-grid.no-scratchpad { grid-template-columns: 220px minmax(0, 1fr); padding: 20px 32px 60px; }
+html[data-vm="tablet"] .module-content { padding: 32px 40px; }
+html[data-vm="tablet"] .subnav { position: sticky; top: 90px; left: auto; width: auto; height: auto;
+  max-height: calc(100vh - 110px); border-radius: 16px; padding: 22px 16px; transform: none;
+  visibility: visible; box-shadow: 0 8px 32px rgba(0,61,124,0.10); }
+html[data-vm="tablet"] .mobile-topbar { display: none !important; }
+html[data-vm="tablet"] .scratchpad-panel { position: fixed; left: 0; right: 0; bottom: 0; top: auto;
+  width: auto; max-width: none; margin: 0; max-height: 85dvh; border-radius: 18px 18px 0 0;
+  transform: translateY(100%); visibility: hidden;
+  transition: transform 0.32s cubic-bezier(.4,0,.2,1), visibility 0.32s; z-index: 1180; }
+html[data-vm="tablet"] .scratchpad-panel.floating-open { transform: translateY(0); visibility: visible; }
+html[data-vm="tablet"] .scratchpad-editor { min-height: 150px; max-height: 30dvh; }
+html[data-vm="tablet"] .scratch-fab:not(.is-hidden) { display: inline-flex !important; }
+
+/* PHONE — force single column + hamburger drawer + floating sheet */
+html[data-vm="phone"] .module-grid,
+html[data-vm="phone"] .module-grid.no-scratchpad { grid-template-columns: minmax(0, 1fr); padding: 20px 24px 60px; }
+html[data-vm="phone"] .module-content { padding: 24px 20px; }
+html[data-vm="phone"] .subnav { position: fixed; top: 0; left: 0; width: min(82vw, 320px); height: 100dvh;
+  max-height: none; border-radius: 0; padding-top: 56px; transform: translateX(-100%); visibility: hidden;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1), visibility 0.3s; z-index: 1200; overflow-y: auto; }
+html[data-vm="phone"] .subnav.open { transform: translateX(0); visibility: visible; box-shadow: 0 10px 40px rgba(0,0,0,0.28); }
+html[data-vm="phone"] .mobile-topbar { display: flex !important; }
+html[data-vm="phone"] .scratchpad-panel { position: fixed; left: 0; right: 0; bottom: 0; top: auto;
+  width: auto; max-width: none; margin: 0; max-height: 85dvh; border-radius: 18px 18px 0 0;
+  transform: translateY(100%); visibility: hidden;
+  transition: transform 0.32s cubic-bezier(.4,0,.2,1), visibility 0.32s; z-index: 1180; }
+html[data-vm="phone"] .scratchpad-panel.floating-open { transform: translateY(0); visibility: visible; }
+html[data-vm="phone"] .scratchpad-editor { min-height: 150px; max-height: 30dvh; }
+html[data-vm="phone"] .scratch-fab:not(.is-hidden) { display: inline-flex !important; }
 @media (max-width: 640px) {
   .scratch-fab { right: 14px; bottom: 14px; padding: 12px; }
   .scratch-fab .scratch-fab-label { display: none; }
@@ -1985,7 +2114,7 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
 /* On narrow screens the floating "</> Python" FAB (fixed, bottom-right) would
    overlap the contact line at the page bottom — give the footer room to clear it.
    Placed AFTER the base rule so it wins by source order (see build-docx-lock note). */
-@media (max-width: 1180px) {
+@media (max-width: 1024px) {
   footer.site-foot { padding-bottom: 92px; }
 }
 </style>
@@ -2049,7 +2178,7 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
   border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .gp-switch input:checked + .gp-slider{background:#FF6B35}
 .gp-switch input:checked + .gp-slider:before{transform:translateX(20px)}
-@media (max-width:768px){.gp-offer,.gp-gear-wrap{display:none !important}}
+@media (max-width:768px){.gp-offer{display:none !important}}
 </style>
 </head>
 <body class="no-llm">
@@ -2067,6 +2196,35 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
       <span class="auth-chip-name" id="authChipName"></span>
       <span class="auth-chip-sep">·</span>
       <button type="button" class="auth-chip-logout" id="authChipLogout">Log out</button>
+    </div>
+    <div class="gp-gear-wrap" id="gpSettings">
+      <button type="button" class="gp-gear" id="gpGearBtn" aria-label="Settings" aria-expanded="false" aria-controls="gpPop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span class="gp-gear-label">Settings</span>
+      </button>
+      <div class="gp-pop" id="gpPop" hidden>
+        <h4>View</h4>
+        <div class="vm-seg" id="vmSeg" role="group" aria-label="Choose layout view">
+          <button type="button" class="vm-seg-btn" data-vm="auto" aria-pressed="true" aria-label="Automatic view (matches your screen)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><polyline points="21 3 21 9 15 9"></polyline></svg>
+            <span class="vm-seg-cap">Auto</span>
+          </button>
+          <button type="button" class="vm-seg-btn" data-vm="desktop" aria-pressed="false" aria-label="Computer view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span class="vm-seg-cap">Computer</span>
+          </button>
+          <button type="button" class="vm-seg-btn" data-vm="tablet" aria-pressed="false" aria-label="Tablet view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+            <span class="vm-seg-cap">Tablet</span>
+          </button>
+          <button type="button" class="vm-seg-btn" data-vm="phone" aria-pressed="false" aria-label="Phone view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+            <span class="vm-seg-cap">Phone</span>
+          </button>
+        </div>
+        <div id="gpPopItems"></div>
+        <div class="gp-pop-note">Saved on this device. &ldquo;Auto&rdquo; matches your screen size.</div>
+      </div>
     </div>
     <button type="button" class="banner-reset-btn" id="bannerResetBtn"
             aria-label="Reset progress and regenerate learning materials"
@@ -3388,7 +3546,7 @@ print(X.shape)</textarea>
 <div class="assess-card muddiest-card" id="muddiest-point">
   <div class="assess-header muddiest-header">Muddiest point</div>
   <p class="muddiest-prompt">What is the one thing from this module that is still unclear to you?</p>
-  <textarea class="muddiest-input" rows="3"
+  <textarea class="muddiest-input" rows="3" oninput="updateMuddiestNudge(this)"
     placeholder="Be specific — your answer helps us redesign the module…"></textarea>
   <button class="muddiest-submit" onclick="submitMuddiest(this)">Submit</button>
   <div class="muddiest-ack" hidden>Thank you — your feedback shapes the next version of this module.</div>
@@ -4986,12 +5144,34 @@ function submitMuddiest(btn) {
   card.dataset.locked = '1';
   input.disabled = true;
   btn.disabled = true;
+  btn.classList.remove('glow-nudge');
   window.bridgingTrack('muddiest_submit', {
     response_length: response.length,
     response: response,
   });
   const ack = card.querySelector('.muddiest-ack');
   if (ack) ack.hidden = false;
+}
+
+// v6.x: glow nudge — toggle the orange pulse/ring on a Submit button so a
+// filled-but-unclicked card pulls the eye before the learner leaves.
+function updateRatingNudge(card) {
+  const btn = card.querySelector('.rating-submit');
+  if (!btn) return;
+  // Glow only once the button will do something: both the star rating and
+  // the recommend score are set, and it has not been submitted yet.
+  const ready = card.dataset.stars && card.dataset.nps
+    && card.dataset.starsLocked !== '1' && card.dataset.npsLocked !== '1';
+  btn.classList.toggle('glow-nudge', !!ready);
+}
+
+function updateMuddiestNudge(input) {
+  const card = input.closest('.muddiest-card');
+  if (!card) return;
+  const btn = card.querySelector('.muddiest-submit');
+  if (!btn) return;
+  const ready = (input.value || '').trim().length > 0 && card.dataset.locked !== '1';
+  btn.classList.toggle('glow-nudge', ready);
 }
 
 function selectRating(btn) {
@@ -5003,6 +5183,7 @@ function selectRating(btn) {
     const v = parseInt(s.dataset.value, 10);
     s.classList.toggle('selected', v <= value);
   });
+  updateRatingNudge(card);
 }
 
 function selectNps(btn) {
@@ -5011,6 +5192,7 @@ function selectNps(btn) {
   card.dataset.nps = btn.dataset.value;
   card.querySelectorAll('.nps-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
+  updateRatingNudge(card);
 }
 
 function submitRating(btn) {
@@ -5023,6 +5205,7 @@ function submitRating(btn) {
   card.dataset.starsLocked = '1';
   card.dataset.npsLocked = '1';
   btn.disabled = true;
+  btn.classList.remove('glow-nudge');
   card.querySelectorAll('.rating-star, .nps-btn').forEach(b => b.disabled = true);
   window.bridgingTrack('module_rating', {
     stars: stars,
@@ -8439,10 +8622,10 @@ function _lockScroll(on) {
   document.body.classList.toggle('no-scroll', !!on);
 }
 function _anyOverlayOpen() {
+  // Only the nav drawer is modal (dims + locks the page). The scratchpad
+  // sheet is a non-modal docked panel — the lesson stays scrollable behind it.
   var nav = document.getElementById('subnav');
-  var panel = document.getElementById('scratchpadPanel');
-  return (nav && nav.classList.contains('open')) ||
-         (panel && panel.classList.contains('floating-open'));
+  return !!(nav && nav.classList.contains('open'));
 }
 function _showBackdrop(on) {
   var b = document.getElementById('overlayBackdrop');
@@ -8481,7 +8664,8 @@ function _openScratchSheet() {
   _closeNav();
   panel.classList.add('floating-open');
   if (fab) fab.classList.add('is-hidden');
-  _showBackdrop(true); _lockScroll(true);
+  // Non-modal: no dim backdrop, no scroll lock — the student can keep
+  // scrolling and reading the lesson while the scratchpad is docked.
   var ed = document.getElementById('scratchpadEditor');
   if (ed) setTimeout(function() { ed.focus(); }, 50);
 }
@@ -8561,7 +8745,7 @@ function _initResponsiveChrome() {
     if (rt) clearTimeout(rt);
     rt = setTimeout(function() {
       if (window.innerWidth > 1024) _closeNav();
-      if (window.innerWidth > 1180) _closeScratchSheet();
+      if (window.innerWidth > 1024) _closeScratchSheet();
       var fab = document.getElementById('scratchFab');
       if (fab && fab.style.left) {
         var r = fab.getBoundingClientRect();
@@ -8569,6 +8753,48 @@ function _initResponsiveChrome() {
       }
     }, 150);
   });
+}
+
+// ── v6.1: View settings (Auto / Computer / Tablet / Phone) ──────────
+function _setViewMode(m) {
+  try { localStorage.setItem('phm_view_mode', m); } catch (e) {}
+  var el = document.documentElement;
+  if (m === 'auto') el.removeAttribute('data-vm'); else el.setAttribute('data-vm', m);
+  var vp = document.querySelector('meta[name="viewport"]');
+  if (vp) {
+    if (m === 'desktop') vp.setAttribute('content', 'width=1200');
+    else if (m === 'tablet') vp.setAttribute('content', 'width=900');
+    else vp.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0');
+  }
+  var seg = document.getElementById('vmSeg');
+  if (seg) Array.prototype.forEach.call(seg.querySelectorAll('.vm-seg-btn'), function (b) {
+    b.setAttribute('aria-pressed', String(b.dataset.vm === m));
+  });
+  // Switching layout can strand an open drawer/sheet or a stale scroll lock.
+  try { if (typeof _closeNav === 'function') _closeNav(); } catch (e) {}
+  try { if (typeof _closeScratchSheet === 'function') _closeScratchSheet(); } catch (e) {}
+  document.body.classList.remove('no-scroll');
+}
+function _initViewSettings() {
+  var gear = document.getElementById('gpGearBtn');
+  var pop = document.getElementById('gpPop');
+  var wrap = document.getElementById('gpSettings');
+  var seg = document.getElementById('vmSeg');
+  var saved = 'auto';
+  try { saved = localStorage.getItem('phm_view_mode') || 'auto'; } catch (e) {}
+  if (seg) Array.prototype.forEach.call(seg.querySelectorAll('.vm-seg-btn'), function (b) {
+    b.setAttribute('aria-pressed', String(b.dataset.vm === saved));
+    b.addEventListener('click', function () { _setViewMode(b.dataset.vm || 'auto'); });
+  });
+  if (gear && pop) {
+    var setOpen = function (o) {
+      pop.hidden = !o; gear.classList.toggle('open', o);
+      gear.setAttribute('aria-expanded', String(o));
+    };
+    gear.addEventListener('click', function (e) { e.stopPropagation(); setOpen(pop.hidden); });
+    document.addEventListener('click', function (e) { if (wrap && !wrap.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+  }
 }
 // ── end v5.2 scratchpad ─────────────────────────────────────────
 
@@ -8582,6 +8808,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   setupPagination();
   initScratchpad();
   _initResponsiveChrome();
+  _initViewSettings();
   // v5.6: warm up Pyodide in the background now, so the interpreter is
   // usually live by the time the student reaches a coding exercise.
   // Not awaited — the download runs alongside the rest of init below.
@@ -8692,8 +8919,24 @@ window.addEventListener('DOMContentLoaded', async () => {
   P.plain=function(){ this.want=false; this.setPlaying(false);
     if(this.canvas) this.canvas.hidden=true; if(this.bar) this.bar.hidden=true; if(this.img) this.img.hidden=false; };
 
-  // ---- Settings menu mounted in the banner, next to the user name ----
+  // ---- GIF toggle: plug into the core-template Settings gear if present ----
   function buildSettings(){
+    // Preferred path: the core template renders the gear + popover (every
+    // lesson, all devices). We just append our GIF toggle into #gpPopItems;
+    // the core JS owns opening/closing the popover.
+    var items=document.getElementById('gpPopItems');
+    if(items){
+      if(!document.getElementById('gpGifItem')){
+        var item=document.createElement('div');
+        item.className='gp-pop-item'; item.id='gpGifItem';
+        item.innerHTML='<div class="gp-pop-txt"><b>Interactive GIF player</b>'
+          +'<small>Scrub and step through animations frame-by-frame. Laptops &amp; desktops only.</small></div>'
+          +'<label class="gp-switch"><input type="checkbox" id="gpToggle"><span class="gp-slider"></span></label>';
+        items.appendChild(item);
+      }
+      return document.getElementById('gpSettings');
+    }
+    // ---- legacy fallback: no core gear -> build a standalone one ----
     var bar=document.querySelector('.top-banner-content')||document.querySelector('.top-banner');
     if(!bar) return null;
     var wrap=document.createElement('div'); wrap.className='gp-gear-wrap'; wrap.id='gpSettings'; wrap.hidden=true;
@@ -8701,7 +8944,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     btn.setAttribute('aria-label','Settings'); btn.innerHTML=GEAR+'<span>Settings</span>';
     var pop=document.createElement('div'); pop.className='gp-pop'; pop.hidden=true;
     pop.innerHTML='<h4>Display settings</h4>'
-      +'<div class="gp-pop-item"><div class="gp-pop-txt"><b>Interactive GIF player</b>'
+      +'<div class="gp-pop-item" id="gpGifItem"><div class="gp-pop-txt"><b>Interactive GIF player</b>'
       +'<small>Scrub and step through animations frame-by-frame.</small></div>'
       +'<label class="gp-switch"><input type="checkbox" id="gpToggle"><span class="gp-slider"></span></label></div>'
       +'<div class="gp-pop-note">Saved for every lesson. Laptops &amp; desktops only.</div>';
@@ -8719,11 +8962,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   var players=[], io=null;
   function wantInteractive(){ return !isPhone() && pref()==='on' && hasDecoder; }
   function applyAll(){
-    var offer=document.getElementById('gpOffer'), gear=document.getElementById('gpSettings'),
+    var offer=document.getElementById('gpOffer'), gifItem=document.getElementById('gpGifItem'),
         toggle=document.getElementById('gpToggle');
     var phone=isPhone();
     if(offer) offer.hidden = phone || pref()!==null;
-    if(gear) gear.hidden = phone;            // Settings entry is laptop-only (its only option is GIF)
+    if(gifItem) gifItem.hidden = phone;      // GIF player is laptop-only; the gear stays for View settings
     if(toggle) toggle.checked = (pref()==='on');
     var want=wantInteractive();
     players.forEach(function(p){
@@ -8756,5 +8999,6 @@ window.addEventListener('DOMContentLoaded', async () => {
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
+<!-- NUS-ANNOUNCEMENT (injected by [A3]) --><script src="announcement.js" defer></script><!-- /NUS-ANNOUNCEMENT -->
 </body>
 </html>
