@@ -3,7 +3,7 @@
 ===============================================================================
 Built by build_module_v4_2.py v4.2
 Source : 2_5_Functions_and_Arguments.docx
-Built  : 2026-06-10 08:16
+Built  : 2026-06-10 08:54
 
 v4.2 changes vs v4.1:
   - bridgingTrack() is now a live transport: sendBeacon to Power
@@ -2205,10 +2205,6 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
 .sp2-up{appearance:none;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;color:#0d1117;background:linear-gradient(135deg,#FF6B35,#ff8d5e);border:0;border-radius:7px;padding:6px 12px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 3px 12px rgba(255,107,53,.28);transition:transform .12s,box-shadow .2s}
 .sp2-up:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,107,53,.36)}
 .sp2-up svg{width:14px;height:14px}
-.sp2-reset{appearance:none;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;color:#c9d1d9;background:#21262d;border:1px solid #30363d;border-radius:7px;padding:6px 12px;display:inline-flex;align-items:center;gap:6px;transition:.15s}
-.sp2-reset:hover{color:#fff;border-color:#3d444d;background:#2b3036}
-.sp2-reset svg{width:14px;height:14px}
-.sp2-reset[hidden]{display:none}
 .sp2-flist{display:flex;flex-direction:column;gap:7px}
 .sp2-chip{display:flex;align-items:center;gap:10px;padding:9px 11px;background:#161b22;border:1px solid #30363d;border-radius:9px;cursor:pointer;transition:border-color .15s,background .15s}
 .sp2-chip:hover{border-color:#21262d;background:#1b212a}
@@ -3252,10 +3248,6 @@ count_rows vitals/patient_001.csv</code></pre>
               <button type="button" class="sp2-up" id="sp2UploadBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>
                 Upload
-              </button>
-              <button type="button" class="sp2-reset" id="sp2ResetBtn" title="Restore the preloaded lesson files to their original contents (files you created yourself are kept)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
-                Restore originals
               </button>
             </div>
             <div class="sp2-flist" id="sp2Flist"></div>
@@ -8848,6 +8840,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   async function sp2Restart() {
     if (restarting) return;
     restarting = true; deadHandled = false;
+    // Every restart reloads the pristine preloaded files (read by buildSetupCmds on
+    // the coming boot). sessionStorage so it survives the reload fallback below.
+    try { sessionStorage.setItem('sp2_force_reset', '1'); } catch (e) {}
     setDot('loading', 'Rebooting');
     var dm = $('sp2DeadMsg'); if (dm) dm.textContent = 'Rebooting the Linux sandbox…';
     var db = $('sp2DeadRestart'); if (db) db.disabled = true;
@@ -8878,20 +8873,6 @@ window.addEventListener('DOMContentLoaded', async () => {
   var deadRestartBtn = $('sp2DeadRestart'); if (deadRestartBtn) deadRestartBtn.addEventListener('click', sp2Restart);
   var idleX = $('sp2IdleX'); if (idleX) idleX.addEventListener('click', function () { var i = $('sp2Idle'); if (i) i.hidden = true; });
   var idleRestartBtn = $('sp2IdleRestart'); if (idleRestartBtn) idleRestartBtn.addEventListener('click', sp2Restart);
-  // Restore the preloaded lesson files to their originals. Overwrites edits to
-  // THOSE files only (force-install over /data/pl_*); files the student created
-  // themselves are untouched. Reuses the reboot path; the sessionStorage flag set
-  // here is read by buildSetupCmds on the next boot (so it works even if Restart
-  // falls back to a page reload).
-  function sp2RestoreFiles() {
-    if (!PRELOADS.length) return;
-    var n = PRELOADS.length;
-    if (!window.confirm('Restore the ' + n + ' original lesson file' + (n > 1 ? 's' : '') + '? Edits you made to ' + (n > 1 ? 'them' : 'it') + ' will be replaced. Files you created yourself are kept.')) return;
-    try { sessionStorage.setItem('sp2_force_reset', '1'); } catch (e) {}
-    sp2Restart();
-  }
-  var resetBtn = $('sp2ResetBtn');
-  if (resetBtn) { if (PRELOADS.length) resetBtn.addEventListener('click', sp2RestoreFiles); else resetBtn.hidden = true; }
   window.addEventListener('error', sp2OnGlobalErr);
   window.addEventListener('unhandledrejection', sp2OnGlobalErr);
   // Returning to the tab after a long idle gap is exactly when the disk socket may
