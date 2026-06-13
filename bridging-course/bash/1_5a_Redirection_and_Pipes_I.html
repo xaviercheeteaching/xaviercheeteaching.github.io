@@ -3,7 +3,7 @@
 ===============================================================================
 Built by build_module_v4_2.py v4.2
 Source : 1_5a_Redirection_and_Pipes_I.docx
-Built  : 2026-06-10 08:54
+Built  : 2026-06-13 21:14
 
 v4.2 changes vs v4.1:
   - bridgingTrack() is now a live transport: sendBeacon to Power
@@ -2180,6 +2180,8 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
 .sp2-mini:disabled{opacity:.45;cursor:not-allowed}
 .sp2-mini-restart{color:#ffd9c7;border-color:rgba(255,107,53,.45);background:rgba(255,107,53,.12)}
 .sp2-mini-restart:hover{color:#fff;border-color:#FF6B35;background:rgba(255,107,53,.22)}
+.sp2-mini-reboot{color:#a9d3ff;border-color:rgba(88,166,255,.45);background:rgba(88,166,255,.10)}
+.sp2-mini-reboot:hover{color:#fff;border-color:#58a6ff;background:rgba(88,166,255,.20)}
 /* Kernel-stopped overlay + idle warning (siblings of #sp2Terminal in the pane) */
 .sp2-dead{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(420px 240px at 50% 40%,rgba(248,81,73,.16),transparent 70%),rgba(13,17,23,.94)}
 .sp2-dead[hidden]{display:none}
@@ -2456,15 +2458,15 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
      id="pre-pp-mcq-5"
      data-item-id="pp-mcq-5"
      data-phase="pre"
-     data-correct-index="0"
-     data-question="Which pipeline counts how many lines in cohort_2026.csv contain &quot;F&quot; (female)?">
+     data-correct-index="3"
+     data-question="What is standard output (stdout)?">
   <div class="assess-header pretest-header">Pre-test</div>
-  <p class="mcq-stem">Which pipeline counts how many lines in cohort_2026.csv contain &quot;F&quot; (female)?</p>
+  <p class="mcq-stem">What is standard output (stdout)?</p>
   <div class="mcq-options">
-    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">cat cohort_2026.csv | grep F | wc -l</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">grep F | wc -l cohort_2026.csv</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">wc -l cohort_2026.csv | grep F</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">cohort_2026.csv | grep F | wc -l</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">The keyboard input that a command reads in</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">The error messages a command prints when something goes wrong</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">A special file that permanently stores a command&#x27;s output</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">A command&#x27;s normal results, which go to your screen unless you redirect them</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
   </div>
 </div>
 
@@ -2507,15 +2509,15 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
      id="pre-pp-mcq-8"
      data-item-id="pp-mcq-8"
      data-phase="pre"
-     data-correct-index="3"
-     data-question="What is /dev/null used for?">
+     data-correct-index="1"
+     data-question="What does running &gt; listing.txt on its own (with no command) do?">
   <div class="assess-header pretest-header">Pre-test</div>
-  <p class="mcq-stem">What is /dev/null used for?</p>
+  <p class="mcq-stem">What does running &gt; listing.txt on its own (with no command) do?</p>
   <div class="mcq-options">
-    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">Holding the system error log</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">Storing deleted files for recovery</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">A folder for temporary files</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">Discarding output you do not want to keep</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">Appends a blank line to the end of the file</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">Empties the file, or creates it empty if it does not exist</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">Prints the contents of the file to the screen</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">Deletes the file from the disk permanently</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
   </div>
 </div>
 
@@ -3045,15 +3047,15 @@ $ wc -l &lt; unique_tools.txt</code></pre>
      id="post-pp-mcq-5"
      data-item-id="pp-mcq-5"
      data-phase="post"
-     data-correct-index="0"
-     data-question="Which pipeline counts how many lines in cohort_2026.csv contain &quot;F&quot; (female)?">
+     data-correct-index="3"
+     data-question="What is standard output (stdout)?">
   <div class="assess-header posttest-header">Post-test</div>
-  <p class="mcq-stem">Which pipeline counts how many lines in cohort_2026.csv contain &quot;F&quot; (female)?</p>
+  <p class="mcq-stem">What is standard output (stdout)?</p>
   <div class="mcq-options">
-    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">cat cohort_2026.csv | grep F | wc -l</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">grep F | wc -l cohort_2026.csv</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">wc -l cohort_2026.csv | grep F</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">cohort_2026.csv | grep F | wc -l</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">The keyboard input that a command reads in</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">The error messages a command prints when something goes wrong</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">A special file that permanently stores a command&#x27;s output</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">A command&#x27;s normal results, which go to your screen unless you redirect them</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
   </div>
 </div>
 
@@ -3096,15 +3098,15 @@ $ wc -l &lt; unique_tools.txt</code></pre>
      id="post-pp-mcq-8"
      data-item-id="pp-mcq-8"
      data-phase="post"
-     data-correct-index="3"
-     data-question="What is /dev/null used for?">
+     data-correct-index="1"
+     data-question="What does running &gt; listing.txt on its own (with no command) do?">
   <div class="assess-header posttest-header">Post-test</div>
-  <p class="mcq-stem">What is /dev/null used for?</p>
+  <p class="mcq-stem">What does running &gt; listing.txt on its own (with no command) do?</p>
   <div class="mcq-options">
-    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">Holding the system error log</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">Storing deleted files for recovery</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">A folder for temporary files</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
-<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">Discarding output you do not want to keep</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+    <button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="0" onclick="selectMcqOption(this)"><span class="mcq-letter">A.</span> <span class="mcq-text">Appends a blank line to the end of the file</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="1" onclick="selectMcqOption(this)"><span class="mcq-letter">B.</span> <span class="mcq-text">Empties the file, or creates it empty if it does not exist</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="2" onclick="selectMcqOption(this)"><span class="mcq-letter">C.</span> <span class="mcq-text">Prints the contents of the file to the screen</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
+<button type="button" class="mcq-option" role="radio" aria-checked="false" tabindex="0" data-option-index="3" onclick="selectMcqOption(this)"><span class="mcq-letter">D.</span> <span class="mcq-text">Deletes the file from the disk permanently</span><span class="mcq-checkmark" aria-hidden="true">&#10003;</span></button>
   </div>
 </div>
 
@@ -3230,21 +3232,22 @@ $ wc -l &lt; unique_tools.txt</code></pre>
           <div class="sp2-term-hint" id="sp2Hint" hidden>
             <span>Real bash &mdash; type directly. Try <code>ls -la</code> &middot; <code>pwd</code></span>
             <span class="sp2-sp"></span>
-            <button type="button" class="sp2-mini" id="sp2Stop" title="Interrupt the running command (sends Ctrl+C / SIGINT)">Stop</button>
-            <button type="button" class="sp2-mini" id="sp2Clear">Clear</button>
-            <button type="button" class="sp2-mini sp2-mini-restart" id="sp2Restart" title="Reboot the Linux sandbox in your browser (no page reload; your files are kept)">Restart</button>
+            <button type="button" class="sp2-mini" id="sp2Stop" title="Interrupt the running command — sends Ctrl+C (SIGINT). The shell keeps running.">Stop</button>
+            <button type="button" class="sp2-mini" id="sp2Clear" title="Clear the screen. Your files, history and session are untouched.">Clear</button>
+            <button type="button" class="sp2-mini sp2-mini-reboot" id="sp2Reboot" title="Reload the Linux kernel but KEEP all your files, including your edits. Use this if the terminal froze or went idle.">Reboot</button>
+            <button type="button" class="sp2-mini sp2-mini-restart" id="sp2Reset" title="Reload the kernel and WIPE everything back to the original lesson files — your edits and any files you made are discarded.">Start over</button>
           </div>
           <div id="sp2Terminal"></div>
           <div class="sp2-idle" id="sp2Idle" hidden>
             <span>The sandbox has been idle a while &mdash; if the terminal is unresponsive:</span>
-            <button type="button" class="sp2-idle-restart" id="sp2IdleRestart">&#8635; Restart</button>
+            <button type="button" class="sp2-idle-restart" id="sp2IdleReboot">&#8635; Reboot</button>
             <button type="button" class="sp2-idle-x" id="sp2IdleX" aria-label="Dismiss">&times;</button>
           </div>
           <div class="sp2-dead" id="sp2Dead" hidden>
             <div class="sp2-dead-card">
               <span class="sp2-dead-title">Terminal stopped</span>
-              <p id="sp2DeadMsg">The Linux sandbox stopped &mdash; often after sitting idle, when the streamed-disk connection drops. Your files are saved; click Restart for a fresh kernel.</p>
-              <button type="button" class="sp2-start-btn" id="sp2DeadRestart">&#8635; Restart the kernel</button>
+              <p id="sp2DeadMsg">The Linux sandbox stopped &mdash; often after sitting idle, when the streamed-disk connection drops. Your files are saved; click Reboot to pick up where you left off.</p>
+              <button type="button" class="sp2-start-btn" id="sp2DeadReboot">&#8635; Reboot</button>
             </div>
           </div>
         </div>
@@ -8652,13 +8655,20 @@ window.addEventListener('DOMContentLoaded', async () => {
       // uid 1001: the WebVM Debian image already ships a uid-1000 "user", so
       // 1000 collides and the useradd silently no-ops. Group staff (gid 50) so
       // the student's files read "student staff" — matching the lesson outputs.
-      'id student >/dev/null 2>&1 || useradd -m -u 1001 -g staff -d /home/student -s /bin/bash student 2>/dev/null || useradd -m -u 1001 -d /home/student -s /bin/bash student'
+      'id student >/dev/null 2>&1 || useradd -m -u 1001 -g staff -d /home/student -s /bin/bash student 2>/dev/null || useradd -m -u 1001 -d /home/student -s /bin/bash student',
+      // The persisted image sometimes leaves uid 1001 with NO /etc/passwd entry, so
+      // bash's \u shows "I have no name!" and ls -l shows a bare 1001. Map it
+      // directly (idempotent) so the prompt, whoami and ls -l all read student:staff.
+      'grep -q "^student:" /etc/passwd || echo "student:x:1001:50:student:/home/student:/bin/bash" >> /etc/passwd'
     ];
+    // "Start over" (force) = wipe the entire home so ONLY the original preloads
+    // remain: the student's edits AND any files they created are discarded.
+    if (force) { cmds.push('rm -rf /home/student'); }
     for (var i = 0; i < PRELOADS.length; i++) {
       var dst = '/home/student/' + PRELOADS[i].path;
       var src = q('/data/pl_' + i) + ' ' + q(dst);
-      // force = student clicked "Restore originals": overwrite. Otherwise only lay
-      // a file down if it's absent, so the student's own edits persist across boots.
+      // force = "Start over": (re)install the original. Otherwise only lay a file
+      // down if it's absent, so the student's own edits persist across reboots.
       cmds.push(force ? ('install -D -m 644 ' + src) : ('[ -e ' + q(dst) + ' ] || install -D -m 644 ' + src));
     }
     // Refresh the prompt/colors every boot into a LIGHT rc file (~/.nus_rc) that
@@ -8789,7 +8799,7 @@ window.addEventListener('DOMContentLoaded', async () => {
           setDot('ready', 'bash ready');
           if (startOverlay) startOverlay.hidden = true;
           var _dd = $('sp2Dead'); if (_dd) _dd.hidden = true;
-          var _db = $('sp2DeadRestart'); if (_db) _db.disabled = false;
+          var _db = $('sp2DeadReboot'); if (_db) _db.disabled = false;
           if (hint) hint.hidden = false;
           refit();
         }
@@ -8827,33 +8837,33 @@ window.addEventListener('DOMContentLoaded', async () => {
   var clearBtn = $('sp2Clear');
   if (clearBtn) clearBtn.addEventListener('click', function () { if (send) typeLine('clear'); if (term) term.focus(); });
 
-  // ── Kernel controls: Stop (Ctrl+C), Restart (in-page reboot), death detection ──
+  // ── Kernel controls: Stop (Ctrl+C), Reboot (keep) / Start over (wipe), death detection ──
   // Show the "kernel stopped" overlay + flip the status dot red. Idempotent.
   function sp2MarkDead(msg) {
     if (deadHandled) return; deadHandled = true;
     setDot('error', 'kernel stopped');
-    try { if (term) term.write('\r\n\x1b[33m[ kernel stopped — click Restart to reboot ]\x1b[0m\r\n'); } catch (e) {}
-    var dm = $('sp2DeadMsg'); if (dm) dm.textContent = msg || 'The Linux sandbox stopped — often after sitting idle, when the streamed-disk connection drops. Your files are saved; click Restart for a fresh kernel.';
-    var db = $('sp2DeadRestart'); if (db) db.disabled = false;
+    try { if (term) term.write('\r\n\x1b[33m[ kernel stopped — click Reboot to reload ]\x1b[0m\r\n'); } catch (e) {}
+    var dm = $('sp2DeadMsg'); if (dm) dm.textContent = msg || 'The Linux sandbox stopped — often after sitting idle, when the streamed-disk connection drops. Your files are saved; click Reboot to pick up where you left off.';
+    var db = $('sp2DeadReboot'); if (db) db.disabled = false;
     var d = $('sp2Dead'); if (d) d.hidden = false;
     var idle = $('sp2Idle'); if (idle) idle.hidden = true;
   }
   // Stop = send Ctrl+C (0x03) → SIGINT to the foreground process group. Interrupts
   // a runaway loop / sleep / a command waiting on stdin; the shell itself survives.
   function sp2Kill() { if (send && !deadHandled) send(3); if (term) term.focus(); }
-  // Restart = reboot the VM in place (fresh disk websocket + Linux instance) by
-  // re-running boot(). The bootGen guard keeps the dead VM from polluting the new
-  // terminal. If the engine refuses a second instance (or stalls), fall back to a
-  // full page reload after 30s — student files persist in the IndexedDB cache.
-  async function sp2Restart() {
+  // Reboot = reload the VM in place (fresh disk websocket + Linux instance) by
+  // re-running boot(), KEEPING all the student's files. The bootGen guard keeps the
+  // dead VM from polluting the new terminal. If the engine refuses a second instance
+  // (or stalls), fall back to a full page reload after 30s — files persist in IDB.
+  async function sp2Reboot(wipe) {
     if (restarting) return;
     restarting = true; deadHandled = false;
-    // Every restart reloads the pristine preloaded files (read by buildSetupCmds on
-    // the coming boot). sessionStorage so it survives the reload fallback below.
-    try { sessionStorage.setItem('sp2_force_reset', '1'); } catch (e) {}
-    setDot('loading', 'Rebooting');
-    var dm = $('sp2DeadMsg'); if (dm) dm.textContent = 'Rebooting the Linux sandbox…';
-    var db = $('sp2DeadRestart'); if (db) db.disabled = true;
+    // wipe=true ("Start over") restores the original files; false ("Reboot") keeps
+    // them. sessionStorage so the choice survives the reload fallback below.
+    try { if (wipe) sessionStorage.setItem('sp2_force_reset', '1'); else sessionStorage.removeItem('sp2_force_reset'); } catch (e) {}
+    setDot('loading', wipe ? 'Starting over' : 'Rebooting');
+    var dm = $('sp2DeadMsg'); if (dm) dm.textContent = wipe ? 'Starting over — restoring the original files…' : 'Rebooting the Linux sandbox…';
+    var db = $('sp2DeadReboot'); if (db) db.disabled = true;
     var d = $('sp2Dead'); if (d) d.hidden = false;     // reuse overlay as a "working" screen
     var idle = $('sp2Idle'); if (idle) idle.hidden = true;
     if (term) { try { term.dispose(); } catch (e) {} term = null; }
@@ -8868,6 +8878,13 @@ window.addEventListener('DOMContentLoaded', async () => {
     var chk = setInterval(function () { if (firstOut) { clearTimeout(fb); clearInterval(chk); } }, 400);
     setTimeout(function () { clearInterval(chk); }, 31000);
   }
+  // Start over = wipe EVERYTHING (a confirm guards it), then reboot via sp2Reboot(true),
+  // which sets the full-reset flag buildSetupCmds reads on the coming boot.
+  function sp2Reset() {
+    if (restarting) return;
+    if (!window.confirm('Start over?\n\nThis wipes ALL your changes — your edits AND any files you created — and reloads the original lesson files. This cannot be undone.')) return;
+    sp2Reboot(true);
+  }
   // Backstop for the CheerpX engine crash (e.g. the su/runuser 'a1' fault), which
   // can surface as an uncaught error rather than rejecting the shell promise.
   function sp2OnGlobalErr(ev) {
@@ -8877,14 +8894,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (/reading 'a1'|cxrtnc|cheerpx/i.test(m)) sp2MarkDead();
   }
   var stopBtn = $('sp2Stop'); if (stopBtn) stopBtn.addEventListener('click', sp2Kill);
-  var restartBtn = $('sp2Restart'); if (restartBtn) restartBtn.addEventListener('click', sp2Restart);
-  var deadRestartBtn = $('sp2DeadRestart'); if (deadRestartBtn) deadRestartBtn.addEventListener('click', sp2Restart);
+  var rebootBtn = $('sp2Reboot'); if (rebootBtn) rebootBtn.addEventListener('click', function () { sp2Reboot(false); });
+  var resetBtn = $('sp2Reset'); if (resetBtn) resetBtn.addEventListener('click', sp2Reset);
+  var deadRebootBtn = $('sp2DeadReboot'); if (deadRebootBtn) deadRebootBtn.addEventListener('click', function () { sp2Reboot(false); });
+  var idleRebootBtn = $('sp2IdleReboot'); if (idleRebootBtn) idleRebootBtn.addEventListener('click', function () { sp2Reboot(false); });
   var idleX = $('sp2IdleX'); if (idleX) idleX.addEventListener('click', function () { var i = $('sp2Idle'); if (i) i.hidden = true; });
-  var idleRestartBtn = $('sp2IdleRestart'); if (idleRestartBtn) idleRestartBtn.addEventListener('click', sp2Restart);
   window.addEventListener('error', sp2OnGlobalErr);
   window.addEventListener('unhandledrejection', sp2OnGlobalErr);
   // Returning to the tab after a long idle gap is exactly when the disk socket may
-  // have dropped — nudge the student toward Restart if the shell looks frozen.
+  // have dropped — nudge the student toward Reboot if the shell looks frozen.
   document.addEventListener('visibilitychange', function () {
     if (document.visibilityState !== 'visible') return;
     if (!firstOut || deadHandled || restarting) return;
