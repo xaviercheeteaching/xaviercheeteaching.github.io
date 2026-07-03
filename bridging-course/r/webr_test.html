@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebR runtime check — system_R</title>
+<!-- On GitHub Pages this shim retro-fits the COOP/COEP headers WebR needs.
+     Locally, run `python serve_webr.py` which sets them server-side. -->
+<script src="coi-serviceworker.js"></script>
+<style>
+  :root{--navy:#003D7C;--orange:#FF6B35;--red:#D32F2F;--ink:#1b2733;--slate:#5b6b7b;--line:#e3e9f0;--bg:#f4f7fb;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  header{background:var(--navy);color:#fff;padding:18px 24px}
+  header h1{margin:0;font-size:18px;font-weight:600}
+  header p{margin:4px 0 0;font-size:13px;opacity:.85}
+  .wrap{max-width:1040px;margin:20px auto;padding:0 20px;display:grid;gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:820px){.row{grid-template-columns:1fr}}
+  h2{font-size:14px;margin:0 0 10px;color:var(--navy);text-transform:uppercase;letter-spacing:.04em}
+  textarea{width:100%;min-height:190px;font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;
+    border:1px solid var(--line);border-radius:8px;padding:12px;resize:vertical;background:#0f1b2a;color:#e6edf5;line-height:1.55}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button{font-family:inherit;font-size:13px;font-weight:600;border:0;border-radius:8px;padding:9px 16px;cursor:pointer}
+  .run{background:var(--orange);color:#fff}
+  .ghost{background:#eef2f7;color:var(--navy)}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  pre.out{background:#0f1b2a;color:#e6edf5;border-radius:8px;padding:12px;min-height:60px;white-space:pre-wrap;
+    word-break:break-word;font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;margin:0;overflow:auto;max-height:340px}
+  pre.out.err{color:#ff9b9b}
+  canvas{max-width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;display:block}
+  .pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;background:#eef2f7;color:var(--slate)}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:#b6c2cf}
+  .pill.loading .dot{background:var(--orange);animation:pulse 1s infinite}
+  .pill.ready .dot{background:#2e9e5b}
+  .pill.err .dot{background:var(--red)}
+  @keyframes pulse{50%{opacity:.35}}
+  .files{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;background:#eef2f7;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-family:monospace}
+  .chip.new{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,107,53,.15)}
+  .muted{color:var(--slate);font-size:12px;margin:6px 0 0}
+  code{background:#eef2f7;border-radius:4px;padding:1px 5px;font-size:.92em}
+</style>
+</head>
+<body>
+<header>
+  <h1>system_R · WebR runtime check</h1>
+  <p>Proves real R runs in the browser through the same "Pyodide-shaped" adapter the lesson pages use. Serve with <code>python serve_webr.py</code>, then open this page.</p>
+</header>
+
+<div class="wrap">
+  <div class="card">
+    <span id="status" class="pill"><span class="dot"></span><span id="statusText">Booting R (WebR)…</span></span>
+    <span class="muted" id="bootNote">First boot downloads the WebR core (~tens of MB) and caches it. Subsequent runs are fast.</span>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <h2>R source</h2>
+      <textarea id="editor" spellcheck="false"></textarea>
+      <div class="bar">
+        <button class="run" id="runBtn" disabled>Run ▶</button>
+        <button class="ghost" id="baseBtn">Base R + plot</button>
+        <button class="ghost" id="tidyBtn">Tidyverse demo (installs dplyr + ggplot2)</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Output</h2>
+      <pre class="out" id="output">Waiting for R…</pre>
+      <h2 style="margin-top:14px">Plot</h2>
+      <canvas id="plot" width="720" height="480"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Workspace files (the sync FS shim)</h2>
+    <div class="files" id="files"></div>
+    <p class="muted">These live in an in-memory map exposed as a synchronous <code>FS</code>, and are
+      written into R's filesystem before every run (and read back after) — the trick that lets
+      <code>read.csv("patients.csv")</code> work and that surfaces files your code writes.</p>
+  </div>
+</div>
+
+<script type="module">
+import { WebR } from 'https://webr.r-wasm.org/latest/webr.mjs';
+
+/* =====================================================================
+   WebR runtime adapter — the Pyodide-shaped shim.
+   This is the exact slice that gets spliced into module_1_build_module.py
+   in place of the Pyodide loader. Everything downstream (coding cards,
+   scratchpad, Files panel) talks to this object and stays unchanged.
+   ===================================================================== */
+const WEBR_BASE  = 'https://webr.r-wasm.org/latest/';
+const WORK_DIR   = '/home/web_user';            // WebR's default cwd/home
+const _NL = String.fromCharCode(10);
+
+const _wsStore = new Map();   // filename -> Uint8Array   (synchronous FS)
+const _wsMtime = new Map();   // filename -> ms timestamp
+let   _webrPromise = null;    // resolves to the booted WebR instance
+let   _runChain = Promise.resolve();   // serialise runs: one Shelter at a time
+let   _lastImages = [];       // ImageBitmap[] from the most recent run
+
+// preloaded teaching data so read.csv(...) works with zero setup
+const WORKSPACE_PRELOADS = [
+  { name: 'patients.csv',
+    content:
+      'patient_id,age,sex,diagnosis,smoker,bmi\n' +
+      'P001,52,F,case,no,27.3\n'  + 'P002,47,M,control,yes,31.0\n' +
+      'P003,61,F,case,no,24.6\n'  + 'P004,58,M,case,yes,29.8\n' +
+      'P005,44,F,control,no,22.1\n'+ 'P006,39,M,control,no,26.4\n' +
+      'P007,66,M,case,yes,30.2\n' + 'P008,55,F,case,no,28.9\n' +
+      'P009,71,M,control,yes,25.5\n'+'P010,43,F,control,no,21.7\n' }
+];
+
+function _wsName(path){
+  let s = String(path); const i = s.lastIndexOf('/');
+  if (i >= 0) s = s.slice(i + 1);
+  return s.replace(/[^A-Za-z0-9._-]/g,'_');
+}
+function _seedPreloads(){
+  for (const f of WORKSPACE_PRELOADS){
+    const k = _wsName(f.name);
+    if (!_wsStore.has(k)){ _wsStore.set(k, new TextEncoder().encode(f.content)); _wsMtime.set(k, 0); }
+  }
+}
+
+function _ensureWebR(){
+  if (_webrPromise) return _webrPromise;
+  _webrPromise = (async () => {
+    const webR = new WebR({ baseUrl: WEBR_BASE });
+    await webR.init();
+    // keep the home dir tidy and make it the working directory for read.csv()
+    try { await webR.evalRVoid('setwd("' + WORK_DIR + '")'); } catch(e){}
+    return webR;
+  })();
+  _webrPromise.catch(() => { _webrPromise = null; });  // let a later run retry
+  return _webrPromise;
+}
+
+// write the sync workspace into R's FS before a run
+async function _materialise(webR){
+  for (const [name, bytes] of _wsStore){
+    try { await webR.FS.writeFile(WORK_DIR + '/' + name, bytes); } catch(e){}
+  }
+}
+// read R's working dir back out so files the code wrote appear in the panel
+async function _syncBack(webR){
+  let entries = [];
+  try { entries = await webR.FS.readdir(WORK_DIR); } catch(e){ return new Set(); }
+  const fresh = new Set();
+  for (const name of entries){
+    if (name === '.' || name === '..') continue;
+    try {
+      const info = await webR.FS.lookupPath(WORK_DIR + '/' + name);
+      if (info && info.node && info.node.isFolder) continue;
+      const bytes = await webR.FS.readFile(WORK_DIR + '/' + name);
+      const k = _wsName(name);
+      if (!_wsStore.has(k)) fresh.add(k);
+      _wsStore.set(k, bytes); _wsMtime.set(k, Date.now());
+    } catch(e){}
+  }
+  return fresh;
+}
+
+// run R, capture stdout/stderr text + any plots
+async function _runRCaptured(code){
+  const webR = await _ensureWebR();
+  await _materialise(webR);
+  const shelter = await new webR.Shelter();
+  let text = '', images = [];
+  try {
+    const cap = await shelter.captureR(code, {
+      withAutoprint: true,      // top-level exprs print REPL-style: 1+1 -> [1] 2
+      captureStreams: true,     // stdout + stderr
+      captureConditions: false, // let R errors throw -> caught below
+      captureGraphics: { width: 720, height: 480 }
+    });
+    text = (cap.output || []).map(o => o.data).join(_NL);
+    images = cap.images || [];
+  } finally {
+    try { shelter.purge(); } catch(e){}
+  }
+  const fresh = await _syncBack(webR);
+  return { text: text.replace(/\n+$/,''), images, fresh };
+}
+
+// The Pyodide-shaped adapter the rest of the page talks to.
+function _makeWebRAdapter(){
+  let outCb = null, errCb = null;
+  const FS = {
+    mkdir(){}, isFile(mode){ return (mode & 61440) === 32768; },
+    stat(p){ const k=_wsName(p);
+      if(!_wsStore.has(k)){ const e=new Error('ENOENT: '+k); e.code='ENOENT'; throw e; }
+      return { size:_wsStore.get(k).length, mode:33188, mtime:new Date(_wsMtime.get(k)||0) }; },
+    readdir(){ return ['.','..'].concat(Array.from(_wsStore.keys())); },
+    readFile(p){ const k=_wsName(p);
+      if(!_wsStore.has(k)){ const e=new Error('ENOENT: '+k); e.code='ENOENT'; throw e; }
+      return _wsStore.get(k); },
+    writeFile(p,data){ const k=_wsName(p);
+      const b=(data instanceof Uint8Array)?data:new TextEncoder().encode(String(data));
+      _wsStore.set(k,b); _wsMtime.set(k,Date.now()); },
+    unlink(p){ const k=_wsName(p); _wsStore.delete(k); _wsMtime.delete(k); }
+  };
+  return {
+    FS,
+    toPy(x){ return x; },
+    setStdout(o){ outCb = (o && o.batched) || null; },
+    setStderr(o){ errCb = (o && o.batched) || null; },
+    runPythonAsync(code){              // "Python" in name only — runs R
+      const run = _runChain.then(() => _runRCaptured(code), () => _runRCaptured(code));
+      _runChain = run.then(()=>{}, ()=>{});
+      return run.then(res => { _lastImages = res.images || []; if (outCb) outCb(res.text); return undefined; });
+    },
+    // R package management maps onto WebR's binary repo install
+    async loadPackage(p){ try { const webR = await _ensureWebR();
+      await webR.installPackages(Array.isArray(p)?p:[p]); } catch(e){} },
+    loadPackagesFromImports(){ return Promise.resolve(); },
+    runPython(){}, pyimport(){ return { install(){return Promise.resolve();}, destroy(){} }; }
+  };
+}
+
+/* ============================ demo harness ============================ */
+const $ = id => document.getElementById(id);
+const adapter = _makeWebRAdapter();
+_seedPreloads();
+renderFiles();
+
+function setStatus(kind, msg){
+  const p = $('status'); p.className = 'pill ' + kind; $('statusText').textContent = msg;
+}
+function renderFiles(fresh){
+  fresh = fresh || new Set();
+  $('files').innerHTML = Array.from(_wsStore.keys())
+    .map(n => `<span class="chip${fresh.has(n)?' new':''}">${n} · ${_wsStore.get(n).length} B</span>`).join('') ||
+    '<span class="muted">none</span>';
+}
+function drawPlots(images){
+  const c = $('plot'), ctx = c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  if (!images || !images.length){ ctx.fillStyle='#9aa7b4'; ctx.font='13px Inter,sans-serif';
+    ctx.fillText('(no plot produced)', 16, 28); return; }
+  const img = images[images.length - 1];     // show the last plot
+  const s = Math.min(c.width/img.width, c.height/img.height);
+  const w = img.width*s, h = img.height*s;
+  ctx.drawImage(img, (c.width-w)/2, (c.height-h)/2, w, h);
+}
+
+const BASE_DEMO =
+`# Base R: autoprint + cat() both captured
+nums <- c(2.3, 4.1, 5.9, 1.2, 3.8, 4.4)
+cat("n    =", length(nums), "\\n")
+cat("mean =", round(mean(nums), 2), "\\n")
+summary(nums)
+
+# this plot is captured and drawn on the canvas
+hist(nums, breaks = 5, col = "#FF6B35", border = "white",
+     main = "A histogram, rendered by WebR", xlab = "value")`;
+
+const TIDY_DEMO =
+`# read a preloaded workspace file, wrangle, then plot
+df <- read.csv("patients.csv")
+library(dplyr)
+df |>
+  group_by(sex) |>
+  summarise(n = n(), mean_bmi = round(mean(bmi), 1), .groups = "drop")
+
+library(ggplot2)
+ggplot(df, aes(x = age, y = bmi, colour = sex)) +
+  geom_point(size = 3) +
+  labs(title = "BMI vs age, by sex — ggplot2 in the browser")`;
+
+async function run(code){
+  $('runBtn').disabled = true;
+  const out = $('output'); out.className='out'; out.textContent='Running…';
+  let buf=''; adapter.setStdout({ batched:s=>buf+=s }); adapter.setStderr({ batched:s=>buf+=s });
+  const t0 = performance.now();
+  try {
+    await adapter.runPythonAsync(code);
+    out.textContent = (buf.trim() || '(no text output)') + `\n\n— ran in ${Math.round(performance.now()-t0)} ms`;
+    drawPlots(_lastImages);
+    renderFiles();
+  } catch(e){
+    out.className='out err'; out.textContent = (e && (e.message||String(e))) || 'error';
+  } finally { $('runBtn').disabled = false; }
+}
+
+$('runBtn').addEventListener('click', () => run($('editor').value));
+$('baseBtn').addEventListener('click', () => { $('editor').value = BASE_DEMO; run(BASE_DEMO); });
+$('tidyBtn').addEventListener('click', async () => {
+  $('editor').value = TIDY_DEMO;
+  setStatus('loading','Installing dplyr + ggplot2 (one-time)…');
+  await adapter.loadPackage(['dplyr','ggplot2']);
+  setStatus('ready','R ready');
+  run(TIDY_DEMO);
+});
+
+// boot
+$('editor').value = BASE_DEMO;
+setStatus('loading','Booting R (WebR)…');
+_ensureWebR().then(() => {
+  setStatus('ready','R ready');
+  $('runBtn').disabled = false;
+}).catch(e => {
+  setStatus('err','WebR failed to boot');
+  $('output').className='out err';
+  $('output').textContent =
+    (self.crossOriginIsolated ? '' :
+      'This page is NOT cross-origin isolated, so SharedArrayBuffer is unavailable.\n' +
+      'Serve it with:  python serve_webr.py   then open http://localhost:8000/webr_test.html\n\n') +
+    ((e && (e.message||String(e))) || 'unknown error');
+});
+</script>
+</body>
+</html>
