@@ -30,6 +30,12 @@ v3 changes vs v2:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="theme-color" content="#003D7C">
+<!-- Cross-origin isolation for WebR: on static hosts (GitHub Pages) coi-serviceworker.js
+     retro-fits the COOP/COEP headers SharedArrayBuffer needs. Registration is skipped when
+     the server already isolates (serve_webr.py) or service workers are unavailable (file://).
+     First visit on the published site reloads once as the worker takes control. -->
+<script>window.coi = { shouldRegister: function () { return !window.crossOriginIsolated && 'serviceWorker' in navigator; } };</script>
+<script src="coi-serviceworker.js"></script>
 <script>
 /* v6.1: apply the saved View setting (Settings -> View) BEFORE first paint so
    there is no layout flash. 'auto' leaves the responsive media queries in
