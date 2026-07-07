@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NUS Bridging Courses — Application</title>
+<style>
+  :root{
+    --nus-blue:#003D7C;
+    --nus-blue-dark:#002B57;
+    --py-green:#1B7F4E;
+    --r-purple:#7C3AAD;
+    --ink:#1c2430;
+    --muted:#5a6675;
+    --line:#d7dde5;
+    --bg:#f2f5f9;
+    --err:#b3261e;
+    --ok:#1B7F4E;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    font-size:16px; line-height:1.5;
+  }
+  header.band{
+    background:linear-gradient(135deg,var(--nus-blue) 0%,var(--nus-blue-dark) 100%);
+    color:#fff; padding:28px 16px 24px;
+  }
+  header.band .inner{max-width:760px;margin:0 auto;}
+  header.band h1{margin:0;font-size:1.55rem;line-height:1.25;letter-spacing:.2px;}
+  header.band .sub{margin:6px 0 0;opacity:.85;font-size:.95rem;}
+  header.band .chips{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{display:inline-block;padding:3px 12px;border-radius:999px;font-size:.8rem;
+        background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);}
+  .chip.py{border-color:#7fd6ac;} .chip.r{border-color:#cdaaf0;}
+  main{max-width:760px;margin:0 auto;padding:20px 16px 40px;}
+  .intro{background:#fff;border:1px solid var(--line);border-left:5px solid var(--nus-blue);
+         border-radius:10px;padding:14px 16px;margin:0 0 20px;font-size:.97rem;}
+  .intro p{margin:.3em 0;}
+  fieldset{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px 18px;margin:0 0 18px;min-width:0;
+  }
+  legend{
+    font-weight:600;color:var(--nus-blue);padding:0 8px;font-size:1.02rem;
+  }
+  label.flabel{display:block;font-weight:600;margin:14px 0 4px;}
+  label.flabel:first-of-type{margin-top:4px;}
+  .hint{font-size:.85rem;color:var(--muted);margin:2px 0 6px;}
+  .warn{color:#8a5300;}
+  .req::after{content:" *";color:var(--err);font-weight:700;}
+  input[type=text],input[type=email],input[type=tel],input[type=password],select,textarea{
+    width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;
+    font:inherit;color:inherit;background:#fff;
+  }
+  input:focus,select:focus,textarea:focus,button:focus{
+    outline:2px solid var(--nus-blue);outline-offset:1px;
+  }
+  textarea{min-height:96px;resize:vertical;}
+  .pwrow{display:flex;gap:8px;align-items:stretch;}
+  .pwrow input{flex:1;min-width:0;}
+  .pwrow button{
+    flex:0 0 auto;border:1px solid var(--line);background:#f6f8fb;border-radius:8px;
+    padding:0 14px;font:inherit;font-size:.9rem;cursor:pointer;color:var(--nus-blue);
+  }
+  .optrow{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 2px;}
+  label.opt{
+    display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);
+    border-radius:999px;padding:7px 14px 7px 10px;cursor:pointer;background:#fbfcfe;
+    font-size:.93rem;
+  }
+  label.opt:hover{border-color:var(--nus-blue);}
+  input[type=radio],input[type=checkbox]{accent-color:var(--nus-blue);width:17px;height:17px;flex:0 0 auto;margin:0;}
+  .bgrow{padding:10px 0 4px;border-top:1px dashed var(--line);margin-top:10px;}
+  .bgrow:first-of-type{border-top:none;margin-top:0;padding-top:2px;}
+  .bgrow .bgname{font-weight:600;display:block;margin-bottom:5px;}
+  .coursecards{display:flex;flex-direction:column;gap:10px;margin-top:6px;}
+  label.course{
+    display:flex;align-items:flex-start;gap:11px;border:1px solid var(--line);
+    border-left-width:5px;border-radius:10px;padding:12px 14px;cursor:pointer;background:#fbfcfe;
+  }
+  label.course input{margin-top:3px;}
+  label.course .cname{font-weight:600;display:block;}
+  label.course .cdesc{font-size:.85rem;color:var(--muted);}
+  label.course.bash{border-left-color:var(--nus-blue);}
+  label.course.python{border-left-color:var(--py-green);}
+  label.course.python input{accent-color:var(--py-green);}
+  label.course.r{border-left-color:var(--r-purple);}
+  label.course.r input{accent-color:var(--r-purple);}
+  .likert{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);}
+  .likert:first-of-type{margin-top:2px;padding-top:0;border-top:none;}
+  .likert .q{font-weight:600;display:block;margin-bottom:6px;}
+  .scale{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .scale .endlab{font-size:.78rem;color:var(--muted);flex:0 0 auto;}
+  label.snum{
+    display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);
+    border-radius:8px;padding:6px 10px;cursor:pointer;background:#fbfcfe;font-size:.9rem;
+  }
+  .consent{display:flex;align-items:flex-start;gap:11px;margin:10px 0 0;cursor:pointer;}
+  .consent input{margin-top:4px;}
+  .consent .ctext{font-size:.92rem;}
+  .charcount{font-size:.8rem;color:var(--muted);text-align:right;margin-top:3px;}
+  .fmsg{color:var(--err);font-size:.85rem;margin-top:4px;display:none;font-weight:600;}
+  .fmsg.on{display:block;}
+  .invalid{border-color:var(--err) !important;}
+  #submitBtn{
+    display:block;width:100%;padding:14px;border:none;border-radius:10px;cursor:pointer;
+    background:var(--nus-blue);color:#fff;font:inherit;font-size:1.05rem;font-weight:600;
+    letter-spacing:.2px;
+  }
+  #submitBtn:hover:not(:disabled){background:var(--nus-blue-dark);}
+  #submitBtn:disabled{opacity:.6;cursor:wait;}
+  #submitErr{
+    display:none;background:#fdeceb;border:1px solid #eeb8b4;border-radius:8px;
+    color:var(--err);padding:10px 14px;margin:0 0 12px;font-size:.93rem;
+  }
+  #submitErr.on{display:block;}
+  #successPanel{
+    display:none;background:#fff;border:1px solid var(--line);border-top:6px solid var(--ok);
+    border-radius:10px;padding:28px 22px;text-align:center;
+  }
+  #successPanel.on{display:block;}
+  #successPanel .bigtick{font-size:2.4rem;line-height:1;}
+  #successPanel h2{margin:10px 0 8px;color:var(--nus-blue);}
+  #successPanel p{margin:.4em auto;max-width:34em;}
+  footer{
+    max-width:760px;margin:0 auto;padding:0 16px 36px;color:var(--muted);
+    font-size:.85rem;text-align:center;
+  }
+  footer a{color:var(--nus-blue);}
+  /* honeypot — hidden from humans, visible to naive bots */
+  .hp-field{position:absolute !important;left:-9999px !important;top:auto !important;
+            width:1px;height:1px;overflow:hidden;}
+  @media (max-width:480px){
+    header.band h1{font-size:1.3rem;}
+    fieldset{padding:13px 12px 15px;}
+    label.opt{padding:6px 11px 6px 8px;font-size:.88rem;}
+    .scale{gap:4px;}
+    label.snum{padding:5px 7px;font-size:.85rem;gap:4px;}
+    .scale .endlab{font-size:.72rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="inner">
+    <h1>NUS Bridging Courses &mdash; Application</h1>
+    <p class="sub">National University of Singapore</p>
+    <div class="chips">
+      <span class="chip">Bash &amp; Command Line</span>
+      <span class="chip py">Python</span>
+      <span class="chip r">R &amp; Biostatistics</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="intro">
+    <p>These are <strong>free, self-paced bridging courses</strong> in Bash &amp; the command line,
+       Python, and R &amp; biostatistics, designed to get you comfortable with programming before
+       (or alongside) your studies.</p>
+    <p>Fill in the form below to apply. Your application will be reviewed and
+       <strong>you will receive a decision by email</strong> — you do not get course access until it
+       is approved.</p>
+  </div>
+
+  <form id="appform" novalidate>
+
+    <!-- ============ 1. About you ============ -->
+    <fieldset>
+      <legend>About you</legend>
+
+      <label class="flabel req" for="fullname">Full name</label>
+      <input type="text" id="fullname" name="fullname" autocomplete="name" maxlength="120">
+      <div class="fmsg" id="m_fullname"></div>
+
+      <label class="flabel req" for="email">Email address</label>
+      <p class="hint">This will be your <strong>login ID</strong> for the courses. Use an address you check regularly — the decision is sent there.</p>
+      <input type="email" id="email" name="email" autocomplete="email" maxlength="150" placeholder="you@example.com">
+      <div class="fmsg" id="m_email"></div>
+
+      <label class="flabel req" for="email2">Confirm email address</label>
+      <input type="email" id="email2" name="email2" autocomplete="email" maxlength="150" placeholder="Type it again">
+      <div class="fmsg" id="m_email2"></div>
+
+      <label class="flabel req" for="password">Choose a password</label>
+      <p class="hint warn">At least 6 characters. This is a low-security course login stored for
+         convenience — <strong>don't use a real or sensitive password</strong> (never your NUS,
+         email or banking password).</p>
+      <div class="pwrow">
+        <input type="password" id="password" name="password" autocomplete="new-password" maxlength="100">
+        <button type="button" id="pwToggle" aria-pressed="false" aria-label="Show password">Show</button>
+      </div>
+      <div class="fmsg" id="m_password"></div>
+
+      <label class="flabel" for="phone">Phone (optional)</label>
+      <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="30" placeholder="+65 9123 4567">
+
+      <label class="flabel req" for="country">Country of origin</label>
+      <select id="country" name="country">
+        <option value="" selected disabled>Select your country&hellip;</option>
+      </select>
+      <div class="fmsg" id="m_country"></div>
+
+      <label class="flabel req" for="school">School / university</label>
+      <p class="hint">Start typing and pick from the list, or enter your own.</p>
+      <input type="text" id="school" name="school" list="schoolList" maxlength="150"
+             placeholder="e.g. NUS — Saw Swee Hock School of Public Health" autocomplete="organization">
+      <datalist id="schoolList">
+        <option value="NUS — Saw Swee Hock School of Public Health"></option>
+        <option value="NUS — Yong Loo Lin School of Medicine"></option>
+        <option value="NUS — Faculty of Science"></option>
+        <option value="NUS — School of Computing"></option>
+        <option value="NUS — College of Design and Engineering"></option>
+        <option value="NUS — Faculty of Arts and Social Sciences"></option>
+        <option value="NUS — NUS Business School"></option>
+        <option value="NUS — Faculty of Dentistry"></option>
+        <option value="NUS — Faculty of Law"></option>
+        <option value="NUS — Yong Siew Toh Conservatory of Music"></option>
+        <option value="NUS — Duke-NUS Medical School"></option>
+        <option value="NUS — NUS Graduate School"></option>
+        <option value="Nanyang Technological University (NTU)"></option>
+        <option value="Singapore Management University (SMU)"></option>
+        <option value="Singapore University of Technology and Design (SUTD)"></option>
+        <option value="Singapore Institute of Technology (SIT)"></option>
+        <option value="Singapore University of Social Sciences (SUSS)"></option>
+      </datalist>
+      <div class="fmsg" id="m_school"></div>
+    </fieldset>
+
+    <!-- ============ 2. Coding background ============ -->
+    <fieldset>
+      <legend>Your coding background</legend>
+      <p class="hint">Be honest — this only helps tailor the course. It does not affect your application.</p>
+
+      <div class="bgrow">
+        <span class="bgname req">Bash / command line</span>
+        <div class="optrow" role="radiogroup" aria-label="Bash experience">
+          <label class="opt"><input type="radio" name="bg_bash" value="none"> None</label>
+          <label class="opt"><input type="radio" name="bg_bash" value="beginner"> Beginner</label>
+          <label class="opt"><input type="radio" name="bg_bash" value="comfortable"> Comfortable</label>
+        </div>
+        <div class="fmsg" id="m_bg_bash"></div>
+      </div>
+
+      <div class="bgrow">
+        <span class="bgname req">Python</span>
+        <div class="optrow" role="radiogroup" aria-label="Python experience">
+          <label class="opt"><input type="radio" name="bg_python" value="none"> None</label>
+          <label class="opt"><input type="radio" name="bg_python" value="beginner"> Beginner</label>
+          <label class="opt"><input type="radio" name="bg_python" value="comfortable"> Comfortable</label>
+        </div>
+        <div class="fmsg" id="m_bg_python"></div>
+      </div>
+
+      <div class="bgrow">
+        <span class="bgname req">R</span>
+        <div class="optrow" role="radiogroup" aria-label="R experience">
+          <label class="opt"><input type="radio" name="bg_r" value="none"> None</label>
+          <label class="opt"><input type="radio" name="bg_r" value="beginner"> Beginner</label>
+          <label class="opt"><input type="radio" name="bg_r" value="comfortable"> Comfortable</label>
+        </div>
+        <div class="fmsg" id="m_bg_r"></div>
+      </div>
+
+      <div class="bgrow">
+        <span class="bgname req">Have you taken a formal programming course before?</span>
+        <div class="optrow" role="radiogroup" aria-label="Formal programming course">
+          <label class="opt"><input type="radio" name="formal_course" value="yes"> Yes</label>
+          <label class="opt"><input type="radio" name="formal_course" value="no"> No</label>
+        </div>
+        <div class="fmsg" id="m_formal_course"></div>
+      </div>
+
+      <label class="flabel" for="other_tools">Other tools you've used (optional)</label>
+      <input type="text" id="other_tools" name="other_tools" maxlength="200"
+             placeholder="e.g. SPSS, Stata, Excel macros, SQL, MATLAB">
+    </fieldset>
+
+    <!-- ============ 3. Programme ============ -->
+    <fieldset>
+      <legend>Your programme</legend>
+
+      <span class="bgname req">Are you an MSc PHMxAI student?</span>
+      <div class="optrow" role="radiogroup" aria-label="MSc PHMxAI student">
+        <label class="opt"><input type="radio" name="is_msc" value="yes"> Yes</label>
+        <label class="opt"><input type="radio" name="is_msc" value="no"> No</label>
+      </div>
+      <div class="fmsg" id="m_is_msc"></div>
+
+      <div id="sidWrap" hidden>
+        <label class="flabel" for="student_id">Student ID (optional)</label>
+        <input type="text" id="student_id" name="student_id" maxlength="20" placeholder="e.g. A0123456X" autocomplete="off">
+      </div>
+    </fieldset>
+
+    <!-- ============ 4. Courses requested ============ -->
+    <fieldset>
+      <legend>Which course(s) are you applying for?</legend>
+      <p class="hint">Choose at least one. You can take more than one.</p>
+      <div class="coursecards">
+        <label class="course bash">
+          <input type="checkbox" name="course" value="bash">
+          <span><span class="cname">Bash &amp; Command Line</span>
+          <span class="cdesc">Navigate the terminal, files and pipes — the foundation for everything else.</span></span>
+        </label>
+        <label class="course python">
+          <input type="checkbox" name="course" value="python">
+          <span><span class="cname">Python</span>
+          <span class="cdesc">General-purpose programming: variables, loops, functions and data handling.</span></span>
+        </label>
+        <label class="course r">
+          <input type="checkbox" name="course" value="r">
+          <span><span class="cname">R &amp; Biostatistics</span>
+          <span class="cdesc">Data analysis and statistics in R, geared towards health data.</span></span>
+        </label>
+      </div>
+      <div class="fmsg" id="m_course"></div>
+    </fieldset>
+
+    <!-- ============ 5. Self-check ============ -->
+    <fieldset>
+      <legend>Quick self-check</legend>
+      <p class="hint">How much do you agree with each statement right now?
+         <strong>1&nbsp;=&nbsp;strongly disagree &middot; 5&nbsp;=&nbsp;strongly agree.</strong>
+         There are no wrong answers.</p>
+
+      <div class="likert">
+        <span class="q req">I am confident I can write a small program.</span>
+        <div class="scale" role="radiogroup" aria-label="Confidence writing a small program">
+          <span class="endlab">disagree</span>
+          <label class="snum"><input type="radio" name="se_write" value="1"> 1</label>
+          <label class="snum"><input type="radio" name="se_write" value="2"> 2</label>
+          <label class="snum"><input type="radio" name="se_write" value="3"> 3</label>
+          <label class="snum"><input type="radio" name="se_write" value="4"> 4</label>
+          <label class="snum"><input type="radio" name="se_write" value="5"> 5</label>
+          <span class="endlab">agree</span>
+        </div>
+        <div class="fmsg" id="m_se_write"></div>
+      </div>
+
+      <div class="likert">
+        <span class="q req">I can make sense of an error message.</span>
+        <div class="scale" role="radiogroup" aria-label="Confidence making sense of an error message">
+          <span class="endlab">disagree</span>
+          <label class="snum"><input type="radio" name="se_debug" value="1"> 1</label>
+          <label class="snum"><input type="radio" name="se_debug" value="2"> 2</label>
+          <label class="snum"><input type="radio" name="se_debug" value="3"> 3</label>
+          <label class="snum"><input type="radio" name="se_debug" value="4"> 4</label>
+          <label class="snum"><input type="radio" name="se_debug" value="5"> 5</label>
+          <span class="endlab">agree</span>
+        </div>
+        <div class="fmsg" id="m_se_debug"></div>
+      </div>
+
+      <div class="likert">
+        <span class="q req">I can learn a new programming tool on my own.</span>
+        <div class="scale" role="radiogroup" aria-label="Confidence learning a new programming tool">
+          <span class="endlab">disagree</span>
+          <label class="snum"><input type="radio" name="se_learn" value="1"> 1</label>
+          <label class="snum"><input type="radio" name="se_learn" value="2"> 2</label>
+          <label class="snum"><input type="radio" name="se_learn" value="3"> 3</label>
+          <label class="snum"><input type="radio" name="se_learn" value="4"> 4</label>
+          <label class="snum"><input type="radio" name="se_learn" value="5"> 5</label>
+          <span class="endlab">agree</span>
+        </div>
+        <div class="fmsg" id="m_se_learn"></div>
+      </div>
+    </fieldset>
+
+    <!-- ============ 6. Goals ============ -->
+    <fieldset>
+      <legend>Your goals (optional)</legend>
+      <label class="flabel" for="goals">What do you hope to get out of the course?</label>
+      <textarea id="goals" name="goals" maxlength="500"
+                placeholder="A sentence or two is plenty."></textarea>
+      <div class="charcount"><span id="goalsCount">0</span>/500</div>
+    </fieldset>
+
+    <!-- ============ 7. Consent ============ -->
+    <fieldset>
+      <legend>Consent</legend>
+
+      <label class="consent">
+        <input type="checkbox" id="consent_pdpa" name="consent_pdpa">
+        <span class="ctext"><strong class="req">Required.</strong> I consent to the data in this form
+          being collected and used for <strong>course administration and learning analytics</strong>
+          (PDPA). Data is stored in NUS Microsoft&nbsp;365 and is not shared beyond the teaching team.
+          You may contact the instructor at any time to withdraw your application and data.</span>
+      </label>
+      <div class="fmsg" id="m_consent_pdpa"></div>
+
+      <label class="consent">
+        <input type="checkbox" id="consent_research" name="consent_research">
+        <span class="ctext"><strong>Optional.</strong> I additionally consent to the
+          <strong>anonymised</strong> use of my learning data for teaching evaluation and research.
+          Ticking or not ticking this box does not affect your application.</span>
+      </label>
+    </fieldset>
+
+    <!-- honeypot: humans never see this; bots that fill it are dropped server-side -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="website">Website</label>
+      <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" value="">
+    </div>
+
+    <div id="submitErr" role="alert"></div>
+    <button type="submit" id="submitBtn">Submit application</button>
+  </form>
+
+  <div id="successPanel" role="status">
+    <div class="bigtick">&#10003;</div>
+    <h2>Application received</h2>
+    <p>Thank you — your application has been submitted.</p>
+    <p><strong>You'll get an email once it's reviewed. You do NOT have an account until then.</strong></p>
+    <p class="hint">No email after a few days? Check your spam folder, or contact the instructor below.</p>
+  </div>
+</main>
+
+<footer>
+  National University of Singapore &middot;
+  <a href="mailto:xavierchee@gmail.com">Contact the instructor</a>
+</footer>
+
+<script>
+"use strict";
+
+var ENDPOINT = "https://nus-llm-proxy.xavierchee-teaching.workers.dev/apply";
+var CONSENT_VERSION = "2026-07-03.v1";
+
+/* ---------- full ISO 3166-1 alpha-2 country list ---------- */
+var COUNTRIES = [
+  ["AF","Afghanistan"],["AX","Åland Islands"],["AL","Albania"],["DZ","Algeria"],
+  ["AS","American Samoa"],["AD","Andorra"],["AO","Angola"],["AI","Anguilla"],
+  ["AQ","Antarctica"],["AG","Antigua and Barbuda"],["AR","Argentina"],["AM","Armenia"],
+  ["AW","Aruba"],["AU","Australia"],["AT","Austria"],["AZ","Azerbaijan"],
+  ["BS","Bahamas"],["BH","Bahrain"],["BD","Bangladesh"],["BB","Barbados"],
+  ["BY","Belarus"],["BE","Belgium"],["BZ","Belize"],["BJ","Benin"],
+  ["BM","Bermuda"],["BT","Bhutan"],["BO","Bolivia"],["BQ","Bonaire, Sint Eustatius and Saba"],
+  ["BA","Bosnia and Herzegovina"],["BW","Botswana"],["BV","Bouvet Island"],["BR","Brazil"],
+  ["IO","British Indian Ocean Territory"],["BN","Brunei Darussalam"],["BG","Bulgaria"],["BF","Burkina Faso"],
+  ["BI","Burundi"],["CV","Cabo Verde"],["KH","Cambodia"],["CM","Cameroon"],
+  ["CA","Canada"],["KY","Cayman Islands"],["CF","Central African Republic"],["TD","Chad"],
+  ["CL","Chile"],["CN","China"],["CX","Christmas Island"],["CC","Cocos (Keeling) Islands"],
+  ["CO","Colombia"],["KM","Comoros"],["CG","Congo"],["CD","Congo, Democratic Republic of the"],
+  ["CK","Cook Islands"],["CR","Costa Rica"],["CI","Côte d'Ivoire"],["HR","Croatia"],
+  ["CU","Cuba"],["CW","Curaçao"],["CY","Cyprus"],["CZ","Czechia"],
+  ["DK","Denmark"],["DJ","Djibouti"],["DM","Dominica"],["DO","Dominican Republic"],
+  ["EC","Ecuador"],["EG","Egypt"],["SV","El Salvador"],["GQ","Equatorial Guinea"],
+  ["ER","Eritrea"],["EE","Estonia"],["SZ","Eswatini"],["ET","Ethiopia"],
+  ["FK","Falkland Islands (Malvinas)"],["FO","Faroe Islands"],["FJ","Fiji"],["FI","Finland"],
+  ["FR","France"],["GF","French Guiana"],["PF","French Polynesia"],["TF","French Southern Territories"],
+  ["GA","Gabon"],["GM","Gambia"],["GE","Georgia"],["DE","Germany"],
+  ["GH","Ghana"],["GI","Gibraltar"],["GR","Greece"],["GL","Greenland"],
+  ["GD","Grenada"],["GP","Guadeloupe"],["GU","Guam"],["GT","Guatemala"],
+  ["GG","Guernsey"],["GN","Guinea"],["GW","Guinea-Bissau"],["GY","Guyana"],
+  ["HT","Haiti"],["HM","Heard Island and McDonald Islands"],["VA","Holy See"],["HN","Honduras"],
+  ["HK","Hong Kong"],["HU","Hungary"],["IS","Iceland"],["IN","India"],
+  ["ID","Indonesia"],["IR","Iran"],["IQ","Iraq"],["IE","Ireland"],
+  ["IM","Isle of Man"],["IL","Israel"],["IT","Italy"],["JM","Jamaica"],
+  ["JP","Japan"],["JE","Jersey"],["JO","Jordan"],["KZ","Kazakhstan"],
+  ["KE","Kenya"],["KI","Kiribati"],["KP","Korea (North)"],["KR","Korea (South)"],
+  ["KW","Kuwait"],["KG","Kyrgyzstan"],["LA","Laos"],["LV","Latvia"],
+  ["LB","Lebanon"],["LS","Lesotho"],["LR","Liberia"],["LY","Libya"],
+  ["LI","Liechtenstein"],["LT","Lithuania"],["LU","Luxembourg"],["MO","Macao"],
+  ["MG","Madagascar"],["MW","Malawi"],["MY","Malaysia"],["MV","Maldives"],
+  ["ML","Mali"],["MT","Malta"],["MH","Marshall Islands"],["MQ","Martinique"],
+  ["MR","Mauritania"],["MU","Mauritius"],["YT","Mayotte"],["MX","Mexico"],
+  ["FM","Micronesia"],["MD","Moldova"],["MC","Monaco"],["MN","Mongolia"],
+  ["ME","Montenegro"],["MS","Montserrat"],["MA","Morocco"],["MZ","Mozambique"],
+  ["MM","Myanmar"],["NA","Namibia"],["NR","Nauru"],["NP","Nepal"],
+  ["NL","Netherlands"],["NC","New Caledonia"],["NZ","New Zealand"],["NI","Nicaragua"],
+  ["NE","Niger"],["NG","Nigeria"],["NU","Niue"],["NF","Norfolk Island"],
+  ["MK","North Macedonia"],["MP","Northern Mariana Islands"],["NO","Norway"],["OM","Oman"],
+  ["PK","Pakistan"],["PW","Palau"],["PS","Palestine, State of"],["PA","Panama"],
+  ["PG","Papua New Guinea"],["PY","Paraguay"],["PE","Peru"],["PH","Philippines"],
+  ["PN","Pitcairn"],["PL","Poland"],["PT","Portugal"],["PR","Puerto Rico"],
+  ["QA","Qatar"],["RE","Réunion"],["RO","Romania"],["RU","Russian Federation"],
+  ["RW","Rwanda"],["BL","Saint Barthélemy"],["SH","Saint Helena, Ascension and Tristan da Cunha"],["KN","Saint Kitts and Nevis"],
+  ["LC","Saint Lucia"],["MF","Saint Martin (French part)"],["PM","Saint Pierre and Miquelon"],["VC","Saint Vincent and the Grenadines"],
+  ["WS","Samoa"],["SM","San Marino"],["ST","Sao Tome and Principe"],["SA","Saudi Arabia"],
+  ["SN","Senegal"],["RS","Serbia"],["SC","Seychelles"],["SL","Sierra Leone"],
+  ["SG","Singapore"],["SX","Sint Maarten (Dutch part)"],["SK","Slovakia"],["SI","Slovenia"],
+  ["SB","Solomon Islands"],["SO","Somalia"],["ZA","South Africa"],["GS","South Georgia and the South Sandwich Islands"],
+  ["SS","South Sudan"],["ES","Spain"],["LK","Sri Lanka"],["SD","Sudan"],
+  ["SR","Suriname"],["SJ","Svalbard and Jan Mayen"],["SE","Sweden"],["CH","Switzerland"],
+  ["SY","Syrian Arab Republic"],["TW","Taiwan"],["TJ","Tajikistan"],["TZ","Tanzania"],
+  ["TH","Thailand"],["TL","Timor-Leste"],["TG","Togo"],["TK","Tokelau"],
+  ["TO","Tonga"],["TT","Trinidad and Tobago"],["TN","Tunisia"],["TR","Türkiye"],
+  ["TM","Turkmenistan"],["TC","Turks and Caicos Islands"],["TV","Tuvalu"],["UG","Uganda"],
+  ["UA","Ukraine"],["AE","United Arab Emirates"],["GB","United Kingdom"],["US","United States"],
+  ["UM","United States Minor Outlying Islands"],["UY","Uruguay"],["UZ","Uzbekistan"],["VU","Vanuatu"],
+  ["VE","Venezuela"],["VN","Viet Nam"],["VG","Virgin Islands (British)"],["VI","Virgin Islands (U.S.)"],
+  ["WF","Wallis and Futuna"],["EH","Western Sahara"],["YE","Yemen"],["ZM","Zambia"],
+  ["ZW","Zimbabwe"]
+];
+
+(function populateCountries(){
+  var sel = document.getElementById("country");
+  // Singapore pinned at the top for convenience, then the full A-Z list.
+  var pin = document.createElement("option");
+  pin.value = "SG"; pin.textContent = "Singapore";
+  sel.appendChild(pin);
+  var sep = document.createElement("option");
+  sep.disabled = true; sep.textContent = "──────────";
+  sel.appendChild(sep);
+  for (var i = 0; i < COUNTRIES.length; i++) {
+    var o = document.createElement("option");
+    o.value = COUNTRIES[i][0];
+    o.textContent = COUNTRIES[i][1];
+    sel.appendChild(o);
+  }
+})();
+
+/* ---------- small helpers ---------- */
+function $(id){ return document.getElementById(id); }
+function radioVal(name){
+  var el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : null;
+}
+function countryName(){
+  var sel = $("country");
+  if (sel.selectedIndex < 0) return "";
+  var opt = sel.options[sel.selectedIndex];
+  return opt && opt.value ? opt.textContent : "";
+}
+function setMsg(id, msg){
+  var box = $("m_" + id);
+  if (!box) return;
+  if (msg) { box.textContent = msg; box.classList.add("on"); }
+  else     { box.textContent = "";  box.classList.remove("on"); }
+}
+function markInvalid(el, bad){
+  if (el && el.classList) el.classList.toggle("invalid", !!bad);
+}
+
+/* ---------- password show/hide ---------- */
+$("pwToggle").addEventListener("click", function(){
+  var pw = $("password");
+  var showing = pw.type === "text";
+  pw.type = showing ? "password" : "text";
+  this.textContent = showing ? "Show" : "Hide";
+  this.setAttribute("aria-pressed", showing ? "false" : "true");
+  this.setAttribute("aria-label", showing ? "Show password" : "Hide password");
+});
+
+/* ---------- MSc PHMxAI -> reveal Student ID ---------- */
+(function(){
+  var radios = document.querySelectorAll('input[name="is_msc"]');
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].addEventListener("change", function(){
+      $("sidWrap").hidden = (radioVal("is_msc") !== "yes");
+    });
+  }
+})();
+
+/* ---------- goals character counter ---------- */
+$("goals").addEventListener("input", function(){
+  $("goalsCount").textContent = String(this.value.length);
+});
+
+/* ---------- validation ---------- */
+var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validate(){
+  var errors = [];   // list of element ids / first-invalid element
+  var firstBad = null;
+  function bad(el, msgId, msg){
+    setMsg(msgId, msg);
+    markInvalid(el, true);
+    if (!firstBad) firstBad = el;
+    errors.push(msgId);
+  }
+  function good(el, msgId){
+    setMsg(msgId, "");
+    markInvalid(el, false);
+  }
+
+  var name = $("fullname").value.trim();
+  if (!name) bad($("fullname"), "fullname", "Please enter your full name.");
+  else good($("fullname"), "fullname");
+
+  var email = $("email").value.trim().toLowerCase();
+  if (!EMAIL_RE.test(email)) bad($("email"), "email", "Please enter a valid email address.");
+  else good($("email"), "email");
+
+  var email2 = $("email2").value.trim().toLowerCase();
+  if (!email2 || email2 !== email) bad($("email2"), "email2", "The two email addresses must match.");
+  else good($("email2"), "email2");
+
+  var pw = $("password").value;
+  if (pw.length < 6) bad($("password"), "password", "Password must be at least 6 characters.");
+  else good($("password"), "password");
+
+  if (!$("country").value) bad($("country"), "country", "Please select your country.");
+  else good($("country"), "country");
+
+  if (!$("school").value.trim()) bad($("school"), "school", "Please enter your school or university.");
+  else good($("school"), "school");
+
+  var groups = [
+    ["bg_bash", "Please pick your Bash experience level."],
+    ["bg_python", "Please pick your Python experience level."],
+    ["bg_r", "Please pick your R experience level."],
+    ["formal_course", "Please answer yes or no."],
+    ["is_msc", "Please answer yes or no."],
+    ["se_write", "Please pick a number from 1 to 5."],
+    ["se_debug", "Please pick a number from 1 to 5."],
+    ["se_learn", "Please pick a number from 1 to 5."]
+  ];
+  for (var i = 0; i < groups.length; i++) {
+    var g = groups[i][0];
+    var el = document.querySelector('input[name="' + g + '"]');
+    if (!radioVal(g)) bad(el, g, groups[i][1]);
+    else good(el, g);
+  }
+
+  var courses = document.querySelectorAll('input[name="course"]:checked');
+  if (courses.length < 1) {
+    bad(document.querySelector('input[name="course"]'), "course",
+        "Please choose at least one course.");
+  } else {
+    good(document.querySelector('input[name="course"]'), "course");
+  }
+
+  if (!$("consent_pdpa").checked) {
+    bad($("consent_pdpa"), "consent_pdpa",
+        "This consent is required to process your application.");
+  } else {
+    good($("consent_pdpa"), "consent_pdpa");
+  }
+
+  if (firstBad && firstBad.scrollIntoView) {
+    firstBad.scrollIntoView({behavior: "smooth", block: "center"});
+    try { firstBad.focus({preventScroll: true}); } catch(e) {}
+  }
+  return errors.length === 0;
+}
+
+/* ---------- build the POST body ---------- */
+function buildPayload(){
+  var courses = [];
+  var boxes = document.querySelectorAll('input[name="course"]:checked');
+  for (var i = 0; i < boxes.length; i++) courses.push(boxes[i].value);
+
+  return {
+    name: $("fullname").value.trim(),
+    email: $("email").value.trim().toLowerCase(),
+    password: $("password").value,
+    phone: $("phone").value.trim(),
+    country_name: countryName(),
+    country_code: $("country").value,
+    school: $("school").value.trim(),
+    coding_background: {
+      bash: radioVal("bg_bash"),
+      python: radioVal("bg_python"),
+      r: radioVal("bg_r"),
+      formal_course: radioVal("formal_course") === "yes",
+      other: $("other_tools").value.trim()
+    },
+    is_mscphmxai: radioVal("is_msc") === "yes",
+    student_id: (radioVal("is_msc") === "yes") ? $("student_id").value.trim() : "",
+    courses: courses,
+    goals: $("goals").value.trim().slice(0, 500),
+    self_efficacy: {
+      write_small_program: parseInt(radioVal("se_write"), 10),
+      debug_error: parseInt(radioVal("se_debug"), 10),
+      learn_new_tool: parseInt(radioVal("se_learn"), 10)
+    },
+    consent_research: $("consent_research").checked,
+    consent_version: CONSENT_VERSION,
+    website: $("website").value   // honeypot: stays "" for humans
+  };
+}
+
+/* ---------- submit ---------- */
+function showSubmitError(msg){
+  var box = $("submitErr");
+  box.textContent = msg;
+  box.classList.add("on");
+}
+function clearSubmitError(){
+  var box = $("submitErr");
+  box.textContent = "";
+  box.classList.remove("on");
+}
+
+$("appform").addEventListener("submit", function(ev){
+  ev.preventDefault();
+  clearSubmitError();
+  if (!validate()) return;
+
+  var btn = $("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Submitting…";
+
+  var payload = buildPayload();
+  var controller = (typeof AbortController !== "undefined") ? new AbortController() : null;
+  var timer = controller ? setTimeout(function(){ controller.abort(); }, 60000) : null;
+
+  fetch(ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+    signal: controller ? controller.signal : undefined
+  })
+  .then(function(res){
+    return res.json().then(
+      function(data){ return {status: res.status, data: data}; },
+      function(){ return {status: res.status, data: null}; }
+    );
+  })
+  .then(function(r){
+    if (timer) clearTimeout(timer);
+    if (r.data && r.data.ok === true) {
+      $("appform").hidden = true;
+      $("successPanel").classList.add("on");
+      window.scrollTo({top: 0, behavior: "smooth"});
+    } else {
+      var msg = (r.data && (r.data.error || r.data.message)) ||
+                ("The server could not process the application (HTTP " + r.status +
+                 "). Please try again in a minute.");
+      showSubmitError(msg);
+      btn.disabled = false;
+      btn.textContent = "Submit application";
+    }
+  })
+  .catch(function(err){
+    if (timer) clearTimeout(timer);
+    showSubmitError(
+      (err && err.name === "AbortError")
+        ? "The request timed out. Please check your connection and try again."
+        : "Could not reach the server. Please check your connection and try again."
+    );
+    btn.disabled = false;
+    btn.textContent = "Submit application";
+  });
+});
+</script>
+</body>
+</html>
