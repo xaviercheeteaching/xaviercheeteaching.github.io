@@ -4708,17 +4708,22 @@ const CANVAS_RETURN_URL = (function() {
   } catch (e) { window.__canvasCtx = { uid: null, cid: null }; }
 })();
 
-const PROGRESS_KEY_PREFIX = 'bridging_progress_v1_';
-function _progressKey() {
+const BC_STORE_SCOPE = 'r';
+function _storageLearnerId() {
   let lid = 'anon';
   try {
     const phm = localStorage.getItem('phm_student');
     if (phm) {
       const o = JSON.parse(phm);
-      if (o && o.student_id) lid = String(o.student_id);
+      if (o && o.email) lid = String(o.email).trim().toLowerCase();
+      else if (o && o.student_id) lid = String(o.student_id);
     }
   } catch (e) {}
-  return PROGRESS_KEY_PREFIX + MODULE_ID + '_' + lid;
+  return lid;
+}
+const PROGRESS_KEY_PREFIX = 'bridging_progress_v2_';
+function _progressKey() {
+  return PROGRESS_KEY_PREFIX + BC_STORE_SCOPE + '_' + MODULE_ID + '_' + _storageLearnerId();
 }
 
 function _saveProgress(pageIdx, totalPages) {
@@ -4729,6 +4734,8 @@ function _saveProgress(pageIdx, totalPages) {
     state.last_page = pageIdx;
     state.total_pages = totalPages;
     state.last_visited = Date.now();
+    state.course = BC_STORE_SCOPE;
+    state.module_id = MODULE_ID;
     if (!Array.isArray(state.completed_pages)) state.completed_pages = [];
     if (state.completed_pages.indexOf(pageIdx) === -1) {
       state.completed_pages.push(pageIdx);
@@ -4741,7 +4748,9 @@ function _saveProgress(pageIdx, totalPages) {
 function _loadProgress() {
   try {
     const raw = localStorage.getItem(_progressKey());
-    return raw ? JSON.parse(raw) : null;
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && parsed.module_id && (parsed.module_id !== MODULE_ID || (parsed.course && parsed.course !== BC_STORE_SCOPE))) return null;
+    return parsed;
   } catch (e) { return null; }
 }
 
@@ -4752,23 +4761,17 @@ function _clearProgress() {
   });
 }
 
-const PRETEST_KEY_PREFIX = 'bridging_pretest_v1_';
+const PRETEST_KEY_PREFIX = 'bridging_pretest_v2_';
 function _pretestKey() {
-  let lid = 'anon';
-  try {
-    const phm = localStorage.getItem('phm_student');
-    if (phm) {
-      const o = JSON.parse(phm);
-      if (o && o.student_id) lid = String(o.student_id);
-    }
-  } catch (e) {}
-  return PRETEST_KEY_PREFIX + MODULE_ID + '_' + lid;
+  return PRETEST_KEY_PREFIX + BC_STORE_SCOPE + '_' + MODULE_ID + '_' + _storageLearnerId();
 }
 
 function _savePretestState(data) {
   try {
     localStorage.setItem(_pretestKey(), JSON.stringify({
       saved_at: Date.now(),
+      course: BC_STORE_SCOPE,
+      module_id: MODULE_ID,
       mcqs: data.mcqs || [],
       confidence: data.confidence || [],
     }));
@@ -4778,7 +4781,9 @@ function _savePretestState(data) {
 function _loadPretestState() {
   try {
     const raw = localStorage.getItem(_pretestKey());
-    return raw ? JSON.parse(raw) : null;
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && parsed.module_id && (parsed.module_id !== MODULE_ID || (parsed.course && parsed.course !== BC_STORE_SCOPE))) return null;
+    return parsed;
   } catch (e) { return null; }
 }
 
@@ -4848,23 +4853,17 @@ function _restorePretestPage() {
 // post-test and lets the student re-attempt it (contaminating the
 // pre/post learning-gain pairing) and also wipes window.postTestState,
 // making the results page report "no answers recorded".
-const POSTTEST_KEY_PREFIX = 'bridging_posttest_v1_';
+const POSTTEST_KEY_PREFIX = 'bridging_posttest_v2_';
 function _posttestKey() {
-  let lid = 'anon';
-  try {
-    const phm = localStorage.getItem('phm_student');
-    if (phm) {
-      const o = JSON.parse(phm);
-      if (o && o.student_id) lid = String(o.student_id);
-    }
-  } catch (e) {}
-  return POSTTEST_KEY_PREFIX + MODULE_ID + '_' + lid;
+  return POSTTEST_KEY_PREFIX + BC_STORE_SCOPE + '_' + MODULE_ID + '_' + _storageLearnerId();
 }
 
 function _savePosttestState(data) {
   try {
     localStorage.setItem(_posttestKey(), JSON.stringify({
       saved_at: Date.now(),
+      course: BC_STORE_SCOPE,
+      module_id: MODULE_ID,
       mcqs: data.mcqs || [],
       confidence: data.confidence || [],
     }));
@@ -4874,7 +4873,9 @@ function _savePosttestState(data) {
 function _loadPosttestState() {
   try {
     const raw = localStorage.getItem(_posttestKey());
-    return raw ? JSON.parse(raw) : null;
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && parsed.module_id && (parsed.module_id !== MODULE_ID || (parsed.course && parsed.course !== BC_STORE_SCOPE))) return null;
+    return parsed;
   } catch (e) { return null; }
 }
 
@@ -5056,7 +5057,7 @@ function _resetGeneratedData() {
     for (let i = 0; i < localStorage.length; i++) {
       const k = localStorage.key(i);
       if (!k) continue;
-      if (k.indexOf(PROGRESS_KEY_PREFIX) === 0) {
+      if (k.indexOf(PROGRESS_KEY_PREFIX) === 0 || k.indexOf('bridging_progress_v1_') === 0) {
         toRemove.push(k); removed.progress++;
       } else if (k.indexOf(REWRITE_CACHE_PREFIX) === 0) {
         toRemove.push(k); removed.rewrites++;
@@ -5096,7 +5097,7 @@ function _showResetConfirm() {
       '<li>Your section progress and tick marks</li>' +
       '<li>The personalised content this module generated for you</li>' +
     '</ul>' +
-    'Your diagnostic profile, login, and scratchpad code are kept. ' +
+    'Your diagnostic profile, login, and scratchpad code are kept. Submitted pre-test and post-test answers are also kept — they are one-time measurements of your learning gain. ' +
     'New personalised content will be regenerated next time you visit each section.';
 
   const actions = document.createElement('div');
