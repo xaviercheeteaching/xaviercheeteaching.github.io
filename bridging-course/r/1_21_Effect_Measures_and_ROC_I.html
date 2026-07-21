@@ -2214,11 +2214,12 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
   font-family: inherit; font-size: 14px; font-weight: 700;
   box-shadow: 0 10px 30px rgba(0,61,124,0.40);
   cursor: pointer; z-index: 1065;
+  touch-action: none;
   transition: transform 0.15s, box-shadow 0.15s;
+  animation: bchatBob 3.5s ease-in-out infinite;
 }
 .bchat-fab:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,61,124,0.50); }
 .bchat-fab[hidden] { display: none !important; }
-.bchat-fab-ico { font-size: 16px; line-height: 1; }
 /* Unread dot — orange, only shown when tutor replies arrive with panel closed */
 .bchat-fab-dot {
   position: absolute; top: -3px; right: -3px;
@@ -2227,9 +2228,30 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
   display: none;
 }
 .bchat-fab.has-unread .bchat-fab-dot { display: block; }
+/* v2 micro-animation + unread glow. The bob and the glow must be declared
+   together (comma-separated) in the unread state — a second `animation`
+   shorthand would silently cancel the first, so the FAB would stop bobbing. */
+@keyframes bchatBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+@keyframes bchatGlow {
+  0%, 100% { box-shadow: 0 10px 30px rgba(0,61,124,0.40), 0 0 0 0 rgba(255,107,53,0); }
+  50%      { box-shadow: 0 10px 30px rgba(0,61,124,0.40), 0 0 18px 4px rgba(255,107,53,0.75); }
+}
+.bchat-fab.has-unread {
+  animation: bchatBob 3.5s ease-in-out infinite, bchatGlow 1.6s ease-in-out infinite;
+}
+/* While dragging, stop all animation so no residual transform offsets the
+   pointer-driven left/top. Placed after .has-unread so it wins on equal
+   specificity. */
+.bchat-fab.bchat-dragging { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .bchat-fab, .bchat-fab.has-unread { animation: none; }
+  .bchat-fab.has-unread { box-shadow: 0 10px 30px rgba(0,61,124,0.40), 0 0 16px 3px rgba(255,107,53,0.65); }
+}
 @media (max-width: 640px) {
-  .bchat-fab { right: 14px; bottom: 76px; padding: 12px; }
-  .bchat-fab .bchat-fab-label { display: none; }
+  .bchat-fab { right: 14px; bottom: 76px; }
 }
 
 /* Slide-up panel */
@@ -3084,9 +3106,8 @@ print("Hello, bridging course!")
 </button>
 <div class="overlay-backdrop" id="overlayBackdrop" hidden></div>
 <!-- === BRIDGING CHAT WIDGET v1 (do not edit without updating all three course builders) === -->
-<button type="button" class="bchat-fab" id="bchatFab" hidden aria-label="Message your course tutor" aria-expanded="false" aria-controls="bchatPanel">
-  <span class="bchat-fab-ico" aria-hidden="true">&#128172;</span>
-  <span class="bchat-fab-label">Tutor</span>
+<button type="button" class="bchat-fab" id="bchatFab" hidden aria-label="Chat with tutor" aria-expanded="false" aria-controls="bchatPanel">
+  <span class="bchat-fab-label">Chat with tutor</span>
   <span class="bchat-fab-dot" id="bchatFabDot" aria-hidden="true"></span>
 </button>
 <div class="bchat-panel" id="bchatPanel" hidden role="dialog" aria-modal="false" aria-label="Chat with your course tutor">
@@ -8521,11 +8542,14 @@ var BCHAT_OUTBOX_KEY  = 'bridging_chat_outbox_v1';   // queued unsent messages (
 var BCHAT_THREAD_KEY  = 'bridging_chat_thread_v1';   // merged local thread (by msg_id)
 var BCHAT_SINCE_KEY   = 'bridging_chat_since_v1';    // last seen server_ts
 var BCHAT_ACTIVE_KEY  = 'bridging_chat_active_v1';   // ISO ts of last send/receive (14-day window)
+var BCHAT_FABPOS_KEY  = 'bridging_chat_fab_pos_v1';  // v2: {left,top} of a dragged FAB
 var BCHAT_MAXLEN      = 4000;
 var _bchatOpen = false;
 var _bchatUnread = false;
 var _bchatPollTimer = null;
 var _bchatSending = false;
+var _bchatDrag = null;           // v2: active pointer-drag state, or null
+var _bchatSuppressClick = false; // v2: swallow the click synthesised after a drag
 var _bchatGuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function _bchatGetToken() {
@@ -8816,6 +8840,7 @@ function _bchatOpenPanel() {
   var fab = document.getElementById('bchatFab');
   if (!panel) return;
   panel.hidden = false;
+  _bchatPositionPanel();   // v2: place next to the (possibly dragged) FAB
   // next frame so the transition runs
   requestAnimationFrame(function() { panel.classList.add('open'); });
   _bchatOpen = true;
@@ -8854,6 +8879,134 @@ function _bchatAutosize(el) {
   el.style.height = Math.min(el.scrollHeight, 96) + 'px';
 }
 
+// ── v2: draggable FAB + adjacent panel placement ──────────────────
+// The single new localStorage key is BCHAT_FABPOS_KEY. Everything else in the
+// widget (send/poll/outbox/token gate/rendering) is untouched.
+
+// Read the saved {left, top}, or null if the FAB has never been moved.
+function _bchatGetSavedPos() {
+  var p = _bchatReadJSON(BCHAT_FABPOS_KEY, null);
+  if (p && typeof p.left === 'number' && typeof p.top === 'number') return p;
+  return null;
+}
+function _bchatHasCustomPos() { return !!_bchatGetSavedPos(); }
+
+// Clamp a viewport {left, top} so the FAB stays fully on-screen with an 8px margin.
+function _bchatClampFab(left, top) {
+  var m = 8;
+  var fab = document.getElementById('bchatFab');
+  var w = fab ? fab.offsetWidth : 0;
+  var h = fab ? fab.offsetHeight : 0;
+  var maxLeft = Math.max(m, window.innerWidth - w - m);
+  var maxTop = Math.max(m, window.innerHeight - h - m);
+  if (left < m) left = m; else if (left > maxLeft) left = maxLeft;
+  if (top < m) top = m; else if (top > maxTop) top = maxTop;
+  return { left: left, top: top };
+}
+
+// Apply an explicit (clamped) position to the FAB, overriding the default
+// bottom-right CSS slot with fixed left/top.
+function _bchatApplyFabPos(pos) {
+  var fab = document.getElementById('bchatFab');
+  if (!fab || !pos) return;
+  var c = _bchatClampFab(pos.left, pos.top);
+  fab.style.left = c.left + 'px';
+  fab.style.top = c.top + 'px';
+  fab.style.right = 'auto';
+  fab.style.bottom = 'auto';
+}
+
+// Restore a saved FAB position on load (re-clamped to the current viewport so a
+// stale off-screen value can never strand the button).
+function _bchatRestoreFabPos() {
+  var saved = _bchatGetSavedPos();
+  if (saved) _bchatApplyFabPos(saved);
+}
+
+// Wire pointer-drag on the FAB. Movement under ~6px counts as a click (opens
+// the panel); more is a drag (position persisted, click suppressed). Pointer
+// events cover mouse + touch; touch-action:none on the FAB stops scrolling.
+function _bchatWireDrag(fab) {
+  if (!fab || fab.dataset.dragWired) return;
+  fab.dataset.dragWired = '1';
+  fab.addEventListener('pointerdown', function(e) {
+    if (e.button != null && e.button !== 0) return;   // primary / touch only
+    _bchatSuppressClick = false;
+    var rect = fab.getBoundingClientRect();
+    _bchatDrag = {
+      pointerId: e.pointerId,
+      startX: e.clientX, startY: e.clientY,
+      grabDX: e.clientX - rect.left,   // pointer offset inside the button
+      grabDY: e.clientY - rect.top,
+      moved: false
+    };
+    try { fab.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  fab.addEventListener('pointermove', function(e) {
+    if (!_bchatDrag || e.pointerId !== _bchatDrag.pointerId) return;
+    var dx = e.clientX - _bchatDrag.startX;
+    var dy = e.clientY - _bchatDrag.startY;
+    if (!_bchatDrag.moved) {
+      if ((dx * dx + dy * dy) < 36) return;   // under 6px — still a click
+      _bchatDrag.moved = true;
+      fab.classList.add('bchat-dragging');
+    }
+    var c = _bchatClampFab(e.clientX - _bchatDrag.grabDX, e.clientY - _bchatDrag.grabDY);
+    fab.style.left = c.left + 'px';
+    fab.style.top = c.top + 'px';
+    fab.style.right = 'auto';
+    fab.style.bottom = 'auto';
+    e.preventDefault();
+  });
+  function _endDrag(e) {
+    if (!_bchatDrag || e.pointerId !== _bchatDrag.pointerId) return;
+    var moved = _bchatDrag.moved;
+    var pid = _bchatDrag.pointerId;
+    _bchatDrag = null;
+    try { fab.releasePointerCapture(pid); } catch (err) {}
+    if (moved) {
+      fab.classList.remove('bchat-dragging');
+      _bchatSuppressClick = true;   // the trailing click must not toggle the panel
+      var rect = fab.getBoundingClientRect();
+      _bchatWriteJSON(BCHAT_FABPOS_KEY, _bchatClampFab(rect.left, rect.top));
+    }
+  }
+  fab.addEventListener('pointerup', _endDrag);
+  fab.addEventListener('pointercancel', _endDrag);
+}
+
+// Position the panel adjacent to the FAB's current spot: above it when the FAB
+// is in the lower half of the viewport, below otherwise; aligned to the FAB's
+// nearer screen edge; always clamped fully on-screen. When the FAB has never
+// been moved (and off the small-screen full-bleed layout), inline styles are
+// cleared so the panel lands in exactly its original CSS slot.
+function _bchatPositionPanel() {
+  var panel = document.getElementById('bchatPanel');
+  var fab = document.getElementById('bchatFab');
+  if (!panel || !fab) return;
+  var smallScreen = !!(window.matchMedia && window.matchMedia('(max-width: 640px)').matches);
+  if (smallScreen || !_bchatHasCustomPos()) {
+    panel.style.left = ''; panel.style.top = '';
+    panel.style.right = ''; panel.style.bottom = '';
+    return;
+  }
+  var fr = fab.getBoundingClientRect();
+  var m = 8, gap = 12;
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var pw = panel.offsetWidth || 360;
+  var ph = panel.offsetHeight || 520;
+  var top = (fr.top + fr.height / 2 > vh / 2) ? (fr.top - gap - ph) : (fr.bottom + gap);
+  var left = (fr.left + fr.width / 2 > vw / 2) ? (fr.right - pw) : fr.left;
+  if (left > vw - pw - m) left = vw - pw - m;
+  if (left < m) left = m;
+  if (top > vh - ph - m) top = vh - ph - m;
+  if (top < m) top = m;
+  panel.style.left = left + 'px';
+  panel.style.top = top + 'px';
+  panel.style.right = 'auto';
+  panel.style.bottom = 'auto';
+}
+
 function _initBridgingChat() {
   var fab = document.getElementById('bchatFab');
   var panel = document.getElementById('bchatPanel');
@@ -8862,6 +9015,8 @@ function _initBridgingChat() {
   // Gate: only render the FAB when a student session exists.
   if (!_bchatLoggedIn()) { fab.hidden = true; panel.hidden = true; return; }
   fab.hidden = false;
+  _bchatRestoreFabPos();   // v2: re-apply a saved drag position (re-clamped)
+  _bchatWireDrag(fab);     // v2: pointer-drag handlers
 
   var closeBtn = document.getElementById('bchatClose');
   var sendBtn = document.getElementById('bchatSend');
@@ -8869,7 +9024,16 @@ function _initBridgingChat() {
 
   if (!fab.dataset.wired) {
     fab.dataset.wired = '1';
-    fab.addEventListener('click', _bchatTogglePanel);
+    fab.addEventListener('click', function() {
+      // A drag ends with a synthetic click — swallow it so it can't toggle.
+      if (_bchatSuppressClick) { _bchatSuppressClick = false; return; }
+      _bchatTogglePanel();
+    });
+    // v2: keep a dragged FAB (and any open panel) on-screen across resizes.
+    window.addEventListener('resize', function() {
+      _bchatRestoreFabPos();
+      if (_bchatOpen) _bchatPositionPanel();
+    });
   }
   if (closeBtn && !closeBtn.dataset.wired) {
     closeBtn.dataset.wired = '1';
