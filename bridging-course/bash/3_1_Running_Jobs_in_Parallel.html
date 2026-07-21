@@ -9222,7 +9222,58 @@ function _bchatPositionPanel() {
   panel.style.bottom = 'auto';
 }
 
+// v3: shared-computer privacy. The chat cache must not survive a logout, so a
+// later user of the same browser cannot read the previous student's messages.
+// These helpers live inside the widget markers; the shell's _logout (outside
+// the markers) is intercepted by wrapping the global, never by editing it.
+
+// Remove the four cached chat keys. fab_pos (a dragged button position) is
+// deliberately NOT cleared: a moved button is not sensitive.
+function _bchatClearChatKeys() {
+  var keys = [BCHAT_THREAD_KEY, BCHAT_OUTBOX_KEY, BCHAT_ACTIVE_KEY, BCHAT_SINCE_KEY];
+  for (var i = 0; i < keys.length; i++) {
+    try { localStorage.removeItem(keys[i]); } catch (e) {}
+  }
+}
+
+// Wrap the shell's global _logout so logging out also clears the chat cache.
+// _initBridgingChat runs during DOMContentLoaded BEFORE fireModuleStart()'s
+// setTimeout wires the logout button (out.addEventListener('click', _logout)),
+// so that listener captures this wrapper rather than the original function.
+// Idempotent and fail-silent; _logout itself (outside the markers) is untouched.
+function _bchatInstallLogoutHook() {
+  try {
+    if (window._bchatLogoutHooked) return;
+    if (typeof _logout !== 'function') return;
+    var _bchatOrigLogout = _logout;
+    _logout = function() {
+      try { _bchatClearChatKeys(); } catch (e) {}
+      return _bchatOrigLogout.apply(this, arguments);
+    };
+    window._bchatLogoutHooked = true;
+  } catch (e) {}
+}
+
+// Defensive: if there is no student session but cached chat still exists, a
+// prior logout bypassed the wrapper (older page, expired session, etc.). Clear
+// it on init so the next user of a shared computer can't read it.
+function _bchatClearOrphanCache() {
+  try {
+    var hasStudent = false;
+    try { hasStudent = !!localStorage.getItem('phm_student'); } catch (e) { hasStudent = false; }
+    if (hasStudent) return;
+    var hasThread = false;
+    try { hasThread = !!localStorage.getItem(BCHAT_THREAD_KEY); } catch (e) { hasThread = false; }
+    if (hasThread) _bchatClearChatKeys();
+  } catch (e) {}
+}
+
 function _initBridgingChat() {
+  // v3: install the logout wrapper and purge any orphaned cache first, before
+  // the early returns below, so both run regardless of login state.
+  _bchatInstallLogoutHook();
+  _bchatClearOrphanCache();
+
   var fab = document.getElementById('bchatFab');
   var panel = document.getElementById('bchatPanel');
   if (!fab || !panel) return;
