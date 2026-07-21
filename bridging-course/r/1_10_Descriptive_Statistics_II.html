@@ -2201,6 +2201,132 @@ footer.site-foot a.foot-mail:focus-visible { outline: 2px solid #FF6B35; outline
 .gp-switch input:checked + .gp-slider{background:#FF6B35}
 .gp-switch input:checked + .gp-slider:before{transform:translateX(20px)}
 @media (max-width:768px){.gp-offer{display:none !important}}
+/* === BRIDGING CHAT WIDGET v1 (do not edit without updating all three course builders) === */
+/* Tutor chat FAB — mirrors the .scratch-fab pill but sits above it on the
+   left so the two floating buttons never overlap. NUS blue base, orange
+   accent for the unread dot, matching the page's existing palette. */
+.bchat-fab {
+  position: fixed; right: 20px; bottom: 84px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 18px;
+  background: linear-gradient(135deg, #003D7C, #00529b);
+  color: #fff; border: 0; border-radius: 999px;
+  font-family: inherit; font-size: 14px; font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0,61,124,0.40);
+  cursor: pointer; z-index: 1065;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.bchat-fab:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,61,124,0.50); }
+.bchat-fab[hidden] { display: none !important; }
+.bchat-fab-ico { font-size: 16px; line-height: 1; }
+/* Unread dot — orange, only shown when tutor replies arrive with panel closed */
+.bchat-fab-dot {
+  position: absolute; top: -3px; right: -3px;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: #FF6B35; border: 2px solid #fff;
+  display: none;
+}
+.bchat-fab.has-unread .bchat-fab-dot { display: block; }
+@media (max-width: 640px) {
+  .bchat-fab { right: 14px; bottom: 76px; padding: 12px; }
+  .bchat-fab .bchat-fab-label { display: none; }
+}
+
+/* Slide-up panel */
+.bchat-panel {
+  position: fixed; right: 20px; bottom: 84px;
+  width: 360px; max-width: calc(100vw - 32px);
+  height: 520px; max-height: calc(100vh - 120px);
+  display: flex; flex-direction: column;
+  background: #fff; border: 1px solid #d6e4f0; border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,61,124,0.30);
+  z-index: 1070; overflow: hidden;
+  opacity: 0; transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.bchat-panel.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.bchat-panel[hidden] { display: none !important; }
+@media (max-width: 640px) {
+  .bchat-panel {
+    right: 8px; left: 8px; bottom: 8px; width: auto;
+    max-width: none; height: auto; top: 8px; max-height: none;
+  }
+}
+.bchat-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 13px 16px;
+  background: linear-gradient(135deg, #003D7C, #00529b);
+  color: #fff; flex-shrink: 0;
+}
+.bchat-head-title { font-weight: 700; font-size: 14px; flex: 1; }
+.bchat-head-title small { display: block; font-weight: 500; font-size: 11px; opacity: 0.85; margin-top: 1px; }
+.bchat-close {
+  background: rgba(255,255,255,0.15); border: 0; border-radius: 8px;
+  width: 30px; height: 30px; color: #fff; font-size: 18px;
+  cursor: pointer; flex-shrink: 0; line-height: 1;
+}
+.bchat-close:hover { background: rgba(255,255,255,0.30); }
+.bchat-notice {
+  padding: 9px 14px; font-size: 11.5px; line-height: 1.45;
+  color: #5a6b7f; background: #f1f6fb; border-bottom: 1px solid #e2ecf5;
+  flex-shrink: 0;
+}
+.bchat-log {
+  flex: 1; overflow-y: auto; padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  background: #f8fafc;
+}
+.bchat-empty {
+  color: #94a3b8; font-size: 13px; text-align: center;
+  margin: auto; padding: 20px; line-height: 1.5;
+}
+.bchat-bubble {
+  max-width: 82%; padding: 9px 13px; border-radius: 14px;
+  font-size: 13.5px; line-height: 1.5;
+  white-space: pre-wrap; word-wrap: break-word; overflow-wrap: anywhere;
+}
+.bchat-bubble.student {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #003D7C, #00529b); color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.bchat-bubble.tutor {
+  align-self: flex-start;
+  background: #fff; color: #1e293b; border: 1px solid #e2ecf5;
+  border-bottom-left-radius: 4px;
+}
+.bchat-bubble.pending { opacity: 0.6; }
+.bchat-meta {
+  font-size: 10px; color: #94a3b8; margin-top: 3px;
+  padding: 0 4px;
+}
+.bchat-meta.student { align-self: flex-end; }
+.bchat-meta.tutor { align-self: flex-start; }
+.bchat-inputbar {
+  display: flex; gap: 8px; padding: 10px;
+  border-top: 1px solid #e2ecf5; background: #fff; flex-shrink: 0;
+}
+.bchat-input {
+  flex: 1; resize: none; font-family: inherit; font-size: 13.5px;
+  padding: 9px 11px; border: 1.5px solid #d6e4f0; border-radius: 10px;
+  max-height: 96px; line-height: 1.4; color: #1e293b;
+}
+.bchat-input:focus { outline: none; border-color: #003D7C; }
+.bchat-send {
+  flex-shrink: 0; align-self: flex-end;
+  background: linear-gradient(135deg, #003D7C, #00529b); color: #fff;
+  border: 0; border-radius: 10px; padding: 9px 15px;
+  font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;
+  transition: opacity 0.15s;
+}
+.bchat-send:hover { opacity: 0.92; }
+.bchat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+.bchat-gate {
+  margin: auto; padding: 24px 20px; text-align: center;
+  color: #5a6b7f; font-size: 13px; line-height: 1.55;
+}
+/* === END BRIDGING CHAT WIDGET v1 === */
 </style>
 </head>
 <body class="no-llm">
@@ -3238,6 +3364,25 @@ print("Hello, bridging course!")
   <span class="scratch-fab-label">Python</span>
 </button>
 <div class="overlay-backdrop" id="overlayBackdrop" hidden></div>
+<!-- === BRIDGING CHAT WIDGET v1 (do not edit without updating all three course builders) === -->
+<button type="button" class="bchat-fab" id="bchatFab" hidden aria-label="Message your course tutor" aria-expanded="false" aria-controls="bchatPanel">
+  <span class="bchat-fab-ico" aria-hidden="true">&#128172;</span>
+  <span class="bchat-fab-label">Tutor</span>
+  <span class="bchat-fab-dot" id="bchatFabDot" aria-hidden="true"></span>
+</button>
+<div class="bchat-panel" id="bchatPanel" hidden role="dialog" aria-modal="false" aria-label="Chat with your course tutor">
+  <div class="bchat-head">
+    <div class="bchat-head-title">Message your tutor<small>Course questions &amp; help</small></div>
+    <button type="button" class="bchat-close" id="bchatClose" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="bchat-notice">Messages go to your course tutor and are stored with your course record. Replies usually arrive within a day &mdash; this is not live chat.</div>
+  <div class="bchat-log" id="bchatLog" aria-live="polite"></div>
+  <div class="bchat-inputbar" id="bchatInputbar">
+    <textarea class="bchat-input" id="bchatInput" rows="1" placeholder="Type a message&hellip;" aria-label="Your message"></textarea>
+    <button type="button" class="bchat-send" id="bchatSend">Send</button>
+  </div>
+</div>
+<!-- === END BRIDGING CHAT WIDGET v1 === -->
 
 <script>
 const LLM_PROXY_URL = "https://nus-llm-proxy.xavierchee-teaching.workers.dev";
@@ -3811,6 +3956,13 @@ function _showAuthModal(opts) {
       student_id: data && data.student_id ? String(data.student_id) : '',
       login_at: new Date().toISOString()
     };
+    // === BRIDGING CHAT WIDGET v1 login hook (do not edit without updating all three course builders) ===
+    // The three per-course login flows will (later) mint a GUID chat_token and
+    // include it in the login response JSON. Persist it inside phm_student so the
+    // chat widget can send/poll. Absent until the flows are extended -> widget
+    // shows the "log out and back in" activation notice and makes no calls.
+    if (data && data.chat_token) { obj.chat_token = String(data.chat_token); }
+    // === END BRIDGING CHAT WIDGET v1 login hook ===
     try { localStorage.setItem('phm_student', JSON.stringify(obj)); } catch (e) {}
     try { localStorage.setItem(LAST_EMAIL_KEY, obj.email); } catch (e) {}
     if (data) { try { _storeProfile(data); } catch (e) {} }
@@ -8640,6 +8792,406 @@ function _initViewSettings() {
   }
 }
 // ── end v5.2 scratchpad ─────────────────────────────────────────
+/* === BRIDGING CHAT WIDGET v1 (do not edit without updating all three course builders) === */
+/* Two-way student<->tutor chat. Fail-silent: the backend routes/flows do not
+   exist yet, so every network path degrades quietly. The ONLY line porters
+   change for the bash / r builders is BC_COURSE just below. */
+var BC_COURSE = 'r';
+
+var BCHAT_OUTBOX_KEY  = 'bridging_chat_outbox_v1';   // queued unsent messages (cap 50)
+var BCHAT_THREAD_KEY  = 'bridging_chat_thread_v1';   // merged local thread (by msg_id)
+var BCHAT_SINCE_KEY   = 'bridging_chat_since_v1';    // last seen server_ts
+var BCHAT_ACTIVE_KEY  = 'bridging_chat_active_v1';   // ISO ts of last send/receive (14-day window)
+var BCHAT_MAXLEN      = 4000;
+var _bchatOpen = false;
+var _bchatUnread = false;
+var _bchatPollTimer = null;
+var _bchatSending = false;
+var _bchatGuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function _bchatGetToken() {
+  var s = _getStudent();
+  return (s && s.chat_token) ? String(s.chat_token) : '';
+}
+function _bchatLoggedIn() {
+  return !!_getStudentEmail();
+}
+function _bchatReadJSON(key, fallback) {
+  try {
+    var raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    var v = JSON.parse(raw);
+    return v == null ? fallback : v;
+  } catch (e) { return fallback; }
+}
+function _bchatWriteJSON(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
+}
+function _bchatGetThread() {
+  var t = _bchatReadJSON(BCHAT_THREAD_KEY, []);
+  return Array.isArray(t) ? t : [];
+}
+function _bchatGetOutbox() {
+  var o = _bchatReadJSON(BCHAT_OUTBOX_KEY, []);
+  return Array.isArray(o) ? o : [];
+}
+function _bchatMarkActive() {
+  try { localStorage.setItem(BCHAT_ACTIVE_KEY, new Date().toISOString()); } catch (e) {}
+}
+function _bchatIsActive() {
+  // "active thread" = a message was sent or received within the last 14 days.
+  try {
+    var iso = localStorage.getItem(BCHAT_ACTIVE_KEY);
+    if (!iso) return false;
+    var then = Date.parse(iso);
+    if (isNaN(then)) return false;
+    return (Date.now() - then) < (14 * 24 * 60 * 60 * 1000);
+  } catch (e) { return false; }
+}
+
+// Merge a message into the local thread by msg_id (dedup; later fields win).
+// Returns true if a NEW message was added.
+function _bchatMergeMessage(m) {
+  if (!m || !m.msg_id) return false;
+  var thread = _bchatGetThread();
+  for (var i = 0; i < thread.length; i++) {
+    if (thread[i].msg_id === m.msg_id) {
+      // Update existing (e.g. an optimistic student bubble now confirmed).
+      thread[i] = {
+        msg_id: m.msg_id,
+        sender: m.sender || thread[i].sender,
+        text: (m.text != null ? m.text : thread[i].text),
+        server_ts: m.server_ts || thread[i].server_ts,
+        pending: !!m.pending
+      };
+      _bchatWriteJSON(BCHAT_THREAD_KEY, thread);
+      return false;
+    }
+  }
+  thread.push({
+    msg_id: m.msg_id,
+    sender: m.sender || 'student',
+    text: m.text != null ? m.text : '',
+    server_ts: m.server_ts || '',
+    pending: !!m.pending
+  });
+  _bchatWriteJSON(BCHAT_THREAD_KEY, thread);
+  return true;
+}
+
+// Oldest-first by server_ts; pending (unsent) messages sort to the end.
+function _bchatSortedThread() {
+  var thread = _bchatGetThread().slice();
+  thread.sort(function(a, b) {
+    var ap = a.pending ? 1 : 0, bp = b.pending ? 1 : 0;
+    if (ap !== bp) return ap - bp;
+    var at = a.server_ts || '', bt = b.server_ts || '';
+    if (at < bt) return -1;
+    if (at > bt) return 1;
+    return 0;
+  });
+  return thread;
+}
+
+function _bchatFmtTime(iso) {
+  if (!iso) return '';
+  try {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  } catch (e) { return ''; }
+}
+
+// Render the whole log. XSS INVARIANT: message text is set ONLY via
+// textContent (never innerHTML) so a hostile tutor/student payload cannot
+// inject markup. Do not "optimise" this into an innerHTML template.
+function _bchatRenderLog() {
+  var log = document.getElementById('bchatLog');
+  if (!log) return;
+  while (log.firstChild) log.removeChild(log.firstChild);
+
+  if (!_bchatLoggedIn()) {
+    var gate0 = document.createElement('div');
+    gate0.className = 'bchat-gate';
+    gate0.textContent = 'Log in to message your course tutor.';
+    log.appendChild(gate0);
+    return;
+  }
+  if (!_bchatGetToken()) {
+    var gate = document.createElement('div');
+    gate.className = 'bchat-gate';
+    gate.textContent = 'Log out and log back in to activate chat.';
+    log.appendChild(gate);
+    return;
+  }
+
+  var msgs = _bchatSortedThread();
+  if (!msgs.length) {
+    var empty = document.createElement('div');
+    empty.className = 'bchat-empty';
+    empty.textContent = 'No messages yet. Ask your tutor anything about the course.';
+    log.appendChild(empty);
+    return;
+  }
+  for (var i = 0; i < msgs.length; i++) {
+    var m = msgs[i];
+    var who = (m.sender === 'tutor') ? 'tutor' : 'student';
+    var bubble = document.createElement('div');
+    bubble.className = 'bchat-bubble ' + who + (m.pending ? ' pending' : '');
+    bubble.textContent = m.text || '';   // textContent — never innerHTML (stored-XSS invariant)
+    log.appendChild(bubble);
+    var meta = document.createElement('div');
+    meta.className = 'bchat-meta ' + who;
+    meta.textContent = m.pending ? 'Sending…' : (who === 'tutor' ? 'Tutor · ' : 'You · ') + _bchatFmtTime(m.server_ts);
+    log.appendChild(meta);
+  }
+  log.scrollTop = log.scrollHeight;
+}
+
+// POST helper that fails silently to {ok:false} on any error (404, offline,
+// non-JSON). The backend does not exist yet, so this MUST never throw.
+function _bchatPost(path, body) {
+  return fetch(LLM_PROXY_URL + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).then(function(r) {
+    return r.json().then(function(j) { return j || { ok: false }; },
+                         function() { return { ok: false }; });
+  }).catch(function() { return { ok: false }; });
+}
+
+function _bchatEnqueueOutbox(item) {
+  var box = _bchatGetOutbox();
+  // idempotent on msg_id
+  for (var i = 0; i < box.length; i++) { if (box[i].msg_id === item.msg_id) return; }
+  box.push(item);
+  while (box.length > 50) box.shift();
+  _bchatWriteJSON(BCHAT_OUTBOX_KEY, box);
+}
+function _bchatRemoveFromOutbox(msgId) {
+  var box = _bchatGetOutbox().filter(function(x) { return x.msg_id !== msgId; });
+  _bchatWriteJSON(BCHAT_OUTBOX_KEY, box);
+}
+
+// Try to send one queued item. Resolves true if delivered (ok:true).
+function _bchatDeliver(item) {
+  var token = _bchatGetToken();
+  if (!token || !_bchatGuidRe.test(token)) return Promise.resolve(false);
+  return _bchatPost('/chat/send', {
+    token: token,
+    msg_id: item.msg_id,
+    text: item.text,
+    course: BC_COURSE,
+    module_id: MODULE_ID,
+    client_ts: item.client_ts
+  }).then(function(res) {
+    if (res && res.ok) {
+      // confirm the optimistic bubble with the real server_ts
+      _bchatMergeMessage({ msg_id: item.msg_id, sender: 'student', text: item.text, server_ts: res.server_ts || item.client_ts, pending: false });
+      _bchatRemoveFromOutbox(item.msg_id);
+      _bchatMarkActive();
+      return true;
+    }
+    return false;
+  });
+}
+
+// Flush the whole outbox (retries are idempotent via msg_id). Re-renders once.
+function _bchatFlushOutbox() {
+  var box = _bchatGetOutbox();
+  if (!box.length) return Promise.resolve();
+  var chain = Promise.resolve();
+  box.forEach(function(item) {
+    chain = chain.then(function() { return _bchatDeliver(item); });
+  });
+  return chain.then(function() { _bchatRenderLog(); });
+}
+
+function _bchatSend() {
+  if (_bchatSending) return;
+  var input = document.getElementById('bchatInput');
+  if (!input) return;
+  var text = String(input.value || '').replace(/\s+$/, '');
+  if (!text) return;
+  if (!_bchatLoggedIn() || !_bchatGetToken()) return;   // gated — no token, no send
+  if (text.length > BCHAT_MAXLEN) text = text.substring(0, BCHAT_MAXLEN);
+
+  var item = { msg_id: _uuid(), text: text, client_ts: new Date().toISOString() };
+  // optimistic bubble
+  _bchatMergeMessage({ msg_id: item.msg_id, sender: 'student', text: text, server_ts: item.client_ts, pending: true });
+  _bchatEnqueueOutbox(item);
+  _bchatMarkActive();
+  input.value = '';
+  _bchatAutosize(input);
+  _bchatRenderLog();
+
+  _bchatSending = true;
+  _bchatDeliver(item).then(function(ok) {
+    _bchatSending = false;
+    // whether ok or not, re-render (ok clears pending; failure leaves it queued)
+    _bchatRenderLog();
+  }).catch(function() { _bchatSending = false; });
+}
+
+// Poll for new tutor/student messages. since = max server_ts we've seen.
+function _bchatPoll() {
+  var token = _bchatGetToken();
+  if (!token || !_bchatGuidRe.test(token)) return Promise.resolve();
+  if (document.visibilityState !== 'visible') return Promise.resolve();
+  var since = '';
+  try { since = localStorage.getItem(BCHAT_SINCE_KEY) || ''; } catch (e) {}
+  return _bchatPost('/chat/poll', { token: token, since: since }).then(function(res) {
+    if (!res || !res.ok || !Array.isArray(res.messages)) return;
+    var maxTs = since;
+    var newTutor = false;
+    for (var i = 0; i < res.messages.length; i++) {
+      var m = res.messages[i];
+      if (!m || !m.msg_id) continue;
+      var added = _bchatMergeMessage({
+        msg_id: m.msg_id,
+        sender: m.sender || 'tutor',
+        text: m.text != null ? m.text : '',
+        server_ts: m.server_ts || '',
+        pending: false
+      });
+      if (added && (m.sender === 'tutor')) newTutor = true;
+      if (m.server_ts && (!maxTs || m.server_ts > maxTs)) maxTs = m.server_ts;
+    }
+    if (maxTs && maxTs !== since) {
+      try { localStorage.setItem(BCHAT_SINCE_KEY, maxTs); } catch (e) {}
+      _bchatMarkActive();
+    }
+    if (res.messages.length) _bchatRenderLog();
+    if (newTutor && !_bchatOpen) _bchatSetUnread(true);
+  });
+}
+
+function _bchatSetUnread(on) {
+  _bchatUnread = !!on;
+  var fab = document.getElementById('bchatFab');
+  if (fab) {
+    if (_bchatUnread) fab.classList.add('has-unread');
+    else fab.classList.remove('has-unread');
+  }
+}
+
+// Cadence: 20s while panel open; 120s while closed BUT only if thread active;
+// paused entirely when the document is hidden.
+function _bchatScheduleNextPoll() {
+  if (_bchatPollTimer) { clearTimeout(_bchatPollTimer); _bchatPollTimer = null; }
+  if (!_bchatGetToken()) return;                       // no token -> no polling
+  if (document.visibilityState !== 'visible') return;  // paused while hidden
+  var interval;
+  if (_bchatOpen) interval = 20000;
+  else if (_bchatIsActive()) interval = 120000;
+  else return;                                         // closed + inactive -> stop
+  _bchatPollTimer = setTimeout(function() {
+    _bchatPoll().then(function() { _bchatScheduleNextPoll(); },
+                      function() { _bchatScheduleNextPoll(); });
+  }, interval);
+}
+
+function _bchatOpenPanel() {
+  var panel = document.getElementById('bchatPanel');
+  var fab = document.getElementById('bchatFab');
+  if (!panel) return;
+  panel.hidden = false;
+  // next frame so the transition runs
+  requestAnimationFrame(function() { panel.classList.add('open'); });
+  _bchatOpen = true;
+  _bchatSetUnread(false);
+  if (fab) fab.setAttribute('aria-expanded', 'true');
+  _bchatRenderLog();
+  var input = document.getElementById('bchatInput');
+  if (input) setTimeout(function() { try { input.focus(); } catch (e) {} }, 60);
+  // immediate flush + poll on open
+  _bchatFlushOutbox();
+  if (_bchatGetToken()) _bchatPoll().then(function() { _bchatScheduleNextPoll(); },
+                                         function() { _bchatScheduleNextPoll(); });
+  else _bchatScheduleNextPoll();
+}
+
+function _bchatClosePanel() {
+  var panel = document.getElementById('bchatPanel');
+  var fab = document.getElementById('bchatFab');
+  if (!panel) return;
+  panel.classList.remove('open');
+  _bchatOpen = false;
+  if (fab) fab.setAttribute('aria-expanded', 'false');
+  // hide after the transition so it leaves the a11y tree
+  setTimeout(function() { if (!_bchatOpen) panel.hidden = true; }, 240);
+  _bchatScheduleNextPoll();
+}
+
+function _bchatTogglePanel() {
+  if (_bchatOpen) _bchatClosePanel();
+  else _bchatOpenPanel();
+}
+
+function _bchatAutosize(el) {
+  if (!el) return;
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 96) + 'px';
+}
+
+function _initBridgingChat() {
+  var fab = document.getElementById('bchatFab');
+  var panel = document.getElementById('bchatPanel');
+  if (!fab || !panel) return;
+
+  // Gate: only render the FAB when a student session exists.
+  if (!_bchatLoggedIn()) { fab.hidden = true; panel.hidden = true; return; }
+  fab.hidden = false;
+
+  var closeBtn = document.getElementById('bchatClose');
+  var sendBtn = document.getElementById('bchatSend');
+  var input = document.getElementById('bchatInput');
+
+  if (!fab.dataset.wired) {
+    fab.dataset.wired = '1';
+    fab.addEventListener('click', _bchatTogglePanel);
+  }
+  if (closeBtn && !closeBtn.dataset.wired) {
+    closeBtn.dataset.wired = '1';
+    closeBtn.addEventListener('click', _bchatClosePanel);
+  }
+  if (sendBtn && !sendBtn.dataset.wired) {
+    sendBtn.dataset.wired = '1';
+    sendBtn.addEventListener('click', _bchatSend);
+  }
+  if (input && !input.dataset.wired) {
+    input.dataset.wired = '1';
+    input.addEventListener('input', function() { _bchatAutosize(input); });
+    input.addEventListener('keydown', function(e) {
+      // Enter sends; Shift+Enter inserts a newline.
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _bchatSend(); }
+    });
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && _bchatOpen) _bchatClosePanel();
+  });
+
+  // Retry any queued sends from a previous page load (idempotent on msg_id).
+  _bchatFlushOutbox();
+
+  // Pause/resume on visibility; immediate poll when the tab comes back.
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+      if (_bchatGetToken()) {
+        _bchatFlushOutbox();
+        _bchatPoll().then(function() { _bchatScheduleNextPoll(); },
+                          function() { _bchatScheduleNextPoll(); });
+      }
+    } else {
+      if (_bchatPollTimer) { clearTimeout(_bchatPollTimer); _bchatPollTimer = null; }
+    }
+  });
+
+  // Kick off the closed-panel cadence (only runs if the thread is active).
+  _bchatScheduleNextPoll();
+}
+/* === END BRIDGING CHAT WIDGET v1 === */
 
 window.addEventListener('DOMContentLoaded', async () => {
   renderNav();
@@ -8652,6 +9204,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   initScratchpad();
   _initResponsiveChrome();
   _initViewSettings();
+  // === BRIDGING CHAT WIDGET v1 init (do not edit without updating all three course builders) ===
+  try { _initBridgingChat(); } catch (e) {}
+  // === END BRIDGING CHAT WIDGET v1 init ===
   // v5.6: warm up Pyodide in the background now, so the interpreter is
   // usually live by the time the student reaches a coding exercise.
   // Not awaited — the download runs alongside the rest of init below.
