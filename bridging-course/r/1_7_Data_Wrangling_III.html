@@ -9490,5 +9490,263 @@ window.addEventListener('DOMContentLoaded', async () => {
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 </script>
+
+<!-- BRIDGING-RECOVERY-OUTBOX v1 START -->
+<!-- ============================================================================
+     BRIDGING-RECOVERY-OUTBOX v1
+     Durable telemetry outbox + automatic recovery of locally-saved work.
+
+     WHAT IT DOES
+       1. Overrides window.bridgingTrack with a persist-THEN-confirm transport:
+          every event is written to a durable localStorage outbox BEFORE any
+          send, sent with fetch(mode:'cors'), and removed ONLY after the Worker
+          confirms 2xx. Nothing is silently dropped again (the old sendBeacon /
+          no-cors path reported success even when the request was blocked).
+       2. On load, resends work that was saved on the device but never
+          confirmed-delivered: the legacy retry queue, plus faithful
+          reconstructions of pre/post answers, confidence, module start/complete
+          from the bridging_(pretest|posttest|progress)_v2_* keys.
+       3. Every reconstructed event gets a DETERMINISTIC event_id, so the same
+          answer always maps to one id -> read-side event_id de-dup collapses any
+          repeats. It never double-counts and never fabricates data.
+
+     Concurrency-safe: a flush that is in progress re-reads the outbox and merges
+     (drops only confirmed ids) so events added by the learner DURING the flush
+     are never clobbered. Transient (5xx / network) failures are retried forever;
+     only permanent 4xx rejections retire after MAX_ATTEMPTS. On a quota error the
+     regenerable LLM rewrite cache is evicted so real events still persist.
+
+     Idempotent (guarded by window.__bridgingOutboxV1) and self-contained.
+     Single source of truth: recovery_outbox.snippet.html.
+============================================================================ -->
+<script>
+(function () {
+  "use strict";
+  if (window.__bridgingOutboxV1) return;          // idempotent — safe if included twice
+  window.__bridgingOutboxV1 = true;
+
+  var TELEMETRY_URL = (typeof FLOW_TELEMETRY_URL !== "undefined" && FLOW_TELEMETRY_URL)
+    ? FLOW_TELEMETRY_URL
+    : "https://nus-llm-proxy.xavierchee-teaching.workers.dev/telemetry";
+  var SCOPE = (typeof BC_STORE_SCOPE !== "undefined" && BC_STORE_SCOPE) ? BC_STORE_SCOPE : "python";
+
+  var OUTBOX_KEY    = "bridging_outbox_v1";          // durable [envelope,...] awaiting confirmed delivery
+  var CONFIRMED_KEY = "bridging_confirmed_ids_v1";   // event_ids confirmed delivered (so we never re-reconstruct)
+  var LEGACY_QUEUE  = "bridging_track_queue_v1";      // old best-effort retry queue -> migrated in
+  var OUTBOX_CAP = 5000, CONFIRMED_CAP = 8000, MAX_ATTEMPTS = 50;
+
+  function _read(k, d){ try { var r = localStorage.getItem(k); return r ? JSON.parse(r) : d; } catch (e) { return d; } }
+  function _writeRaw(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  // Evict the regenerable LLM rewrite cache to free space, then retry the write.
+  function _write(k, v){
+    if (_writeRaw(k, v)) return true;
+    try {
+      var del = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var kk = localStorage.key(i);
+        if (kk && kk !== k && kk.indexOf("rewrite") !== -1) del.push(kk);
+      }
+      del.forEach(function (x) { try { localStorage.removeItem(x); } catch (e) {} });
+    } catch (e) {}
+    return _writeRaw(k, v);
+  }
+
+  // Deterministic id from stable parts (two djb2-style passes -> 16 hex chars).
+  function _detId(parts) {
+    var s = parts.join("|"), h1 = 5381, h2 = 52711, i;
+    for (i = 0; i < s.length; i++) { h1 = (((h1 << 5) + h1) ^ s.charCodeAt(i)) >>> 0; }
+    for (i = s.length - 1; i >= 0; i--) { h2 = (((h2 << 5) + h2) ^ s.charCodeAt(i)) >>> 0; }
+    return "rec-" + ("0000000" + h1.toString(16)).slice(-8) + ("0000000" + h2.toString(16)).slice(-8);
+  }
+
+  var _confirmed = null;
+  function _confirmedSet() {
+    if (_confirmed) return _confirmed;
+    _confirmed = {}; var a = _read(CONFIRMED_KEY, []);
+    if (Array.isArray(a)) for (var i = 0; i < a.length; i++) _confirmed[a[i]] = 1;
+    return _confirmed;
+  }
+  function _markConfirmed(ids) {
+    if (!ids || !ids.length) return;
+    var set = _confirmedSet(); ids.forEach(function (id) { set[id] = 1; });
+    var arr = Object.keys(set);
+    if (arr.length > CONFIRMED_CAP) arr = arr.slice(arr.length - CONFIRMED_CAP);
+    _write(CONFIRMED_KEY, arr);
+  }
+
+  function _outboxAdd(env) {
+    if (!env || !env.event_id) return;
+    if (_confirmedSet()[env.event_id]) return;               // already delivered in a past session
+    var ob = _read(OUTBOX_KEY, []); if (!Array.isArray(ob)) ob = [];
+    for (var i = 0; i < ob.length; i++) if (ob[i] && ob[i].event_id === env.event_id) return; // already queued
+    ob.push(env);
+    while (ob.length > OUTBOX_CAP) ob.shift();
+    _write(OUTBOX_KEY, ob);
+  }
+
+  var _flushing = false;
+  function _flush() {
+    if (_flushing) return Promise.resolve();
+    var ob = _read(OUTBOX_KEY, []);
+    if (!Array.isArray(ob) || !ob.length) return Promise.resolve();
+    _flushing = true;
+    var delivered = {}, poison = {}, idx = 0;
+
+    function finish() {
+      // Re-read the CURRENT outbox and merge: drop only confirmed/poison ids and
+      // persist attempt counts. Events added by bridgingTrack DURING this async
+      // flush live only in the current localStorage copy, so they survive.
+      var attempts = {};
+      for (var j = 0; j < ob.length; j++) if (ob[j] && ob[j].event_id) attempts[ob[j].event_id] = ob[j]._attempts || 0;
+      var cur = _read(OUTBOX_KEY, []); if (!Array.isArray(cur)) cur = [];
+      var next = [];
+      for (var i = 0; i < cur.length; i++) {
+        var e = cur[i]; if (!e) continue;
+        var id = e.event_id;
+        if (id && delivered[id]) continue;                 // confirmed -> drop
+        if (id && poison[id]) continue;                    // permanent 4xx over cap -> drop
+        if (id && attempts[id] !== undefined) e._attempts = attempts[id];
+        next.push(e);
+      }
+      _write(OUTBOX_KEY, next);
+      _markConfirmed(Object.keys(delivered));
+      _flushing = false;
+      return Promise.resolve();
+    }
+    function step() {
+      if (idx >= ob.length) return finish();
+      var env = ob[idx];
+      return fetch(TELEMETRY_URL, {
+        method: "POST", mode: "cors", keepalive: true,
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: JSON.stringify(env)
+      }).then(function (res) {
+        if (res && res.ok) {
+          delivered[env.event_id] = 1;                          // CONFIRMED -> drop
+        } else if (res && res.status >= 400 && res.status < 500 && res.status !== 429 && res.status !== 408) {
+          env._attempts = (env._attempts || 0) + 1;             // permanent client error
+          if (env._attempts >= MAX_ATTEMPTS) poison[env.event_id] = 1;
+        }
+        // 5xx / 429 / 408 / opaque / no status -> transient: keep, don't burn the attempt budget
+        idx++;
+        return step();
+      }).catch(function () {
+        return finish();                                        // network/CORS down -> keep the rest, retry later
+      });
+    }
+    return step();
+  }
+
+  function _learner() {
+    try { if (typeof _getLearnerId === "function") { var l = _getLearnerId(); if (l) return String(l).toLowerCase(); } } catch (e) {}
+    try { var s = JSON.parse(localStorage.getItem("phm_student") || "null"); if (s && s.email) return String(s.email).toLowerCase(); } catch (e) {}
+    return "";
+  }
+  function _iso(ms) { try { if (ms) return new Date(ms).toISOString(); } catch (e) {} return new Date().toISOString(); }
+  function _mkEnv(etype, payload, opts) {
+    var env = null;
+    try { if (typeof _buildEnvelope === "function") env = _buildEnvelope(etype, payload); } catch (e) {}
+    if (!env) {
+      env = {
+        event_id: null, client_ts: new Date().toISOString(), learner_id: _learner() || "pending_login",
+        session_id: "recovered", module_id: (typeof MODULE_ID !== "undefined" ? MODULE_ID : ""),
+        module_version: (typeof MODULE_VERSION !== "undefined" ? MODULE_VERSION : ""),
+        event_type: etype, payload: payload || {}
+      };
+    }
+    if (opts) {
+      if (opts.event_id) env.event_id = opts.event_id;
+      if (opts.module_id != null && opts.module_id !== "") env.module_id = opts.module_id;
+      if (opts.client_ts) env.client_ts = opts.client_ts;
+    }
+    env.recovered = true;                 // harmless marker; read side ignores unknown fields
+    return env;
+  }
+
+  function _migrateLegacyQueue() {
+    var q = _read(LEGACY_QUEUE, null);
+    if (Array.isArray(q) && q.length) {
+      q.forEach(function (env) { if (env && env.event_id) _outboxAdd(env); });
+      _write(LEGACY_QUEUE, []);
+    }
+  }
+
+  // Reconstruct HIGH-VALUE events from locally-saved answers/progress only.
+  // Page-view / dwell chatter is deliberately NOT resent.
+  function _reconstruct() {
+    var learner = _learner();
+    if (!learner) return;                  // not logged in -> can't attribute safely; don't reconstruct
+    var suffix = "_" + learner, i, k, val;
+    for (i = 0; i < localStorage.length; i++) {
+      k = localStorage.key(i); if (!k) continue;
+      var kind = k.indexOf("bridging_pretest_v2_") === 0 ? "pre"
+               : k.indexOf("bridging_posttest_v2_") === 0 ? "post"
+               : k.indexOf("bridging_progress_v2_") === 0 ? "prog" : null;
+      if (!kind) continue;
+      if (!k.endsWith(suffix)) continue;   // ONLY the logged-in learner's keys (shared-device safe)
+      val = _read(k, null); if (!val || typeof val !== "object") continue;
+      var course = val.course || SCOPE;
+      var mod = (val.module_id != null) ? String(val.module_id) : "";
+      var ts = _iso(kind === "prog" ? val.last_visited : val.saved_at);
+
+      if (kind === "pre" || kind === "post") {
+        var mcqType = kind === "pre" ? "pretest_submit" : "posttest_submit";
+        var confType = kind === "pre" ? "confidence_pre" : "confidence_post";
+        (val.mcqs || []).forEach(function (m) {
+          if (!m || !m.item_id) return;
+          var id = _detId(["rec", learner, course, mod, mcqType, m.item_id]);
+          _outboxAdd(_mkEnv(mcqType, {
+            item_id: m.item_id, selected_index: m.selected_index, selected_text: m.selected_text,
+            correct_text: m.correct_text, is_correct: m.is_correct
+          }, { event_id: id, module_id: mod, client_ts: ts }));
+        });
+        (val.confidence || []).forEach(function (c) {
+          if (!c || !c.item_id) return;
+          var id = _detId(["rec", learner, course, mod, confType, c.item_id]);
+          _outboxAdd(_mkEnv(confType, { item_id: c.item_id, value: c.value },
+            { event_id: id, module_id: mod, client_ts: ts }));
+        });
+        if (kind === "post") {                       // a saved post-test => module was completed
+          var cid = _detId(["rec", learner, course, mod, "module_complete"]);
+          _outboxAdd(_mkEnv("module_complete", { recovered: true }, { event_id: cid, module_id: mod, client_ts: ts }));
+        }
+      } else {                                        // progress => module was at least started
+        var sid = _detId(["rec", learner, course, mod, "module_start"]);
+        _outboxAdd(_mkEnv("module_start", { recovered: true, total_pages: val.total_pages || null },
+          { event_id: sid, module_id: mod, client_ts: ts }));
+      }
+    }
+  }
+
+  function recover() {
+    try { _migrateLegacyQueue(); _reconstruct(); } catch (e) {}
+    return _flush();
+  }
+  window.bridgingRecover = recover;
+
+  // ── Override the transport: persist first, then confirm ──────────────
+  window.bridgingTrack = function (event, payload) {
+    try {
+      var env = (typeof _buildEnvelope === "function") ? _buildEnvelope(event, payload) : _mkEnv(event, payload, null);
+      _outboxAdd(env);
+    } catch (e) {}
+    _flush();
+  };
+
+  // ── Flush triggers ───────────────────────────────────────────────────
+  window.addEventListener("online", _flush);
+  window.addEventListener("pagehide", _flush);
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden") _flush(); });
+  setInterval(_flush, 60000);
+
+  // ── Run recovery shortly after load (once login/session is settled) ───
+  function _startRecovery() { setTimeout(recover, 1500); }
+  if (document.readyState === "complete" || document.readyState === "interactive") _startRecovery();
+  else window.addEventListener("DOMContentLoaded", _startRecovery);
+
+  if (location.hash === "#recover") { try { recover(); } catch (e) {} }
+})();
+</script>
+<!-- BRIDGING-RECOVERY-OUTBOX v1 END -->
 </body>
 </html>
