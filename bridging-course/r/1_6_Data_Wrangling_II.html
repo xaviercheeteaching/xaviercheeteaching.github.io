@@ -9967,5 +9967,235 @@ window.addEventListener('DOMContentLoaded', async () => {
 })();
 </script>
 <!-- BRIDGING-RECOVERY-OUTBOX v1 END -->
+
+<!-- BRIDGING-PROGRESS-HYDRATE v1 -->
+<script>
+/* ============================================================================
+   BRIDGING-PROGRESS-HYDRATE v1
+   Server -> device hydration of per-module progress on login.
+
+   The scheduled [progress]_sync flow rolls each learner's telemetry up into the
+   "progress" sheet; the login flow now returns that roll-up as an Array
+   data.progress. This snippet takes that array and merges it into the SAME
+   localStorage keys _saveProgress writes, so a learner who signs in on a fresh
+   device sees their completed sections / resume point immediately.
+
+   MERGE IS FIELD-LEVEL MONOTONIC and never removes or regresses local work:
+     completed_pages = union(local, server)
+     last_page       = max(local, server)
+     total_pages     = max(local, server)
+     last_visited    = kept local (untouched)
+   No timestamp winner-picking. Malformed server entries are skipped silently.
+
+   Reachability: _persistAndContinue is a closure inside _showAuthModal (not
+   window-reachable in current builds), so the login-continuation path is caught
+   by a passive wrapper on window.fetch that inspects login/register responses;
+   if a future build exposes window._persistAndContinue we wrap that instead.
+   Everything runs inside try/catch so login can never break. Course scope comes
+   from the reachable BC_STORE_SCOPE, falling back to a per-course scope literal
+   the injector substitutes in. Idempotent (window.__bcProgressHydrateInstalled),
+   dependency-free, and silent (one console.warn at most, once-guarded).
+============================================================================ */
+(function () {
+  "use strict";
+  if (window.__bcProgressHydrateInstalled) return;   // idempotent — safe if included twice
+  window.__bcProgressHydrateInstalled = true;
+
+  // ── Constants, resolved from the page when reachable, else injector default ──
+  var PREFIX = (typeof PROGRESS_KEY_PREFIX !== "undefined" && PROGRESS_KEY_PREFIX)
+    ? PROGRESS_KEY_PREFIX : "bridging_progress_v2_";
+  var SCOPE = (typeof BC_STORE_SCOPE !== "undefined" && BC_STORE_SCOPE)
+    ? BC_STORE_SCOPE : "r";
+  var CUR_MODULE_ID = (typeof MODULE_ID !== "undefined" && MODULE_ID != null)
+    ? String(MODULE_ID) : null;
+
+  var _warned = false;                        // one console.warn at most, ever
+  function _warn(e) {
+    if (_warned) return;
+    _warned = true;
+    try { console.warn("[bc-progress-hydrate]", e); } catch (x) {}
+  }
+
+  // ── Learner id — replicate _storageLearnerId's normalization exactly ─────────
+  // (email trimmed + lowercased; else student_id; else anon). We never write
+  // under "anon": server progress must attribute to a signed-in learner only.
+  function _normLearner() {
+    try {
+      if (typeof _storageLearnerId === "function") {
+        var l = _storageLearnerId();
+        if (l && l !== "anon") return String(l);
+      }
+    } catch (e) {}
+    try {
+      var phm = localStorage.getItem("phm_student");
+      if (phm) {
+        var o = JSON.parse(phm);
+        if (o && o.email) return String(o.email).trim().toLowerCase();
+        if (o && o.student_id) return String(o.student_id);
+      }
+    } catch (e) {}
+    return "";
+  }
+
+  // ── completed_pages: accept array OR JSON-array string; malformed -> null ────
+  function _parseCompleted(v) {
+    if (v == null) return [];                 // absent is fine (contributes nothing)
+    var arr = v;
+    if (typeof v === "string") { try { arr = JSON.parse(v); } catch (e) { return null; } }
+    if (!Array.isArray(arr)) return null;     // malformed -> caller skips entry
+    var out = [];
+    for (var i = 0; i < arr.length; i++) {
+      var n = arr[i];
+      if (typeof n !== "number") n = Number(n);
+      if (isFinite(n)) out.push(Math.trunc(n));
+    }
+    return out;
+  }
+
+  function _unionInts(a, b) {
+    var seen = Object.create(null), out = [];
+    function add(list) {
+      if (!Array.isArray(list)) return;
+      for (var i = 0; i < list.length; i++) {
+        var n = list[i];
+        if (typeof n !== "number") n = Number(n);
+        if (!isFinite(n)) continue;
+        n = Math.trunc(n);
+        if (!seen[n]) { seen[n] = 1; out.push(n); }
+      }
+    }
+    add(a); add(b);                            // local first, then new server pages
+    return out;
+  }
+
+  function _numOr(v) {
+    var n = (typeof v === "number") ? v : (v == null ? NaN : Number(v));
+    return isFinite(n) ? n : null;
+  }
+  function _maxNum(a, b) {
+    var x = _numOr(a), y = _numOr(b);
+    if (x === null) return (y === null) ? undefined : y;
+    if (y === null) return x;
+    return (x > y) ? x : y;
+  }
+
+  // Safe repaint — the exact tick-painter _saveProgress calls after it writes.
+  function _repaint(completed) {
+    try { if (typeof _paintSubnavTicks === "function") _paintSubnavTicks(completed); } catch (e) {}
+  }
+
+  // ── The hydrator ─────────────────────────────────────────────────────────────
+  function _hydrateAll(progressArr) {
+    try {
+      if (!Array.isArray(progressArr) || !progressArr.length) return;
+      var learner = _normLearner();
+      if (!learner) return;                    // not attributable -> do nothing
+      var curCompleted = null;
+      for (var i = 0; i < progressArr.length; i++) {
+        try {
+          var e = progressArr[i];
+          if (!e || e.module_id == null || e.module_id === "") continue;
+          var mod = String(e.module_id);
+          var srv = _parseCompleted(e.completed_pages);
+          if (srv === null) continue;          // malformed entry -> skip silently
+
+          var key = PREFIX + SCOPE + "_" + mod + "_" + learner;
+          var local = null;
+          try { var raw = localStorage.getItem(key); if (raw) local = JSON.parse(raw); }
+          catch (e2) { local = null; }
+          if (!local || typeof local !== "object" || Array.isArray(local)) local = {};
+
+          var localPages = Array.isArray(local.completed_pages) ? local.completed_pages : [];
+          var merged = _unionInts(localPages, srv);
+
+          // Preserve every existing local field first, then apply monotonic merge.
+          var out = {};
+          for (var kk in local) {
+            if (Object.prototype.hasOwnProperty.call(local, kk)) out[kk] = local[kk];
+          }
+          out.completed_pages = merged;
+          var lp = _maxNum(local.last_page, e.last_page);
+          if (lp !== undefined) out.last_page = lp;
+          var tp = _maxNum(local.total_pages, e.total_pages);
+          if (tp !== undefined) out.total_pages = tp;
+          // last_visited: left exactly as local had it (kept, never set/regressed).
+          out.course = SCOPE;                  // satisfy _loadProgress validation
+          out.module_id = mod;
+
+          try { localStorage.setItem(key, JSON.stringify(out)); } catch (e3) {}
+          if (CUR_MODULE_ID !== null && mod === CUR_MODULE_ID) curCompleted = merged;
+        } catch (eInner) { /* skip malformed entry silently */ }
+      }
+      if (curCompleted) _repaint(curCompleted);
+    } catch (eOuter) {
+      _warn(eOuter);
+    }
+  }
+
+  // ── Catch the login-continuation path ────────────────────────────────────────
+  function _urlOf(input) {
+    try {
+      if (typeof input === "string") return input;
+      if (input && typeof input.url === "string") return input.url;  // Request object
+    } catch (e) {}
+    return "";
+  }
+  function _isAuthUrl(u) {
+    if (!u) return false;
+    try {
+      if (typeof FLOW_LOGIN_URL !== "undefined" && FLOW_LOGIN_URL && u === FLOW_LOGIN_URL) return true;
+      if (typeof FLOW_REGISTER_URL !== "undefined" && FLOW_REGISTER_URL && u === FLOW_REGISTER_URL) return true;
+    } catch (e) {}
+    return /\/(login|register)(?:[\/?#]|$)/i.test(u);   // .../login or .../bash/login
+  }
+
+  function _installFetchHook() {
+    if (typeof window.fetch !== "function") return false;
+    var _orig = window.fetch;
+    window.fetch = function (input) {
+      var p = _orig.apply(this, arguments);
+      try {
+        if (_isAuthUrl(_urlOf(input))) {
+          p.then(function (res) {
+            try {
+              if (!res || typeof res.clone !== "function") return;
+              res.clone().json().then(function (data) {
+                try {
+                  if (data && data.ok && Array.isArray(data.progress)) {
+                    var prog = data.progress;
+                    // Defer one macrotask so the page's own _persistAndContinue
+                    // has already written phm_student before we resolve the key.
+                    setTimeout(function () { _hydrateAll(prog); }, 0);
+                  }
+                } catch (e) {}
+              }, function () {});
+            } catch (e) {}
+          }, function () {});
+        }
+      } catch (e) {}
+      return p;                                // page's body/consumer untouched
+    };
+    return true;
+  }
+
+  try {
+    if (typeof window._persistAndContinue === "function") {
+      var _origPC = window._persistAndContinue;   // future builds may expose it
+      window._persistAndContinue = function (data) {
+        var r = _origPC.apply(this, arguments);
+        try { if (data && Array.isArray(data.progress)) _hydrateAll(data.progress); } catch (e) {}
+        return r;
+      };
+    } else {
+      _installFetchHook();                        // current builds: closure -> fetch hook
+    }
+  } catch (e) {
+    _warn(e);
+  }
+
+  // Exposed for tests / manual re-hydration.
+  window.__bcProgressHydrate = _hydrateAll;
+})();
+</script>
 </body>
 </html>
