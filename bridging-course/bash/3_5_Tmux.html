@@ -9745,10 +9745,11 @@ window.addEventListener('DOMContentLoaded', async () => {
 </script>
 <!-- NUS-ANNOUNCEMENT (injected by [A3]) --><script src="announcement.js" defer></script><!-- /NUS-ANNOUNCEMENT -->
 
-<!-- BRIDGING-RECOVERY-OUTBOX v1 START -->
+<!-- BRIDGING-RECOVERY-OUTBOX v2 START -->
 <!-- ============================================================================
-     BRIDGING-RECOVERY-OUTBOX v1
-     Durable telemetry outbox + automatic recovery of locally-saved work.
+     BRIDGING-RECOVERY-OUTBOX v2
+     Durable telemetry outbox + automatic recovery of locally-saved work,
+     with PER-COURSE routing (v2).
 
      WHAT IT DOES
        1. Overrides window.bridgingTrack with a persist-THEN-confirm transport:
@@ -9764,20 +9765,34 @@ window.addEventListener('DOMContentLoaded', async () => {
           answer always maps to one id -> read-side event_id de-dup collapses any
           repeats. It never double-counts and never fabricates data.
 
+     PER-COURSE ROUTING (v2 — fixes cross-course misfiling)
+       All three courses (python / bash / r) share ONE localStorage origin, so a
+       course-A event queued or reconstructed while a course-B page is open must
+       still be POSTed to course A's flow. v1 sent every envelope to the single
+       per-page telemetry URL, filing (e.g.) a learner's Bash + Python backlog
+       into the R workbook. v2 stamps each outbox entry with its own target URL
+       (_t) and posts there: live events carry the page's own URL (correct by
+       construction); reconstructed events carry the URL of the course the saved
+       key actually belongs to (val.course, else the key's scope slug — NEVER the
+       page's own scope). The route map is derived from THIS page's telemetry URL;
+       if its path suffix is unrecognised, routing is disabled and reconstruction
+       falls back to current-course keys only (stranding is acceptable, misfiling
+       is not).
+
      Concurrency-safe: a flush that is in progress re-reads the outbox and merges
      (drops only confirmed ids) so events added by the learner DURING the flush
      are never clobbered. Transient (5xx / network) failures are retried forever;
      only permanent 4xx rejections retire after MAX_ATTEMPTS. On a quota error the
      regenerable LLM rewrite cache is evicted so real events still persist.
 
-     Idempotent (guarded by window.__bridgingOutboxV1) and self-contained.
+     Idempotent (guarded by window.__bridgingOutboxV2) and self-contained.
      Single source of truth: recovery_outbox.snippet.html.
 ============================================================================ -->
 <script>
 (function () {
   "use strict";
-  if (window.__bridgingOutboxV1) return;          // idempotent — safe if included twice
-  window.__bridgingOutboxV1 = true;
+  if (window.__bridgingOutboxV2) return;          // idempotent — safe if included twice
+  window.__bridgingOutboxV2 = true;
 
   var TELEMETRY_URL = (typeof FLOW_TELEMETRY_URL !== "undefined" && FLOW_TELEMETRY_URL)
     ? FLOW_TELEMETRY_URL
@@ -9788,6 +9803,26 @@ window.addEventListener('DOMContentLoaded', async () => {
   var CONFIRMED_KEY = "bridging_confirmed_ids_v1";   // event_ids confirmed delivered (so we never re-reconstruct)
   var LEGACY_QUEUE  = "bridging_track_queue_v1";      // old best-effort retry queue -> migrated in
   var OUTBOX_CAP = 5000, CONFIRMED_CAP = 8000, MAX_ATTEMPTS = 50;
+
+  // ── Per-course routing ───────────────────────────────────────────────
+  // Derive {course -> telemetry URL} from THIS page's own FLOW_TELEMETRY_URL by
+  // stripping its known path suffix. The three courses share one Worker origin
+  // and differ only by path: python ".../telemetry", bash ".../bash/telemetry",
+  // r ".../r/telemetry". Check the bash and r suffixes BEFORE the bare python
+  // suffix, since both also end in "/telemetry". If the suffix is unrecognised,
+  // return null: routing is then disabled and _reconstruct rebuilds current-
+  // course keys only (fail-safe — stranding is acceptable, misfiling is not).
+  function _deriveRoutes(u) {
+    u = u || "";
+    var base = null;
+    if (u.length > 15 && u.slice(-15) === "/bash/telemetry") base = u.slice(0, -15);
+    else if (u.length > 12 && u.slice(-12) === "/r/telemetry") base = u.slice(0, -12);
+    else if (u.length > 10 && u.slice(-10) === "/telemetry") base = u.slice(0, -10);
+    if (base === null) return null;
+    return { python: base + "/telemetry", bash: base + "/bash/telemetry", r: base + "/r/telemetry" };
+  }
+  var ROUTES = _deriveRoutes(TELEMETRY_URL);        // null => routing disabled (fail-safe)
+  var COURSES = { python: 1, bash: 1, r: 1 };
 
   function _read(k, d){ try { var r = localStorage.getItem(k); return r ? JSON.parse(r) : d; } catch (e) { return d; } }
   function _writeRaw(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
@@ -9828,14 +9863,26 @@ window.addEventListener('DOMContentLoaded', async () => {
     _write(CONFIRMED_KEY, arr);
   }
 
-  function _outboxAdd(env) {
+  // Each entry carries its own telemetry target on _t (per-course routing). _t is
+  // internal bookkeeping and is stripped before POST (see _stripTarget).
+  function _outboxAdd(env, target) {
     if (!env || !env.event_id) return;
     if (_confirmedSet()[env.event_id]) return;               // already delivered in a past session
     var ob = _read(OUTBOX_KEY, []); if (!Array.isArray(ob)) ob = [];
     for (var i = 0; i < ob.length; i++) if (ob[i] && ob[i].event_id === env.event_id) return; // already queued
+    if (target) env._t = target;                             // per-envelope route (stripped before POST)
     ob.push(env);
     while (ob.length > OUTBOX_CAP) ob.shift();
     _write(OUTBOX_KEY, ob);
+  }
+
+  // Return a copy of the envelope without the internal _t route marker, so the
+  // Power Automate flow's fixed JSON schema never sees an unexpected property.
+  function _stripTarget(env) {
+    if (!env || typeof env !== "object" || !("_t" in env)) return env;
+    var out = {}, kk;
+    for (kk in env) { if (Object.prototype.hasOwnProperty.call(env, kk) && kk !== "_t") out[kk] = env[kk]; }
+    return out;
   }
 
   var _flushing = false;
@@ -9870,10 +9917,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     function step() {
       if (idx >= ob.length) return finish();
       var env = ob[idx];
-      return fetch(TELEMETRY_URL, {
+      var url = (env && env._t) ? env._t : TELEMETRY_URL;   // per-envelope route; residual v1 entries lack _t
+      return fetch(url, {
         method: "POST", mode: "cors", keepalive: true,
         headers: { "Content-Type": "text/plain;charset=UTF-8" },
-        body: JSON.stringify(env)
+        body: JSON.stringify(_stripTarget(env))
       }).then(function (res) {
         if (res && res.ok) {
           delivered[env.event_id] = 1;                          // CONFIRMED -> drop
@@ -9920,9 +9968,25 @@ window.addEventListener('DOMContentLoaded', async () => {
   function _migrateLegacyQueue() {
     var q = _read(LEGACY_QUEUE, null);
     if (Array.isArray(q) && q.length) {
-      q.forEach(function (env) { if (env && env.event_id) _outboxAdd(env); });
+      // Legacy queue has been draining since 22 Jul; keep v1 behaviour and route
+      // its residual entries to this page's own URL (_t = TELEMETRY_URL).
+      q.forEach(function (env) { if (env && env.event_id) _outboxAdd(env, TELEMETRY_URL); });
       _write(LEGACY_QUEUE, []);
     }
+  }
+
+  // Resolve the course a saved key belongs to, faithfully — NEVER defaulting to
+  // the page's own SCOPE (that mislabel is the v1 bug). Prefer the stored
+  // val.course; else the scope slug that immediately follows the
+  // bridging_<kind>_v2_ prefix (up to the next "_"). Returns "" when it resolves
+  // to no known course.
+  function _courseOf(key, prefix, val) {
+    var c = (val && val.course != null) ? String(val.course).toLowerCase() : "";
+    if (COURSES[c]) return c;
+    var rest = key.slice(prefix.length);      // "<scope>_<module>_<learner>"
+    var u = rest.indexOf("_");
+    var slug = (u === -1 ? rest : rest.slice(0, u)).toLowerCase();
+    return COURSES[slug] ? slug : "";
   }
 
   // Reconstruct HIGH-VALUE events from locally-saved answers/progress only.
@@ -9933,13 +9997,36 @@ window.addEventListener('DOMContentLoaded', async () => {
     var suffix = "_" + learner, i, k, val;
     for (i = 0; i < localStorage.length; i++) {
       k = localStorage.key(i); if (!k) continue;
-      var kind = k.indexOf("bridging_pretest_v2_") === 0 ? "pre"
-               : k.indexOf("bridging_posttest_v2_") === 0 ? "post"
-               : k.indexOf("bridging_progress_v2_") === 0 ? "prog" : null;
-      if (!kind) continue;
+      var prefix = k.indexOf("bridging_pretest_v2_") === 0 ? "bridging_pretest_v2_"
+                 : k.indexOf("bridging_posttest_v2_") === 0 ? "bridging_posttest_v2_"
+                 : k.indexOf("bridging_progress_v2_") === 0 ? "bridging_progress_v2_" : null;
+      if (!prefix) continue;
+      var kind = prefix === "bridging_pretest_v2_" ? "pre"
+               : prefix === "bridging_posttest_v2_" ? "post" : "prog";
       if (!k.endsWith(suffix)) continue;   // ONLY the logged-in learner's keys (shared-device safe)
       val = _read(k, null); if (!val || typeof val !== "object") continue;
-      var course = val.course || SCOPE;
+
+      // Course-faithful routing target (never the page's own SCOPE).
+      var course = _courseOf(k, prefix, val);
+      var target;
+      if (ROUTES) {
+        if (!course) {                     // can't resolve -> skip, do NOT default to SCOPE
+          try { console.warn("[bc-outbox] skipping key with unresolved course:", k); } catch (e) {}
+          continue;
+        }
+        target = ROUTES[course];
+        if (!target) {
+          try { console.warn("[bc-outbox] no route for course:", course); } catch (e) {}
+          continue;
+        }
+      } else {
+        // Routing disabled (unrecognised telemetry suffix): fail-safe. Rebuild
+        // ONLY current-course keys and send them to the page's own URL; strand
+        // other courses' keys rather than risk misfiling them.
+        if (course !== SCOPE) continue;
+        target = TELEMETRY_URL;
+      }
+
       var mod = (val.module_id != null) ? String(val.module_id) : "";
       var ts = _iso(kind === "prog" ? val.last_visited : val.saved_at);
 
@@ -9952,22 +10039,22 @@ window.addEventListener('DOMContentLoaded', async () => {
           _outboxAdd(_mkEnv(mcqType, {
             item_id: m.item_id, selected_index: m.selected_index, selected_text: m.selected_text,
             correct_text: m.correct_text, is_correct: m.is_correct
-          }, { event_id: id, module_id: mod, client_ts: ts }));
+          }, { event_id: id, module_id: mod, client_ts: ts }), target);
         });
         (val.confidence || []).forEach(function (c) {
           if (!c || !c.item_id) return;
           var id = _detId(["rec", learner, course, mod, confType, c.item_id]);
           _outboxAdd(_mkEnv(confType, { item_id: c.item_id, value: c.value },
-            { event_id: id, module_id: mod, client_ts: ts }));
+            { event_id: id, module_id: mod, client_ts: ts }), target);
         });
         if (kind === "post") {                       // a saved post-test => module was completed
           var cid = _detId(["rec", learner, course, mod, "module_complete"]);
-          _outboxAdd(_mkEnv("module_complete", { recovered: true }, { event_id: cid, module_id: mod, client_ts: ts }));
+          _outboxAdd(_mkEnv("module_complete", { recovered: true }, { event_id: cid, module_id: mod, client_ts: ts }), target);
         }
       } else {                                        // progress => module was at least started
         var sid = _detId(["rec", learner, course, mod, "module_start"]);
         _outboxAdd(_mkEnv("module_start", { recovered: true, total_pages: val.total_pages || null },
-          { event_id: sid, module_id: mod, client_ts: ts }));
+          { event_id: sid, module_id: mod, client_ts: ts }), target);
       }
     }
   }
@@ -9982,7 +10069,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   window.bridgingTrack = function (event, payload) {
     try {
       var env = (typeof _buildEnvelope === "function") ? _buildEnvelope(event, payload) : _mkEnv(event, payload, null);
-      _outboxAdd(env);
+      _outboxAdd(env, TELEMETRY_URL);       // live event -> this page's own course URL (correct by construction)
     } catch (e) {}
     _flush();
   };
@@ -10001,7 +10088,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   if (location.hash === "#recover") { try { recover(); } catch (e) {} }
 })();
 </script>
-<!-- BRIDGING-RECOVERY-OUTBOX v1 END -->
+<!-- BRIDGING-RECOVERY-OUTBOX v2 END -->
 
 <!-- BRIDGING-PROGRESS-HYDRATE v1 -->
 <script>
