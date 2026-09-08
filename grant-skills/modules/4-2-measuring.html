@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 4.2. Measuring learning, not satisfaction. Education Research Skills</title>
+<meta name="description" content="The call says educational outcomes must go beyond student perceptions and satisfaction. This module is how you do that, and how to check your study could see the effect if it were there.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Poppins:wght@500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/ctlt.css">
+</head>
+<body data-module="4-2" data-steps="screens" data-base="../" data-module-title="Module 4.2. Measuring learning, not satisfaction">
+
+<a class="skip-link" href="#main">Skip to the main content</a>
+
+<!-- The item bank. Step 2 and step 7 both read it. -->
+<script id="items" type="application/json">
+{
+  "items": [
+    {
+      "id": "i1",
+      "stem": "The TEG call describes student satisfaction and perception data as:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Not admissible as evidence.",
+          "feedback": "It is not banned. It is ranked. The call says perception data is at most indirect evidence, which means it may sit beside a direct measure but cannot stand in for one."
+        },
+        {
+          "id": "b",
+          "text": "At most indirect evidence of learning.",
+          "correct": true,
+          "feedback": "Those are close to its exact words. The phrase is worth learning, because it tells you what job satisfaction data can do in your proposal: support, never carry."
+        },
+        {
+          "id": "c",
+          "text": "The primary outcome the panel expects.",
+          "feedback": "The call says the opposite in the same sentence: outcomes should go beyond surveying students' perceptions or satisfaction levels."
+        },
+        {
+          "id": "d",
+          "text": "Acceptable as the main outcome if the response rate is high.",
+          "feedback": "Response rate is a sampling problem. This is a different kind of problem: a high response rate on a question about how students felt is still a measure of how students felt."
+        }
+      ]
+    },
+    {
+      "id": "i2",
+      "stem": "Which of these is a direct measure of learning?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A post-module survey asking whether students feel more confident at debugging.",
+          "feedback": "Confidence is an attitude, and attitudes are one of the three kinds of outcome the call names. The problem is not that it is worthless, it is that it is standing where a skills measure should be. Confidence and competence routinely move in opposite directions after good teaching."
+        },
+        {
+          "id": "b",
+          "text": "Scores on a debugging task, marked against a rubric, taken before and after.",
+          "correct": true,
+          "feedback": "A performance on a task, marked by a procedure someone else could repeat, measured twice. All three of those matter, and the third is the one most often dropped."
+        },
+        {
+          "id": "c",
+          "text": "The proportion of students who agreed the workshop was useful.",
+          "feedback": "This is satisfaction with a slightly more serious face on. Whatever the proportion, it tells you about the experience of the workshop and not about what changed in the students."
+        },
+        {
+          "id": "d",
+          "text": "Attendance at the new workshops.",
+          "feedback": "Attendance is a behaviour, and behaviours do count as evidence. But this particular behaviour measures exposure to the intervention, not what the intervention did. It belongs in your implementation record, not in your outcomes."
+        }
+      ]
+    },
+    {
+      "id": "i3",
+      "stem": "You have a class of 40, split into two groups of 20, and you expect a real but modest effect of about d = 0.3. Roughly how often would a study this size come out statistically significant?",
+      "options": [
+        {
+          "id": "a",
+          "text": "About 8 times in 10.",
+          "feedback": "That is what you would get with roughly 175 students in each group. Eight in ten is the conventional target, and almost no single NUS class reaches it for an effect this size."
+        },
+        {
+          "id": "b",
+          "text": "About 5 times in 10.",
+          "feedback": "A coin toss needs about 100 per group. With 20 per group you are well below that."
+        },
+        {
+          "id": "c",
+          "text": "About 2 times in 10.",
+          "correct": true,
+          "feedback": "About 16 times in 100. Most of the time the study finds nothing, and that null result is telling you about your class size rather than about your teaching."
+        },
+        {
+          "id": "d",
+          "text": "It depends only on the measure, not on the class size.",
+          "feedback": "It depends on both, and they trade against each other. A measure closer to what you actually changed shows a larger effect, and a larger effect needs fewer students to detect."
+        }
+      ]
+    },
+    {
+      "id": "i4",
+      "stem": "The call asks you to discuss any existing local data and how it influences the evaluation method you adopt. Why does that matter for your plan?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It shows the panel you are familiar with the literature.",
+          "feedback": "Local data is not literature. It is the numbers your own department already holds, and the call asks about it separately from the literature review, in the evaluation section."
+        },
+        {
+          "id": "b",
+          "text": "It is a formality, and one line covers it.",
+          "feedback": "It is one of the things the call names by hand, which is a strong hint that proposals routinely skip it. Skipping it reads as a plan made without looking at what is already there."
+        },
+        {
+          "id": "c",
+          "text": "Past marks and evaluations give you a baseline you did not have to collect, and they limit what you can claim.",
+          "correct": true,
+          "feedback": "Both halves matter. Prior years tell you what a difference of your size looks like when nothing has happened, which is the difference between a finding and a fluctuation."
+        },
+        {
+          "id": "d",
+          "text": "It can replace the need for a new outcome measure.",
+          "feedback": "Rarely. Existing data was collected for administration, not for your question, so it is usually too coarse to answer it. Its real value is as a baseline and a check on normal variation."
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <img class="brand-mark" src="../assets/img/ctlt-logo.png" alt="National University of Singapore" width="300" height="137">
+      <img class="brand-word" src="../assets/img/ctlt-wordmark.png" alt="Centre for Teaching, Learning and Technology" width="417" height="120">
+    </a>
+    <p class="header-title">Education Research Skills</p>
+    <nav class="header-nav" aria-label="Course">
+      <a href="../index.html">Course map</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow">Module 4.2 of Part 4</p>
+      <h1>Measuring learning, not satisfaction</h1>
+      <p class="lede">Asking students whether they found it useful is the easiest measure to collect and the one the funding call rules out first. This is what to collect instead, and how to check your study could see it.</p>
+      <p class="hero-meta">About 25 minutes. Eight steps. Everything you write stays on this device.</p>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="wrap">
+
+    <main id="main" class="reading">
+
+      <section class="step" id="step-1" data-step="1" data-step-title="Why this matters">
+        <div class="step-head">
+          <p class="step-label">Step 1</p>
+          <p class="step-time">About 2 minutes</p>
+        </div>
+        <h2>Why this matters</h2>
+        <p>This module exists because of one sentence in the TEG call. Educational outcomes, it says, "should go beyond surveying students' perceptions or satisfaction levels". A few lines later it calls perception data "at most indirect" evidence.</p>
+        <p>That sentence is not a stylistic preference. It is the single commonest reason a well-intentioned teaching project fails to convince a panel, because a satisfaction survey is the cheapest thing in the world to run and the hardest thing to argue from. The call asks instead for "the type of evidence that will be collected to measure real learning enhancement in students' skills, attitudes, and/or behaviours", and it rejects proposals that "do not display rigour in terms of conceptualization, planning and collection of evidence".</p>
+        <p>None of that means student experience does not matter. It matters a great deal, and it is worth collecting. It just cannot be the thing your claim rests on, because a student can rate a module highly having learned very little, and can rate it poorly having learned a great deal. There is good evidence that the second of those is common in exactly the teaching that works best.</p>
+        <div class="panel panel-alt">
+          <p class="panel-title">What you will be able to do</p>
+          <p>Tell a direct measure of learning from a perception measure dressed as one, choose measures of skills, attitudes or behaviours that fit your study, and check that your class is large enough for the measure to show anything.</p>
+        </div>
+      </section>
+
+      <section class="step" id="step-2" data-step="2" data-step-title="Where you stand">
+        <div class="step-head">
+          <p class="step-label">Step 2</p>
+          <p class="step-time">About 2 minutes</p>
+        </div>
+        <h2>Where you stand</h2>
+        <p>Four questions. This is not a grade. It is here so that you and we can see what the next twenty minutes actually add. You will meet the same four questions again at step 7, and you will see the answers then.</p>
+        <p>For each one, say how sure you are. Confidence that does not match accuracy is the useful signal, and you only get it if you answer honestly now.</p>
+
+        <div data-widget="precheck" data-id="precheck">
+          <script type="application/json">
+          {
+            "submitLabel": "Save my answers",
+            "savedNote": "Your answers are saved on this device. No right answers yet: they come at step 7, with your score before and after."
+          }
+          </script>
+        </div>
+      </section>
+
+      <section class="step" id="step-3" data-step="3" data-step-title="The idea">
+        <div class="step-head">
+          <p class="step-label">Step 3</p>
+          <p class="step-time">About 6 minutes</p>
+        </div>
+        <h2>The idea</h2>
+
+        <div class="term">
+          <h3>What a satisfaction measure actually records</h3>
+          <p>A satisfaction item records how the experience felt to the student at the moment they filled in the form. That is real information and it is worth having. It is not information about what changed in the student.</p>
+          <p>The gap between the two is not small, and it does not point in a comforting direction. In a well-known physics experiment at Harvard, students in active classes learned measurably more than students in a matched lecture, and rated their own learning lower. Effortful teaching feels worse while it is happening. If you measure the feeling, you can end up preferring the teaching that works less well.</p>
+          <p class="hook">Memory hook: satisfaction measures the experience. Learning measures the student.</p>
+
+          <div data-widget="dial" data-id="fig-outcome">
+          <script type="application/json">
+{
+  "figure": "outcome",
+  "intro": "Every dot is one class. Set the slider to how closely you believe enjoyment and learning actually move together, then read what that would mean for your proposal.",
+  "caption": "Illustrative points, not data. The question the panel will ask is which of these two you measured."
+}
+          </script>
+          </div>
+        </div>
+
+        <div class="term">
+          <h3>The same argument, about teaching evaluations</h3>
+          <p>Philip Stark of Berkeley presenting his own paper on student evaluations of teaching. It is four minutes and it is the same argument you have just read, made about the numbers your department already collects on you.</p>
+
+          <div data-widget="video" data-id="video-set">
+            <script type="application/json">
+            {
+              "id": "HbB_2aRHB8o",
+              "title": "Student Evaluations of Teaching (Mostly) Do Not Measure Teaching Effectiveness",
+              "channel": "Berkeley Institute for Data Science",
+              "length": "4:22"
+            }
+            </script>
+          </div>
+        </div>
+
+        <div class="term">
+          <h3>Three places to look for a direct measure</h3>
+          <p>The call names three kinds of outcome: skills, attitudes and behaviours. Use its own words, and look in all three, because the cheapest good measure is often not the one you first thought of.</p>
+          <p><strong>Skills.</strong> A performance on a task the student could not do before, marked against a rubric that someone else could apply to the same script and reach the same mark. Not the module grade: a module grade contains six other things you did not change, and it is far too coarse to move.</p>
+          <p><strong>Attitudes.</strong> A published scale with known properties, administered twice. Self-efficacy, interest, sense of belonging, tolerance of ambiguity. Not "did you find this useful", which is a satisfaction item wearing an attitude's coat. An attitude measure is a real outcome in its own right, and it is not a substitute for a skills measure.</p>
+          <p><strong>Behaviours.</strong> What students actually did. Attempts made before asking for help, solutions revised rather than abandoned, whether the technique you taught shows up in a later assignment where nobody asked for it, whether they came to consultation hours. This is the class lecturers forget, and it is frequently the cheapest, because the submission system and the LMS have been recording it all along.</p>
+        </div>
+
+        <div class="term">
+          <h3>One test that catches most of the disguises</h3>
+          <p>Ask of any proposed measure: <strong>could a student score higher on this without having learned anything?</strong></p>
+          <p>If the answer is yes, it is not a learning measure. Self-rated confidence: yes, by enjoying the module. An assignment mark where the AI assistant was allowed: yes, by delegating better. Attendance: yes, by turning up. A survey run only at the end: yes, because there is no earlier number to have moved from.</p>
+          <p>Run the test the other way too. A measure that a student could not score higher on without having learned something is the measure you want, even if it is more trouble to collect.</p>
+        </div>
+
+        <div class="term">
+          <h3>Reliability and validity, one line each</h3>
+          <p>Reliability is whether the measure gives you the same answer twice. Validity is whether it measures the thing you named. A measure can be perfectly reliable and measure the wrong thing entirely, and that is by far the more common failure in teaching research: a satisfaction survey is reliable, repeatable and consistent, and it is not a measure of learning.</p>
+
+          <div data-widget="video" data-id="video-valid">
+            <script type="application/json">
+            {
+              "id": "Nk2OmH6yeLI",
+              "title": "2.3 Criteria: validity and reliability",
+              "channel": "Research Methods and Statistics, University of Amsterdam",
+              "length": "5:29"
+            }
+            </script>
+          </div>
+        </div>
+
+        <div class="term">
+          <h3>Existing local data is not optional</h3>
+          <p>The call asks you to discuss "any existing local data and how it influences the evaluation method adopted". Module evaluations, past cohort marks, question-level assessment data, LMS and submission logs. Two reasons it is worth doing properly.</p>
+          <p>First, it hands you a baseline you did not have to collect, and more importantly a picture of normal year-to-year variation. If the same question has moved by four marks between each of the last five cohorts, a four-mark improvement is not a finding.</p>
+          <p>Second, a proposal that ignores the data already sitting in the department reads as a plan made without looking. That is close to what the call means when it rejects work for lacking rigour in the planning and collection of evidence.</p>
+        </div>
+
+        <div class="callout">
+          <span class="callout-label">Watch out</span>
+          <p>Adding "before and after" to a perception item does not turn it into a learning measure. A confidence scale administered twice is a good attitude measure, measured properly, and it is still not evidence that the students can do anything they could not do before. Keep it, and put a skills or behaviour measure beside it.</p>
+        </div>
+      </section>
+
+      <section class="step" id="step-4" data-step="4" data-step-title="Worked example">
+        <div class="step-head">
+          <p class="step-label">Step 4</p>
+          <p class="step-time">About 5 minutes</p>
+        </div>
+        <h2>Worked example</h2>
+        <p>One draft evaluation plan, rebuilt in full. Write your own answer first, then reveal. The writing is what makes this work, so do not skip it.</p>
+
+        <div data-widget="reveal-steps" data-id="worked-example">
+          <script type="application/json">
+          {
+            "case": {
+              "title": "Case B, a draft that would be sent back",
+              "text": "A colleague has redesigned the tutorials in a second-year module so that students trace programs by hand before writing any code. This is their draft evaluation plan, in full.\n\n\"We will evaluate the intervention using an end-of-semester survey of ten items asking students whether the new tutorial format improved their understanding, whether they found it engaging, and whether they would recommend it to next year's cohort. We will also compare overall module marks with last year's. We expect a positive response.\""
+            },
+            "predictLabel": "Your answer",
+            "steps": [
+              {
+                "id": "s1",
+                "prompt": "Name the outcome this plan actually measures.",
+                "placeholder": "What would the survey and the module mark move with?",
+                "reveal": "How students felt about the tutorial format at the end of the semester, plus one aggregate mark.\n\nThe survey moves with enjoyment, with how hard the final assessment felt, and with the weather in week 12. The module mark moves with the lectures, the assignments, the exam, the marking, the cohort, and everything else the colleague did not change. Neither of them can isolate the thing that was changed."
+              },
+              {
+                "id": "s2",
+                "prompt": "Pick one skill the intervention should change, and say how you would see it.",
+                "placeholder": "The skill is..., and I would see it in...",
+                "reveal": "The skill is tracing: predicting the state of a program without running it. That is the thing tracing tutorials are for.\n\nSo the measure is a short tracing task, ten minutes, five programs the student has not seen, marked against a rubric for whether each state prediction is right. Given in week 2, before the format changes anything, and again in week 11. Marked by a tutor who does not know which group the script came from.\n\nNotice how much narrower this is than a module mark. That narrowness is the point: it is the only way the effect is big enough to see."
+              },
+              {
+                "id": "s3",
+                "prompt": "What behaviour would change if it worked, and could you already be collecting it?",
+                "placeholder": "If it worked, students would start doing...",
+                "reveal": "If students really internalise tracing, they should run their code less often before it works. So: number of submissions to the auto-grader before a passing solution, and time between first and passing submission.\n\nThat data already exists. The submission system has been recording it every semester, for every student, at no cost to anyone. It needs no new instrument, no class time and no survey, and it is a behaviour rather than an opinion, which is exactly one of the three kinds of evidence the call names."
+              },
+              {
+                "id": "s4",
+                "prompt": "What existing local data would you use, and what would it constrain?",
+                "placeholder": "The local data I already have is..., and it tells me...",
+                "reveal": "Question-level marks on the same tracing question from the last three cohorts, and the module evaluation series over the same period.\n\nWhat it constrains: it tells you how much this question moves between cohorts when nobody has done anything. If it has swung by six marks in each of the last three years, then a six-mark improvement is not evidence of anything, and you have learned that before you designed the study rather than in the reviewer's report.",
+                "noteLabel": "This is what the call means by rigour",
+                "note": "Rigour in the collection of evidence is not a matter of using better statistics later. It is knowing before you start what a difference of the size you are hoping for would look like if nothing had happened at all."
+              }
+            ]
+          }
+          </script>
+        </div>
+      </section>
+
+      <section class="step" id="step-5" data-step="5" data-step-title="Practice">
+        <div class="step-head">
+          <p class="step-label">Step 5</p>
+          <p class="step-time">About 8 minutes</p>
+        </div>
+        <h2>Practice</h2>
+
+        <div class="term">
+        <h3>Find the satisfaction in disguise</h3>
+        <p>A real-shaped Evaluation Plan and Method box, ten lines. Some of them are direct evidence that something changed in the students. Some of them are perception, or a mark too coarse to isolate anything, standing where the evidence should be.</p>
+        <p>Click every line that would not survive the panel's question: does this measure a change in the student? Wrong clicks cost you nothing, so click anything you are unsure about.</p>
+
+        <div data-widget="annotate" data-id="plan">
+          <script type="application/json">
+          {
+            "title": "3d. Evaluation Plan and Method",
+            "subtitle": "Draft, from a real-shaped TEG application. Ten lines. Some of them are evidence and some of them only look like it.",
+            "passages": [
+              {
+                "text": "Students will rate, on a five-point scale, how much they feel their programming ability has improved.",
+                "issue": "Felt improvement is a perception, and it is the item most likely to rise simply because the module was new and the lecturer was visibly trying. This is the measure the call is describing when it says outcomes must go beyond students' perceptions."
+              },
+              {
+                "text": "Students will complete the same 20-minute code-tracing task in week 2 and week 12, marked against a published rubric by a tutor blind to condition.",
+                "ok": "A direct skills measure. The same task twice, a rubric another marker could apply, and a marker who does not know which group the script came from. All three of those are doing work."
+              },
+              {
+                "text": "A confidence scale, \"I am confident I can debug an unfamiliar program\", will be administered before and after.",
+                "issue": "This one is subtler than the others, because it is not worthless. Confidence is an attitude, and the call names attitudes as one of the three kinds of evidence. The problem is that here it is standing in place of a skills measure, and confidence often falls after teaching that shows students how much they did not know."
+              },
+              {
+                "text": "We will report the proportion of students who agreed that the new tutorials were engaging.",
+                "issue": "Engagement reported by the student is satisfaction with a more fashionable name. Observed engagement, such as how many attempts a student makes before asking for help, is a behaviour and would count."
+              },
+              {
+                "text": "Submission logs will be used to count how often students revise a failing solution rather than abandoning it.",
+                "ok": "A behaviour, taken from data that already exists. It costs nothing to collect, no student has to do anything extra, and it is one of the three kinds of outcome the call asks for by name."
+              },
+              {
+                "text": "Overall module marks will be compared with those of the previous cohort.",
+                "issue": "Two problems in one line. The module mark contains everything you did not change, so it cannot isolate the intervention. And last year's cohort is a different intake taught by a different team, which is the design problem module 4.1 was about."
+              },
+              {
+                "text": "Teaching quality will be evidenced by the module's student feedback scores.",
+                "issue": "Student evaluation scores measure the students' experience of the module. A substantial literature finds they do not track how much students learn, and one of those papers is the video in step 3. Using them as evidence of quality is the exact substitution the call rules out."
+              },
+              {
+                "text": "Question-level marks from the last three cohorts will be used to establish normal year-to-year variation on the same task.",
+                "ok": "This is what the call means by accounting for existing local data. It tells you, before you start, what a difference of your size looks like in a year when nothing happened."
+              },
+              {
+                "text": "A focus group will be held at the end of the semester to confirm that students valued the intervention.",
+                "issue": "Two things wrong. The word \"confirm\" names the answer before the data, which is what the call means by a lack of rigour in planning. And what students valued is, again, a perception. A focus group asking what students did differently, and why, would be evidence."
+              },
+              {
+                "text": "Ethics approval will be obtained before any data is collected.",
+                "ok": "Not an outcome measure, and correctly placed. It belongs in this section of the form, and at NUS it means LACE."
+              }
+            ],
+            "closing": "Notice that none of the problems is lazy or dishonest. Every one is something a busy lecturer would write on a Friday afternoon, and every one of them, to a panel, reads as evidence that has not been thought about."
+          }
+          </script>
+        </div>
+        </div>
+
+        <div class="term">
+        <h3>Could your study even see it?</h3>
+        <p>A measure has a second job, and it is the one nobody checks. It has to be able to show the effect when the effect is really there.</p>
+        <p>Below are a hundred dots. Each one is a hypothetical repeat of your study, run in a world where your intervention genuinely works by the amount the second slider says. A filled dot is a repeat that would come out statistically significant. The sliders start where a great many NUS classroom studies start: a class of 40 split into two groups of 20, and a real but modest effect.</p>
+
+        <div data-widget="dots" data-id="power">
+          <script type="application/json">
+          {
+            "startN": 20,
+            "startD": 0.3,
+            "nLabel": "Students in each group",
+            "dLabel": "The true effect, if there really is one"
+          }
+          </script>
+        </div>
+
+        <p>Sixteen dots. In a world where your teaching genuinely works, a study this size finds it about one time in six. The other five times you write up a null result, and the null result is really about your class size.</p>
+        <p>Now move the sliders and watch what it takes. To catch an effect of that size eight times in ten you need roughly 175 students in each group, which is 350 students, which is more than most NUS modules have. Push the second slider instead: at a large effect, twenty students per group finds it about seven times in ten.</p>
+
+        <div class="callout">
+          <span class="callout-label">Watch out</span>
+          <p>This is why the choice of measure and the size of your class are one decision, not two. A narrow measure of exactly the thing you changed shows a much larger effect than an overall module mark does, and a larger effect is one a small class can actually detect. Chasing a two-mark difference in a module grade with forty students is a study that cannot succeed however good the teaching is.</p>
+        </div>
+
+        <p>When you cannot get more students, and you usually cannot, there are three honest moves. Measure something closer to what you changed. Measure it more than once per student, so each student contributes more than one number. Or run it over more than one cohort and pool.</p>
+        </div>
+      </section>
+
+      <section class="step" id="step-6" data-step="6" data-step-title="Your study" data-print="study">
+        <div class="step-head">
+          <p class="step-label">Step 6</p>
+          <p class="step-time">About 5 minutes</p>
+        </div>
+        <h2>Your study</h2>
+        <p>Now your own project. What you write here is saved on this device and nowhere else, and it carries forward to the other modules. The second box goes into Evaluation Plan and Method, section 3d of the TEG form.</p>
+        <p class="note-line">That box is capped at 300 words and you are not the only one writing into it. Module 4.3 adds the threat to your claim and module 6.1 adds the analysis. Aim for about 150 words here and leave them room.</p>
+
+        <div class="panel panel-alt">
+          <p class="panel-title">At NUS</p>
+          <p>Module evaluations run every semester and the data for your module already exists. The call asks you to say what local data you hold and how it shapes your method, so a proposal that does not mention it reads as one written without looking.</p>
+          <p>Past cohort marks, question-level assessment data and LMS or submission logs are usually obtainable through your department or your learning technologist. Ask before you write the plan, not after: what you can get changes what is worth proposing.</p>
+          <p>Class size decides what you can detect. A large first-year module gives you the numbers for a modest effect; a final-year elective of 25 does not, and there a repeated within-student measure or two cohorts pooled is the only thing that will work.</p>
+          <p>Ethics goes to LACE, CTLT's own committee, and approval comes before any data is collected. That includes reusing marks and logs you already hold for a research purpose, which surprises people. Module 5.1 covers it.</p>
+        </div>
+
+        <div data-widget="your-study" data-id="your-study">
+          <script type="application/json">
+          {
+            "filename": "your-study-4-2.txt",
+            "exportTitle": "Module 4.2. Measuring learning, not satisfaction. Your study.",
+            "fields": [
+              {
+                "id": "kinds",
+                "type": "checkgroup",
+                "label": "The kinds of evidence I will collect.",
+                "hint": "The first three are the call's own three words. Tick at least one of them. The fourth is allowed, and it cannot be the only one ticked.",
+                "options": [
+                  "A skill, measured by performance on a task",
+                  "An attitude, measured with a published scale",
+                  "A behaviour, taken from what students actually do",
+                  "A perception, as supporting evidence only"
+                ]
+              },
+              {
+                "id": "measures",
+                "type": "textarea",
+                "rows": 7,
+                "label": "What I will measure, and why it is learning and not satisfaction.",
+                "hint": "Section 3d of the TEG form. Name the instrument, when it is taken, and who marks it. Then answer the test: could a student score higher on this without having learned anything?",
+                "starters": [
+                  "The change I am claiming is...",
+                  "I will see it in [task, scale or log], collected at...",
+                  "It is marked by...",
+                  "A student could not score higher on this without..."
+                ]
+              },
+              {
+                "id": "local",
+                "type": "textarea",
+                "rows": 4,
+                "label": "The local data that already exists, and what it does to my plan.",
+                "hint": "The call asks for this by name. Say what you hold, what it shows about normal variation, and what that means for the size of difference you would need.",
+                "starters": [
+                  "The data my department already holds is...",
+                  "Across the last few cohorts it varies by about...",
+                  "So a difference worth reporting would have to be..."
+                ]
+              },
+              {
+                "id": "perception",
+                "type": "textarea",
+                "rows": 3,
+                "label": "The perception measure I am keeping, and the job it is now doing.",
+                "hint": "You are allowed to keep it. Say what it is for, so the panel can see you know what it is and is not evidence of.",
+                "starters": [
+                  "I am still collecting...",
+                  "It is there to explain..., not to show that..."
+                ]
+              }
+            ]
+          }
+          </script>
+        </div>
+      </section>
+
+      <section class="step" id="step-7" data-step="7" data-step-title="Check again">
+        <div class="step-head">
+          <p class="step-label">Step 7</p>
+          <p class="step-time">About 2 minutes</p>
+        </div>
+        <h2>Check again</h2>
+        <p>The same four questions, in the same order. Answer them again, and say how sure you are again. This time you get the answers, your score before and after, and whether your confidence matched your accuracy.</p>
+
+        <div data-widget="postcheck" data-id="postcheck">
+          <script type="application/json">
+          {
+            "preId": "precheck",
+            "submitLabel": "Show my result"
+          }
+          </script>
+        </div>
+      </section>
+
+      <section class="step" id="step-8" data-step="8" data-step-title="Close">
+        <div class="step-head">
+          <p class="step-label">Step 8</p>
+          <p class="step-time">About 2 minutes</p>
+        </div>
+        <h2>Close</h2>
+
+        <h3>Your draft so far</h3>
+        <div data-widget="proposal" data-id="draft">
+          <script type="application/json">
+          {
+            "compact": true,
+            "hubHref": "../index.html#proposal"
+          }
+          </script>
+        </div>
+
+        <h3>Muddiest point</h3>
+        <div data-widget="muddiest" data-id="muddiest">
+          <script type="application/json">
+          {
+            "prompt": "What is still unclear?",
+            "placeholder": "One line is enough.",
+            "submitLabel": "Save this"
+          }
+          </script>
+        </div>
+
+        <h3>Rate this module</h3>
+        <div data-widget="rating" data-id="rating">
+          <script type="application/json">
+          {
+            "prompt": "How useful was this for your own study?",
+            "min": 1,
+            "max": 5,
+            "lowLabel": "Not useful",
+            "highLabel": "Very useful"
+          }
+          </script>
+        </div>
+
+        <h3>Readings</h3>
+        <div data-widget="readings" data-id="readings">
+          <script type="application/json">
+          {
+            "items": [
+              {
+                "citation": "Deslauriers L, McCarty LS, Miller K, Callaghan K, Kestin G. Measuring actual learning versus feeling of learning in response to being actively engaged in the classroom. PNAS. 2019;116(39):19251-19257.",
+                "doi": "10.1073/pnas.1821936116",
+                "readThisIf": "Read this one even if you read nothing else. Students learned more in active classes and rated their own learning lower. It is the whole argument of this module in a single well-designed experiment."
+              },
+              {
+                "citation": "Uttl B, White CA, Gonzalez DW. Meta-analysis of faculty's teaching effectiveness: Student evaluation of teaching ratings and student learning are not related. Studies in Educational Evaluation. 2017;54:22-42.",
+                "doi": "10.1016/j.stueduc.2016.08.007",
+                "readThisIf": "Read this if you want the size of the literature behind the claim, and a demonstration of how earlier reviews reached the opposite conclusion from small studies."
+              },
+              {
+                "citation": "Boring A, Ottoboni K, Stark PB. Student evaluations of teaching (mostly) do not measure teaching effectiveness. ScienceOpen Research. 2016.",
+                "readThisIf": "Read this if the video in step 3 was useful and you want the paper behind it. It is open access and short.",
+                "note": "Open access on ScienceOpen. Check the current link before citing it."
+              }
+            ]
+          }
+          </script>
+        </div>
+
+        <div class="next-module">
+          <h3>Next</h3>
+          <p>Module 4.3. The validity clinic. It is built differently: no steps and no pre-check, just one submitted paper, four questions you may ask it, and more than four things wrong. You now have a design and a measure, which is exactly what it will make you defend.</p>
+          <p><a href="4-3-validity-clinic.html">Go to module 4.3</a>, or <a href="../index.html">go back to the course map</a>.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <aside class="step-rail-wrap" data-steplist></aside>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Centre for Teaching, Learning and Technology &middot; National University of Singapore</p>
+    <p class="footer-dim">Something wrong on this page? Write to Dr Xavier Chee, <a href="mailto:xchee-01@nus.edu.sg">xchee-01@nus.edu.sg</a></p>
+    <p class="footer-dim">Prototype. Everything you write stays in this browser on this device.</p>
+  </div>
+</footer>
+
+<script src="../assets/js/platform.js"></script>
+<script src="../assets/js/figures.js"></script>
+</body>
+</html>

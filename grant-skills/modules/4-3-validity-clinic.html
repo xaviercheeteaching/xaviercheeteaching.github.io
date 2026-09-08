@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 4.3. The validity clinic. Education Research Skills</title>
+<meta name="description" content="You are the reviewer. One submitted abstract, four probes, five things wrong with it. Find what would sink it, then find the same threat in your own study.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Poppins:wght@500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/ctlt.css">
+</head>
+<body data-module="4-3" data-module-title="Module 4.3. The validity clinic" data-flow data-base="../">
+
+<a class="skip-link" href="#main">Skip to the main content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <img class="brand-mark" src="../assets/img/ctlt-logo.png" alt="National University of Singapore" width="300" height="137">
+      <img class="brand-word" src="../assets/img/ctlt-wordmark.png" alt="Centre for Teaching, Learning and Technology" width="417" height="120">
+    </a>
+    <p class="header-title">Education Research Skills</p>
+    <nav class="header-nav" aria-label="Course">
+      <a href="../index.html">Course map</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow">Module 4.3 of Part 4</p>
+      <h1>The validity clinic</h1>
+      <p class="lede">A paper has landed in your inbox for review. You have four questions you can put to the authors. There are more than four things wrong with it.</p>
+      <p class="hero-meta">About 15 minutes. One case, no steps. Everything you write stays on this device.</p>
+    </div>
+  </div>
+</div>
+
+<div class="layout is-flow">
+  <div class="wrap">
+
+    <main id="main" class="reading">
+
+      <section>
+        <div class="flow-note">
+          <p>This module is not built like the others. There is no pre-check, no eight steps and no step list down the side, because the skill here is not one you can look up and then recite. It is a judgement made under a budget, so the module is one continuous case and the budget is real.</p>
+        </div>
+
+        <h2>You are Reviewer 2</h2>
+        <p>An education journal has sent you the abstract below. In a real review you cannot interrogate everything: you read once, you notice what you notice, and the questions you choose to raise are the review. So you get four probes. Spend them.</p>
+        <p>Each probe is a question you put to the authors. Some will turn up something. Some will turn up nothing, and will still have cost you a probe. That is the exercise.</p>
+
+        <div data-widget="diagnose" data-id="clinic">
+          <script type="application/json">
+          {
+            "caseLabel": "Submitted for review",
+            "caseTitle": "Generative AI assistance improves programming attainment in a large first-year cohort",
+            "caseText": "Background. Generative AI coding assistants are now available to every student, and their effect on learning to program is disputed.\n\nMethod. In Semester 1 of AY2024/25 we gave all 310 students in a first-year programming module free access to an AI coding assistant for every assignment. We compared their assignment marks with those of the 2023/24 cohort, who did not have access. At the end of the semester students sat a closed-book practical examination in which the assistant was not available. The study received ethics approval from the institutional review board.\n\nResults. Mean assignment marks rose from 68.4 to 76.2, a statistically significant increase (independent samples t-test, p < .001). Mean examination marks were 54.1, against 61.7 the previous year. Students performed worst on the debugging questions.\n\nConclusion. AI assistance substantially improves student attainment on programming assignments. The lower examination performance suggests students need more practice at working without assistance, and we recommend that assistants be introduced earlier in the curriculum so that students have longer to adapt.",
+            "caseNote": "Constructed for this exercise from the running case used across the course.",
+            "moves": 4,
+            "exportLabel": "The validity clinic",
+            "probeTitle": "What will you ask?",
+            "probeHint": "Nine questions, four probes. Choosing is the exercise.",
+            "probes": [
+              {
+                "id": "control",
+                "label": "What exactly was the comparison group?",
+                "flaw": true,
+                "severity": "Fatal",
+                "result": "The 2023/24 cohort, taught the year before by a different team, after a curriculum revision, and admitted under a different intake. Nothing was held constant except the module code.",
+                "note": "This is a historical control. Any of a dozen changes between the two years could produce an eight-mark rise, and the design cannot separate them from the assistant."
+              },
+              {
+                "id": "instrument",
+                "label": "Was the examination the same paper as the previous year?",
+                "flaw": true,
+                "severity": "Fatal",
+                "result": "No. A new paper was written for 2024/25, with more emphasis on debugging. It was never equated against the old one.",
+                "note": "The headline drop of 7.6 marks may be a harder paper. When the instrument changes, a year-on-year difference measures the instrument as much as the students."
+              },
+              {
+                "id": "attrition",
+                "label": "How many of the 310 students actually sat the examination?",
+                "flaw": true,
+                "severity": "Serious",
+                "result": "244 of 310. The 66 who withdrew were, on average, the lowest-scoring students on the early assignments.",
+                "note": "The assignment mean includes those students and the examination mean does not. Some of the gap between the two numbers is just who was left in the room."
+              },
+              {
+                "id": "construct",
+                "label": "What does an assignment mark measure when the assistant is switched on?",
+                "flaw": true,
+                "severity": "Fatal",
+                "result": "What a student and a tool produced together. The authors report it as student attainment.",
+                "note": "This is the quiet one, and it is the one that kills the paper. The claim is about what students can do; the measure records what a pair can do. The authors' own examination result is the evidence that these are not the same thing."
+              },
+              {
+                "id": "conclusion",
+                "label": "Which of their two results does the conclusion lead with?",
+                "flaw": true,
+                "severity": "Serious",
+                "result": "The contaminated one. The single measure taken without the assistant fell by 7.6 marks, and that is presented as an adaptation problem rather than as the study's finding.",
+                "note": "Read the recommendation again. The data say the withdrawal of the scaffold hurt; the recommendation is to hand out the scaffold sooner."
+              },
+              {
+                "id": "power",
+                "label": "Was the sample large enough to detect an effect?",
+                "flaw": false,
+                "result": "310 students against a prior cohort of comparable size. Power is not the problem here; there is plenty of it.",
+                "note": "A well-powered study of the wrong comparison is still the wrong comparison. Large n makes a bad design more confident, not more valid."
+              },
+              {
+                "id": "ethics",
+                "label": "Was ethics approval obtained?",
+                "flaw": false,
+                "result": "Yes, stated in the abstract and granted by the institutional review board.",
+                "note": "Worth checking on a real submission. Here it is already answered on the page, so the probe bought you nothing."
+              },
+              {
+                "id": "stats",
+                "label": "Was the statistical test appropriate?",
+                "flaw": false,
+                "result": "An independent samples t-test on two cohort means. For the comparison as the authors framed it, that is a reasonable choice.",
+                "note": "The test is not where this paper goes wrong. Reviewers reach for the statistics because they are checkable; the design is where the damage usually is."
+              },
+              {
+                "id": "exam-access",
+                "label": "Could students use the assistant in the examination?",
+                "flaw": false,
+                "result": "No. The abstract says so: the examination was closed-book and the assistant was withdrawn.",
+                "note": "It was already on the page. A probe spent re-reading is a probe gone."
+              }
+            ],
+            "commit": {
+              "title": "Your review",
+              "intro": "Your probes are spent. Before you see what the paper actually contained, commit to a judgement.",
+              "question": "In one sentence: what is the single problem you would put first in your review, and what does it do to the paper's main claim?",
+              "placeholder": "The claim that ... cannot be supported, because ...",
+              "rows": 3,
+              "submitLabel": "Send my review",
+              "referenceTitle": "What a reviewer would write",
+              "reference": "The central claim, that AI assistance improves attainment, rests on a comparison the design cannot support. The only contrast is with a cohort taught in a different year, so any of a dozen changes between those years could have produced the eight-mark rise. On its own that is enough to send the manuscript back.\n\nThe deeper problem is what the assignment mark measures. With the assistant switched on, that mark records what a student and a tool produced together. Reporting it as attainment assumes the construct the authors want to talk about and the thing they measured are the same, and their own examination result is the evidence that they are not.\n\nNote finally which number the conclusion leads with. The one measure taken without the assistant fell by 7.6 marks, and it is treated as an adaptation problem rather than as the finding. A reviewer will read that as the authors arguing against their own data.",
+              "rubricLabel": "Does your sentence do these three things?",
+              "rubric": [
+                "Names one problem, not a list of everything you noticed.",
+                "Says what that problem does to the main claim, not merely that it is a weakness.",
+                "Points at something the authors could have designed differently."
+              ]
+            },
+            "summary": "Four probes were never going to cover five problems, and that is the point. Attention is the scarce thing in a real review, and the skill is knowing where to spend it. Two questions repay it almost every time: what was the comparison, and what does the outcome measure actually measure."
+          }
+          </script>
+        </div>
+      </section>
+
+      <section>
+        <h2>The two questions that keep paying</h2>
+        <p>Everything you just spent probes on comes down to two habits, and they are worth more than a memorised list of threat names.</p>
+
+        <div class="hook">Ask what the comparison is. Then ask what the measure would record if your favourite explanation were false.</div>
+
+        <div data-widget="dial" data-id="fig-confounder">
+        <script type="application/json">
+{
+  "figure": "confounder",
+  "intro": "The first question, drawn. Your section scored 12 points higher. Move the slider to change how much of that gap was there before you taught anything, and watch what happens to the bars.",
+  "caption": "Nothing about the observed result changes at any setting. That is the whole problem."
+}
+        </script>
+        </div>
+
+        <p>The first question catches the historical control, the changed examination paper and the students who left. All three are the same mistake wearing different clothes: something other than the intervention differed between the two numbers being compared.</p>
+
+        <p>The second catches the quiet one. An assignment mark taken with the assistant switched on would look exactly the same whether students had learned more or learned nothing and delegated better. A measure that cannot tell those two apart cannot support a claim about either.</p>
+
+        <div class="callout">
+          <span class="callout-label">Watch out</span>
+          <p>The threats with names, history, maturation, instrumentation, selection, attrition, are useful for writing the limitations paragraph. They are not much use for finding the problem in the first place. The two questions above find it faster, and you can ask them of your own design before you collect anything.</p>
+        </div>
+      </section>
+
+      <section data-print="study">
+        <h2>Now your own study</h2>
+        <p>Turn the same two questions on your own project, while it is still cheap to change. This is saved with the rest of your draft.</p>
+
+        <div data-widget="your-study" data-id="your-study">
+          <script type="application/json">
+          {
+            "filename": "your-study-4-3.txt",
+            "exportTitle": "Module 4.3. The validity clinic. Your study.",
+            "fields": [
+              {
+                "id": "threat",
+                "type": "textarea",
+                "rows": 4,
+                "label": "The biggest threat to my claim.",
+                "hint": "Not the longest list. The one that would make a reviewer stop reading.",
+                "starters": [
+                  "The claim I want to make is...",
+                  "The most obvious way it could be wrong is...",
+                  "My outcome measure would look the same even if..."
+                ]
+              },
+              {
+                "id": "fix",
+                "type": "textarea",
+                "rows": 4,
+                "label": "The fix I will actually make.",
+                "hint": "Something you can do with the time, access and goodwill you really have. A fix you will not do is not a fix.",
+                "starters": [
+                  "Before the semester starts I could...",
+                  "A second measure that would separate the two explanations is...",
+                  "The comparison I can realistically get is..."
+                ]
+              },
+              {
+                "id": "limit",
+                "type": "textarea",
+                "rows": 3,
+                "label": "What I still cannot rule out, and will say so in the paper.",
+                "hint": "Naming this yourself is worth more than having a reviewer name it for you.",
+                "starters": [
+                  "This design cannot rule out...",
+                  "I will report that limitation because..."
+                ]
+              }
+            ]
+          }
+          </script>
+        </div>
+      </section>
+
+      <section>
+        <h2>Your draft so far</h2>
+        <p>Every box you fill in this course is a section of one proposal. This is that document, counted.</p>
+
+        <div data-widget="proposal" data-id="draft">
+          <script type="application/json">
+          {
+            "compact": true,
+            "hubHref": "../index.html#proposal"
+          }
+          </script>
+        </div>
+      </section>
+
+      <section>
+        <h2>Close</h2>
+
+        <div data-widget="muddiest" data-id="muddiest">
+          <script type="application/json">
+          {
+            "prompt": "What is still unclear?",
+            "placeholder": "One line is enough."
+          }
+          </script>
+        </div>
+
+        <div data-widget="rating" data-id="rating">
+          <script type="application/json">
+          {
+            "prompt": "How useful was this for your own study?"
+          }
+          </script>
+        </div>
+
+        <div data-widget="readings" data-id="readings">
+          <script type="application/json">
+          {
+            "items": [
+              {
+                "citation": "Campbell DT, Stanley JC. Experimental and Quasi-Experimental Designs for Research. Rand McNally; 1963.",
+                "readThisIf": "Read this if you want the original short statement of the threats. It is about sixty pages and still the clearest thing written on the subject."
+              },
+              {
+                "citation": "Shadish WR, Cook TD, Campbell DT. Experimental and Quasi-Experimental Designs for Generalized Causal Inference. Houghton Mifflin; 2002. Chapter 2.",
+                "readThisIf": "Read this if you want the modern treatment and are happy to take one chapter rather than the whole book."
+              }
+            ]
+          }
+          </script>
+        </div>
+
+        <div class="next-module">
+          <h3>Next</h3>
+          <p>You have a threat named and a fix you can afford. Part 5 is what the ethics board will ask you about the same design, and it asks earlier than you would like.</p>
+          <p><a href="../index.html">Go back to the course map</a>.</p>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Centre for Teaching, Learning and Technology &middot; National University of Singapore</p>
+    <p class="footer-dim">Something wrong on this page? Write to Dr Xavier Chee, <a href="mailto:xchee-01@nus.edu.sg">xchee-01@nus.edu.sg</a></p>
+    <p class="footer-dim">Prototype. Everything you write stays in this browser on this device.</p>
+  </div>
+</footer>
+
+<script src="../assets/js/platform.js"></script>
+<script src="../assets/js/figures.js"></script>
+</body>
+</html>
