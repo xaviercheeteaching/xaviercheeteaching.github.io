@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>RDKitFF WP2 smoke test</title><style>body{font:14px ui-monospace,monospace;max-width:900px;margin:40px auto;padding:20px}pre{background:#111;color:#b8f5d5;padding:20px;border-radius:10px;white-space:pre-wrap}.fail{color:#ff8e8e}</style><h1>RDKitFF · WP2 smoke test</h1><pre id="out">Loading…</pre><script type="module">
+import createRDKitFFModule from './dist/rdkit_ff.js';
+import {RDKitFF} from './rdkit-ff.js';
+const out=document.querySelector('#out');
+try{
+ await RDKitFF.init({moduleFactory:createRDKitFFModule,locateFile:f=>'./dist/'+f});
+ const version=RDKitFF.version();
+ const caps=RDKitFF.capabilities();
+ const ethanol=RDKitFF.prepare('CCO',{addHs:true});
+ if(!ethanol.ok || ethanol.heavyAtoms!==3) throw new Error('ethanol preparation assertion failed');
+ out.textContent=JSON.stringify({PASS:true,version,capabilities:caps,ethanol:{atoms:ethanol.atoms,heavyAtoms:ethanol.heavyAtoms,hydrogensAdded:ethanol.hydrogensAdded}},null,2);
+}catch(e){out.classList.add('fail');out.textContent='FAIL\n'+(e.stack||e.message||e)}
+</script>
