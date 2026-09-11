@@ -1,0 +1,28 @@
+name: Build RDKit molecular minimizer WASM
+on:
+  workflow_dispatch:
+  push:
+    branches: [molecular-minimizer-rdkit-wasm]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: mymindstorm/setup-emsdk@v14
+        with: {version: '3.1.64'}
+      - run: git clone --depth 1 --branch Release_2025_03 https://github.com/rdkit/rdkit.git /tmp/rdkit
+      - run: mkdir -p /tmp/rdkit-build && cd /tmp/rdkit-build && emcmake cmake /tmp/rdkit -DRDK_BUILD_PYTHON_WRAPPERS=OFF -DRDK_BUILD_INCHI_SUPPORT=OFF -DRDK_BUILD_AVALON_SUPPORT=OFF -DRDK_BUILD_COORDGEN_SUPPORT=OFF -DRDK_BUILD_FREESASA_SUPPORT=OFF -DRDK_BUILD_CAIRO_SUPPORT=OFF -DRDK_BUILD_MINIMAL_LIB=OFF -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release && cmake --build . -j2
+      - env: {RDKIT_SRC: /tmp/rdkit, RDKIT_BUILD: /tmp/rdkit-build}
+        run: cd molecular-minimizer/rdkit-wasm && bash build.sh && test -s RDKitFF.js && test -s RDKitFF.wasm
+      - name: Validate molecules
+        run: |
+          cat > /tmp/test.cjs <<'EOF'
+          const init=require(process.cwd()+'/molecular-minimizer/rdkit-wasm/RDKitFF.js');(async()=>{const m=await init({locateFile:f=>process.cwd()+'/molecular-minimizer/rdkit-wasm/'+f});for(const [n,s] of [['ethanol','CCO'],['aspirin','CC(=O)Oc1ccccc1C(=O)O'],['caffeine','Cn1c(=O)c2c(ncn2C)n(C)c1=O']]){const r=m.minimize(s,'MMFF94',500,61453);if(!r.ok||!Number.isFinite(r.initialEnergy)||!Number.isFinite(r.finalEnergy)||r.finalEnergy>r.initialEnergy+1e-6||!r.molblock)throw Error(n+' failed');console.log(n,r.initialEnergy,r.finalEnergy)}})().catch(e=>{console.error(e);process.exit(1)});
+          EOF
+          node /tmp/test.cjs
