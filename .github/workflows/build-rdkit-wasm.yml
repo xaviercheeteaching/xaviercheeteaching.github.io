@@ -1,0 +1,67 @@
+name: Build RDKit molecular minimizer WASM
+on:
+  workflow_dispatch:
+  push:
+    branches: [molecular-minimizer-rdkit-wasm]
+    paths:
+      - 'molecular-minimizer/rdkit-wasm/**'
+      - '.github/workflows/build-rdkit-wasm.yml'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: '3.1.64'
+      - name: Fetch RDKit
+        run: git clone --depth 1 --branch Release_2025_03 https://github.com/rdkit/rdkit.git /tmp/rdkit
+      - name: Configure RDKit for WebAssembly
+        run: |
+          mkdir -p /tmp/rdkit-build
+          cd /tmp/rdkit-build
+          emcmake cmake /tmp/rdkit \
+            -DRDK_BUILD_PYTHON_WRAPPERS=OFF \
+            -DRDK_BUILD_INCHI_SUPPORT=OFF \
+            -DRDK_BUILD_AVALON_SUPPORT=OFF \
+            -DRDK_BUILD_COORDGEN_SUPPORT=OFF \
+            -DRDK_BUILD_FREESASA_SUPPORT=OFF \
+            -DRDK_BUILD_CAIRO_SUPPORT=OFF \
+            -DRDK_BUILD_MINIMAL_LIB=OFF \
+            -DBUILD_SHARED_LIBS=OFF \
+            -DCMAKE_BUILD_TYPE=Release
+      - name: Build required RDKit libraries
+        run: cmake --build /tmp/rdkit-build -j2
+      - name: Build browser force-field module
+        env:
+          RDKIT_SRC: /tmp/rdkit
+          RDKIT_BUILD: /tmp/rdkit-build
+        run: |
+          cd molecular-minimizer/rdkit-wasm
+          bash build.sh
+          test -s RDKitFF.js
+          test -s RDKitFF.wasm
+      - name: Smoke-test exported module in Node
+        run: |
+          cat > /tmp/test.cjs <<'EOF'
+          const init=require(process.cwd()+'/molecular-minimizer/rdkit-wasm/RDKitFF.js');
+          (async()=>{const m=await init({locateFile:f=>process.cwd()+'/molecular-minimizer/rdkit-wasm/'+f});
+          for(const [name,s] of [['ethanol','CCO'],['aspirin','CC(=O)Oc1ccccc1C(=O)O'],['caffeine','Cn1c(=O)c2c(ncn2C)n(C)c1=O']]){
+            const r=m.minimize(s,'MMFF94',500,61453);
+            if(!r.ok) throw new Error(name+' failed');
+            if(!Number.isFinite(r.initialEnergy)||!Number.isFinite(r.finalEnergy)) throw new Error(name+' invalid energies');
+            if(r.finalEnergy>r.initialEnergy+1e-6) throw new Error(name+' energy increased');
+            if(!r.molblock.includes('V2000')&&!r.molblock.includes('V3000')) throw new Error(name+' missing molblock');
+            console.log(name,r.forceField,r.initialEnergy,r.finalEnergy,r.converged);
+          }})().catch(e=>{console.error(e);process.exit(1)});
+          EOF
+          node /tmp/test.cjs
+      - name: Commit generated WASM assets
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add molecular-minimizer/rdkit-wasm/RDKitFF.js molecular-minimizer/rdkit-wasm/RDKitFF.wasm
+          git diff --cached --quiet || git commit -m 'Build validated RDKit force-field WASM assets'
+          git push
