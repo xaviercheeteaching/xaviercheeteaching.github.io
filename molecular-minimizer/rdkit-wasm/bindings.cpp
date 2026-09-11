@@ -5,93 +5,13 @@
 #include <GraphMol/ForceFieldHelpers/MMFF/MMFF.h>
 #include <GraphMol/ForceFieldHelpers/UFF/UFF.h>
 #include <GraphMol/FileParsers/MolWriters.h>
-#include <GraphMol/Descriptors/MolDescriptors.h>
 #include <ForceField/ForceField.h>
 #include <memory>
-#include <sstream>
 #include <stdexcept>
-
 using namespace emscripten;
 
-static std::unique_ptr<RDKit::RWMol> parseAndAddHs(const std::string &smiles) {
-  std::unique_ptr<RDKit::RWMol> mol(RDKit::SmilesToMol(smiles));
-  if (!mol) throw std::runtime_error("Invalid SMILES");
-  RDKit::MolOps::sanitizeMol(*mol);
-  std::unique_ptr<RDKit::ROMol> withHs(RDKit::MolOps::addHs(*mol));
-  return std::make_unique<RDKit::RWMol>(*withHs);
-}
-
-static val parameterization(RDKit::ROMol &mol, const std::string &ff) {
-  val out = val::object();
-  out.set("forceField", ff);
-  if (ff == "UFF") {
-    bool ok = RDKit::UFF::hasAllMoleculeParams(mol);
-    out.set("supported", ok);
-    out.set("message", ok ? "UFF parameters available" : "UFF parameters missing for one or more atoms");
-    return out;
-  }
-  bool ok = RDKit::MMFF::hasAllMoleculeParams(mol);
-  out.set("supported", ok);
-  out.set("message", ok ? "MMFF parameters available" : "MMFF parameters missing for one or more atoms");
-  return out;
-}
-
-static val prepare3D(const std::string &smiles, int seed, const std::string &ff) {
-  auto mol = parseAndAddHs(smiles);
-  RDKit::DGeomHelpers::EmbedParameters params(RDKit::DGeomHelpers::ETKDGv3);
-  params.randomSeed = seed;
-  params.useRandomCoords = false;
-  params.enforceChirality = true;
-  int cid = RDKit::DGeomHelpers::EmbedMolecule(*mol, params);
-  if (cid < 0) throw std::runtime_error("ETKDGv3 failed to generate a 3D conformer");
-
-  auto p = parameterization(*mol, ff);
-  val out = val::object();
-  out.set("smiles", smiles);
-  out.set("method", "ETKDGv3");
-  out.set("seed", seed);
-  out.set("conformerId", cid);
-  out.set("atoms", static_cast<int>(mol->getNumAtoms()));
-  out.set("heavyAtoms", static_cast<int>(mol->getNumHeavyAtoms()));
-  out.set("molblock", RDKit::MolToMolBlock(*mol, true, cid));
-  out.set("parameterization", p);
-  return out;
-}
-
-static val probeForceFields(const std::string &smiles, int seed) {
-  auto mol = parseAndAddHs(smiles);
-  RDKit::DGeomHelpers::EmbedParameters params(RDKit::DGeomHelpers::ETKDGv3);
-  params.randomSeed = seed;
-  int cid = RDKit::DGeomHelpers::EmbedMolecule(*mol, params);
-  if (cid < 0) throw std::runtime_error("ETKDGv3 failed to generate a 3D conformer");
-  val out = val::object();
-  out.set("MMFF94", parameterization(*mol, "MMFF94"));
-  out.set("MMFF94s", parameterization(*mol, "MMFF94s"));
-  out.set("UFF", parameterization(*mol, "UFF"));
-  return out;
-}
-
-static val inspect3D(const std::string &smiles, int seed) {
-  auto mol = parseAndAddHs(smiles);
-  RDKit::DGeomHelpers::EmbedParameters params(RDKit::DGeomHelpers::ETKDGv3);
-  params.randomSeed = seed;
-  int cid = RDKit::DGeomHelpers::EmbedMolecule(*mol, params);
-  if (cid < 0) throw std::runtime_error("ETKDGv3 embedding failed");
-  const auto &conf = mol->getConformer(cid);
-  double minZ = 1e100, maxZ = -1e100;
-  for (unsigned i=0;i<mol->getNumAtoms();++i) {
-    double z=conf.getAtomPos(i).z; minZ=std::min(minZ,z); maxZ=std::max(maxZ,z);
-  }
-  val out=val::object();
-  out.set("is3D", conf.is3D());
-  out.set("zSpan", maxZ-minZ);
-  out.set("atomCount", static_cast<int>(mol->getNumAtoms()));
-  out.set("molblock", RDKit::MolToMolBlock(*mol,true,cid));
-  return out;
-}
-
-EMSCRIPTEN_BINDINGS(rdkit_ff) {
-  function("prepare3D", &prepare3D);
-  function("probeForceFields", &probeForceFields);
-  function("inspect3D", &inspect3D);
-}
+static std::unique_ptr<RDKit::RWMol> prep(const std::string&s){std::unique_ptr<RDKit::RWMol> m(RDKit::SmilesToMol(s));if(!m)throw std::runtime_error("Invalid SMILES");RDKit::MolOps::sanitizeMol(*m);std::unique_ptr<RDKit::ROMol> h(RDKit::MolOps::addHs(*m));return std::make_unique<RDKit::RWMol>(*h);}
+static int embed(RDKit::RWMol&m,int seed){RDKit::DGeomHelpers::EmbedParameters p(RDKit::DGeomHelpers::ETKDGv3);p.randomSeed=seed;p.enforceChirality=true;int cid=RDKit::DGeomHelpers::EmbedMolecule(m,p);if(cid<0)throw std::runtime_error("ETKDGv3 embedding failed");return cid;}
+static val minimize(const std::string&s,const std::string&requested,int maxIters,int seed){auto m=prep(s);int cid=embed(*m,seed);std::unique_ptr<ForceFields::ForceField> ff;std::unique_ptr<RDKit::MMFF::MMFFMolProperties> props;std::string used=requested;bool fallback=false;if(requested=="MMFF94"||requested=="MMFF94s"){if(RDKit::MMFF::hasAllMoleculeParams(*m)){props=std::make_unique<RDKit::MMFF::MMFFMolProperties>(*m,requested);ff.reset(RDKit::MMFF::constructForceField(*m,props.get(),100.0,cid));}if(!ff){used="UFF";fallback=true;}}if(used=="UFF"){if(!RDKit::UFF::hasAllMoleculeParams(*m))throw std::runtime_error("No complete MMFF/UFF parameterization for this molecule");ff.reset(RDKit::UFF::constructForceField(*m,10.0,cid));}if(!ff)throw std::runtime_error("Force-field construction failed");ff->initialize();double e0=ff->calcEnergy();int code=ff->minimize(maxIters);double e1=ff->calcEnergy();val o=val::object();o.set("ok",true);o.set("requestedForceField",requested);o.set("forceField",used);o.set("fallback",fallback);o.set("embedding","ETKDGv3");o.set("seed",seed);o.set("atoms",(int)m->getNumAtoms());o.set("heavyAtoms",(int)m->getNumHeavyAtoms());o.set("initialEnergy",e0);o.set("finalEnergy",e1);o.set("deltaEnergy",e1-e0);o.set("converged",code==0);o.set("statusCode",code);o.set("maxIterations",maxIters);o.set("molblock",RDKit::MolToMolBlock(*m,true,cid));return o;}
+static val inspect3D(const std::string&s,int seed){auto m=prep(s);int cid=embed(*m,seed);const auto&c=m->getConformer(cid);double lo=1e100,hi=-1e100;for(unsigned i=0;i<m->getNumAtoms();++i){double z=c.getAtomPos(i).z;lo=std::min(lo,z);hi=std::max(hi,z);}val o=val::object();o.set("is3D",c.is3D());o.set("zSpan",hi-lo);o.set("atoms",(int)m->getNumAtoms());o.set("molblock",RDKit::MolToMolBlock(*m,true,cid));return o;}
+EMSCRIPTEN_BINDINGS(rdkit_ff){function("minimize",&minimize);function("inspect3D",&inspect3D);}
